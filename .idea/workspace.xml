@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="" />
+    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$CreateUI.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$CreateUI.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$RegisterBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$RegisterBehaviour.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$StartExecution.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$StartExecution.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/evs/EV.class" afterPath="$PROJECT_DIR$/out/production/Thesis/evs/EV.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" afterPath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/optimize/CPLEX.class" afterPath="$PROJECT_DIR$/out/production/Thesis/optimize/CPLEX.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Schedule.class" afterPath="$PROJECT_DIR$/out/production/Thesis/station/Schedule.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Station$1.class" afterPath="$PROJECT_DIR$/out/production/Thesis/station/Station$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Station.class" afterPath="$PROJECT_DIR$/out/production/Thesis/station/Station.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/various/ArrayTransformations.class" afterPath="$PROJECT_DIR$/out/production/Thesis/various/ArrayTransformations.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data.json" afterPath="$PROJECT_DIR$/data.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evs/EV.java" afterPath="$PROJECT_DIR$/src/evs/EV.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/Main.java" afterPath="$PROJECT_DIR$/src/main/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/optimize/CPLEX.java" afterPath="$PROJECT_DIR$/src/optimize/CPLEX.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/Schedule.java" afterPath="$PROJECT_DIR$/src/station/Schedule.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/Station.java" afterPath="$PROJECT_DIR$/src/station/Station.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/various/ArrayTransformations.java" afterPath="$PROJECT_DIR$/src/various/ArrayTransformations.java" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,8 +47,25 @@
             <state relative-caret-position="255">
               <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1918#1919#0" expanded="false" />
+                <element signature="e#1954#1955#0" expanded="false" />
                 <element signature="class#RegisterToYellowPagesBehaviour#0;class#StationOnlineAgent#0" expanded="false" />
                 <element signature="class#ComputeScheduleBehaviour#0;class#StationOnlineAgent#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CPLEX.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="566">
+              <caret line="180" column="22" lean-forward="false" selection-start-line="180" selection-start-column="22" selection-end-line="180" selection-end-column="22" />
+              <folding>
+                <element signature="method#CPLEX#0;class#CPLEX#0" expanded="false" />
+                <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
+                <element signature="method#buildModel#0;class#CPLEX#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -37,15 +74,51 @@
       <file leaf-file-name="Station.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/station/Station.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4369">
-              <caret line="281" column="30" lean-forward="false" selection-start-line="281" selection-start-column="30" selection-end-line="281" selection-end-column="30" />
+            <state relative-caret-position="326">
+              <caret line="86" column="10" lean-forward="false" selection-start-line="86" selection-start-column="10" selection-end-line="86" selection-end-column="10" />
               <folding>
                 <element signature="method#setEVBidders#0;class#Station#0" expanded="false" />
                 <element signature="method#addEVBidder#1;class#Station#0" expanded="false" />
                 <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
                 <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
                 <element signature="method#computeDemand#0;class#Station#0" expanded="false" />
+                <element signature="e#10013#10014#0" expanded="true" />
+                <element signature="e#10087#10088#0" expanded="true" />
+                <element signature="e#10413#10414#0" expanded="true" />
+                <element signature="e#10487#10488#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Schedule.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="417">
+              <caret line="84" column="44" lean-forward="false" selection-start-line="84" selection-start-column="44" selection-end-line="84" selection-end-column="44" />
+              <folding>
+                <element signature="method#printFullScheduleMap#0;class#Schedule#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArrayTransformations.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/various/ArrayTransformations.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="665">
+              <caret line="94" column="40" lean-forward="false" selection-start-line="94" selection-start-column="40" selection-end-line="94" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StaticRun.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/StaticRun.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1269">
+              <caret line="87" column="32" lean-forward="false" selection-start-line="87" selection-start-column="32" selection-end-line="87" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -56,8 +129,13 @@
             <state relative-caret-position="1139">
               <caret line="97" column="42" lean-forward="false" selection-start-line="97" selection-start-column="42" selection-end-line="97" selection-end-column="42" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="class#ClockRequestBehaviour#0;class#OnlineAgent#0" expanded="false" />
+                <element signature="e#2717#2718#0" expanded="false" />
+                <element signature="e#2754#2755#0" expanded="false" />
+                <element signature="e#3188#3189#0" expanded="false" />
+                <element signature="e#3224#3225#0" expanded="false" />
+                <element signature="e#3337#3338#0" expanded="false" />
+                <element signature="e#3423#3424#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -66,9 +144,13 @@
       <file leaf-file-name="EV.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="65" column="112" lean-forward="false" selection-start-line="65" selection-start-column="112" selection-end-line="65" selection-end-column="112" />
+            <state relative-caret-position="618">
+              <caret line="79" column="49" lean-forward="false" selection-start-line="79" selection-start-column="49" selection-end-line="79" selection-end-column="49" />
               <folding>
+                <element signature="e#2098#2099#0" expanded="true" />
+                <element signature="e#2144#2145#0" expanded="true" />
+                <element signature="e#2176#2177#0" expanded="true" />
+                <element signature="e#2233#2234#0" expanded="true" />
                 <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
                 <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
                 <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
@@ -77,17 +159,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EVAgent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/agents/offline/EVAgent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="47" column="48" lean-forward="false" selection-start-line="47" selection-start-column="48" selection-end-line="47" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClockAgent.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClockAgent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/agents/online/ClockAgent.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
@@ -97,47 +169,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IntegerConstants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/various/IntegerConstants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="43" lean-forward="false" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AgentUI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/agents/gui/AgentUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1887">
-              <caret line="116" column="0" lean-forward="false" selection-start-line="116" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClockAgentUI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/agents/gui/ClockAgentUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#920#921#0" expanded="true" />
-                <element signature="e#972#973#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="833">
-              <caret line="58" column="13" lean-forward="false" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+            <state relative-caret-position="408">
+              <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -157,9 +193,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>obj</find>
-      <find>Schedule com</find>
-      <find>System</find>
       <find>getSlo</find>
       <find>map_occupancy</find>
       <find>sva</find>
@@ -186,9 +219,14 @@
       <find>printev</find>
       <find>printEV</find>
       <find>class</find>
+      <find>priori</find>
+      <find>comput</find>
+      <find>1, 2</find>
+      <find>extractResults</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -215,22 +253,22 @@
         <option value="$PROJECT_DIR$/data.json" />
         <option value="$PROJECT_DIR$/src/main/SchedulingProcess.java" />
         <option value="$PROJECT_DIR$/src/main/StaticRun.java" />
-        <option value="$PROJECT_DIR$/src/optimize/CPLEX.java" />
         <option value="$PROJECT_DIR$/src/station/Negotiation.java" />
         <option value="$PROJECT_DIR$/src/station/negotiations/NegotiationComputer.java" />
-        <option value="$PROJECT_DIR$/src/various/ArrayTransformations.java" />
-        <option value="$PROJECT_DIR$/src/station/Schedule.java" />
         <option value="$PROJECT_DIR$/src/station/negotiations/Negotiation.java" />
-        <option value="$PROJECT_DIR$/src/main/Main.java" />
-        <option value="$PROJECT_DIR$/src/station/Station.java" />
         <option value="$PROJECT_DIR$/src/various/IntegerConstants.java" />
         <option value="$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java" />
-        <option value="$PROJECT_DIR$/src/evs/EV.java" />
         <option value="$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/gui/AgentUI.java" />
         <option value="$PROJECT_DIR$/src/agents/gui/ClockAgentUI.java" />
         <option value="$PROJECT_DIR$/src/agents/online/OnlineAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/online/ClockAgent.java" />
+        <option value="$PROJECT_DIR$/src/evs/EV.java" />
+        <option value="$PROJECT_DIR$/src/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/various/ArrayTransformations.java" />
+        <option value="$PROJECT_DIR$/src/station/Schedule.java" />
+        <option value="$PROJECT_DIR$/src/station/Station.java" />
+        <option value="$PROJECT_DIR$/src/optimize/CPLEX.java" />
       </list>
     </option>
   </component>
@@ -500,7 +538,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Agents Workshop/MultiCriteriaNegotiation" />
+    <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -807,6 +845,14 @@
       <option name="presentableId" value="Default" />
       <updated>1501248988349</updated>
     </task>
+    <task id="LOCAL-00001" summary="testing intellij git">
+      <created>1506776375456</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1506776375456</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -819,24 +865,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.787649" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="795" y="31" width="1124" height="1008" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="true" show_stripe_button="true" weight="0.787649" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="795" y="31" width="1124" height="1008" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29957357" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20628998" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -847,7 +894,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -886,9 +932,13 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="testing intellij git" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing intellij git" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="11" />
+      <option name="time" value="12" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -897,21 +947,15 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="method#printFullScheduleMap#0;class#Schedule#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1309">
           <caret line="101" column="19" lean-forward="false" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="19" />
           <folding>
+            <element signature="e#2098#2099#0" expanded="true" />
+            <element signature="e#2144#2145#0" expanded="true" />
+            <element signature="e#2176#2177#0" expanded="true" />
+            <element signature="e#2233#2234#0" expanded="true" />
             <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
             <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
             <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
@@ -937,6 +981,10 @@
             <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
             <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
             <element signature="method#computeDemand#0;class#Station#0" expanded="false" />
+            <element signature="e#10013#10014#0" expanded="true" />
+            <element signature="e#10087#10088#0" expanded="true" />
+            <element signature="e#10413#10414#0" expanded="true" />
+            <element signature="e#10487#10488#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -946,8 +994,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="method#CPLEX#0;class#CPLEX#0" expanded="false" />
             <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
-            <element signature="method#addObjectiveAndEnergyConstraints#0;class#CPLEX#0" expanded="false" />
             <element signature="method#buildModel#0;class#CPLEX#0" expanded="false" />
           </folding>
         </state>
@@ -986,6 +1034,10 @@
         <state relative-caret-position="1309">
           <caret line="101" column="19" lean-forward="false" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="19" />
           <folding>
+            <element signature="e#2098#2099#0" expanded="true" />
+            <element signature="e#2144#2145#0" expanded="true" />
+            <element signature="e#2176#2177#0" expanded="true" />
+            <element signature="e#2233#2234#0" expanded="true" />
             <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
             <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
             <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
@@ -1011,6 +1063,10 @@
             <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
             <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
             <element signature="method#computeDemand#0;class#Station#0" expanded="false" />
+            <element signature="e#10013#10014#0" expanded="true" />
+            <element signature="e#10087#10088#0" expanded="true" />
+            <element signature="e#10413#10414#0" expanded="true" />
+            <element signature="e#10487#10488#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1020,8 +1076,8 @@
         <state relative-caret-position="2176">
           <caret line="133" column="14" lean-forward="false" selection-start-line="133" selection-start-column="14" selection-end-line="133" selection-end-column="14" />
           <folding>
+            <element signature="method#CPLEX#0;class#CPLEX#0" expanded="false" />
             <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
-            <element signature="method#addObjectiveAndEnergyConstraints#0;class#CPLEX#0" expanded="false" />
             <element signature="method#buildModel#0;class#CPLEX#0" expanded="false" />
           </folding>
         </state>
@@ -1060,6 +1116,10 @@
         <state relative-caret-position="1309">
           <caret line="101" column="19" lean-forward="false" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="19" />
           <folding>
+            <element signature="e#2098#2099#0" expanded="true" />
+            <element signature="e#2144#2145#0" expanded="true" />
+            <element signature="e#2176#2177#0" expanded="true" />
+            <element signature="e#2233#2234#0" expanded="true" />
             <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
             <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
             <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
@@ -1120,6 +1180,10 @@
             <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
             <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
             <element signature="method#computeDemand#0;class#Station#0" expanded="false" />
+            <element signature="e#10013#10014#0" expanded="true" />
+            <element signature="e#10087#10088#0" expanded="true" />
+            <element signature="e#10413#10414#0" expanded="true" />
+            <element signature="e#10487#10488#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1129,6 +1193,10 @@
         <state relative-caret-position="765">
           <caret line="57" column="126" lean-forward="false" selection-start-line="57" selection-start-column="126" selection-end-line="57" selection-end-column="126" />
           <folding>
+            <element signature="e#2098#2099#0" expanded="true" />
+            <element signature="e#2144#2145#0" expanded="true" />
+            <element signature="e#2176#2177#0" expanded="true" />
+            <element signature="e#2233#2234#0" expanded="true" />
             <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
             <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
             <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
@@ -1204,56 +1272,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/SchedulingProcess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" column="10" lean-forward="false" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Thesis.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/StaticRun.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="699">
-          <caret line="87" column="32" lean-forward="false" selection-start-line="87" selection-start-column="32" selection-end-line="87" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="614">
-          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding>
-            <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
-            <element signature="method#addObjectiveAndEnergyConstraints#0;class#CPLEX#0" expanded="false" />
-            <element signature="method#buildModel#0;class#CPLEX#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/various/ArrayTransformations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="64" column="10" lean-forward="false" selection-start-line="64" selection-start-column="10" selection-end-line="64" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-219">
-          <caret line="58" column="44" lean-forward="false" selection-start-line="58" selection-start-column="44" selection-end-line="58" selection-end-column="44" />
-          <folding>
-            <element signature="method#printFullScheduleMap#0;class#Schedule#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1283,16 +1305,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="58" column="13" lean-forward="false" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/various/IntegerConstants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1309,39 +1321,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/Station.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4369">
-          <caret line="281" column="30" lean-forward="false" selection-start-line="281" selection-start-column="30" selection-end-line="281" selection-end-column="30" />
-          <folding>
-            <element signature="method#setEVBidders#0;class#Station#0" expanded="false" />
-            <element signature="method#addEVBidder#1;class#Station#0" expanded="false" />
-            <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
-            <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
-            <element signature="method#computeDemand#0;class#Station#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="631">
           <caret line="75" column="40" lean-forward="false" selection-start-line="75" selection-start-column="40" selection-end-line="75" selection-end-column="40" />
           <folding>
-            <element signature="e#2358#2359#0" expanded="true" />
-            <element signature="e#2394#2395#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="65" column="112" lean-forward="false" selection-start-line="65" selection-start-column="112" selection-end-line="65" selection-end-column="112" />
-          <folding>
-            <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
-            <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
-            <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
+            <element signature="e#2358#2359#0" expanded="false" />
+            <element signature="e#2394#2395#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1350,9 +1336,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1887">
           <caret line="116" column="0" lean-forward="false" selection-start-line="116" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1360,11 +1344,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
           <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#920#921#0" expanded="true" />
-            <element signature="e#972#973#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1373,6 +1353,9 @@
         <state relative-caret-position="255">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1918#1919#0" expanded="false" />
+            <element signature="e#1954#1955#0" expanded="false" />
             <element signature="class#RegisterToYellowPagesBehaviour#0;class#StationOnlineAgent#0" expanded="false" />
             <element signature="class#ComputeScheduleBehaviour#0;class#StationOnlineAgent#0" expanded="false" />
           </folding>
@@ -1384,8 +1367,13 @@
         <state relative-caret-position="1139">
           <caret line="97" column="42" lean-forward="false" selection-start-line="97" selection-start-column="42" selection-end-line="97" selection-end-column="42" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="class#ClockRequestBehaviour#0;class#OnlineAgent#0" expanded="false" />
+            <element signature="e#2717#2718#0" expanded="false" />
+            <element signature="e#2754#2755#0" expanded="false" />
+            <element signature="e#3188#3189#0" expanded="false" />
+            <element signature="e#3224#3225#0" expanded="false" />
+            <element signature="e#3337#3338#0" expanded="false" />
+            <element signature="e#3423#3424#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1395,6 +1383,104 @@
         <state relative-caret-position="102">
           <caret line="20" column="17" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/SchedulingProcess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="14" column="10" lean-forward="false" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/StaticRun.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1269">
+          <caret line="87" column="32" lean-forward="false" selection-start-line="87" selection-start-column="32" selection-end-line="87" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="618">
+          <caret line="79" column="49" lean-forward="false" selection-start-line="79" selection-start-column="49" selection-end-line="79" selection-end-column="49" />
+          <folding>
+            <element signature="e#2098#2099#0" expanded="true" />
+            <element signature="e#2144#2145#0" expanded="true" />
+            <element signature="e#2176#2177#0" expanded="true" />
+            <element signature="e#2233#2234#0" expanded="true" />
+            <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
+            <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
+            <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/various/ArrayTransformations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="94" column="40" lean-forward="false" selection-start-line="94" selection-start-column="40" selection-end-line="94" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="84" column="44" lean-forward="false" selection-start-line="84" selection-start-column="44" selection-end-line="84" selection-end-column="44" />
+          <folding>
+            <element signature="method#printFullScheduleMap#0;class#Schedule#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/Station.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="86" column="10" lean-forward="false" selection-start-line="86" selection-start-column="10" selection-end-line="86" selection-end-column="10" />
+          <folding>
+            <element signature="method#setEVBidders#0;class#Station#0" expanded="false" />
+            <element signature="method#addEVBidder#1;class#Station#0" expanded="false" />
+            <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
+            <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
+            <element signature="method#computeDemand#0;class#Station#0" expanded="false" />
+            <element signature="e#10013#10014#0" expanded="true" />
+            <element signature="e#10087#10088#0" expanded="true" />
+            <element signature="e#10413#10414#0" expanded="true" />
+            <element signature="e#10487#10488#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="180" column="22" lean-forward="false" selection-start-line="180" selection-start-column="22" selection-end-line="180" selection-end-column="22" />
+          <folding>
+            <element signature="method#CPLEX#0;class#CPLEX#0" expanded="false" />
+            <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
+            <element signature="method#buildModel#0;class#CPLEX#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

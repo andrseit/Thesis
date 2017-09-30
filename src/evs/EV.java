@@ -48,6 +48,7 @@ public class EV extends Agent {
     private int initial_pays; // what the ev will pay initially
     private int final_pays; // what the ev will finally pay
     private int schedule_row; // in which row of the schedule the ev is represented, because it migth change when the ordering happens
+    private int min_slot, max_slot;
 
     public EV() {
         slots = new ArrayList<SlotsStruct>();
@@ -69,6 +70,14 @@ public class EV extends Agent {
         }
         str.append("\nSchedule row: " + schedule_row + "\n");
         return str.toString();
+    }
+
+    public int getMinSlot () {
+        return slots.get(0).getStart();
+    }
+
+    public int getMaxSlot () {
+        return slots.get(slots.size()-1).getEnd();
     }
 
     public int getId() {

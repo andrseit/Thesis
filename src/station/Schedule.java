@@ -69,6 +69,7 @@ public class Schedule {
         }
     }
 
+    // concatenates old and new map
     public void saveInitialScheduleMap (int[][] initial) {
 
         ArrayTransformations t = new ArrayTransformations();

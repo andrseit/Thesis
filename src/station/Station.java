@@ -23,6 +23,7 @@ public class Station extends Agent{
     private int num_evs;
     private int num_slots;
     private int num_chargers;
+    private int min_slot, max_slot;
     private ArrayList<EV> ev_bidders;
     private ArrayList<EV> locked_bidders;
     private ArrayList<EV> not_charged; // the ev's that did not fit in the initial schedule
@@ -67,7 +68,8 @@ public class Station extends Agent{
 
     private void compute () {
         System.out.println("Computing schedule");
-
+        this.getMinSlot();
+        this.getMaxSlot();
         this.computeDemand();
         transformations.printOneDimensionArray("Demand", demand);
 
@@ -80,9 +82,9 @@ public class Station extends Agent{
 
         this.saveInitialResults(initial_payments);
 
-        this.vcg(initial_payments);
-        this.moveLockedBidders();
-        schedule.setRemainingChargers(num_slots);
+        //this.vcg(initial_payments);
+        //this.moveLockedBidders();
+        //schedule.setRemainingChargers(num_slots);
 
 
         /*
@@ -204,7 +206,6 @@ public class Station extends Agent{
 
     }
 
-    // no changes
     private int computeRemovedPayment (int[] payments) {
         int removed_pays = 0;
         for (int ev = 0; ev < ev_bidders.size(); ev++) {
@@ -216,7 +217,7 @@ public class Station extends Agent{
     private int[][] extractResults () {
 
         //cp.buildModel(ev_bidders, num_chargers, num_slots, price, schedule.getFullScheduleMap(), locked_bidders.size());
-        cp.model(ev_bidders, num_slots, price, schedule.getRemainingChargers(), schedule.getFullScheduleMap(), locked_bidders.size());
+        cp.model(ev_bidders, num_slots, price, schedule.getRemainingChargers(), min_slot, max_slot);
 
         return cp.getScheduleMap();
     }
@@ -322,6 +323,37 @@ public class Station extends Agent{
             System.out.println("EV: " + ev.getId() + " pays: " + ev.getFinalPayment());
         }
     }
+
+    private void getMinSlot () {
+        PriorityQueue<EV> queue = new PriorityQueue<EV>(10, new Comparator<EV>() {
+            @Override
+            public int compare(EV ev1, EV ev2) {
+                return ev1.getMinSlot() - ev2.getMinSlot();
+            }
+        });
+
+        for (EV ev: ev_bidders) {
+            queue.offer(ev);
+        }
+        min_slot = queue.peek().getMinSlot();
+    }
+
+    private void getMaxSlot () {
+        PriorityQueue<EV> queue = new PriorityQueue<EV>(10, new Comparator<EV>() {
+            @Override
+            public int compare(EV ev1, EV ev2) {
+                return ev2.getMaxSlot() - ev1.getMaxSlot();
+            }
+        });
+
+        for (EV ev: ev_bidders) {
+            queue.offer(ev);
+        }
+
+        max_slot = queue.peek().getMaxSlot();
+    }
+
+
 
     public int getSlotsNumber() {
         return num_slots;

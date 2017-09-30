@@ -79,6 +79,27 @@ public class ArrayTransformations {
     }
 
 
+    /**
+     * takes an array based on min and max slot and then exapnd it to full slots array
+     * @param array
+     * @param min
+     * @param max
+     * @return
+     */
+    public int[][] expandArray (int[][] array, int slots_number, int min, int max) {
+
+        int[][] map = new int[array.length][slots_number];
+
+        for (int e = 0; e < array.length; e++) {
+            for (int s = min; s <= max; s++) {
+                map[e][s] = array[e][s];
+            }
+        }
+
+        return map;
+    }
+
+
     public void updateArray (int[][] array, int start, int end, int row) {
         System.out.println("Start: " + start + ", End: " + end + ", Row: " + row);
         for (int i = start; i < end + 1; i++) {

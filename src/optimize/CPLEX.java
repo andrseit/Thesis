@@ -40,6 +40,11 @@ public class CPLEX {
     }
 
 
+    /**
+     *
+     * @param list_size
+     * @param slots_number = max_slot - min_slot + 1
+     */
     private void initializeVariables (int list_size, int slots_number) {
         //this.chargers = chargers.clone();
         System.out.println("EVs: " + list_size + ", slots: " + slots_number);
@@ -79,7 +84,7 @@ public class CPLEX {
 
     }
 
-    private void addChargersConstraint (int[] chargers) {
+    private void addChargersConstraint (int[] chargers, int min_slot) {
 
         try {
             for (int s = 0; s < slots_number; s++) {
@@ -87,14 +92,15 @@ public class CPLEX {
                 for (int ev = 0; ev < evs_number; ev++) {
                     chargers_constraint.addTerm(1, var[ev][s]);
                 }
-                cp.addLe(chargers_constraint, chargers[s]);
+                // s + min_slot e.g. min_slot = 5, current slot = 0, charger[current] = charger[5] -> current + min
+                cp.addLe(chargers_constraint, chargers[s + min_slot]);
             }
         } catch (IloException e) {
             e.printStackTrace();
         }
     }
 
-    private void addObjectiveAndEnergyConstraints (ArrayList<EV> evs, int[] price, int[][] previous_schedule, int previous_bidders_number) {
+    private void addObjectiveAndEnergyConstraints (ArrayList<EV> evs, int[] price, int min_slot) {
         try {
 
 
@@ -115,15 +121,15 @@ public class CPLEX {
                     int bid = current.getBid(b); // get bid for these slots
 
                     for (int s = 0; s < slots_number; s++) {
-                        if (s >= start && s <= end) {
+                        if (s >= start - min_slot && s <= end - min_slot) {
 
                             ev_energy_constraint.addTerm(1, var[ev_position][s]);
 
-                            if (bid - price[s] == 0) {
+                            if (bid - price[s + min_slot] == 0) {
                                 objective.addTerm(0.5, var[ev_position][s]);
                             } else {
                                 objective.addTerm(bid, var[ev_position][s]);
-                                objective.addTerm(-price[s], var[ev_position][s]);
+                                objective.addTerm(-price[s + min_slot], var[ev_position][s]);
                             }
 
                             checked_slot[s] = true;
@@ -148,8 +154,9 @@ public class CPLEX {
         }
     }
 
-    private void solveLinearProblem (ArrayList<EV> evs, int previous_bidders_number) {
+    private void solveLinearProblem (ArrayList<EV> evs, int slots_number, int min_slot, int max_slot) {
 
+        System.out.println(min_slot + " -- " + max_slot);
         try {
 
             if (cp.solve()) {
@@ -167,9 +174,9 @@ public class CPLEX {
                     else
                         evs.get(ev).setCharged(false);
 
-                    for (int s = 0; s < slots_number; s++) {
-                        //System.out.print(cp.getValue(var[ev][s]) + " ");
-                        schedule[ev_position][s] = (int) cp.getValue(var[ev_position][s]);
+                    for (int s = min_slot; s <= max_slot; s++) {
+                        //System.out.print(cp.getValue(var[ev][s - min_slot]) + " ");
+                        schedule[ev_position][s] = (int) cp.getValue(var[ev_position][s - min_slot]);
                     }
                     //System.out.println();
                 }
@@ -182,12 +189,21 @@ public class CPLEX {
         }
     }
 
-    public void model (ArrayList<EV> evs, int chargers_number, int slots_number, int[] price, int[] chargers, int[][] previous_schedule, int previous_bidders_number) {
-        this.initializeVariables(evs.size(), slots_number);
+    /**
+     *
+     * @param evs
+     * @param slots_number
+     * @param price
+     * @param chargers
+     * @param min_slot is the minimum slot that the evs requested for energy, the map computed here will start from there
+     * @param max_slot and end here
+     */
+    public void model (ArrayList<EV> evs, int slots_number, int[] price, int[] chargers, int min_slot, int max_slot) {
+        this.initializeVariables(evs.size(), max_slot - min_slot + 1);
         //this.lockPreviousBidders(previous_schedule, previous_bidders_number);
-        this.addObjectiveAndEnergyConstraints(evs, price, previous_schedule, previous_bidders_number);
-        this.addChargersConstraint(chargers);
-        this.solveLinearProblem(evs, previous_bidders_number);
+        this.addObjectiveAndEnergyConstraints(evs, price, min_slot);
+        this.addChargersConstraint(chargers, min_slot);
+        this.solveLinearProblem(evs, slots_number, min_slot, max_slot);
         this.clearModel();
     }
 
