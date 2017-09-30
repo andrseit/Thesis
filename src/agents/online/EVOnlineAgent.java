@@ -1,0 +1,118 @@
+package agents.online;
+
+import agents.gui.AgentUI;
+import agents.offline.EVAgent;
+import agents.offline.StationAgent;
+import jade.core.AID;
+import jade.core.Agent;
+import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.domain.DFService;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.domain.FIPAException;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
+import station.Station;
+import various.IntegerConstants;
+import various.JSONFileParser;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Darling on 15/9/2017.
+ */
+public class EVOnlineAgent extends OnlineAgent {
+
+
+    private int energy;
+    private int inform_slot;
+    private AID station;
+    private String data_string;
+
+
+    @Override
+    protected void setup() {
+        super.setup();
+        System.out.println("EV agent created!");
+
+        JSONFileParser p = new JSONFileParser();
+        Object[] args = this.getArguments();
+        if(args != null) {
+            energy = Integer.parseInt(args[0].toString());
+            inform_slot = Integer.parseInt(args[1].toString());
+            ArrayList<Integer[]> bids = (ArrayList<Integer[]>) args[2];
+
+            data_string = p.getJSONStringEV(bids, energy);
+        }
+
+        this.setUIDimensions(250, 800);
+        addBehaviour(new CreateUI());
+
+        addBehaviour(new RegisterStationBehaviour());
+
+        addBehaviour(new ClockRequestBehaviour());
+        addBehaviour(new ReceiveStartingMillis());
+
+        addBehaviour(new EVBehaviour());
+
+    }
+
+
+
+    private class EVBehaviour extends Behaviour {
+
+        private int step = 0;
+        @Override
+        public void action() {
+            switch (step) {
+                case 0:
+                    if (current_slot == inform_slot) {
+                        ui.appendConsole("I am going to send a message now.");
+                        ACLMessage msg = new ACLMessage(IntegerConstants.CHARGE_REQUEST);
+                        msg.setContent(data_string);
+                        msg.setConversationId("charging");
+                        msg.addReceiver(station);
+                        myAgent.send(msg);
+                        step++;
+                    }
+
+            }
+
+        }
+
+        @Override
+        public boolean done() {
+            return false;
+        }
+    }
+
+    private class RegisterStationBehaviour extends OneShotBehaviour {
+
+        @Override
+        public void action() {
+            printName();
+            ui.appendConsole("Searching for registered station in the yellow pages.");
+            DFAgentDescription template = new DFAgentDescription();
+            ServiceDescription sd = new ServiceDescription();
+            sd.setType("charge");
+            template.addServices(sd);
+
+            try {
+                DFAgentDescription[] result = DFService.search(myAgent, template);
+                printName();
+                ui.appendConsole("Found the following station:");
+                ui.appendConsole(result[0].getName()+"");
+                station = result[0].getName();
+            } catch (FIPAException fe) {
+                fe.printStackTrace();
+            }
+
+        }
+    }
+
+
+    private void printName () {
+        System.out.print(getLocalName() + ": ");
+    }
+}

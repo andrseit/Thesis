@@ -1,0 +1,6 @@
+{
+"id":0,
+"energy":2,
+"slots" : [{"start":1, "end":3, "bid":3},
+	{"start":5, "end":10, "bid": 10}]
+}
