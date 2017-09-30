@@ -204,6 +204,7 @@ public class Station extends Agent{
 
     }
 
+    // no changes
     private int computeRemovedPayment (int[] payments) {
         int removed_pays = 0;
         for (int ev = 0; ev < ev_bidders.size(); ev++) {
@@ -215,7 +216,7 @@ public class Station extends Agent{
     private int[][] extractResults () {
 
         //cp.buildModel(ev_bidders, num_chargers, num_slots, price, schedule.getFullScheduleMap(), locked_bidders.size());
-        cp.model(ev_bidders, num_chargers, num_slots, price, schedule.getRemainingChargers(), schedule.getFullScheduleMap(), locked_bidders.size());
+        cp.model(ev_bidders, num_slots, price, schedule.getRemainingChargers(), schedule.getFullScheduleMap(), locked_bidders.size());
 
         return cp.getScheduleMap();
     }
