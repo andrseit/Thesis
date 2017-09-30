@@ -22,12 +22,13 @@ import various.JSONFileParser;
 public class StationOnlineAgent extends OnlineAgent {
 
     private Station station;
+    private int slot;
 
     @Override
     protected void setup () {
         super.setup();
         System.out.println("Station agent created!");
-
+        slot = 0;
         station = new Station();
 
         this.setUIDimensions(250, 800);
@@ -38,6 +39,7 @@ public class StationOnlineAgent extends OnlineAgent {
         addBehaviour(new ReceiveStartingMillis());
 
         addBehaviour(new StationBehaviour());
+        addBehaviour(new SchedulingBehaviour());
         //addBehaviour(new ComputeScheduleBehaviour());
 
     }
@@ -45,6 +47,26 @@ public class StationOnlineAgent extends OnlineAgent {
 
 
 
+    private class SchedulingBehaviour extends Behaviour {
+
+
+
+        @Override
+        public void action() {
+            if (current_slot > slot) {
+                slot++;
+                if (station.getBiddersNumber() != 0) {
+                    station.computeSchedule();
+                    ui.appendConsole(station.printSchedule());
+                }
+            }
+        }
+
+        @Override
+        public boolean done() {
+            return false;
+        }
+    }
 
     private class StationBehaviour extends Behaviour {
 

@@ -83,8 +83,8 @@ public class Station extends Agent{
         this.saveInitialResults(initial_payments);
 
         //this.vcg(initial_payments);
-        //this.moveLockedBidders();
-        //schedule.setRemainingChargers(num_slots);
+        this.moveLockedBidders();
+        schedule.setRemainingChargers(num_slots);
 
 
         /*
@@ -354,6 +354,9 @@ public class Station extends Agent{
     }
 
 
+    public String printSchedule () {
+        return schedule.printFullScheduleMap(price);
+    }
 
     public int getSlotsNumber() {
         return num_slots;

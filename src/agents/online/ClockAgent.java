@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class ClockAgent extends Agent {
 
     private int slot = 0;
-    private int step = 200;
+    private int step = 1000;
     private boolean finish = false;
     private long initial_millis;
     private ArrayList<AID> receivers;

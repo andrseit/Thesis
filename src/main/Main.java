@@ -22,9 +22,9 @@ public class Main {
         System.out.println(array.length);
 
         StaticRun sr = new StaticRun();
-        sr.online();
+        //sr.online();
         //sr.offline();
-        //online();
+        online();
     }
 
 

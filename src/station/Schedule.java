@@ -105,40 +105,43 @@ public class Schedule {
     */
 
 
-    public void printFullScheduleMap (int[] price) {
-        System.out.println("------------------------ Slots ------------------------");
-        System.out.print("       ");
-        for (int s = 0; s < num_slots; s++) {
-            System.out.print(s + " ");
-        }
-        System.out.println();
+    public String printFullScheduleMap (int[] price) {
 
-        System.out.print("occup: ");
+        StringBuilder str = new StringBuilder();
+        str.append("------------------------ Slots ------------------------\n");
+        str.append("             ");
         for (int s = 0; s < num_slots; s++) {
-            System.out.print(map_occupancy[s] + " ");
+            str.append(s + " ");
         }
-        System.out.println("\n");
+        str.append("\n");
 
-        System.out.print("charg: ");
+        str.append("occup: ");
         for (int s = 0; s < num_slots; s++) {
-            System.out.print(remaining_chargers[s] + " ");
+            str.append(map_occupancy[s] + " ");
         }
-        System.out.println("\n");
+        str.append("\n\n");
 
-        System.out.print("price: ");
+        str.append("charg: ");
         for (int s = 0; s < num_slots; s++) {
-            System.out.print(price[s] + " ");
+            str.append(remaining_chargers[s] + " ");
         }
-        System.out.println("\n");
+        str.append("\n\n");
+
+        str.append("price: ");
+        for (int s = 0; s < num_slots; s++) {
+            str.append(price[s] + " ");
+        }
+        str.append("\n\n");
 
         for (int e = 0; e < full_schedule_map.length; e++) {
-            System.out.print("ev_" + e + ":  ");
+            str.append("ev_" + e + ":  ");
             for (int s = 0; s < full_schedule_map[0].length; s++) {
-                System.out.print(full_schedule_map[e][s] + " ");
+                str.append(full_schedule_map[e][s] + " ");
             }
-            System.out.println();
+            str.append("\n");
         }
-        System.out.println("-------------------------------------------------------");
+        str.append("-------------------------------------------------------\n");
+        return str.toString();
     }
 
     public int[][] getScheduleMap() {

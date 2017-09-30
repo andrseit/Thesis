@@ -22,6 +22,7 @@ public class ClockAgentUI extends JFrame {
         this.agent = agent;
         this.setBounds(100, 100, 250, 200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
         this.getContentPane().add(panel, BorderLayout.CENTER);
