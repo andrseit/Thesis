@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static java.lang.Math.log;
 import static java.lang.Math.toIntExact;
 
 /**
@@ -21,7 +22,7 @@ public class JSONFileParser {
     private int num_slots;
     private int num_chargers;
 
-    public void redStationData () {
+    public void readStationData() {
 
         ArrayList<EV> evs = new ArrayList<EV>();
         JSONParser parser = new JSONParser();
@@ -82,27 +83,16 @@ public class JSONFileParser {
         System.out.println(obj.toJSONString());
     }
 
-    public String getJSONStringEV (ArrayList<Integer[]> bids, int energy) {
+    public String getJSONStringEV (int bid, int start, int end, int energy) {
 
         JSONObject obj = new JSONObject();
         obj.put("energy", energy);
-
+        obj.put("bid", bid);
+        obj.put("start", start);
+        obj.put("end", end);
         JSONArray slots = new JSONArray();
 
-        for (Integer[] b: bids) {
 
-            JSONObject slot = new JSONObject();
-            slot.put("start", b[0]);
-            slot.put("end", b[1]);
-            slot.put("bid", b[2]);
-            slots.add(slot);
-
-            System.out.print("Start: " + b[0] + " ");
-            System.out.print("End: " + b[1] + " ");
-            System.out.println("Bid: " + b[2]);
-        }
-
-        obj.put("bids", slots);
         return obj.toJSONString();
     }
 
@@ -118,36 +108,25 @@ public class JSONFileParser {
 
             String line;
             while ((line = in.readLine()) != null) {
-                EVData data = new EVData();
+
                 Object object = parser.parse(line);
 
                 JSONObject json_ev = (JSONObject) object;
 
                 int energy = toIntExact((long) json_ev.get("energy"));
+                int bid = toIntExact((long) json_ev.get("bid"));
 
-                data.setEnergy(energy);
+                //data.setEnergy(energy);
 
                 int inform_slot = toIntExact((long) json_ev.get("inform"));
 
-                data.setInformSlot(inform_slot);
+                //data.setInformSlot(inform_slot);
 
-                //EV ev = new EV(id, energy);
+                int start_slot = toIntExact((long) json_ev.get("start"));
+                int end_slot = toIntExact((long)(json_ev.get("end")));
 
-                JSONArray slots = (JSONArray) json_ev.get("bids");
-
-                @SuppressWarnings("unchecked")
-                Iterator<JSONObject> it = slots.iterator();
-                while (it.hasNext()) {
-                    JSONObject json_slot = it.next();
-                    int start  = toIntExact((long) json_slot.get("start"));
-                    int end = toIntExact((long) json_slot.get("end"));
-                    int bid = toIntExact((long) json_slot.get("bid"));
-
-
-                    data.addBid(start, end, bid);
-                    //ev.addSlotsPreferences(start, end, bid);
-                }
-                //evs.add(ev);
+                EVData data = new EVData(energy, bid, start_slot, end_slot, inform_slot);
+                data.setJSONString(line);
                 evs.add(data);
             }
             reader.close();
@@ -171,22 +150,14 @@ public class JSONFileParser {
             JSONObject json_ev = (JSONObject) object;
 
             int energy = toIntExact((long) json_ev.get("energy"));
-            System.out.println("-----------");
-            System.out.println(energy);
             ev.setEnergy(energy);
 
-            JSONArray slots = (JSONArray) json_ev.get("bids");
+            int start  = toIntExact((long) json_ev.get("start"));
+            int end = toIntExact((long) json_ev.get("end"));
+            int bid = toIntExact((long) json_ev.get("bid"));
 
-            @SuppressWarnings("unchecked")
-            Iterator<JSONObject> it = slots.iterator();
-            while (it.hasNext()) {
-                JSONObject json_slot = it.next();
-                int start  = toIntExact((long) json_slot.get("start"));
-                int end = toIntExact((long) json_slot.get("end"));
-                int bid = toIntExact((long) json_slot.get("bid"));
-                System.out.println(start + ", " + end + ", " + bid);
-                ev.addSlotsPreferences(start, end, bid);
-            }
+            ev.addEVPreferences(start, end, bid, energy);
+
         } catch (org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }

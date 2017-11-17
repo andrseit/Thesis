@@ -1,12 +1,6 @@
 package evs;
 
-import jade.content.onto.annotations.Slot;
 import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
-import jade.domain.DFService;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
-import jade.domain.FIPAException;
 
 import java.util.ArrayList;
 
@@ -42,13 +36,18 @@ public class EV extends Agent {
 
     private int id;
     private int energy;
-    private int inform_time;
+    private int inform_slot;
     private ArrayList<SlotsStruct> slots;
     private boolean charged = false;
     private int initial_pays; // what the ev will pay initially
     private int final_pays; // what the ev will finally pay
     private int schedule_row; // in which row of the schedule the ev is represented, because it migth change when the ordering happens
     private int min_slot, max_slot;
+
+    // new data variables, now there is only one bid, so SlotsStruct is unnecessary
+    private int bid;
+    private int start;
+    private int end;
 
     public EV() {
         slots = new ArrayList<SlotsStruct>();
@@ -58,13 +57,20 @@ public class EV extends Agent {
         slots.add(new SlotsStruct(start, end, bid));
     }
 
+    public void addEVPreferences (int start, int end, int bid, int energy) {
+        this.start = start;
+        this.end = end;
+        this.bid = bid;
+        this.energy = energy;
+    }
+
     protected void setup() {
 
     }
 
     public String printEV() {
         StringBuilder str = new StringBuilder();
-        str.append("EVs id: " + id + " -> energy needed: " + energy + "   informed at slot: " + inform_time + ".\n");
+        str.append("EVs id: " + id + " -> energy needed: " + energy + "   informed at slot: " + inform_slot + ".\n");
         for (SlotsStruct slot : slots) {
             str.append("    > " + slot.getStart() + "-" + slot.getEnd() + " :: " + slot.getBid());
         }
@@ -73,11 +79,11 @@ public class EV extends Agent {
     }
 
     public int getMinSlot () {
-        return slots.get(0).getStart();
+        return start;
     }
 
     public int getMaxSlot () {
-        return slots.get(slots.size()-1).getEnd();
+        return end;
     }
 
     public int getId() {
@@ -171,11 +177,11 @@ public class EV extends Agent {
     }
 
     public int getInformTime() {
-        return inform_time;
+        return inform_slot;
     }
 
     public void setInformTime(int inform_time) {
-        this.inform_time = inform_time;
+        this.inform_slot = inform_time;
     }
 
     public int[][] getAllSlots () {
@@ -188,5 +194,21 @@ public class EV extends Agent {
             counter++;
         }
         return slots_array;
+    }
+
+    public String toString () {
+        return "energy: " + energy + " bid: " + bid + " start: " + start + " end: " + end;
+    }
+
+    public int getStartSlot () {
+        return start;
+    }
+
+    public int getEndSlot () {
+        return end;
+    }
+
+    public int getBid () {
+        return bid;
     }
 }
