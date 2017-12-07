@@ -46,16 +46,21 @@ public class VCG {
             row++;
         }
 
-        while (!queue.isEmpty()) {
+        if (queue.size() > 1) {
+            while (!queue.isEmpty()) {
 
-            EV removed = queue.poll();
-            if (removed.getCharged()) {
-                evs.remove(removed);
-                removed.setFinalPayment(computePayments(removed.getBid(), removed.getEnergy()));
-                evs.add(removed);
+                EV removed = queue.poll();
+                if (removed.getCharged()) {
+                    evs.remove(removed);
+                    removed.setFinalPayment(computePayments(removed.getBid(), removed.getEnergy()));
+                    evs.add(removed);
+                }
             }
+        } else {
+            EV removed = queue.poll();
+            if (removed.getCharged())
+                removed.setFinalPayment(removed.getBid() * removed.getEnergy());
         }
-
         for (EV ev : evs) {
             System.out.println(ev.getId() + " ---> " + ev.getFinalPayment());
         }

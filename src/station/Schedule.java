@@ -121,15 +121,15 @@ public class Schedule {
         }
         str.append("\n\n");
 
-        str.append("charg: ");
-        for (int s = 0; s < num_slots; s++) {
-            str.append(remaining_chargers[s] + " ");
-        }
-        str.append("\n\n");
-
         str.append("price: ");
         for (int s = 0; s < num_slots; s++) {
             str.append(price[s] + " ");
+        }
+        str.append("\n\n");
+
+        str.append("charg: ");
+        for (int s = 0; s < num_slots; s++) {
+            str.append(remaining_chargers[s] + " ");
         }
         str.append("\n\n");
 

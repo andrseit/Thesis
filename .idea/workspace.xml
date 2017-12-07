@@ -1,45 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="fixed what manolis suggested and some housekeeping">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/json-simple-1.1.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/json_simple_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/auction/OptimalSchedule.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/auction/VCG.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/various/TestRunner.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Station$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Station$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Station$3.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/EVAgent$EVBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/offline/EVAgent$EVBehaviour.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/EVAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/offline/EVAgent.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$CreateUI.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$CreateUI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$RegisterBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$RegisterBehaviour.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$StartExecution.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$StartExecution.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent$EVBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent$EVBehaviour.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent$RegisterStationBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent$RegisterStationBehaviour.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/evs/EV$SlotsStruct.class" afterPath="$PROJECT_DIR$/out/production/Thesis/evs/EV$SlotsStruct.class" />
+    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/evs/Preferences.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/negotiation/Suggestion.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data1.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/evs.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/evs_json.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/main/SchedulingProcess.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/main/StaticRun$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/main/StaticRun.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/station/negotiations/Negotiation.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/station/negotiations/NegotiationComputer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/SchedulingProcess.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/StaticRun.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/station/negotiations/Negotiation.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/station/negotiations/NegotiationComputer.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/evs/EV.class" afterPath="$PROJECT_DIR$/out/production/Thesis/evs/EV.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" afterPath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/optimize/CPLEX.class" afterPath="$PROJECT_DIR$/out/production/Thesis/optimize/CPLEX.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Schedule.class" afterPath="$PROJECT_DIR$/out/production/Thesis/station/Schedule.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Station.class" afterPath="$PROJECT_DIR$/out/production/Thesis/station/Station.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/various/EVData.class" afterPath="$PROJECT_DIR$/out/production/Thesis/various/EVData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/various/JSONFileParser.class" afterPath="$PROJECT_DIR$/out/production/Thesis/various/JSONFileParser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/json_simple_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/json_simple_1_1_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APDescription.txt" afterPath="$PROJECT_DIR$/APDescription.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Thesis.iml" afterPath="$PROJECT_DIR$/Thesis.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data.json" afterPath="$PROJECT_DIR$/data.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/offline/EVAgent.java" afterPath="$PROJECT_DIR$/src/agents/offline/EVAgent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/online/ClockAgent.java" afterPath="$PROJECT_DIR$/src/agents/online/ClockAgent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java" afterPath="$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evs/EV.java" afterPath="$PROJECT_DIR$/src/evs/EV.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/Main.java" afterPath="$PROJECT_DIR$/src/main/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/optimize/CPLEX.java" afterPath="$PROJECT_DIR$/src/optimize/CPLEX.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/Schedule.java" afterPath="$PROJECT_DIR$/src/station/Schedule.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/Station.java" afterPath="$PROJECT_DIR$/src/station/Station.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/various/EVData.java" afterPath="$PROJECT_DIR$/src/various/EVData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/various/JSONFileParser.java" afterPath="$PROJECT_DIR$/src/various/JSONFileParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/auction/VCG.java" afterPath="$PROJECT_DIR$/src/station/auction/VCG.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/various/TestRunner.java" afterPath="$PROJECT_DIR$/src/various/TestRunner.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/station.json" afterPath="$PROJECT_DIR$/station.json" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -59,240 +50,204 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="Thesis" />
+  </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.46067417">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="EVAgent.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/agents/offline/EVAgent.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="183">
-                  <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Station.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/Station.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2006">
-                  <caret line="133" column="27" lean-forward="false" selection-start-line="133" selection-start-column="27" selection-end-line="133" selection-end-column="27" />
-                  <folding>
-                    <element signature="method#setEVBidders#0;class#Station#0" expanded="false" />
-                    <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
-                    <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
-                    <element signature="e#5876#5877#0" expanded="true" />
-                    <element signature="e#5937#5938#0" expanded="true" />
-                    <element signature="e#5988#5989#0" expanded="true" />
-                    <element signature="e#6034#6035#0" expanded="true" />
-                    <element signature="e#6073#6074#0" expanded="true" />
-                    <element signature="e#6111#6112#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/Main.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="408">
-                  <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="CPLEX.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="299">
-                  <caret line="192" column="32" lean-forward="false" selection-start-line="192" selection-start-column="32" selection-end-line="192" selection-end-column="32" />
-                  <folding>
-                    <element signature="method#CPLEX#0;class#CPLEX#0" expanded="false" />
-                    <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
-                    <element signature="method#addChargersConstraint#0;class#CPLEX#0" expanded="false" />
-                    <element signature="method#buildModel#0;class#CPLEX#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="TestRunner.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/various/TestRunner.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="143">
-                  <caret line="84" column="39" lean-forward="false" selection-start-line="84" selection-start-column="39" selection-end-line="84" selection-end-column="39" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#1901#1902#0" expanded="true" />
-                    <element signature="e#1969#1970#0" expanded="true" />
-                    <element signature="method#online#0;class#TestRunner#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ClockAgent.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/agents/online/ClockAgent.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="68">
-                  <caret line="21" column="7" lean-forward="false" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="StationOnlineAgent.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-202">
-                  <caret line="60" column="17" lean-forward="false" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
-                  <folding>
-                    <element signature="class#RegisterToYellowPagesBehaviour#0;class#StationOnlineAgent#0" expanded="false" />
-                    <element signature="class#ComputeScheduleBehaviour#0;class#StationOnlineAgent#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Station.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/Station.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-27">
-                  <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-                  <folding>
-                    <element signature="method#Station#0;class#Station#0" expanded="false" />
-                    <element signature="method#moveLockedBidders#0;class#Station#0" expanded="false" />
-                    <element signature="method#negotiations#0;class#Station#0" expanded="false" />
-                    <element signature="method#saveInitialResults#0;class#Station#0" expanded="false" />
-                    <element signature="method#setEVBidders#0;class#Station#0" expanded="false" />
-                    <element signature="method#addEVBidder#0;class#Station#0" expanded="false" />
-                    <element signature="method#addEVBidder#1;class#Station#0" expanded="false" />
-                    <element signature="method#printEVBidders#0;class#Station#0" expanded="false" />
-                    <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
-                    <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
-                    <element signature="method#computeDemand#0;class#Station#0" expanded="false" />
-                    <element signature="method#printPayments#0;class#Station#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="OptimalSchedule.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/auction/OptimalSchedule.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="527">
-                  <caret line="31" column="68" lean-forward="false" selection-start-line="31" selection-start-column="68" selection-end-line="31" selection-end-column="68" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="method#getMinSlot#0;class#OptimalSchedule#0" expanded="false" />
-                    <element signature="e#1155#1156#0" expanded="true" />
-                    <element signature="e#1229#1230#0" expanded="true" />
-                    <element signature="method#getMaxSlot#0;class#OptimalSchedule#0" expanded="false" />
-                    <element signature="e#1563#1564#0" expanded="true" />
-                    <element signature="e#1637#1638#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="VCG.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/auction/VCG.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="93">
-                  <caret line="51" column="12" lean-forward="false" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#807#808#0" expanded="true" />
-                    <element signature="e#875#876#0" expanded="true" />
-                    <element signature="e#1989#1990#0" expanded="true" />
-                    <element signature="e#2063#2064#0" expanded="true" />
-                    <element signature="method#getMaxSlot#0;class#VCG#0" expanded="false" />
-                    <element signature="e#2377#2378#0" expanded="true" />
-                    <element signature="e#2451#2452#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="data.json" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/data.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17">
-                  <caret line="1" column="38" lean-forward="true" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="StationAgent.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/agents/offline/StationAgent.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="850">
-                  <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="JSONFileParser.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/various/JSONFileParser.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="182">
-                  <caret line="91" column="28" lean-forward="false" selection-start-line="91" selection-start-column="28" selection-end-line="91" selection-end-column="28" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="EV.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1037">
-                  <caret line="85" column="19" lean-forward="false" selection-start-line="85" selection-start-column="19" selection-end-line="85" selection-end-column="19" />
-                  <folding>
-                    <element signature="e#2167#2168#0" expanded="true" />
-                    <element signature="e#2195#2196#0" expanded="true" />
-                    <element signature="e#2227#2228#0" expanded="true" />
-                    <element signature="e#2253#2254#0" expanded="true" />
-                    <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
-                    <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
-                    <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
-                    <element signature="e#4696#4697#0" expanded="true" />
-                    <element signature="e#4793#4794#0" expanded="true" />
-                    <element signature="e#4827#4828#0" expanded="true" />
-                    <element signature="e#4855#4856#0" expanded="true" />
-                    <element signature="e#4887#4888#0" expanded="true" />
-                    <element signature="e#4913#4914#0" expanded="true" />
-                    <element signature="e#4941#4942#0" expanded="true" />
-                    <element signature="e#4967#4968#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Schedule.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-561">
-                  <caret line="75" column="34" lean-forward="true" selection-start-line="75" selection-start-column="34" selection-end-line="75" selection-end-column="34" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Negotiations.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/station/negotiation/Negotiations.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1035">
+              <caret line="174" column="22" lean-forward="false" selection-start-line="174" selection-start-column="22" selection-end-line="174" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1206#1207#0" expanded="true" />
+                <element signature="e#1260#1261#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Station.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/station/Station.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="185">
+              <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
+                <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Schedule.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EV.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="918">
+              <caret line="64" column="36" lean-forward="false" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#493#494#0" expanded="false" />
+                <element signature="e#529#530#0" expanded="false" />
+                <element signature="e#560#561#0" expanded="false" />
+                <element signature="e#594#595#0" expanded="false" />
+                <element signature="e#625#626#0" expanded="false" />
+                <element signature="e#659#660#0" expanded="false" />
+                <element signature="e#1450#1451#0" expanded="false" />
+                <element signature="e#1509#1510#0" expanded="false" />
+                <element signature="e#2321#2322#0" expanded="false" />
+                <element signature="e#2366#2367#0" expanded="false" />
+                <element signature="e#2398#2399#0" expanded="false" />
+                <element signature="e#2441#2442#0" expanded="false" />
+                <element signature="e#2467#2468#0" expanded="false" />
+                <element signature="e#2492#2493#0" expanded="false" />
+                <element signature="e#2522#2523#0" expanded="false" />
+                <element signature="e#2568#2569#0" expanded="false" />
+                <element signature="e#2616#2617#0" expanded="false" />
+                <element signature="e#2644#2645#0" expanded="false" />
+                <element signature="e#2678#2679#0" expanded="false" />
+                <element signature="e#2713#2714#0" expanded="false" />
+                <element signature="e#2755#2756#0" expanded="false" />
+                <element signature="e#2805#2806#0" expanded="false" />
+                <element signature="e#2845#2846#0" expanded="false" />
+                <element signature="e#2893#2894#0" expanded="false" />
+                <element signature="e#2929#2930#0" expanded="false" />
+                <element signature="e#2977#2978#0" expanded="false" />
+                <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
+                <element signature="e#3244#3245#0" expanded="false" />
+                <element signature="e#3279#3280#0" expanded="false" />
+                <element signature="e#3316#3317#0" expanded="false" />
+                <element signature="e#3356#3357#0" expanded="false" />
+                <element signature="e#3404#3405#0" expanded="false" />
+                <element signature="e#3451#3452#0" expanded="false" />
+                <element signature="e#3496#3497#0" expanded="false" />
+                <element signature="e#3534#3535#0" expanded="false" />
+                <element signature="e#3570#3571#0" expanded="false" />
+                <element signature="e#3603#3604#0" expanded="false" />
+                <element signature="e#3644#3645#0" expanded="false" />
+                <element signature="e#3676#3677#0" expanded="false" />
+                <element signature="e#3711#3712#0" expanded="false" />
+                <element signature="e#3741#3742#0" expanded="false" />
+                <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
+                <element signature="e#4083#4084#0" expanded="false" />
+                <element signature="e#4122#4123#0" expanded="false" />
+                <element signature="e#4157#4158#0" expanded="false" />
+                <element signature="e#4192#4193#0" expanded="false" />
+                <element signature="e#4233#4234#0" expanded="false" />
+                <element signature="e#4278#4279#0" expanded="false" />
+                <element signature="e#4311#4312#0" expanded="false" />
+                <element signature="e#4339#4340#0" expanded="false" />
+                <element signature="e#4373#4374#0" expanded="false" />
+                <element signature="e#4407#4408#0" expanded="false" />
+                <element signature="e#4457#4458#0" expanded="false" />
+                <element signature="e#4503#4504#0" expanded="false" />
+                <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
+                <element signature="e#5092#5093#0" expanded="false" />
+                <element signature="e#5137#5138#0" expanded="false" />
+                <element signature="e#5169#5170#0" expanded="false" />
+                <element signature="e#5212#5213#0" expanded="false" />
+                <element signature="e#5240#5241#0" expanded="false" />
+                <element signature="e#5266#5267#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JSONFileParser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/various/JSONFileParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2397">
+              <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Preferences.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/evs/Preferences.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="39" column="21" lean-forward="false" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+              <folding>
+                <element signature="e#181#182#0" expanded="false" />
+                <element signature="e#209#210#0" expanded="false" />
+                <element signature="e#248#249#0" expanded="false" />
+                <element signature="e#282#283#0" expanded="false" />
+                <element signature="e#404#405#0" expanded="false" />
+                <element signature="e#430#431#0" expanded="false" />
+                <element signature="e#465#466#0" expanded="false" />
+                <element signature="e#495#496#0" expanded="false" />
+                <element signature="e#525#526#0" expanded="false" />
+                <element signature="e#554#555#0" expanded="false" />
+                <element signature="e#595#596#0" expanded="false" />
+                <element signature="e#631#632#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CPLEX.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1241">
+              <caret line="189" column="18" lean-forward="false" selection-start-line="189" selection-start-column="18" selection-end-line="189" selection-end-column="18" />
+              <folding>
+                <element signature="method#CPLEX#0;class#CPLEX#0" expanded="false" />
+                <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
+                <element signature="method#addChargersConstraint#0;class#CPLEX#0" expanded="false" />
+                <element signature="method#buildModel#0;class#CPLEX#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VCG.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/station/auction/VCG.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="952">
+              <caret line="64" column="40" lean-forward="false" selection-start-line="64" selection-start-column="40" selection-end-line="64" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#807#808#0" expanded="false" />
+                <element signature="e#875#876#0" expanded="false" />
+                <element signature="e#2237#2238#0" expanded="false" />
+                <element signature="e#2311#2312#0" expanded="false" />
+                <element signature="method#getMaxSlot#0;class#VCG#0" expanded="false" />
+                <element signature="e#2625#2626#0" expanded="false" />
+                <element signature="e#2699#2700#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -304,17 +259,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Prio</find>
-      <find>pays</find>
-      <find>evs.si</find>
-      <find>prin</find>
-      <find>EV bidd</find>
-      <find>save</find>
-      <find>occup</find>
-      <find>setF</find>
-      <find>printpa</find>
-      <find>--&gt;</find>
-      <find>printev</find>
       <find>printEV</find>
       <find>class</find>
       <find>priori</find>
@@ -328,12 +272,23 @@
       <find>computePa</find>
       <find>extractResults</find>
       <find>EVS NUM</find>
-      <find>not_charged</find>
       <find>computeDe</find>
       <find>extra</find>
       <find>computepa</find>
       <find>movel</find>
       <find>slots_number</find>
+      <find>getremai</find>
+      <find>remainin</find>
+      <find>not_charged</find>
+      <find>who_charges</find>
+      <find>transformations</find>
+      <find>num_evs</find>
+      <find>0.0</find>
+      <find>setCharged</find>
+      <find>EV</find>
+      <find>getWhoCharges</find>
+      <find>min_slot</find>
+      <find>printfu</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -358,7 +313,6 @@
         <option value="$PROJECT_DIR$/src/agents/StationAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/EVAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/offline/StationAgent.java" />
-        <option value="$PROJECT_DIR$/data.json" />
         <option value="$PROJECT_DIR$/src/main/SchedulingProcess.java" />
         <option value="$PROJECT_DIR$/src/main/StaticRun.java" />
         <option value="$PROJECT_DIR$/src/station/Negotiation.java" />
@@ -369,7 +323,6 @@
         <option value="$PROJECT_DIR$/src/agents/online/OnlineAgent.java" />
         <option value="$PROJECT_DIR$/src/various/ArrayTransformations.java" />
         <option value="$PROJECT_DIR$/src/agents/gui/ClockAgentUI.java" />
-        <option value="$PROJECT_DIR$/src/station/Schedule.java" />
         <option value="$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/online/ClockAgent.java" />
         <option value="$PROJECT_DIR$/src/various/EVData.java" />
@@ -377,13 +330,19 @@
         <option value="$PROJECT_DIR$/src/various/JSONFileParser.java" />
         <option value="$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/offline/EVAgent.java" />
-        <option value="$PROJECT_DIR$/src/evs/EV.java" />
-        <option value="$PROJECT_DIR$/src/main/Main.java" />
-        <option value="$PROJECT_DIR$/src/station/Station.java" />
-        <option value="$PROJECT_DIR$/src/optimize/CPLEX.java" />
+        <option value="$PROJECT_DIR$/data.json" />
         <option value="$PROJECT_DIR$/src/station/auction/OptimalSchedule.java" />
-        <option value="$PROJECT_DIR$/src/various/TestRunner.java" />
         <option value="$PROJECT_DIR$/src/station/auction/VCG.java" />
+        <option value="$PROJECT_DIR$/src/optimize/CPLEX.java" />
+        <option value="$PROJECT_DIR$/src/station/negotiation/SuggestionsList.java" />
+        <option value="$PROJECT_DIR$/src/various/TestRunner.java" />
+        <option value="$PROJECT_DIR$/src/evs/EV.java" />
+        <option value="$PROJECT_DIR$/src/station/Schedule.java" />
+        <option value="$PROJECT_DIR$/src/evs/Preferences.java" />
+        <option value="$PROJECT_DIR$/src/station/negotiation/Suggestion.java" />
+        <option value="$PROJECT_DIR$/src/station/Station.java" />
+        <option value="$PROJECT_DIR$/src/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" />
       </list>
     </option>
   </component>
@@ -427,7 +386,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
@@ -506,6 +464,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="negotiation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="station" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="auction" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -559,10 +539,6 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -592,82 +568,17 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agents" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="online" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thesis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thesis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agents" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="offline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thesis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thesis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agents" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thesis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thesis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="libs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/json-simple-1.1.jar!/" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Assistant/Lab7-Start" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -986,7 +897,21 @@
       <option name="project" value="LOCAL" />
       <updated>1506776375456</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fixed what manolis suggested and some housekeeping">
+      <created>1510945807308</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1510945807308</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added first version of negotiations">
+      <created>1512661981242</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1512661981242</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1005,64 +930,34 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3255814" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3255814" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.397463" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3964059" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" x="663" y="131" width="1124" height="1008" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1171875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261105" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47463003" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" x="663" y="131" width="1124" height="1008" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22135417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32769555" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261105" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29144096" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1433902" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+    </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -1070,11 +965,12 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="testing intellij git" />
     <MESSAGE value="fixed what manolis suggested and some housekeeping" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed what manolis suggested and some housekeeping" />
+    <MESSAGE value="added first version of negotiations" />
+    <option name="LAST_COMMIT_MESSAGE" value="added first version of negotiations" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="14" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1083,58 +979,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/agents/offline/StationAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1309">
-          <caret line="101" column="19" lean-forward="false" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="19" />
-          <folding>
-            <element signature="e#2167#2168#0" expanded="true" />
-            <element signature="e#2195#2196#0" expanded="true" />
-            <element signature="e#2227#2228#0" expanded="true" />
-            <element signature="e#2253#2254#0" expanded="true" />
-            <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
-            <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
-            <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/SchedulingProcess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="43" column="6" lean-forward="false" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/station/Station.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="method#setEVBidders#0;class#Station#0" expanded="false" />
-            <element signature="method#addEVBidder#1;class#Station#0" expanded="false" />
+            <element signature="imports" expanded="true" />
             <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
             <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
-            <element signature="method#computeDemand#0;class#Station#0" expanded="false" />
-            <element signature="e#5308#5309#0" expanded="false" />
-            <element signature="e#5367#5368#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1146,6 +998,7 @@
           <folding>
             <element signature="method#CPLEX#0;class#CPLEX#0" expanded="false" />
             <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
+            <element signature="method#addChargersConstraint#0;class#CPLEX#0" expanded="false" />
             <element signature="method#buildModel#0;class#CPLEX#0" expanded="false" />
           </folding>
         </state>
@@ -1165,7 +1018,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1182,25 +1034,73 @@
         <state relative-caret-position="1309">
           <caret line="101" column="19" lean-forward="false" selection-start-line="101" selection-start-column="16" selection-end-line="101" selection-end-column="19" />
           <folding>
-            <element signature="e#2167#2168#0" expanded="true" />
-            <element signature="e#2195#2196#0" expanded="true" />
-            <element signature="e#2227#2228#0" expanded="true" />
-            <element signature="e#2253#2254#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#493#494#0" expanded="false" />
+            <element signature="e#529#530#0" expanded="false" />
+            <element signature="e#560#561#0" expanded="false" />
+            <element signature="e#594#595#0" expanded="false" />
+            <element signature="e#625#626#0" expanded="false" />
+            <element signature="e#659#660#0" expanded="false" />
+            <element signature="e#1450#1451#0" expanded="false" />
+            <element signature="e#1509#1510#0" expanded="false" />
+            <element signature="e#2321#2322#0" expanded="false" />
+            <element signature="e#2366#2367#0" expanded="false" />
+            <element signature="e#2398#2399#0" expanded="false" />
+            <element signature="e#2441#2442#0" expanded="false" />
+            <element signature="e#2467#2468#0" expanded="false" />
+            <element signature="e#2492#2493#0" expanded="false" />
+            <element signature="e#2522#2523#0" expanded="false" />
+            <element signature="e#2568#2569#0" expanded="false" />
+            <element signature="e#2616#2617#0" expanded="false" />
+            <element signature="e#2644#2645#0" expanded="false" />
+            <element signature="e#2678#2679#0" expanded="false" />
+            <element signature="e#2713#2714#0" expanded="false" />
+            <element signature="e#2755#2756#0" expanded="false" />
+            <element signature="e#2805#2806#0" expanded="false" />
+            <element signature="e#2845#2846#0" expanded="false" />
+            <element signature="e#2893#2894#0" expanded="false" />
+            <element signature="e#2929#2930#0" expanded="false" />
+            <element signature="e#2977#2978#0" expanded="false" />
             <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
+            <element signature="e#3244#3245#0" expanded="false" />
+            <element signature="e#3279#3280#0" expanded="false" />
+            <element signature="e#3316#3317#0" expanded="false" />
+            <element signature="e#3356#3357#0" expanded="false" />
+            <element signature="e#3404#3405#0" expanded="false" />
+            <element signature="e#3451#3452#0" expanded="false" />
+            <element signature="e#3496#3497#0" expanded="false" />
+            <element signature="e#3534#3535#0" expanded="false" />
+            <element signature="e#3570#3571#0" expanded="false" />
+            <element signature="e#3603#3604#0" expanded="false" />
+            <element signature="e#3644#3645#0" expanded="false" />
+            <element signature="e#3676#3677#0" expanded="false" />
+            <element signature="e#3711#3712#0" expanded="false" />
+            <element signature="e#3741#3742#0" expanded="false" />
             <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
+            <element signature="e#4083#4084#0" expanded="false" />
+            <element signature="e#4122#4123#0" expanded="false" />
+            <element signature="e#4157#4158#0" expanded="false" />
+            <element signature="e#4192#4193#0" expanded="false" />
+            <element signature="e#4233#4234#0" expanded="false" />
+            <element signature="e#4278#4279#0" expanded="false" />
+            <element signature="e#4311#4312#0" expanded="false" />
+            <element signature="e#4339#4340#0" expanded="false" />
+            <element signature="e#4373#4374#0" expanded="false" />
+            <element signature="e#4407#4408#0" expanded="false" />
+            <element signature="e#4457#4458#0" expanded="false" />
+            <element signature="e#4503#4504#0" expanded="false" />
             <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
+            <element signature="e#5092#5093#0" expanded="false" />
+            <element signature="e#5137#5138#0" expanded="false" />
+            <element signature="e#5169#5170#0" expanded="false" />
+            <element signature="e#5212#5213#0" expanded="false" />
+            <element signature="e#5240#5241#0" expanded="false" />
+            <element signature="e#5266#5267#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/SchedulingProcess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="43" column="6" lean-forward="false" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/SchedulingProcess.java" />
     <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1231,7 +1131,7 @@
         <state relative-caret-position="136">
           <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1241,13 +1141,9 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="method#setEVBidders#0;class#Station#0" expanded="false" />
-            <element signature="method#addEVBidder#1;class#Station#0" expanded="false" />
+            <element signature="imports" expanded="true" />
             <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
             <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
-            <element signature="method#computeDemand#0;class#Station#0" expanded="false" />
-            <element signature="e#5308#5309#0" expanded="false" />
-            <element signature="e#5367#5368#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1257,13 +1153,68 @@
         <state relative-caret-position="765">
           <caret line="57" column="126" lean-forward="false" selection-start-line="57" selection-start-column="126" selection-end-line="57" selection-end-column="126" />
           <folding>
-            <element signature="e#2167#2168#0" expanded="true" />
-            <element signature="e#2195#2196#0" expanded="true" />
-            <element signature="e#2227#2228#0" expanded="true" />
-            <element signature="e#2253#2254#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#493#494#0" expanded="false" />
+            <element signature="e#529#530#0" expanded="false" />
+            <element signature="e#560#561#0" expanded="false" />
+            <element signature="e#594#595#0" expanded="false" />
+            <element signature="e#625#626#0" expanded="false" />
+            <element signature="e#659#660#0" expanded="false" />
+            <element signature="e#1450#1451#0" expanded="false" />
+            <element signature="e#1509#1510#0" expanded="false" />
+            <element signature="e#2321#2322#0" expanded="false" />
+            <element signature="e#2366#2367#0" expanded="false" />
+            <element signature="e#2398#2399#0" expanded="false" />
+            <element signature="e#2441#2442#0" expanded="false" />
+            <element signature="e#2467#2468#0" expanded="false" />
+            <element signature="e#2492#2493#0" expanded="false" />
+            <element signature="e#2522#2523#0" expanded="false" />
+            <element signature="e#2568#2569#0" expanded="false" />
+            <element signature="e#2616#2617#0" expanded="false" />
+            <element signature="e#2644#2645#0" expanded="false" />
+            <element signature="e#2678#2679#0" expanded="false" />
+            <element signature="e#2713#2714#0" expanded="false" />
+            <element signature="e#2755#2756#0" expanded="false" />
+            <element signature="e#2805#2806#0" expanded="false" />
+            <element signature="e#2845#2846#0" expanded="false" />
+            <element signature="e#2893#2894#0" expanded="false" />
+            <element signature="e#2929#2930#0" expanded="false" />
+            <element signature="e#2977#2978#0" expanded="false" />
             <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
+            <element signature="e#3244#3245#0" expanded="false" />
+            <element signature="e#3279#3280#0" expanded="false" />
+            <element signature="e#3316#3317#0" expanded="false" />
+            <element signature="e#3356#3357#0" expanded="false" />
+            <element signature="e#3404#3405#0" expanded="false" />
+            <element signature="e#3451#3452#0" expanded="false" />
+            <element signature="e#3496#3497#0" expanded="false" />
+            <element signature="e#3534#3535#0" expanded="false" />
+            <element signature="e#3570#3571#0" expanded="false" />
+            <element signature="e#3603#3604#0" expanded="false" />
+            <element signature="e#3644#3645#0" expanded="false" />
+            <element signature="e#3676#3677#0" expanded="false" />
+            <element signature="e#3711#3712#0" expanded="false" />
+            <element signature="e#3741#3742#0" expanded="false" />
             <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
+            <element signature="e#4083#4084#0" expanded="false" />
+            <element signature="e#4122#4123#0" expanded="false" />
+            <element signature="e#4157#4158#0" expanded="false" />
+            <element signature="e#4192#4193#0" expanded="false" />
+            <element signature="e#4233#4234#0" expanded="false" />
+            <element signature="e#4278#4279#0" expanded="false" />
+            <element signature="e#4311#4312#0" expanded="false" />
+            <element signature="e#4339#4340#0" expanded="false" />
+            <element signature="e#4373#4374#0" expanded="false" />
+            <element signature="e#4407#4408#0" expanded="false" />
+            <element signature="e#4457#4458#0" expanded="false" />
+            <element signature="e#4503#4504#0" expanded="false" />
             <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
+            <element signature="e#5092#5093#0" expanded="false" />
+            <element signature="e#5137#5138#0" expanded="false" />
+            <element signature="e#5169#5170#0" expanded="false" />
+            <element signature="e#5212#5213#0" expanded="false" />
+            <element signature="e#5240#5241#0" expanded="false" />
+            <element signature="e#5266#5267#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1272,7 +1223,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="41" column="8" lean-forward="false" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1283,14 +1233,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/SchedulingProcess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/SchedulingProcess.java" />
     <entry file="file://$PROJECT_DIR$/src/static/StaticRun.kt" />
     <entry file="file://$PROJECT_DIR$/station.json">
       <provider selected="true" editor-type-id="text-editor">
@@ -1306,32 +1249,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/negotiations/NegotiationComputer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/negotiations/Negotiation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/negotiations/NegotiationComputer.java" />
     <entry file="file://$PROJECT_DIR$/src/various/IntegerConstants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="43" lean-forward="false" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/gui/AgentUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1887">
-          <caret line="116" column="0" lean-forward="false" selection-start-line="116" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1339,9 +1261,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="952">
           <caret line="97" column="42" lean-forward="false" selection-start-line="97" selection-start-column="42" selection-end-line="97" selection-end-column="42" />
-          <folding>
-            <element signature="class#ClockRequestBehaviour#0;class#OnlineAgent#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1349,22 +1268,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/SchedulingProcess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" column="10" lean-forward="false" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/StaticRun.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1326">
-          <caret line="87" column="32" lean-forward="false" selection-start-line="87" selection-start-column="32" selection-end-line="87" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1380,26 +1283,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="24" column="39" lean-forward="false" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/agents/online/ClockAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
+        <state relative-caret-position="119">
           <caret line="21" column="7" lean-forward="false" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-202">
-          <caret line="60" column="17" lean-forward="false" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
-          <folding>
-            <element signature="class#RegisterToYellowPagesBehaviour#0;class#StationOnlineAgent#0" expanded="false" />
-            <element signature="class#ComputeScheduleBehaviour#0;class#StationOnlineAgent#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1407,10 +1297,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
           <caret line="234" column="18" lean-forward="false" selection-start-line="234" selection-start-column="18" selection-end-line="234" selection-end-column="18" />
-          <folding>
-            <element signature="e#10065#10066#0" expanded="false" />
-            <element signature="e#10148#10149#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1418,142 +1304,224 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="722">
           <caret line="84" column="26" lean-forward="false" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
-          <folding>
-            <element signature="e#975#976#0" expanded="true" />
-            <element signature="e#1012#1013#0" expanded="true" />
-            <element signature="e#1951#1952#0" expanded="true" />
-            <element signature="e#1984#1985#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="31" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/agents/offline/EVAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
+        <state relative-caret-position="493">
           <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/auction/VCG.java">
+    <entry file="file://$PROJECT_DIR$/src/auction/VCG.java" />
+    <entry file="file://$PROJECT_DIR$/src/agents/offline/StationAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="850">
+          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="49" lean-forward="true" selection-start-line="1" selection-start-column="49" selection-end-line="1" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="60" column="17" lean-forward="false" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/StaticRun.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/SchedulingProcess.java" />
+    <entry file="file://$PROJECT_DIR$/src/agents/gui/AgentUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1887">
+          <caret line="116" column="0" lean-forward="false" selection-start-line="116" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/negotiations/Negotiation.java" />
+    <entry file="file://$PROJECT_DIR$/src/station/auction/OptimalSchedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="35" column="51" lean-forward="false" selection-start-line="35" selection-start-column="51" selection-end-line="35" selection-end-column="51" />
+          <folding>
+            <element signature="method#getMinSlot#0;class#OptimalSchedule#0" expanded="false" />
+            <element signature="method#getMaxSlot#0;class#OptimalSchedule#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/auction/VCG.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="64" column="40" lean-forward="false" selection-start-line="64" selection-start-column="40" selection-end-line="64" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#807#808#0" expanded="false" />
+            <element signature="e#875#876#0" expanded="false" />
+            <element signature="e#2237#2238#0" expanded="false" />
+            <element signature="e#2311#2312#0" expanded="false" />
+            <element signature="method#getMaxSlot#0;class#VCG#0" expanded="false" />
+            <element signature="e#2625#2626#0" expanded="false" />
+            <element signature="e#2699#2700#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/negotiation/SuggestionsList.java" />
+    <entry file="file://$PROJECT_DIR$/src/various/TestRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="27" column="4" lean-forward="false" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+          <folding>
+            <element signature="method#online#0;class#TestRunner#0" expanded="false" />
+            <element signature="method#offlineWithAgents#0;class#TestRunner#0" expanded="false" />
+            <element signature="method#staticOnline#0;class#TestRunner#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="85" column="19" lean-forward="false" selection-start-line="85" selection-start-column="19" selection-end-line="85" selection-end-column="19" />
+        <state relative-caret-position="918">
+          <caret line="64" column="36" lean-forward="false" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="36" />
           <folding>
-            <element signature="e#2167#2168#0" expanded="true" />
-            <element signature="e#2195#2196#0" expanded="true" />
-            <element signature="e#2227#2228#0" expanded="true" />
-            <element signature="e#2253#2254#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#493#494#0" expanded="false" />
+            <element signature="e#529#530#0" expanded="false" />
+            <element signature="e#560#561#0" expanded="false" />
+            <element signature="e#594#595#0" expanded="false" />
+            <element signature="e#625#626#0" expanded="false" />
+            <element signature="e#659#660#0" expanded="false" />
+            <element signature="e#1450#1451#0" expanded="false" />
+            <element signature="e#1509#1510#0" expanded="false" />
+            <element signature="e#2321#2322#0" expanded="false" />
+            <element signature="e#2366#2367#0" expanded="false" />
+            <element signature="e#2398#2399#0" expanded="false" />
+            <element signature="e#2441#2442#0" expanded="false" />
+            <element signature="e#2467#2468#0" expanded="false" />
+            <element signature="e#2492#2493#0" expanded="false" />
+            <element signature="e#2522#2523#0" expanded="false" />
+            <element signature="e#2568#2569#0" expanded="false" />
+            <element signature="e#2616#2617#0" expanded="false" />
+            <element signature="e#2644#2645#0" expanded="false" />
+            <element signature="e#2678#2679#0" expanded="false" />
+            <element signature="e#2713#2714#0" expanded="false" />
+            <element signature="e#2755#2756#0" expanded="false" />
+            <element signature="e#2805#2806#0" expanded="false" />
+            <element signature="e#2845#2846#0" expanded="false" />
+            <element signature="e#2893#2894#0" expanded="false" />
+            <element signature="e#2929#2930#0" expanded="false" />
+            <element signature="e#2977#2978#0" expanded="false" />
             <element signature="method#getBidAtSlot#0;class#EV#0" expanded="false" />
+            <element signature="e#3244#3245#0" expanded="false" />
+            <element signature="e#3279#3280#0" expanded="false" />
+            <element signature="e#3316#3317#0" expanded="false" />
+            <element signature="e#3356#3357#0" expanded="false" />
+            <element signature="e#3404#3405#0" expanded="false" />
+            <element signature="e#3451#3452#0" expanded="false" />
+            <element signature="e#3496#3497#0" expanded="false" />
+            <element signature="e#3534#3535#0" expanded="false" />
+            <element signature="e#3570#3571#0" expanded="false" />
+            <element signature="e#3603#3604#0" expanded="false" />
+            <element signature="e#3644#3645#0" expanded="false" />
+            <element signature="e#3676#3677#0" expanded="false" />
+            <element signature="e#3711#3712#0" expanded="false" />
+            <element signature="e#3741#3742#0" expanded="false" />
             <element signature="method#getSlotsArray#0;class#EV#0" expanded="false" />
+            <element signature="e#4083#4084#0" expanded="false" />
+            <element signature="e#4122#4123#0" expanded="false" />
+            <element signature="e#4157#4158#0" expanded="false" />
+            <element signature="e#4192#4193#0" expanded="false" />
+            <element signature="e#4233#4234#0" expanded="false" />
+            <element signature="e#4278#4279#0" expanded="false" />
+            <element signature="e#4311#4312#0" expanded="false" />
+            <element signature="e#4339#4340#0" expanded="false" />
+            <element signature="e#4373#4374#0" expanded="false" />
+            <element signature="e#4407#4408#0" expanded="false" />
+            <element signature="e#4457#4458#0" expanded="false" />
+            <element signature="e#4503#4504#0" expanded="false" />
             <element signature="method#getAllSlots#0;class#EV#0" expanded="false" />
-            <element signature="e#4696#4697#0" expanded="true" />
-            <element signature="e#4793#4794#0" expanded="true" />
-            <element signature="e#4827#4828#0" expanded="true" />
-            <element signature="e#4855#4856#0" expanded="true" />
-            <element signature="e#4887#4888#0" expanded="true" />
-            <element signature="e#4913#4914#0" expanded="true" />
-            <element signature="e#4941#4942#0" expanded="true" />
-            <element signature="e#4967#4968#0" expanded="true" />
+            <element signature="e#5092#5093#0" expanded="false" />
+            <element signature="e#5137#5138#0" expanded="false" />
+            <element signature="e#5169#5170#0" expanded="false" />
+            <element signature="e#5212#5213#0" expanded="false" />
+            <element signature="e#5240#5241#0" expanded="false" />
+            <element signature="e#5266#5267#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/various/JSONFileParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="91" column="28" lean-forward="false" selection-start-line="91" selection-start-column="28" selection-end-line="91" selection-end-column="28" />
+        <state relative-caret-position="2397">
+          <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/offline/StationAgent.java">
+    <entry file="file://$PROJECT_DIR$/src/evs/Preferences.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="442">
+          <caret line="39" column="21" lean-forward="false" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+          <folding>
+            <element signature="e#181#182#0" expanded="false" />
+            <element signature="e#209#210#0" expanded="false" />
+            <element signature="e#248#249#0" expanded="false" />
+            <element signature="e#282#283#0" expanded="false" />
+            <element signature="e#404#405#0" expanded="false" />
+            <element signature="e#430#431#0" expanded="false" />
+            <element signature="e#465#466#0" expanded="false" />
+            <element signature="e#495#496#0" expanded="false" />
+            <element signature="e#525#526#0" expanded="false" />
+            <element signature="e#554#555#0" expanded="false" />
+            <element signature="e#595#596#0" expanded="false" />
+            <element signature="e#631#632#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
+    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Suggestion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-561">
-          <caret line="75" column="34" lean-forward="true" selection-start-line="75" selection-start-column="34" selection-end-line="75" selection-end-column="34" />
-          <folding />
+        <state relative-caret-position="187">
+          <caret line="11" column="28" lean-forward="false" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+          <folding>
+            <element signature="e#226#227#0" expanded="true" />
+            <element signature="e#267#268#0" expanded="true" />
+            <element signature="e#303#304#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+        <state relative-caret-position="289">
+          <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/Station.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-27">
-          <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-          <folding>
-            <element signature="method#Station#0;class#Station#0" expanded="false" />
-            <element signature="method#moveLockedBidders#0;class#Station#0" expanded="false" />
-            <element signature="method#negotiations#0;class#Station#0" expanded="false" />
-            <element signature="method#saveInitialResults#0;class#Station#0" expanded="false" />
-            <element signature="method#setEVBidders#0;class#Station#0" expanded="false" />
-            <element signature="method#addEVBidder#0;class#Station#0" expanded="false" />
-            <element signature="method#addEVBidder#1;class#Station#0" expanded="false" />
-            <element signature="method#printEVBidders#0;class#Station#0" expanded="false" />
-            <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
-            <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
-            <element signature="method#computeDemand#0;class#Station#0" expanded="false" />
-            <element signature="method#printPayments#0;class#Station#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/auction/OptimalSchedule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="68" lean-forward="false" selection-start-line="31" selection-start-column="68" selection-end-line="31" selection-end-column="68" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getMinSlot#0;class#OptimalSchedule#0" expanded="false" />
-            <element signature="e#1155#1156#0" expanded="true" />
-            <element signature="e#1229#1230#0" expanded="true" />
-            <element signature="method#getMaxSlot#0;class#OptimalSchedule#0" expanded="false" />
-            <element signature="e#1563#1564#0" expanded="true" />
-            <element signature="e#1637#1638#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="192" column="32" lean-forward="false" selection-start-line="192" selection-start-column="32" selection-end-line="192" selection-end-column="32" />
+        <state relative-caret-position="1241">
+          <caret line="189" column="18" lean-forward="false" selection-start-line="189" selection-start-column="18" selection-end-line="189" selection-end-column="18" />
           <folding>
             <element signature="method#CPLEX#0;class#CPLEX#0" expanded="false" />
             <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
@@ -1563,41 +1531,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/various/TestRunner.java">
+    <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="84" column="39" lean-forward="false" selection-start-line="84" selection-start-column="39" selection-end-line="84" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1901#1902#0" expanded="true" />
-            <element signature="e#1969#1970#0" expanded="true" />
-            <element signature="method#online#0;class#TestRunner#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/auction/VCG.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="51" column="12" lean-forward="false" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#807#808#0" expanded="true" />
-            <element signature="e#875#876#0" expanded="true" />
-            <element signature="e#1989#1990#0" expanded="true" />
-            <element signature="e#2063#2064#0" expanded="true" />
-            <element signature="method#getMaxSlot#0;class#VCG#0" expanded="false" />
-            <element signature="e#2377#2378#0" expanded="true" />
-            <element signature="e#2451#2452#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="38" lean-forward="true" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
+        <state relative-caret-position="119">
+          <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/Station.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
+            <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Negotiations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="174" column="22" lean-forward="false" selection-start-line="174" selection-start-column="22" selection-end-line="174" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1206#1207#0" expanded="true" />
+            <element signature="e#1260#1261#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

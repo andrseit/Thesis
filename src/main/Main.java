@@ -1,18 +1,8 @@
 package main;
 
-import evs.EV;
-import jade.core.Profile;
-import jade.core.ProfileImpl;
-import jade.core.Runtime;
-import jade.wrapper.AgentContainer;
-import jade.wrapper.AgentController;
-import jade.wrapper.StaleProxyException;
-import optimize.CPLEX;
-import various.EVData;
-import various.JSONFileParser;
+import various.ArrayTransformations;
 import various.TestRunner;
 
-import java.util.ArrayList;
 
 /**
  * Created by Darling on 28/8/2017.
@@ -21,18 +11,36 @@ public class Main {
     public static void main(String[] args) {
 
         TestRunner test = new TestRunner();
-        test.testRun();
-        test.offline();
+        //test.testRun();
+        //test.offlineWithAgents();
+        //test.online();
+        //test.staticOnline();
+        test.staticOffline();
+
+
         /*
-        int[][] array = new int[0][0];
-        System.out.println(array.length);
+        int[] chargers = new int[10];
+        chargers[0] = 1;
+        chargers[1] = 1;
+        chargers[2] = 1;
+        chargers[3] = 1;
+        chargers[4] = 1;
+        ArrayTransformations t = new ArrayTransformations();
+        for (int s = 0; s < 10; s++) {
+            chargers[s]--;
+            // 2.1) if not available chargers, then reset the array
+            if (chargers[s] == -1) {
+                for (int r_s = s; r_s >= 0; r_s--) {
+                    chargers[r_s]++;
+                }
+                break;
+            }
+            t.printOneDimensionArray("Chargers", chargers);
+        }
 
-        StaticRun sr = new StaticRun();
-        //sr.online();
-        //sr.offline();
-        online();
+
+        t.printOneDimensionArray("Chargers", chargers);
         */
-
     }
 
 

@@ -8,6 +8,8 @@ import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import optimize.CPLEX;
+import station.Station;
+import station.negotiation.Negotiations;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -23,6 +25,8 @@ public class TestRunner {
     private int[] chargers;
     private CPLEX c;
     private int slots;
+
+
 
     public void testRun () {
         JSONFileParser parser = new JSONFileParser();
@@ -46,7 +50,7 @@ public class TestRunner {
             price[s] = 1;
         }
         for (int s = slots/2; s < slots; s++) {
-            price[s] = 2;
+            price[s] = 1;
         }
         for (int s = 0; s < slots; s++) {
             chargers[s] = 1;
@@ -80,14 +84,17 @@ public class TestRunner {
 
         if (queue.size() != 1) {
             while (!queue.isEmpty()) {
+
                 EV removed = queue.poll();
-                bidders.remove(removed);
-                c.model(bidders, slots, price, chargers, 0, 9);
-                int new_utility = c.getUtility();
-                System.out.println("Initial: " + init_utility + ", new: " + new_utility + ", bid: " + removed.getBid());
-                int pays = new_utility - (init_utility - removed.getBid()*removed.getEnergy());
-                System.out.println("EV pays: " + pays);
-                bidders.add(removed);
+                if (removed.getCharged()) {
+                    bidders.remove(removed);
+                    c.model(bidders, slots, price, chargers, 0, 9);
+                    int new_utility = c.getUtility();
+                    System.out.println("Initial: " + init_utility + ", new: " + new_utility + ", bid: " + removed.getBid());
+                    int pays = new_utility - (init_utility - removed.getBid() * removed.getEnergy());
+                    System.out.println("EV pays: " + pays);
+                    bidders.add(removed);
+                }
             }
         }
 
@@ -128,10 +135,12 @@ public class TestRunner {
             int counter = 0;
             for(EVData e: evs) {
                 //EVData e = evs.get(0);
-                Object[] arguments = new Object[3];
+                Object[] arguments = new Object[5];
                 arguments[0] = e.getEnergy();
                 arguments[1] = e.getInformSlot();
-                arguments[2] = e.getBids();
+                arguments[2] = e.getBid();
+                arguments[3] = e.getStart();
+                arguments[4] = e.getEnd();
                 mainContainer.createNewAgent("ev" + String.valueOf(counter), "agents.online.EVOnlineAgent", arguments).start();
                 counter ++;
             }
@@ -148,7 +157,7 @@ public class TestRunner {
 
     }
 
-    public void offline () {
+    public void offlineWithAgents() {
 
         Runtime rt = Runtime.instance();
 
@@ -173,7 +182,7 @@ public class TestRunner {
         System.out.println("containers created");
 
         try {
-            mainContainer.createNewAgent("station", "agents.offline.StationAgent", null).start();
+            mainContainer.createNewAgent("station", "agents.offlineWithAgents.StationAgent", null).start();
             Thread.sleep(500);
             JSONFileParser fp = new JSONFileParser();
             ArrayList<EVData> evs = fp.readEVsData();
@@ -185,7 +194,7 @@ public class TestRunner {
                 arguments[2] = e.getBid();
                 arguments[3] = e.getStart();
                 arguments[4] = e.getEnd();
-                mainContainer.createNewAgent("ev" + String.valueOf(counter), "agents.offline.EVAgent", arguments).start();
+                mainContainer.createNewAgent("ev" + String.valueOf(counter), "agents.offlineWithAgents.EVAgent", arguments).start();
                 counter ++;
             }
         } catch (StaleProxyException e) {
@@ -194,5 +203,73 @@ public class TestRunner {
             e.printStackTrace();
         }
 
+    }
+
+
+    public void staticOffline () {
+        JSONFileParser parser = new JSONFileParser();
+        ArrayList<EVData> evs_data = parser.readEVsData();
+        ArrayList<EV> evs = new ArrayList<>();
+
+        Station station = new Station();
+
+        for (EVData e: evs_data) {
+            EV ev = new EV();
+            ev.addEVPreferences(e.getStart(), e.getEnd(), e.getBid(), e.getEnergy());
+            ev.setInformTime(e.getInformSlot());
+            station.addEVBidder(ev);
+        }
+
+        System.out.println("-------------------------- Schedule -------------------------------");
+        station.printEVBidders();
+        station.computeSchedule();
+
+        station.printPayments();
+    }
+
+    public void staticOnline () {
+
+        JSONFileParser parser = new JSONFileParser();
+        ArrayList<EVData> evs_data = parser.readEVsData();
+        ArrayList<EV> evs = new ArrayList<>();
+
+        for (EVData e: evs_data) {
+            EV ev = new EV();
+            ev.addEVPreferences(e.getStart(), e.getEnd(), e.getBid(), e.getEnergy());
+            ev.setInformTime(e.getInformSlot());
+            evs.add(ev);
+        }
+
+        Station station = new Station();
+        int slots_number = station.getSlotsNumber();
+
+        PriorityQueue<EV> queue = new PriorityQueue<EV>(10, new Comparator<EV>() {
+            @Override
+            public int compare(EV ev1, EV ev2) {
+                return ev1.getInformTime() - ev2.getInformTime();
+            }
+        });
+
+        for (EV ev: evs) {
+            queue.offer(ev);
+        }
+
+
+        //System.out.println(slots_number);
+        for (int slot = 0; slot < slots_number; slot++) {
+
+            if (!queue.isEmpty()) {
+                while (queue.peek().getInformTime() == slot) {
+                    station.addEVBidder(queue.poll());
+                    if (queue.isEmpty())
+                        break;
+                }
+            } else { break; }
+
+            System.out.println("-------------------------- Slot " + slot + " -------------------------------");
+            station.printEVBidders();
+            station.computeSchedule();
+        }
+        station.printPayments();
     }
 }

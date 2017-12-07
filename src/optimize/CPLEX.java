@@ -3,6 +3,7 @@ package optimize;
 import evs.EV;
 import ilog.concert.*;
 import ilog.cplex.IloCplex;
+import various.ArrayTransformations;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -133,7 +134,7 @@ public class CPLEX {
                             ev_energy_constraint.addTerm(1, var[ev_position][s]);
 
                             if (bid - price[s + min_slot] == 0) {
-                                objective.addTerm(0.5, var[ev_position][s]);
+                                objective.addTerm(0.001, var[ev_position][s]);
                             } else {
                                 objective.addTerm(bid, var[ev_position][s]);
                                 objective.addTerm(-price[s + min_slot], var[ev_position][s]);
@@ -176,11 +177,6 @@ public class CPLEX {
 
                     int ev_position = ev;
 
-                    if ((int) cp.getValue(charges[ev_position]) == 1)
-                        evs.get(ev).setCharged(true);
-                    else
-                        evs.get(ev).setCharged(false);
-
                     for (int s = min_slot; s <= max_slot; s++) {
                         //System.out.print(cp.getValue(var[ev][s - min_slot]) + " ");
                         schedule[ev_position][s] = (int) cp.getValue(var[ev_position][s - min_slot]);
@@ -191,7 +187,7 @@ public class CPLEX {
 
                 }
                 setWhoCharges();
-                System.out.println(objective);
+                //System.out.println(objective);
                 System.out.println("Utility: " + cp.getValue(objective));
             } else {
                 System.out.println("Problem could not be solved!");
@@ -439,4 +435,5 @@ public class CPLEX {
 
         return who_charges;
     }
+
  }

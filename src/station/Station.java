@@ -5,8 +5,7 @@ import jade.core.Agent;
 import optimize.CPLEX;
 import station.auction.OptimalSchedule;
 import station.auction.VCG;
-import station.negotiations.NegotiationComputer;
-import various.ArrayTransformations;
+import station.negotiation.Negotiations;
 import various.JSONFileParser;
 
 import java.util.ArrayList;
@@ -17,10 +16,9 @@ import java.util.ArrayList;
 public class Station extends Agent{
 
     private Schedule schedule;
-    private int[] map_occupancy;
+    private int[] map_occupancy; // remove it - it belongs to schedule
     private int[] demand; // how many evs demand to charge in each slot
     private int[] price; // the price of each slot, based on the demand
-    private int num_evs;
     private int num_slots;
     private int num_chargers;
     private ArrayList<EV> ev_bidders;
@@ -29,10 +27,8 @@ public class Station extends Agent{
     private CPLEX cp;
 
     private int initial_utility;
-    private int[] who_charges;
 
     private int id_counter = 0;
-    private ArrayTransformations transformations;
 
     public Station () {
 
@@ -45,7 +41,7 @@ public class Station extends Agent{
             price[s] = 1;
         }
         for (int s = num_slots/2; s < num_slots; s++) {
-            price[s] = 2;
+            price[s] = 1;
         }
         schedule = new Schedule(num_slots, num_chargers);
         demand = new int[num_slots];
@@ -53,7 +49,7 @@ public class Station extends Agent{
         cp = new CPLEX();
         ev_bidders = new ArrayList<EV>();
         locked_bidders = new ArrayList<>();
-        transformations = new ArrayTransformations();
+        not_charged = new ArrayList<>();
     }
 
 
@@ -69,18 +65,30 @@ public class Station extends Agent{
     private void compute() {
         OptimalSchedule optimal = new OptimalSchedule(this);
         optimal.computeOptimalSchedule();
-        System.out.println(schedule.printFullScheduleMap(price));
+        this.findNotCharged();
         VCG v = new VCG(this);
         v.vcg();
-        this.findNotCharged();
         this.moveLockedBidders();
+        updateRemainingChargers();
+        System.out.println(schedule.printFullScheduleMap(price));
+
+        System.out.println("\n====================================================================\n");
+        Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), schedule.getRemainingChargers());
+        neg.computeSuggestions();
+        System.out.println(schedule.printFullScheduleMap(price));
+        System.out.println("\n====================================================================\n");
     }
 
 
     public void findNotCharged () {
-        for (EV ev: ev_bidders) {
-            if (!ev.getCharged())
-                not_charged.add(ev);
+        int[] who_charged = cp.getWhoCharges();
+        for (int ev = 0; ev < who_charged.length; ev++) {
+            EV current = ev_bidders.get(ev);
+            if (who_charged[ev] == 1) {
+                current.setCharged(true);
+            } else {
+                not_charged.add(current);
+            }
         }
     }
 
@@ -92,40 +100,6 @@ public class Station extends Agent{
         ev_bidders.clear();
     }
 
-
-    private void negotiations () {
-        for (EV ev: not_charged) {
-            int energy = ev.getEnergy();
-            int bids_num = ev.getBidsNumber();
-            int[][] slots = ev.getSlotsArray();
-
-            NegotiationComputer neg = new NegotiationComputer();
-            neg.computeOffer(energy, slots, num_chargers, schedule.getMapOccupancy());
-
-            int start = neg.getNewStartSlot();
-            int end = neg.getNewEndSlot();
-
-            schedule.updateFullScheduleMap(ev, start, end, ev.getScheduleRow());
-            schedule.printFullScheduleMap(price);
-        }
-    }
-
-    private void saveInitialResults (int[] payments) {
-        for (int ev = 0; ev <ev_bidders.size(); ev++) {
-            ev_bidders.get(ev).setPays(payments[ev]);
-        }
-
-    }
-
-
-
-    public void setEVBidders (ArrayList<EV> ev_bidders) {
-        this.ev_bidders = ev_bidders;
-
-        for (int ev = 0; ev < ev_bidders.size(); ev++) {
-            ev_bidders.get(ev).setScheduleRow(ev);
-        }
-    }
 
 
     public void addEVBidder (EV ev) {
@@ -161,9 +135,7 @@ public class Station extends Agent{
         }
     }
 
-    private void updateOccupancy () {
 
-    }
     private int countAvailableSlots (int lb, int ub) {
         int available = 0;
         for(int s = 0; s < num_slots; s++) {
@@ -187,7 +159,7 @@ public class Station extends Agent{
 
     public void printPayments () {
         for (EV ev: locked_bidders) {
-            System.out.println("EV: " + ev.getId() + " pays: " + ev.getFinalPayment());
+            System.out.println("EV: " + (ev.getId()-1) + " pays: " + ev.getFinalPayment());
         }
     }
 
@@ -226,4 +198,6 @@ public class Station extends Agent{
     public int getInitialUtility () {
         return initial_utility;
     }
+
+    public void updateRemainingChargers () { schedule.setRemainingChargers(num_slots); }
 }

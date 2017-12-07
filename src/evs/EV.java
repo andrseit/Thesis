@@ -34,23 +34,25 @@ public class EV extends Agent {
         }
     }
 
+
+    private Preferences preferences;
     private int id;
-    private int energy;
+   //private int energy;
     private int inform_slot;
     private ArrayList<SlotsStruct> slots;
     private boolean charged = false;
     private int initial_pays; // what the ev will pay initially
     private int final_pays; // what the ev will finally pay
     private int schedule_row; // in which row of the schedule the ev is represented, because it migth change when the ordering happens
-    private int min_slot, max_slot;
 
     // new data variables, now there is only one bid, so SlotsStruct is unnecessary
     private int bid;
-    private int start;
-    private int end;
+    //private int start;
+    //private int end;
 
     public EV() {
         slots = new ArrayList<SlotsStruct>();
+        preferences = new Preferences();
     }
 
     public void addSlotsPreferences(int start, int end, int bid) {
@@ -58,10 +60,10 @@ public class EV extends Agent {
     }
 
     public void addEVPreferences (int start, int end, int bid, int energy) {
-        this.start = start;
-        this.end = end;
+        preferences.setStart(start);
+        preferences.setEnd(end);
+        preferences.setEnergy(energy);
         this.bid = bid;
-        this.energy = energy;
     }
 
     protected void setup() {
@@ -70,20 +72,22 @@ public class EV extends Agent {
 
     public String printEV() {
         StringBuilder str = new StringBuilder();
-        str.append("EVs id: " + id + " -> energy needed: " + energy + "   informed at slot: " + inform_slot + ".\n");
+        str.append("EVs id: " + id + " -> energy needed: " + preferences.getEnergy() + "   informed at slot: " + inform_slot + ".\n");
         for (SlotsStruct slot : slots) {
             str.append("    > " + slot.getStart() + "-" + slot.getEnd() + " :: " + slot.getBid());
         }
         str.append("\nSchedule row: " + schedule_row + "\n");
+        if (charged)
+            str.append(" will charge!");
         return str.toString();
     }
 
     public int getMinSlot () {
-        return start;
+        return preferences.getStart();
     }
 
     public int getMaxSlot () {
-        return end;
+        return preferences.getEnd();
     }
 
     public int getId() {
@@ -91,7 +95,7 @@ public class EV extends Agent {
     }
 
     public int getEnergy() {
-        return energy;
+        return preferences.getEnergy();
     }
 
     public ArrayList<SlotsStruct> getSlots() {
@@ -169,7 +173,7 @@ public class EV extends Agent {
     }
 
     public void setEnergy(int energy) {
-        this.energy = energy;
+        preferences.setEnergy(energy);
     }
 
     public void setID(int id) {
@@ -197,18 +201,20 @@ public class EV extends Agent {
     }
 
     public String toString () {
-        return "energy: " + energy + " bid: " + bid + " start: " + start + " end: " + end;
+        return "energy: " + preferences.getEnergy() + " bid: " + bid + " start: " + preferences.getStart() + " end: " + preferences.getEnd();
     }
 
     public int getStartSlot () {
-        return start;
+        return preferences.getStart();
     }
 
     public int getEndSlot () {
-        return end;
+        return preferences.getEnd();
     }
 
     public int getBid () {
         return bid;
     }
+
+    public Preferences getPreferences () { return preferences; }
 }
