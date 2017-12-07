@@ -134,6 +134,7 @@ public class Negotiations {
 
 
     private void sortSuggestionsList () {
+        // what is going on
         Collections.sort(suggestions_list, new Comparator<SuggestionInfo>() {
             @Override
             public int compare(SuggestionInfo o1, SuggestionInfo o2) {
