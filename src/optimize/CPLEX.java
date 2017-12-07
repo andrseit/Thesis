@@ -29,6 +29,10 @@ public class CPLEX {
     private int slots_number;
     private int[][] schedule;
     private int[][] charges_int;
+    private int[] who_charges;
+
+    // value of the objective function
+    private int utility;
 
     public CPLEX () {
         try {
@@ -114,12 +118,15 @@ public class CPLEX {
                 IloLinearNumExpr zero = cp.linearNumExpr();
 
 
-                for (int b = 0; b < current.getBidsNumber(); b++) {
+                //for (int b = 0; b < current.getBidsNumber(); b++) {
 
-                    int start = current.getStartSlot(b); // get start slot
-                    int end = current.getEndSlot(b); // get end slot
-                    int bid = current.getBid(b); // get bid for these slots
+                    //int start = current.getStartSlot(b); // get start slot
+                    //int end = current.getEndSlot(b); // get end slot
+                    //int bid = current.getBid(b); // get bid for these slots
 
+                    int start = current.getStartSlot();
+                    int end = current.getEndSlot();
+                    int bid = current.getBid();
                     for (int s = 0; s < slots_number; s++) {
                         if (s >= start - min_slot && s <= end - min_slot) {
 
@@ -135,7 +142,7 @@ public class CPLEX {
                             checked_slot[s] = true;
                         }
                     }
-                }
+                //}
 
                 for (int s = 0; s < slots_number; s++) {
                     if (!checked_slot[s])
@@ -179,8 +186,13 @@ public class CPLEX {
                         schedule[ev_position][s] = (int) cp.getValue(var[ev_position][s - min_slot]);
                     }
                     //System.out.println();
-                }
 
+                    utility = (int) cp.getValue(objective);
+
+                }
+                setWhoCharges();
+                System.out.println(objective);
+                System.out.println("Utility: " + cp.getValue(objective));
             } else {
                 System.out.println("Problem could not be solved!");
             }
@@ -406,5 +418,25 @@ public class CPLEX {
 
     public int[][] getScheduleMap () { return schedule; }
 
+    public int getUtility () { return utility; }
 
-}
+    private void setWhoCharges () {
+        who_charges = new int[evs_number];
+
+        for (int ev = 0; ev < evs_number; ev++) {
+            try {
+                if (cp.getValue(charges[ev]) > 0)
+                    who_charges[ev] = 1;
+                else
+                    who_charges[ev] = 0;
+            } catch (IloException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+    public int[] getWhoCharges () {
+
+        return who_charges;
+    }
+ }

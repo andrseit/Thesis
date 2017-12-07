@@ -11,8 +11,24 @@ public class EVData {
     private int inform_slot;
     private ArrayList<Integer[]> bids;
 
-    public EVData () {
+    // new data variables - now there is only one bid for all the energy demanded
+    // so there are only one start-end slots
+    private int bid;
+    private int start;
+    private int end;
+
+    private String json_sting;
+
+    public EVData (int energy, int bid, int start, int end, int inform_slot) {
+
         bids = new ArrayList<Integer[]>();
+
+        this.energy = energy;
+        this.bid = bid;
+        this.start = start;
+        this.end = end;
+        this.inform_slot = inform_slot;
+
     }
 
     public void addBid (int start, int end, int bid) {
@@ -23,6 +39,9 @@ public class EVData {
         bids.add(bid_array);
     }
 
+    public void setJSONString (String str) {
+        this.json_sting = str;
+    }
     public void setEnergy (int energy) {
         this.energy = energy;
     }
@@ -48,5 +67,22 @@ public class EVData {
     public void setInformSlot (int inform_slot) { this.inform_slot = inform_slot; }
 
     public int getInformSlot () { return  inform_slot; }
+
+    public int getBid() { return bid; }
+
+    public void setBid(int bid) { this.bid = bid; }
+
+    public int getStart() { return start; }
+
+    public void setStart(int start) { this.start = start; }
+
+    public int getEnd() { return end; }
+
+    public void setEnd(int end) { this.end = end; }
+
+    @Override
+    public String toString () {
+        return json_sting;
+    }
 
 }

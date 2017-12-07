@@ -1,2 +1,2 @@
-{"bids":[{"start":2,"end":5,"bid":2}],"energy":4,"inform":1}
-{"bids":[{"start":2,"end":5,"bid":2}],"energy":4,"inform":2}
+{"bid":2,"start":2,"end":4,"energy":3,"inform":2}
+{"bid":3,"start":2,"end":5,"energy":4,"inform":1}

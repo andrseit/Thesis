@@ -21,6 +21,9 @@ public class EVAgent extends Agent{
 
     private int energy;
     private int inform_slot;
+    private int bid;
+    private int start;
+    private int end;
     //private int[][] bids;
     private AID station;
     private String data_string;
@@ -36,9 +39,11 @@ public class EVAgent extends Agent{
         if(args != null) {
             energy = Integer.parseInt(args[0].toString());
             inform_slot = Integer.parseInt(args[1].toString());
-            ArrayList<Integer[]> bids = (ArrayList<Integer[]>) args[2];
+            bid = Integer.parseInt(args[2].toString());
+            start = Integer.parseInt(args[3].toString());
+            end = Integer.parseInt(args[4].toString());
 
-            data_string = p.getJSONStringEV(bids, energy);
+            data_string = p.getJSONStringEV(bid, start, end, energy);
         }
 
 
