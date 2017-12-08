@@ -1,8 +1,9 @@
 package station.negotiation;
 
-import evs.EV;
+import station.EVInfo;
 import evs.Preferences;
 import various.ArrayTransformations;
+import various.PrintOuch;
 
 import java.util.*;
 
@@ -16,82 +17,32 @@ import java.util.*;
  */
 public class Negotiations {
 
-    private class SuggestionInfo {
-        private EV ev;
-        private Suggestion suggestion;
-        private Suggestion alternative;
-        private boolean less_energy;
-
-        public SuggestionInfo(EV ev) {
-            this.ev = ev;
-        }
-
-        public int getSuggestionRating() {
-            return suggestion.getRating();
-        }
-
-        public void setSuggesion (Suggestion s) {
-           this.suggestion = s;
-        }
-
-        public void setAlternative (Suggestion s) {
-            this.alternative = s;
-        }
-
-        public Suggestion getSuggestion() {
-            return suggestion;
-        }
-
-        public Suggestion getAlternative() {
-            return alternative;
-        }
-
-        public EV getEV() { return ev; }
-
-        public void setSuggestionType (boolean less_energy) {
-            this.less_energy = less_energy;
-        }
-
-        public boolean getSuggestionType () { return less_energy; }
-
-        public String toString () {
-            StringBuilder str = new StringBuilder();
-            str.append("Start: " + ev.getStartSlot() + "/" + suggestion.getStart() + "(" + alternative.getStart() + ")\n");
-            str.append("End: " + ev.getEndSlot() + "/" + suggestion.getEnd() + "(" + alternative.getEnd() + ")\n");
-            str.append("Energy: " + ev.getEnergy() + "/" + suggestion.getEnergy() + "(" + alternative.getEnergy() + ")\n");
-            str.append("Rating: " + suggestion.getRating() + "\n");
-            return str.toString();
-        }
-    }
-
-    private ArrayList<EV> evs;
+    private ArrayList<EVInfo> evs;
     private int[][] schedule;
     private int[] chargers;
 
-    private ArrayList<SuggestionInfo> suggestions_list; // each row represents and ev - parallel with evs: ArrayList<EV>
-    private PriorityQueue<SuggestionInfo> suggestions_queu; // instead of ArrayList<> - smaller to bigger
+    private PriorityQueue<EVInfo> suggestions_queue; // instead of ArrayList<> - smaller to bigger
+    private ArrayList<Preferences> suggestions; // this list contains the final suggestions
 
-    public Negotiations(ArrayList<EV> evs, int[][] schedule, int[] chargers) {
+    public Negotiations(ArrayList<EVInfo> evs, int[][] schedule, int[] chargers) {
         this.evs = evs;
         this.schedule = schedule;
         this.chargers = Arrays.copyOf(chargers, chargers.length);
 
-        suggestions_list = new ArrayList<>();
-        suggestions_queu = new PriorityQueue<>(evs.size(), new Comparator<SuggestionInfo>() {
+        suggestions = new ArrayList<>();
+        suggestions_queue = new PriorityQueue<>(evs.size(), new Comparator<EVInfo>() {
             @Override
-            public int compare(SuggestionInfo o1, SuggestionInfo o2) {
-                return o2.getSuggestionRating() - o1.getSuggestionRating();
+            public int compare(EVInfo o1, EVInfo o2) {
+                return o2.getSuggestion().getRating() - o1.getSuggestion().getRating();
             }
         });
     }
 
     /**
-     * For each EV not charged compute some suggestions
+     * For each EVInfo not charged compute some suggestions
      */
     public void computeSuggestions () {
-        for (EV ev: evs) {
-            //this.lessEnergy(ev.getPreferences());
-            SuggestionInfo suggestion = new SuggestionInfo(ev);
+        for (EVInfo ev: evs) {
 
             Suggestion first = this.lessEnergy(ev.getPreferences());
             this.evaluateSuggestion(ev.getPreferences(), first);
@@ -99,15 +50,10 @@ public class Negotiations {
             Suggestion second = this.alteredWindow(ev.getPreferences());
             this.evaluateSuggestion(ev.getPreferences(), second);
 
-            this.compareSuggestions(suggestion, first, second);
-            suggestions_list.add(suggestion);
-            suggestions_queu.offer(suggestion);
+            this.compareSuggestions(ev, first, second);
+            suggestions_queue.offer(ev);
         }
 
-        this.sortSuggestionsList();
-        for (SuggestionInfo s: suggestions_list) {
-            System.out.println(s.toString());
-        }
 
         this.updateChargers();
         ArrayTransformations t = new ArrayTransformations();
@@ -116,50 +62,33 @@ public class Negotiations {
 
     }
 
-    private void compareSuggestions (SuggestionInfo suggestion, Suggestion s1, Suggestion s2) {
+    private void compareSuggestions (EVInfo ev, Suggestion s1, Suggestion s2) {
         int difference = s1.getRating() - s2.getRating();
-        System.out.println("Difference: " + difference);
         if (difference < 0) {
-            suggestion.setSuggesion(s1);
-            suggestion.setAlternative(s2);
-            suggestion.setSuggestionType(true);
+            ev.setSuggestion(s1);
         }
         else {
-            suggestion.setSuggesion(s2);
-            suggestion.setAlternative(s1);
-            suggestion.setSuggestionType(false);
+            ev.setSuggestion(s2);
         }
 
     }
 
-
-    private void sortSuggestionsList () {
-        // what is going on
-        Collections.sort(suggestions_list, new Comparator<SuggestionInfo>() {
-            @Override
-            public int compare(SuggestionInfo o1, SuggestionInfo o2) {
-                return o2.getSuggestionRating()-o1.getSuggestionRating();
-            }
-        });
-    }
 
     /**
      * This method will take as a parameter a suggestion info an it will compute
      * an alternative suggestion
      */
-    private void computeAlternative (SuggestionInfo suggestion) {
+    private void computeAlternative (EVInfo ev) {
 
         System.out.println("Computing alternative");
 
-        Suggestion less_energy_suggestion = this.lessEnergy(suggestion.getEV().getPreferences());
-        Suggestion altered_window_suggestion = this.alteredWindow(suggestion.getEV().getPreferences());
-        this.evaluateSuggestion(suggestion.getEV().getPreferences(), less_energy_suggestion);
-        this.evaluateSuggestion(suggestion.getEV().getPreferences(), altered_window_suggestion);
-        this.compareSuggestions(suggestion, less_energy_suggestion, altered_window_suggestion);
+        Suggestion less_energy_suggestion = this.lessEnergy(ev.getPreferences());
+        Suggestion altered_window_suggestion = this.alteredWindow(ev.getPreferences());
+        this.evaluateSuggestion(ev.getPreferences(), less_energy_suggestion);
+        this.evaluateSuggestion(ev.getPreferences(), altered_window_suggestion);
+        this.compareSuggestions(ev, less_energy_suggestion, altered_window_suggestion);
 
-        suggestions_queu.offer(suggestion);
-        suggestions_list.add(suggestion);
-        System.out.println(suggestion.toString());
+        suggestions_queue.offer(ev);
     }
 
     private void updateChargers () {
@@ -169,10 +98,12 @@ public class Negotiations {
         boolean alt = false;
 
 
-        SuggestionInfo suggestion = null;
-        while ((suggestion = suggestions_queu.poll()) != null) {
+        EVInfo ev = null;
+        while ((ev = suggestions_queue.poll()) != null) {
 
-            if (suggestion.getSuggestionRating() > 10)
+            Suggestion suggestion = ev.getSuggestion();
+
+            if (suggestion.getRating() > 10)
                 break;
             int count = 0;
             // autos o pinakas krataei poies theseis allaksan kathws ginotan to update
@@ -182,9 +113,11 @@ public class Negotiations {
             int[] slots_changed = new int[chargers.length];
             // 1) take the top suggestion
 
-            System.out.println(suggestion.toString() + "\n apo update");
+            PrintOuch print = new PrintOuch();
+            print.comparePreferences(ev.getPreferences(), suggestion);
+
             // 2) update chargers that this suggestion consumes
-            for (int s = suggestion.getSuggestion().getStart(); s <= suggestion.getSuggestion().getEnd(); s++) {
+            for (int s = suggestion.getStart(); s <= suggestion.getEnd(); s++) {
                 if (chargers[s] > 0) {
                     chargers[s]--;
                     slots_changed[s] = 1;
@@ -192,17 +125,16 @@ public class Negotiations {
                 }
                 // 2.1) if not available chargers, then reset the array
             }
-            System.out.println("Count: " + count);
-            if (count < suggestion.getSuggestion().getEnergy()) {
+            if (count < suggestion.getEnergy()) {
                 alt = true;
-                for (int s = suggestion.getSuggestion().getStart(); s <= suggestion.getSuggestion().getEnd(); s++) {
+                for (int s = suggestion.getStart(); s <= suggestion.getEnd(); s++) {
                     if (slots_changed[s] == 1)
                         chargers[s]++;
                     // 2.1) if not available chargers, then reset the array
                 }
             }
             t.printOneDimensionArray("Chargers", chargers);
-            if (alt) this.computeAlternative(suggestion);
+            if (alt) this.computeAlternative(ev);
 
             alt = false;
         }
@@ -210,7 +142,24 @@ public class Negotiations {
     }
 
     /**
+     * Set the final suggestions to each EV
+     * For some EVs, suggestions may could not be computed
+     * So these evs should be filtered out before the conversation begins
+     */
+    /*
+    private void filterSuggestions () {
+        SuggestionInfo suggestion = null;
+
+        while ((suggestion = suggestions_queue.poll()) != null) {
+            suggestions.add(suggestion.getSuggestion()); // add the suggestion to the general list - NOT NEEDED
+        }
+
+    }
+    */
+    
+    /**
      * First type of suggestion: Less energy in the initially given window
+     * WARNING: Add a case where the available energy is zero - return a huge value
      */
     private Suggestion lessEnergy (Preferences initial) {
 
@@ -326,7 +275,7 @@ public class Negotiations {
     }
 
     /**
-     * Take as input a suggestion (new preferences) and the initial preferences of an EV.
+     * Take as input a suggestion (new preferences) and the initial preferences of an EVInfo.
      * Based on some metric check if the suggestion is legitimate.
      */
     private void evaluateSuggestion (Preferences initial, Suggestion suggestion) {
@@ -336,7 +285,7 @@ public class Negotiations {
         int energy_diff = initial.getEnergy() - suggestion.getEnergy();
 
         suggestion.setRating(start_dif + end_diff + energy_diff);
-        System.out.println("\nDifferences: " + start_dif + ", " + end_diff + ", " + energy_diff);
+        //System.out.println("\nDifferences: " + start_dif + ", " + end_diff + ", " + energy_diff);
 
     }
 
