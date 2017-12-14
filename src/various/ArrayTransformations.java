@@ -91,9 +91,7 @@ public class ArrayTransformations {
         int[][] map = new int[array.length][slots_number];
 
         for (int e = 0; e < array.length; e++) {
-            for (int s = min; s <= max; s++) {
-                map[e][s] = array[e][s];
-            }
+            System.arraycopy(array[e], min, map[e], min, max + 1 - min);
         }
 
         return map;

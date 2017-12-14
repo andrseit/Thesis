@@ -1,6 +1,6 @@
 package optimize;
 
-import evs.EV;
+import station.EVInfo;
 import ilog.concert.*;
 import ilog.cplex.IloCplex;
 

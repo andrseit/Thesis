@@ -1,16 +1,13 @@
 package various;
 
-import evs.EV;
+import station.EVInfo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.*;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import static java.lang.Math.log;
 import static java.lang.Math.toIntExact;
 
 /**
@@ -24,7 +21,7 @@ public class JSONFileParser {
 
     public void readStationData() {
 
-        ArrayList<EV> evs = new ArrayList<EV>();
+        ArrayList<EVInfo> evs = new ArrayList<EVInfo>();
         JSONParser parser = new JSONParser();
         Reader reader = null;
         try {
@@ -141,8 +138,8 @@ public class JSONFileParser {
         return evs;
     }
 
-    public EV parseBidsString (String bids) {
-        EV ev = new EV();
+    public EVInfo parseBidsString (String bids) {
+        EVInfo ev = new EVInfo();
         try {
             JSONParser parser = new JSONParser();
             Object object = parser.parse(bids);

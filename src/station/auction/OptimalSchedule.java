@@ -1,6 +1,6 @@
 package station.auction;
 
-import evs.EV;
+import station.EVInfo;
 import optimize.CPLEX;
 import station.Station;
 
@@ -39,28 +39,28 @@ public class OptimalSchedule {
     }
 
     private int getMinSlot () {
-        PriorityQueue<EV> queue = new PriorityQueue<EV>(10, new Comparator<EV>() {
+        PriorityQueue<EVInfo> queue = new PriorityQueue<EVInfo>(10, new Comparator<EVInfo>() {
             @Override
-            public int compare(EV ev1, EV ev2) {
+            public int compare(EVInfo ev1, EVInfo ev2) {
                 return ev1.getMinSlot() - ev2.getMinSlot();
             }
         });
 
-        for (EV ev: station.getBidderList()) {
+        for (EVInfo ev: station.getBidderList()) {
             queue.offer(ev);
         }
         return queue.peek().getMinSlot();
     }
 
     private int getMaxSlot () {
-        PriorityQueue<EV> queue = new PriorityQueue<EV>(10, new Comparator<EV>() {
+        PriorityQueue<EVInfo> queue = new PriorityQueue<EVInfo>(10, new Comparator<EVInfo>() {
             @Override
-            public int compare(EV ev1, EV ev2) {
+            public int compare(EVInfo ev1, EVInfo ev2) {
                 return ev2.getMaxSlot() - ev1.getMaxSlot();
             }
         });
 
-        for (EV ev: station.getBidderList()) {
+        for (EVInfo ev: station.getBidderList()) {
             queue.offer(ev);
         }
 

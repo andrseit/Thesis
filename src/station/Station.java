@@ -1,19 +1,19 @@
 package station;
 
-import evs.EV;
-import jade.core.Agent;
 import optimize.CPLEX;
 import station.auction.OptimalSchedule;
 import station.auction.VCG;
+import station.negotiation.Conversation;
 import station.negotiation.Negotiations;
 import various.JSONFileParser;
+import various.PrintOuch;
 
 import java.util.ArrayList;
 
 /**
  * Created by Darling on 29/7/2017.
  */
-public class Station extends Agent{
+public class Station{
 
     private Schedule schedule;
     private int[] map_occupancy; // remove it - it belongs to schedule
@@ -21,9 +21,9 @@ public class Station extends Agent{
     private int[] price; // the price of each slot, based on the demand
     private int num_slots;
     private int num_chargers;
-    private ArrayList<EV> ev_bidders;
-    private ArrayList<EV> locked_bidders;
-    private ArrayList<EV> not_charged; // the ev's that did not fit in the initial schedule
+    private ArrayList<EVInfo> ev_bidders;
+    private ArrayList<EVInfo> locked_bidders;
+    private ArrayList<EVInfo> not_charged; // the ev's that did not fit in the initial schedule
     private CPLEX cp;
 
     private int initial_utility;
@@ -47,7 +47,7 @@ public class Station extends Agent{
         demand = new int[num_slots];
         schedule.printSchedule();
         cp = new CPLEX();
-        ev_bidders = new ArrayList<EV>();
+        ev_bidders = new ArrayList<EVInfo>();
         locked_bidders = new ArrayList<>();
         not_charged = new ArrayList<>();
     }
@@ -63,19 +63,33 @@ public class Station extends Agent{
     }
 
     private void compute() {
+
+        PrintOuch print = new PrintOuch();
+        System.out.println("========================== 1) Optimal Schedule ============================");
+        System.out.println("Starting -- Computing initial optimal schedule");
         OptimalSchedule optimal = new OptimalSchedule(this);
         optimal.computeOptimalSchedule();
+        System.out.println(schedule.printFullScheduleMap(price));
+        System.out.println("\n====================================================================\n");
+
+
+        System.out.println("========================== 2) VCG Payments ============================");
         this.findNotCharged();
         VCG v = new VCG(this);
         v.vcg();
         this.moveLockedBidders();
         updateRemainingChargers();
-        System.out.println(schedule.printFullScheduleMap(price));
-
         System.out.println("\n====================================================================\n");
+
+
+        System.out.println("\n============================= 3) Negotiation ============================\n");
         Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), schedule.getRemainingChargers());
         neg.computeSuggestions();
-        System.out.println(schedule.printFullScheduleMap(price));
+        //System.out.println(schedule.printFullScheduleMap(price));
+        //System.out.println("\n====================================================================\n");
+        System.out.println("\n===================== 4) Conversation ===================================\n");
+        Conversation conversation = new Conversation(neg.getFilteredSuggestionList(), neg.getChargers());
+        conversation.conversation();
         System.out.println("\n====================================================================\n");
     }
 
@@ -83,7 +97,7 @@ public class Station extends Agent{
     public void findNotCharged () {
         int[] who_charged = cp.getWhoCharges();
         for (int ev = 0; ev < who_charged.length; ev++) {
-            EV current = ev_bidders.get(ev);
+            EVInfo current = ev_bidders.get(ev);
             if (who_charged[ev] == 1) {
                 current.setCharged(true);
             } else {
@@ -94,7 +108,7 @@ public class Station extends Agent{
 
 
     private void moveLockedBidders () {
-        for (EV ev: ev_bidders) {
+        for (EVInfo ev: ev_bidders) {
             locked_bidders.add(ev);
         }
         ev_bidders.clear();
@@ -102,16 +116,16 @@ public class Station extends Agent{
 
 
 
-    public void addEVBidder (EV ev) {
-        id_counter++;
+    public void addEVBidder (EVInfo ev) {
         ev.setID(id_counter);
+        id_counter++;
         ev_bidders.add(ev);
     }
 
     public void addEVBidder (String ev_json) {
 
         JSONFileParser p = new JSONFileParser();
-        EV ev = p.parseBidsString(ev_json);
+        EVInfo ev = p.parseBidsString(ev_json);
         ev.setID(id_counter);
         id_counter++;
         ev_bidders.add(ev);
@@ -119,7 +133,7 @@ public class Station extends Agent{
 
     public String printEVBidders () {
         StringBuilder str = new StringBuilder();
-        for (EV ev: ev_bidders) {
+        for (EVInfo ev: ev_bidders) {
             str.append(ev.printEV());
         }
         return str.toString();
@@ -127,7 +141,7 @@ public class Station extends Agent{
 
     public void chooseBidders () {
         for(int ev = 0; ev < ev_bidders.size(); ev++) {
-            EV current = ev_bidders.get(ev);
+            EVInfo current = ev_bidders.get(ev);
 
 
             // check slots if available - count how many are available in the given range
@@ -146,7 +160,7 @@ public class Station extends Agent{
     }
 
     private void computeDemand () {
-        for (EV ev: ev_bidders) {
+        for (EVInfo ev: ev_bidders) {
             for (int b = 0; b < ev.getBidsNumber(); b++) {
                 int start = ev.getStartSlot(b);
                 int end = ev.getEndSlot(b);
@@ -158,12 +172,16 @@ public class Station extends Agent{
     }
 
     public void printPayments () {
-        for (EV ev: locked_bidders) {
-            System.out.println("EV: " + (ev.getId()-1) + " pays: " + ev.getFinalPayment());
+        for (EVInfo ev: locked_bidders) {
+            System.out.println("EVInfo: " + (ev.getId()-1) + " pays: " + ev.getFinalPayment());
         }
     }
 
-
+    public void printBidders () {
+        for (EVInfo ev: ev_bidders) {
+            System.out.println(ev.getObjectAddress());
+        }
+    }
 
     public String printSchedule () {
         return schedule.printFullScheduleMap(price);
@@ -179,7 +197,7 @@ public class Station extends Agent{
 
     public int getBiddersNumber () { return this.ev_bidders.size(); }
 
-    public ArrayList<EV> getBidderList () { return ev_bidders; }
+    public ArrayList<EVInfo> getBidderList () { return ev_bidders; }
 
     public CPLEX getCP () { return cp; }
 

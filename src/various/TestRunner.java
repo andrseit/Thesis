@@ -1,6 +1,7 @@
 package various;
 
 import evs.EV;
+import station.EVInfo;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -9,7 +10,6 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import optimize.CPLEX;
 import station.Station;
-import station.negotiation.Negotiations;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -32,14 +32,14 @@ public class TestRunner {
         JSONFileParser parser = new JSONFileParser();
 
         ArrayList<EVData> data = parser.readEVsData();
-        ArrayList<EV> bidders = new ArrayList<>();
+        ArrayList<EVInfo> bidders = new ArrayList<>();
 
         for (EVData d: data) {
             System.out.println(d.toString());
             bidders.add(parser.parseBidsString(d.toString()));
         }
 
-        for (EV ev: bidders) {
+        for (EVInfo ev: bidders) {
             System.out.println(ev.toString());
         }
 
@@ -68,16 +68,16 @@ public class TestRunner {
         vcgPayments(bidders);
     }
 
-    private void vcgPayments (ArrayList<EV> bidders) {
+    private void vcgPayments (ArrayList<EVInfo> bidders) {
         int init_utility = c.getUtility();
-        PriorityQueue<EV> queue = new PriorityQueue<EV>(10, new Comparator<EV>() {
+        PriorityQueue<EVInfo> queue = new PriorityQueue<EVInfo>(10, new Comparator<EVInfo>() {
             @Override
-            public int compare(EV ev1, EV ev2) {
+            public int compare(EVInfo ev1, EVInfo ev2) {
                 return ev2.getPays() - ev1.getPays();
             }
         });
 
-        for (EV ev: bidders) {
+        for (EVInfo ev: bidders) {
             // fill the queue
             queue.offer(ev);
         }
@@ -85,14 +85,14 @@ public class TestRunner {
         if (queue.size() != 1) {
             while (!queue.isEmpty()) {
 
-                EV removed = queue.poll();
+                EVInfo removed = queue.poll();
                 if (removed.getCharged()) {
                     bidders.remove(removed);
                     c.model(bidders, slots, price, chargers, 0, 9);
                     int new_utility = c.getUtility();
                     System.out.println("Initial: " + init_utility + ", new: " + new_utility + ", bid: " + removed.getBid());
                     int pays = new_utility - (init_utility - removed.getBid() * removed.getEnergy());
-                    System.out.println("EV pays: " + pays);
+                    System.out.println("EVInfo pays: " + pays);
                     bidders.add(removed);
                 }
             }
@@ -206,6 +206,12 @@ public class TestRunner {
     }
 
 
+    /**
+     * As in reality it creates two objects for each EV
+     * The first object represents the EV itself (the agent)
+     * The second represents the information that the station keeps for the EV
+     * So there are 2xEVs objects, which may not be optimal
+     */
     public void staticOffline () {
         JSONFileParser parser = new JSONFileParser();
         ArrayList<EVData> evs_data = parser.readEVsData();
@@ -214,27 +220,30 @@ public class TestRunner {
         Station station = new Station();
 
         for (EVData e: evs_data) {
-            EV ev = new EV();
-            ev.addEVPreferences(e.getStart(), e.getEnd(), e.getBid(), e.getEnergy());
-            ev.setInformTime(e.getInformSlot());
-            station.addEVBidder(ev);
+            EVInfo ev_info = new EVInfo();
+            EV ev = new EV(e.getStart(), e.getEnd(), e.getEnergy(), e.getBid());
+            evs.add(ev);
+            ev_info.addEVPreferences(e.getStart(), e.getEnd(), e.getBid(), e.getEnergy());
+            ev_info.setInformTime(e.getInformSlot());
+            ev_info.setEVAddress(ev);
+            station.addEVBidder(ev_info);
         }
 
         System.out.println("-------------------------- Schedule -------------------------------");
         station.printEVBidders();
         station.computeSchedule();
 
-        station.printPayments();
+        //station.printPayments();
     }
 
     public void staticOnline () {
 
         JSONFileParser parser = new JSONFileParser();
         ArrayList<EVData> evs_data = parser.readEVsData();
-        ArrayList<EV> evs = new ArrayList<>();
+        ArrayList<EVInfo> evs = new ArrayList<>();
 
         for (EVData e: evs_data) {
-            EV ev = new EV();
+            EVInfo ev = new EVInfo();
             ev.addEVPreferences(e.getStart(), e.getEnd(), e.getBid(), e.getEnergy());
             ev.setInformTime(e.getInformSlot());
             evs.add(ev);
@@ -243,14 +252,14 @@ public class TestRunner {
         Station station = new Station();
         int slots_number = station.getSlotsNumber();
 
-        PriorityQueue<EV> queue = new PriorityQueue<EV>(10, new Comparator<EV>() {
+        PriorityQueue<EVInfo> queue = new PriorityQueue<EVInfo>(10, new Comparator<EVInfo>() {
             @Override
-            public int compare(EV ev1, EV ev2) {
+            public int compare(EVInfo ev1, EVInfo ev2) {
                 return ev1.getInformTime() - ev2.getInformTime();
             }
         });
 
-        for (EV ev: evs) {
+        for (EVInfo ev: evs) {
             queue.offer(ev);
         }
 

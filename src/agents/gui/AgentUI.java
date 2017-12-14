@@ -54,7 +54,7 @@ public class AgentUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (suspended == true) {
+                if (suspended) {
                     a.doActivate();
                     suspended = false;
                     btnPause.setText("Pause");

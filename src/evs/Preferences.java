@@ -5,9 +5,9 @@ package evs;
  */
 public class Preferences {
 
-    private int start;
-    private int end;
-    private int energy;
+    protected int start;
+    protected int end;
+    protected int energy;
 
 
     public int getStart() {

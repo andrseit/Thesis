@@ -1,6 +1,5 @@
 package station;
 
-import evs.EV;
 import various.ArrayTransformations;
 
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public class Schedule {
             System.arraycopy(full_schedule_map, 0, new_full_schedule_map, 0, full_schedule_map.length);
             System.arraycopy(initial, 0, new_full_schedule_map, full_schedule_map.length, initial.length);
             full_schedule_map = new_full_schedule_map;
-            System.out.println("Rows: " + full_schedule_map.length + ", Columns: " + full_schedule_map[0].length);
+            //System.out.println("Rows: " + full_schedule_map.length + ", Columns: " + full_schedule_map[0].length);
         }
         schedule_map = t.shrinkArray(initial, num_chargers);
 
@@ -88,7 +87,7 @@ public class Schedule {
     }
 
 
-    public void updateFullScheduleMap (EV ev, int start, int end, int row) {
+    public void updateFullScheduleMap (EVInfo ev, int start, int end, int row) {
         ArrayTransformations t = new ArrayTransformations();
         t.updateArray(full_schedule_map, start, end, row);
     }
@@ -109,7 +108,7 @@ public class Schedule {
 
         StringBuilder str = new StringBuilder();
         str.append("------------------------ Slots ------------------------\n");
-        str.append("             ");
+        str.append("       ");
         for (int s = 0; s < num_slots; s++) {
             str.append(s + " ");
         }

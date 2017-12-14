@@ -1,11 +1,9 @@
 package optimize;
 
-import evs.EV;
+import station.EVInfo;
 import ilog.concert.*;
 import ilog.cplex.IloCplex;
-import various.ArrayTransformations;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -52,7 +50,7 @@ public class CPLEX {
      */
     private void initializeVariables (int list_size, int slots_number) {
         //this.chargers = chargers.clone();
-        System.out.println("EVs: " + list_size + ", slots: " + slots_number);
+        //System.out.println("EVs: " + list_size + ", slots: " + slots_number);
         evs_number = list_size;
         this.slots_number = slots_number;
         var = new IloNumVar[evs_number][slots_number];
@@ -105,13 +103,13 @@ public class CPLEX {
         }
     }
 
-    private void addObjectiveAndEnergyConstraints (ArrayList<EV> evs, int[] price, int min_slot) {
+    private void addObjectiveAndEnergyConstraints (ArrayList<EVInfo> evs, int[] price, int min_slot) {
         try {
 
 
             for (int ev = 0; ev < evs.size(); ev++) {
 
-                EV current = evs.get(ev);
+                EVInfo current = evs.get(ev);
                 int ev_position = ev;
                 boolean[] checked_slot = new boolean[slots_number];
 
@@ -162,9 +160,9 @@ public class CPLEX {
         }
     }
 
-    private void solveLinearProblem (ArrayList<EV> evs, int slots_number, int min_slot, int max_slot) {
+    private void solveLinearProblem (ArrayList<EVInfo> evs, int slots_number, int min_slot, int max_slot) {
 
-        System.out.println(min_slot + " -- " + max_slot);
+        //System.out.println(min_slot + " -- " + max_slot);
         try {
 
             if (cp.solve()) {
@@ -188,7 +186,7 @@ public class CPLEX {
                 }
                 setWhoCharges();
                 //System.out.println(objective);
-                System.out.println("Utility: " + cp.getValue(objective));
+                //System.out.println("Utility: " + cp.getValue(objective));
             } else {
                 System.out.println("Problem could not be solved!");
             }
@@ -206,7 +204,7 @@ public class CPLEX {
      * @param min_slot is the minimum slot that the evs requested for energy, the map computed here will start from there
      * @param max_slot and end here
      */
-    public void model (ArrayList<EV> evs, int slots_number, int[] price, int[] chargers, int min_slot, int max_slot) {
+    public void model (ArrayList<EVInfo> evs, int slots_number, int[] price, int[] chargers, int min_slot, int max_slot) {
         this.initializeVariables(evs.size(), max_slot - min_slot + 1);
         //this.lockPreviousBidders(previous_schedule, previous_bidders_number);
         this.addObjectiveAndEnergyConstraints(evs, price, min_slot);
@@ -217,7 +215,7 @@ public class CPLEX {
 
 
 
-    public void buildModel (ArrayList<EV> evs, int chargers_number, int slots_number, int[] price, int[][] previous_schedule, int previous_bidders_number) {
+    public void buildModel (ArrayList<EVInfo> evs, int chargers_number, int slots_number, int[] price, int[][] previous_schedule, int previous_bidders_number) {
 
 
         evs_number = evs.size() + previous_bidders_number; // the number of all the evs in the schedule
@@ -257,7 +255,7 @@ public class CPLEX {
                 IloLinearNumExpr zero = cp.linearNumExpr(); // if an ev has not bidden for a slot, then var[ev][s] should be zero - this helps to make sure that this happens
 
 
-                EV current = evs.get(ev);
+                EVInfo current = evs.get(ev);
 
                 ev_bid[ev_position] = new IloNumVar[current.getSlots().size()]; // set an array with a size of bids number
 
@@ -392,7 +390,7 @@ public class CPLEX {
                     //System.out.println();
                 }
 
-                System.out.println("Schedule computed");
+                //System.out.println("Schedule computed");
                 this.clearModel();
             }
         } catch (IloException e) {
