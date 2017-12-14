@@ -31,6 +31,6 @@ public class EV {
         int accept;
         Random generator = new Random();
         accept = generator.nextInt(3) + 1;
-        return 2;
+        return 1;
     }
 }

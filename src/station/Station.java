@@ -5,6 +5,7 @@ import station.auction.OptimalSchedule;
 import station.auction.VCG;
 import station.negotiation.Conversation;
 import station.negotiation.Negotiations;
+import station.negotiation.Suggestion;
 import various.JSONFileParser;
 import various.PrintOuch;
 
@@ -69,9 +70,7 @@ public class Station{
         System.out.println("Starting -- Computing initial optimal schedule");
         OptimalSchedule optimal = new OptimalSchedule(this);
         optimal.computeOptimalSchedule();
-        System.out.println(schedule.printFullScheduleMap(price));
         System.out.println("\n====================================================================\n");
-
 
         System.out.println("========================== 2) VCG Payments ============================");
         this.findNotCharged();
@@ -79,6 +78,9 @@ public class Station{
         v.vcg();
         this.moveLockedBidders();
         updateRemainingChargers();
+
+        System.out.println(schedule.printFullScheduleMap(price));
+
         System.out.println("\n====================================================================\n");
 
 
@@ -91,7 +93,14 @@ public class Station{
         Conversation conversation = new Conversation(neg.getFilteredSuggestionList(), neg.getChargers());
         conversation.conversation();
         System.out.println("\n====================================================================\n");
+
+        System.out.println("\n===================== 5) Updating Chargers & Schedule ===================================\n");
+        schedule.updateNegotiationChargers(conversation.getAcceptedEVs());
+        System.out.println(schedule.printFullScheduleMap(price));
+        System.out.println("\n====================================================================\n");
+
     }
+
 
 
     public void findNotCharged () {

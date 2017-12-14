@@ -1,5 +1,6 @@
 package station;
 
+import station.negotiation.Suggestion;
 import various.ArrayTransformations;
 
 import java.util.ArrayList;
@@ -9,21 +10,9 @@ import java.util.ArrayList;
  */
 public class Schedule {
 
-    // it is used to store information about when an ev is charging
-    private class EVs_data {
-        private int id;
-        private int start_slot;
-        private int end_slot;
-
-        public int getId() { return id; }
-        public int getStart_slot() { return start_slot; }
-        public int getEnd_slot() { return end_slot; }
-    }
-
     private int[][] schedule_map; // rows: chargers, columns: slots
     private int[][] full_schedule_map; // contains the output of cplex - rows: evs, columns: slots
     private int[] map_occupancy; // how many evs charging at each slot
-    private ArrayList<EVs_data> evs_slots; // contains info for when ev is charging. id-start-end
     private int num_chargers;
     private int num_slots;
     private int[] remaining_chargers;
@@ -33,7 +22,6 @@ public class Schedule {
         this.num_slots = num_slots;
         schedule_map = new int[num_chargers][num_slots];
         full_schedule_map = new int[0][num_slots];
-        evs_slots = new ArrayList<EVs_data>();
         map_occupancy = new int[num_slots];
         remaining_chargers = new int[num_slots];
         for (int s = 0; s < num_slots; s++) {
@@ -62,11 +50,28 @@ public class Schedule {
     }
 
     public void setRemainingChargers (int slots) {
-
+        System.out.println("Updating Chargers");
         for (int s = 0; s < slots; s++) {
             remaining_chargers[s] -= map_occupancy[s];
         }
     }
+
+
+    public void updateNegotiationChargers (ArrayList<EVInfo> negotiation_evs) {
+        for (EVInfo ev: negotiation_evs) {
+            Suggestion suggestion = ev.getSuggestion();
+            int start = suggestion.getStart();
+            int end = suggestion.getEnd();
+            int[] affected_slots = suggestion.getSlotsAfected();
+            for (int s = start; s <= end; s++) {
+                if (affected_slots[s] == 1) {
+                    remaining_chargers[s] -= 1;
+                    full_schedule_map[ev.getId()][s] = 1;
+                }
+            }
+        }
+    }
+
 
     // concatenates old and new map
     public void saveInitialScheduleMap (int[][] initial) {

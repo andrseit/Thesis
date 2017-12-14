@@ -158,4 +158,5 @@ public class Conversation {
         }
     }
 
+    public ArrayList<EVInfo> getAcceptedEVs () { return acceptedEVs; }
 }

@@ -36,14 +36,13 @@ public class SuggestionComputer {
     public Suggestion lessEnergy (Preferences initial) {
 
         System.out.println("    *Computing less energy...");
-        Suggestion new_preferences = new Suggestion();
-        new_preferences.setStart(initial.getStart());
-        new_preferences.setEnd(initial.getEnd());
+        Suggestion suggestion = new Suggestion();
+        suggestion.setStart(initial.getStart());
+        suggestion.setEnd(initial.getEnd());
 
-        int available_energy = this.energyInSlots(initial.getStart(), initial.getEnd());
-        new_preferences.setEnergy(available_energy);
-        System.out.println("        Energy found in given slots is: " + available_energy);
-        return new_preferences;
+        suggestion.setEnergy(this.energyInSlots(initial.getStart(), initial.getEnd(), suggestion));
+        System.out.println("        Energy found in given slots is: " + suggestion.getEnergy());
+        return suggestion;
     }
 
     /**
@@ -52,12 +51,16 @@ public class SuggestionComputer {
      * @param end: end slot
      * @return
      */
-    private int energyInSlots (int start, int end) {
+    private int energyInSlots (int start, int end, Suggestion suggestion) {
         int available_energy = 0;
+        int[] affected_slots = new int[chargers.length];
         for (int slot = start; slot <= end; slot++) {
-            if (chargers[slot] != 0)
-                available_energy ++;
+            if (chargers[slot] != 0) {
+                affected_slots[slot] = 1;
+                available_energy++;
+            }
         }
+        suggestion.setSlotsAffected(affected_slots);
         return available_energy;
     }
 
@@ -67,24 +70,24 @@ public class SuggestionComputer {
     public Suggestion alteredWindow (Preferences initial) {
 
         System.out.println("    *Computing altered window...");
-        Suggestion new_preferences = new Suggestion();
-        new_preferences.setEnergy(initial.getEnergy());
+        Suggestion suggestion = new Suggestion();
+        suggestion.setEnergy(initial.getEnergy());
 
-        int available_energy = energyInSlots(initial.getStart(), initial.getEnd());
-        int[] new_slots = this.searchSlots(1, initial, available_energy);
+        int available_energy = energyInSlots(initial.getStart(), initial.getEnd(), suggestion);
+        this.searchSlots(1, initial, available_energy, suggestion);
 
-        new_preferences.setStartEndSlots(new_slots[0], new_slots[1]);
         //System.out.println(new_preferences.toString());
-        System.out.println("        Slots found: " + new_slots[0] + "-" + new_slots[1] + "/" + new_preferences.getEnergy());
-        return new_preferences;
+        System.out.println("        Slots found: " + suggestion.getStart() + "-" + suggestion.getEnd() + "/" + suggestion.getEnergy());
+        return suggestion;
     }
 
-    private int[] searchSlots (int step, Preferences p, int available_energy) {
+    private void searchSlots (int step, Preferences p, int available_energy, Suggestion suggestion) {
 
-        ArrayTransformations t = new ArrayTransformations();
+        //ArrayTransformations t = new ArrayTransformations();
         //t.printOneDimensionArray("Search Slots Chargers: ", chargers);
         int left;
         int right;
+        int[] affected_slots = new int[chargers.length];
 
         if (step == -1) {
             right = p.getStart();
@@ -100,6 +103,7 @@ public class SuggestionComputer {
                 break;
             }
             if (chargers[right] !=0 ) {
+                affected_slots[right] = 1;
                 available_energy++;
             }
         }
@@ -112,7 +116,8 @@ public class SuggestionComputer {
                 left += step;
                 break;
             }
-            if (chargers[left] !=0 ) {
+            if (chargers[left] != 0 ) {
+                affected_slots[left] = 1;
                 available_energy++;
             }
         }
@@ -142,7 +147,8 @@ public class SuggestionComputer {
             new_slots[1] = right;
         }
 
-        return new_slots;
+        suggestion.setSlotsAffected(affected_slots);
+        suggestion.setStartEndSlots(new_slots[0], new_slots[1]);
     }
 
     /**

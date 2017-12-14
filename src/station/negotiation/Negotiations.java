@@ -104,7 +104,7 @@ public class Negotiations {
             System.out.println("-Updating chargers for ev: " + ev.getId());
             Suggestion suggestion = ev.getSuggestion();
 
-            if (suggestion.getRating() > 10)
+            if (suggestion.getRating() > 15)
                 break;
             int count = 0;
             // autos o pinakas krataei poies theseis allaksan kathws ginotan to update
@@ -194,4 +194,6 @@ public class Negotiations {
     public int[] getChargers() {
         return chargers;
     }
+
+
 }

@@ -36,6 +36,11 @@ public class Suggestion extends Preferences {
         str.append(", End: " + end);
         str.append(", Energy: " + energy);
         str.append(", Rating: " + rating);
+        str.append(", Slots affected: ");
+        for (int s = 0; s < slots_afected.length; s++) {
+            if (slots_afected[s] == 1)
+                str.append(s + ",");
+        }
         return str.toString();
     }
 
