@@ -110,19 +110,31 @@ public class JSONFileParser {
 
                 JSONObject json_ev = (JSONObject) object;
 
-                int energy = toIntExact((long) json_ev.get("energy"));
-                int bid = toIntExact((long) json_ev.get("bid"));
+
+                JSONObject preferences = (JSONObject) json_ev.get("preferences");
+
+                int energy = toIntExact((long) preferences.get("energy"));
+                int bid = toIntExact((long) preferences.get("bid"));
 
                 //data.setEnergy(energy);
 
-                int inform_slot = toIntExact((long) json_ev.get("inform"));
+                int inform_slot = toIntExact((long) preferences.get("inform"));
 
                 //data.setInformSlot(inform_slot);
 
-                int start_slot = toIntExact((long) json_ev.get("start"));
-                int end_slot = toIntExact((long)(json_ev.get("end")));
+                int start_slot = toIntExact((long) preferences.get("start"));
+                int end_slot = toIntExact((long)(preferences.get("end")));
+
+                JSONObject strategy = (JSONObject) json_ev.get("strategy");
+
+                int s_energy = toIntExact((long) strategy.get("energy"));
+                int s_start = toIntExact((long) strategy.get("start"));
+                int s_end = toIntExact((long)(strategy.get("end")));
+                int s_prob = toIntExact((long)(strategy.get("probability")));
+                int s_rounds = toIntExact((long)(strategy.get("rounds")));
 
                 EVData data = new EVData(energy, bid, start_slot, end_slot, inform_slot);
+                data.setStrategy(s_start, s_end, s_energy, s_prob, s_rounds);
                 data.setJSONString(line);
                 evs.add(data);
             }

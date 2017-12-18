@@ -1,4 +1,4 @@
-{"bid":7,"start":3,"end":4,"energy":2,"inform":2}
-{"bid":7,"start":6,"end":6,"energy":1,"inform":2}
-{"bid":3,"start":0,"end":3,"energy":4,"inform":1}
-{"bid":2,"start":0,"end":3,"energy":4,"inform":1}
+{"preferences":{"bid":7,"start":3,"end":4,"energy":2,"inform":2},"strategy":{"start":3,"end":4,"energy":1,"probability":75,"rounds":3}}
+{"preferences":{"bid":7,"start":6,"end":6,"energy":1,"inform":2},"strategy":{"start":3,"end":4,"energy":1,"probability":75,"rounds":3}}
+{"preferences":{"bid":3,"start":0,"end":3,"energy":4,"inform":1},"strategy":{"start":3,"end":4,"energy":1,"probability":75,"rounds":3}}
+{"preferences":{"bid":2,"start":0,"end":3,"energy":4,"inform":1},"strategy":{"start":3,"end":4,"energy":1,"probability":75,"rounds":3}}

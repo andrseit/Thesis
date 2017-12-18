@@ -1,5 +1,7 @@
 package various;
 
+import evs.Strategy;
+
 import java.util.ArrayList;
 
 /**
@@ -16,6 +18,12 @@ public class EVData {
     private int bid;
     private int start;
     private int end;
+
+    private int s_start;
+    private int s_end;
+    private int s_energy;
+    private int s_prob;
+    private int s_rounds;
 
     private String json_sting;
 
@@ -37,6 +45,18 @@ public class EVData {
         bid_array[1] = end;
         bid_array[2] = bid;
         bids.add(bid_array);
+    }
+
+    public void setStrategy (int start, int end, int energy, int probability, int rounds) {
+        s_start = start;
+        s_end = end;
+        s_energy = energy;
+        s_prob = probability;
+        s_rounds = rounds;
+    }
+
+    public Strategy getStrategy () {
+        return new Strategy(s_energy, s_start, s_end, s_prob, s_rounds);
     }
 
     public void setJSONString (String str) {

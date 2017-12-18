@@ -8,14 +8,16 @@ import java.util.Random;
 public class EV {
 
     private Preferences preferences;
+    private Strategy strategy;
     private int bid;
 
-    public EV (int start, int end, int energy, int bid) {
+    public EV (int start, int end, int energy, int bid, Strategy strategy) {
         preferences = new Preferences();
         preferences.setStart(start);
         preferences.setEnd(end);
         preferences.setEnergy(energy);
         this.bid = bid;
+        this.strategy = strategy;
     }
 
 
@@ -28,9 +30,17 @@ public class EV {
      * @return
      */
     public int evaluateSuggestion (Preferences suggestion) {
+
+        /*
         int accept;
         Random generator = new Random();
         accept = generator.nextInt(3) + 1;
         return 1;
+        */
+        return strategy.evaluate(suggestion);
+    }
+
+    public Strategy getStrategy () {
+        return strategy;
     }
 }

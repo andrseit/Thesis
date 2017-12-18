@@ -221,7 +221,8 @@ public class TestRunner {
 
         for (EVData e: evs_data) {
             EVInfo ev_info = new EVInfo();
-            EV ev = new EV(e.getStart(), e.getEnd(), e.getEnergy(), e.getBid());
+            EV ev = new EV(e.getStart(), e.getEnd(), e.getEnergy(), e.getBid(), e.getStrategy());
+            System.out.println(ev.getStrategy().toString());
             evs.add(ev);
             ev_info.addEVPreferences(e.getStart(), e.getEnd(), e.getBid(), e.getEnergy());
             ev_info.setInformTime(e.getInformSlot());

@@ -1,6 +1,7 @@
 package main;
 
 import various.ArrayTransformations;
+import various.JSONFileParser;
 import various.TestRunner;
 
 
@@ -9,6 +10,10 @@ import various.TestRunner;
  */
 public class Main {
     public static void main(String[] args) {
+
+        JSONFileParser parser = new JSONFileParser();
+        parser.readEVsData();
+
 
         TestRunner test = new TestRunner();
         //test.testRun();
