@@ -1,10 +1,6 @@
 package agents.online;
 
-import agents.gui.AgentUI;
-import agents.offline.EVAgent;
-import agents.offline.StationAgent;
 import jade.core.AID;
-import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.DFService;
@@ -12,12 +8,8 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import station.Station;
 import various.IntegerConstants;
-import various.JSONFileParser;
-
-import java.util.ArrayList;
+import io.JSONFileParser;
 
 /**
  * Created by Darling on 15/9/2017.

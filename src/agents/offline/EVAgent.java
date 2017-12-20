@@ -2,17 +2,13 @@ package agents.offline;
 
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
-import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
-import various.JSONFileParser;
-
-import java.util.ArrayList;
+import io.JSONFileParser;
 
 /**
  * Created by Darling on 8/8/2017.

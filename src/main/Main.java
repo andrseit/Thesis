@@ -1,7 +1,6 @@
 package main;
 
-import various.ArrayTransformations;
-import various.JSONFileParser;
+import various.DataGenerator;
 import various.TestRunner;
 
 
@@ -11,9 +10,10 @@ import various.TestRunner;
 public class Main {
     public static void main(String[] args) {
 
+        /*
         JSONFileParser parser = new JSONFileParser();
         parser.readEVsData();
-
+        */
 
         TestRunner test = new TestRunner();
         //test.testRun();
@@ -22,6 +22,13 @@ public class Main {
         //test.staticOnline();
         test.staticOffline();
 
+
+        /**
+         * data files generation
+        DataGenerator dt = new DataGenerator();
+        dt.generateEVsFile(10, 10,5);
+        dt.generateStationFile(10, 10);
+        */
 
         /*
         int[] chargers = new int[10];

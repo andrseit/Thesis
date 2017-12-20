@@ -1,6 +1,7 @@
 package various;
 
 import evs.EV;
+import io.JSONFileParser;
 import station.EVInfo;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
@@ -31,7 +32,7 @@ public class TestRunner {
     public void testRun () {
         JSONFileParser parser = new JSONFileParser();
 
-        ArrayList<EVData> data = parser.readEVsData();
+        ArrayList<EVData> data = parser.readEVsData("evs.json");
         ArrayList<EVInfo> bidders = new ArrayList<>();
 
         for (EVData d: data) {
@@ -131,7 +132,7 @@ public class TestRunner {
             mainContainer.createNewAgent("clock", "agents.online.ClockAgent", null).start();
             Thread.sleep(500);
             JSONFileParser fp = new JSONFileParser();
-            ArrayList<EVData> evs = fp.readEVsData();
+            ArrayList<EVData> evs = fp.readEVsData("evs.json");
             int counter = 0;
             for(EVData e: evs) {
                 //EVData e = evs.get(0);
@@ -185,7 +186,7 @@ public class TestRunner {
             mainContainer.createNewAgent("station", "agents.offlineWithAgents.StationAgent", null).start();
             Thread.sleep(500);
             JSONFileParser fp = new JSONFileParser();
-            ArrayList<EVData> evs = fp.readEVsData();
+            ArrayList<EVData> evs = fp.readEVsData("evs.json");
             int counter = 0;
             for(EVData e: evs) {
                 Object[] arguments = new Object[5];
@@ -214,7 +215,7 @@ public class TestRunner {
      */
     public void staticOffline () {
         JSONFileParser parser = new JSONFileParser();
-        ArrayList<EVData> evs_data = parser.readEVsData();
+        ArrayList<EVData> evs_data = parser.readEVsData("evs.json");
         ArrayList<EV> evs = new ArrayList<>();
 
         Station station = new Station();
@@ -240,7 +241,7 @@ public class TestRunner {
     public void staticOnline () {
 
         JSONFileParser parser = new JSONFileParser();
-        ArrayList<EVData> evs_data = parser.readEVsData();
+        ArrayList<EVData> evs_data = parser.readEVsData("evs.json");
         ArrayList<EVInfo> evs = new ArrayList<>();
 
         for (EVData e: evs_data) {

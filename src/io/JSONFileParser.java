@@ -1,9 +1,10 @@
-package various;
+package io;
 
 import station.EVInfo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import various.EVData;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,13 +20,13 @@ public class JSONFileParser {
     private int num_slots;
     private int num_chargers;
 
-    public void readStationData() {
+    public void readStationData(String path) {
 
         ArrayList<EVInfo> evs = new ArrayList<EVInfo>();
         JSONParser parser = new JSONParser();
         Reader reader = null;
         try {
-            reader = new FileReader("station.json");
+            reader = new FileReader(path);
             Object object = parser.parse(reader);
 
             JSONObject json_ev = (JSONObject) object;
@@ -94,13 +95,13 @@ public class JSONFileParser {
     }
 
 
-    public ArrayList<EVData> readEVsData() {
+    public ArrayList<EVData> readEVsData(String path) {
 
         ArrayList<EVData> evs = new ArrayList<EVData>();
         JSONParser parser = new JSONParser();
         Reader reader = null;
         try {
-            reader = new FileReader("data.json");
+            reader = new FileReader(path);
             BufferedReader in = new BufferedReader(reader);
 
             String line;

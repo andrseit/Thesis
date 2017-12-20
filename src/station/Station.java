@@ -5,8 +5,7 @@ import station.auction.OptimalSchedule;
 import station.auction.VCG;
 import station.negotiation.Conversation;
 import station.negotiation.Negotiations;
-import station.negotiation.Suggestion;
-import various.JSONFileParser;
+import io.JSONFileParser;
 import various.PrintOuch;
 
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class Station{
     public Station () {
 
         JSONFileParser parser = new JSONFileParser();
-        parser.readStationData();
+        parser.readStationData("station.json");
         num_slots = parser.getSlotsNumber();
         num_chargers = parser.getChargersNumber();
         price = new int[num_slots];
@@ -80,25 +79,29 @@ public class Station{
         updateRemainingChargers();
 
         System.out.println(schedule.printFullScheduleMap(price));
-
+        schedule.writeToFile();
         System.out.println("\n====================================================================\n");
 
 
-        System.out.println("\n============================= 3) Negotiation ============================\n");
-        Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), schedule.getRemainingChargers());
-        neg.computeSuggestions();
-        //System.out.println(schedule.printFullScheduleMap(price));
-        //System.out.println("\n====================================================================\n");
-        System.out.println("\n===================== 4) Conversation ===================================\n");
-        Conversation conversation = new Conversation(neg.getFilteredSuggestionList(), neg.getChargers());
-        conversation.conversation();
-        System.out.println("\n====================================================================\n");
+        if (not_charged.size() != 0) {
+            System.out.println("\n============================= 3) Negotiation ============================\n");
+            Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), schedule.getRemainingChargers());
+            neg.computeSuggestions();
+            //System.out.println(schedule.printFullScheduleMap(price));
+            //System.out.println("\n====================================================================\n");
+            System.out.println("\n===================== 4) Conversation ===================================\n");
+            Conversation conversation = new Conversation(neg.getFilteredSuggestionList(), neg.getChargers());
+            conversation.conversation();
+            System.out.println("\n====================================================================\n");
 
-        System.out.println("\n===================== 5) Updating Chargers & Schedule ===================================\n");
-        schedule.updateNegotiationChargers(conversation.getAcceptedEVs());
-        System.out.println(schedule.printFullScheduleMap(price));
-        System.out.println("\n====================================================================\n");
-
+            System.out.println("\n===================== 5) Updating Chargers & Schedule ===================================\n");
+            schedule.updateNegotiationChargers(conversation.getAcceptedEVs());
+            ev_bidders = conversation.getAcceptedEVs();
+            v = new VCG(this);
+            v.vcg();
+            System.out.println(schedule.printFullScheduleMap(price));
+            System.out.println("\n====================================================================\n");
+        }
     }
 
 

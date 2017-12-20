@@ -61,6 +61,7 @@ public class VCG {
             if (removed.getCharged())
                 removed.setFinalPayment(removed.getBid() * removed.getEnergy());
         }
+        System.out.println("What happens");
         for (EVInfo ev : evs) {
             System.out.println(ev.getId() + " ---> " + ev.getFinalPayment());
         }
