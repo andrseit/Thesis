@@ -1,5 +1,6 @@
 package station.auction;
 
+import optimize.CLPEX2;
 import station.EVInfo;
 import optimize.CPLEX;
 import station.Station;
@@ -22,6 +23,8 @@ public class OptimalSchedule {
     }
 
     public void computeOptimalSchedule () {
+
+
         System.out.println("Computing optimal schedule...");
 
         int min_slot = getMinSlot();
@@ -36,6 +39,7 @@ public class OptimalSchedule {
         station.setInitialUtility(cp.getUtility());
 
         System.out.println("Schedule computed!");
+
     }
 
     private int getMinSlot () {

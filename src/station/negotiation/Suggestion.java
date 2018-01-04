@@ -1,6 +1,7 @@
 package station.negotiation;
 
 import evs.Preferences;
+import various.IntegerConstants;
 
 /**
  * Created by Thesis on 6/12/2017.
@@ -9,6 +10,7 @@ public class Suggestion extends Preferences {
 
     private int rating;
     private int type;
+    private int profit;
 
     // epeidi otan thes na epanafereis tous fortistes prepei na ksereis poia eixan allaksei
     // me to suggestion opote na pas kai na ta kaneis +1
@@ -32,10 +34,16 @@ public class Suggestion extends Preferences {
 
     public String toString () {
         StringBuilder str = new StringBuilder();
+        if (type == IntegerConstants.LESS_ENERGY_TYPE)
+            str.append("Less Energy -> ");
+        else
+            str.append("Alt Window  -> ");
+
         str.append("Start: " + start);
         str.append(", End: " + end);
         str.append(", Energy: " + energy);
         str.append(", Rating: " + rating);
+        str.append(", Profit: " + profit);
         str.append(", Slots affected: ");
         for (int s = 0; s < slots_afected.length; s++) {
             if (slots_afected[s] == 1)
@@ -67,5 +75,13 @@ public class Suggestion extends Preferences {
 
     public int getType () {
         return type;
+    }
+
+    public int getProfit() {
+        return profit;
+    }
+
+    public void setProfit(int profit) {
+        this.profit = profit;
     }
 }

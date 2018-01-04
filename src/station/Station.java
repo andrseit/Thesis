@@ -1,5 +1,6 @@
 package station;
 
+import io.ArrayFileWriter;
 import optimize.CPLEX;
 import station.auction.OptimalSchedule;
 import station.auction.VCG;
@@ -71,6 +72,7 @@ public class Station{
         optimal.computeOptimalSchedule();
         System.out.println("\n====================================================================\n");
 
+
         System.out.println("========================== 2) VCG Payments ============================");
         this.findNotCharged();
         VCG v = new VCG(this);
@@ -79,14 +81,17 @@ public class Station{
         updateRemainingChargers();
 
         System.out.println(schedule.printFullScheduleMap(price));
-        schedule.writeToFile();
+        ArrayFileWriter w = new ArrayFileWriter();
+        w.writeSchedule(schedule.getFullScheduleMap(), getRemainingChargers());
         System.out.println("\n====================================================================\n");
 
 
         if (not_charged.size() != 0) {
             System.out.println("\n============================= 3) Negotiation ============================\n");
-            Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), schedule.getRemainingChargers());
-            neg.computeSuggestions();
+            Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), schedule.getRemainingChargers(), price);
+            //neg.computeSuggestions();
+            neg.start();
+            /*
             //System.out.println(schedule.printFullScheduleMap(price));
             //System.out.println("\n====================================================================\n");
             System.out.println("\n===================== 4) Conversation ===================================\n");
@@ -97,11 +102,13 @@ public class Station{
             System.out.println("\n===================== 5) Updating Chargers & Schedule ===================================\n");
             schedule.updateNegotiationChargers(conversation.getAcceptedEVs());
             ev_bidders = conversation.getAcceptedEVs();
-            v = new VCG(this);
-            v.vcg();
+            //v = new VCG(this);
+            //v.vcg();
             System.out.println(schedule.printFullScheduleMap(price));
             System.out.println("\n====================================================================\n");
+            */
         }
+
     }
 
 

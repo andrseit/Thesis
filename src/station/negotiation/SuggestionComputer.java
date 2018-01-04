@@ -14,6 +14,7 @@ public class SuggestionComputer {
 
 
     private int[] chargers;
+    private int[] price;
     /**
      * this variable show whether the computer is used to computed the initial
      * suggestions, before the conversation starts, or it is used while
@@ -24,8 +25,9 @@ public class SuggestionComputer {
      */
     private int state;
 
-    public SuggestionComputer (int[] chargers, int state) {
+    public SuggestionComputer (int[] chargers, int[] price, int state) {
         this.chargers = chargers;
+        this.price = price;
         this.state = state;
     }
 
@@ -166,7 +168,9 @@ public class SuggestionComputer {
         altered_window_suggestion.setType(IntegerConstants.ALTERED_WINDOW_TYPE);
         this.evaluateSuggestion(ev.getPreferences(), less_energy_suggestion);
         this.evaluateSuggestion(ev.getPreferences(), altered_window_suggestion);
-        return this.compareSuggestions(ev, less_energy_suggestion, altered_window_suggestion);
+        boolean isSet = this.compareSuggestions(ev, less_energy_suggestion, altered_window_suggestion);
+        this.computeProfit(ev);
+        return isSet;
 
 
         //suggestions_queue.offer(ev);
@@ -185,6 +189,21 @@ public class SuggestionComputer {
         suggestion.setRating(start_dif + end_diff + energy_diff);
         //System.out.println("\nDifferences: " + start_dif + ", " + end_diff + ", " + energy_diff);
 
+    }
+
+    private void computeProfit (EVInfo ev) {
+        Suggestion suggestion = ev.getSuggestion();
+        int start = suggestion.getStart();
+        int end = suggestion.getEnd();
+        int energy = suggestion.getEnergy();
+        int bid = ev.getBid();
+        int profit = 0;
+        for (int s = start; s <= end; s++) {
+            if (chargers[s] > 0) {
+                profit += bid - price[s];
+            }
+        }
+        suggestion.setProfit(profit);
     }
 
     /**

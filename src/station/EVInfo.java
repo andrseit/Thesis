@@ -56,9 +56,11 @@ public class EVInfo{
     private int bid;
     private Suggestion suggestion;
     private boolean has_suggestion;
+    private int suggestion_payment;
     // so that a new suggestion can be checked if it is worth making
     private int best_less_energy; // the rating of the best less energy suggestion so far
     private int best_altered_window; // the rating of the bes altered window suggestion so far
+    private int[] suggestion_map;
     //private int start;
     //private int end;
 
@@ -280,5 +282,21 @@ public class EVInfo{
             best_less_energy = rating;
         else
             best_altered_window = rating;
+    }
+
+    public int[] getSuggestionMap() {
+        return suggestion_map;
+    }
+
+    public void setSuggestionMap(int[] suggestion_map) {
+        this.suggestion_map = suggestion_map;
+    }
+
+    public int getSuggestionPayment() {
+        return suggestion_payment;
+    }
+
+    public void setSuggestionPayment(int suggestion_payment) {
+        this.suggestion_payment = suggestion_payment;
     }
 }

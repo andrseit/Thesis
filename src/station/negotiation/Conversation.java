@@ -29,10 +29,12 @@ public class Conversation {
     // opote h eprepe na pernaw tous chargers, h ton computer
     // telika tha pernaw tous chargers gt tous xreiazomai kai parakatw
     private int[] chargers;
+    private int[] price;
 
-    public Conversation(ArrayList<EVInfo> evs, int[] chargers) {
+    public Conversation(ArrayList<EVInfo> evs, int[] chargers, int[] price) {
         this.evs = evs;
         this.chargers = chargers;
+        this.price = price;
         pendingEvs = new ArrayList<>();
         acceptedEVs = new ArrayList<>();
     }
@@ -101,7 +103,7 @@ public class Conversation {
         });
 
 
-        SuggestionComputer computer = new SuggestionComputer(chargers, IntegerConstants.SUGGESTION_COMPUTER_CONVERSATION);
+        SuggestionComputer computer = new SuggestionComputer(chargers, price, IntegerConstants.SUGGESTION_COMPUTER_CONVERSATION);
         if (!pendingEvs.isEmpty()) {
             System.out.println("Computing for pending, because someone rejected.");
             for (EVInfo ev: pendingEvs) {

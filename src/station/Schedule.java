@@ -162,21 +162,5 @@ public class Schedule {
 
     public int[] getRemainingChargers () { return remaining_chargers; }
 
-    public void writeToFile () {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("schedule"))) {
-            out.writeObject(full_schedule_map);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("chargers"))) {
-            out.writeObject(remaining_chargers);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
