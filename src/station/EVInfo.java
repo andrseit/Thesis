@@ -55,6 +55,9 @@ public class EVInfo{
     // new data variables, now there is only one bid, so SlotsStruct is unnecessary
     private int bid;
     private Suggestion suggestion;
+    private Suggestion final_suggestion;
+    private int final_best_le;
+    private int final_best_aw;
     private boolean has_suggestion;
     private int suggestion_payment;
     // so that a new suggestion can be checked if it is worth making
@@ -298,5 +301,32 @@ public class EVInfo{
 
     public void setSuggestionPayment(int suggestion_payment) {
         this.suggestion_payment = suggestion_payment;
+    }
+
+    public Suggestion getFinalSuggestion() {
+        return final_suggestion;
+    }
+
+    public void setFinalSuggestion() {
+        final_suggestion = new Suggestion();
+        final_suggestion.setStart(suggestion.getStart());
+        final_suggestion.setEnd(suggestion.getEnd());
+        final_suggestion.setEnergy(suggestion.getEnergy());
+        final_suggestion.setSlotsAffected(suggestion.getSlotsAfected());
+        final_suggestion.setType(suggestion.getType());
+        final_suggestion.setRating(suggestion.getRating());
+        final_suggestion.setProfit(suggestion.getProfit());
+    }
+
+    public void saveBests () {
+        final_best_le = best_less_energy;
+        final_best_aw = best_altered_window;
+        best_less_energy = Integer.MAX_VALUE;
+        best_altered_window = Integer.MAX_VALUE;
+    }
+
+    public void resetBests () {
+        best_less_energy = final_best_le;
+        best_altered_window = final_best_aw;
     }
 }

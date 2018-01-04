@@ -125,10 +125,10 @@ public class SuggestionComputer {
         }
 
         // clear zero slots
-        while (chargers[left] == 0) {
+        while (chargers[left] == 0 && (left < chargers.length && left > 0)) {
             left += step;
         }
-        while (chargers[right] == 0) {
+        while (chargers[right] == 0 && (right < chargers.length && right > 0)) {
             right -= step;
         }
 
@@ -169,7 +169,9 @@ public class SuggestionComputer {
         this.evaluateSuggestion(ev.getPreferences(), less_energy_suggestion);
         this.evaluateSuggestion(ev.getPreferences(), altered_window_suggestion);
         boolean isSet = this.compareSuggestions(ev, less_energy_suggestion, altered_window_suggestion);
-        this.computeProfit(ev);
+        this.checkSuggestion(ev);
+        if (ev.hasSuggestion())
+            this.computeProfit(ev);
         return isSet;
 
 
@@ -207,6 +209,34 @@ public class SuggestionComputer {
     }
 
     /**
+     * Checks if the suggestion is legit, sets if the ev has suggestion
+     * also checks if is better than previous
+     * @param ev
+     */
+    private void checkSuggestion (EVInfo ev) {
+     Suggestion suggestion = ev.getSuggestion();
+     if (suggestion.getStart() == Integer.MAX_VALUE || suggestion.getEnd() == Integer.MAX_VALUE || suggestion.getEnergy() == 0) {
+         ev.setHasSuggestion(false);
+     } else {
+         ev.setHasSuggestion(true);
+     }
+
+     if (ev.getSuggestion().getType() == IntegerConstants.LESS_ENERGY_TYPE) {
+         if (ev.getSuggestion().getRating() >= ev.getBestLessEnergy()) {
+             ev.setHasSuggestion(false);
+         } else {
+             ev.setBestRating(suggestion.getType(), suggestion.getRating());
+         }
+     } else {
+         if (ev.getSuggestion().getRating() >= ev.getBestAlteredWindow()) {
+             ev.setHasSuggestion(false);
+         } else {
+             ev.setBestRating(suggestion.getType(), suggestion.getRating());
+         }
+     }
+    }
+
+    /**
      * WARNING: prosoxi na min enallasontai oi protaseis, dld proteinei mia l.e. = 3
      * meta a.w.=4-7 to arneitai meta gyrizei pali sto l.e. = 3
      * @param ev
@@ -240,7 +270,6 @@ public class SuggestionComputer {
             }
         } else {
             ev.setSuggestion(best);
-            ev.setBestRating(best.getType(), best.getRating());
             return true;
         }
 

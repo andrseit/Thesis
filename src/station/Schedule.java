@@ -63,7 +63,7 @@ public class Schedule {
 
     public void updateNegotiationChargers (ArrayList<EVInfo> negotiation_evs) {
         for (EVInfo ev: negotiation_evs) {
-            Suggestion suggestion = ev.getSuggestion();
+            Suggestion suggestion = ev.getFinalSuggestion();
             int start = suggestion.getStart();
             int end = suggestion.getEnd();
             int[] affected_slots = suggestion.getSlotsAfected();

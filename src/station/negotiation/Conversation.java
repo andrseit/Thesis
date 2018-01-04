@@ -31,14 +31,18 @@ public class Conversation {
     private int[] chargers;
     private int[] price;
 
-    public Conversation(ArrayList<EVInfo> evs, int[] chargers, int[] price) {
+    private boolean finish;
+
+    public Conversation(ArrayList<EVInfo> evs) {
         this.evs = evs;
-        this.chargers = chargers;
         this.price = price;
         pendingEvs = new ArrayList<>();
         acceptedEVs = new ArrayList<>();
     }
 
+    public boolean hasFinished () {
+        return finish;
+    }
 
     /**
      * WARNING: stin periptwsi pou einai 2 kai  o enas arnithei,
@@ -47,6 +51,29 @@ public class Conversation {
      */
     public void conversation () {
 
+        for (EVInfo evInfo: evs) {
+            System.out.println("Sending suggestion to ev: " + evInfo.getId());
+            Preferences suggestion = evInfo.getFinalSuggestion();
+            int accepted = evInfo.getObjectAddress().evaluateSuggestion(suggestion);
+            switch (accepted) {
+                case 1:
+                    System.out.println("    EV accepted suggestion");
+                    System.out.println(suggestion.toString());
+                    acceptedEVs.add(evInfo);
+                    break;
+                case 2:
+                    System.out.println("    EV waits for a new suggestion");
+                    pendingEvs.add(evInfo);
+                    break;
+                case 3:
+                    System.out.println("    EV declined suggestion");
+                    break;
+            }
+        }
+
+
+
+        /*
         for (EVInfo evInfo: evs) {
             System.out.println("Sending suggestion to ev: " + evInfo.getId());
             Preferences suggestion = evInfo.getSuggestion();
@@ -67,7 +94,6 @@ public class Conversation {
                     resetChargers(evInfo, 1);
                     computeSuggestionsForPending();
                     break;
-
             }
         }
 
@@ -81,6 +107,7 @@ public class Conversation {
             System.out.println("Negotiation is over!");
         else
             System.out.println("Compute alternative suggestions for remaining evs.");
+        */
     }
 
 
@@ -146,7 +173,7 @@ public class Conversation {
     /**
      *
      * @param ev gia na pareis to suggestion pou aparnithike wste na kaneis reset tous chargers
-     * @param step einai gia na kses an tha prostheseis h tha afeireseis
+     * @param step einai gia na kses an tha prostheseis h tha afaireseis
      */
     private void resetChargers (EVInfo ev, int step) {
         System.out.println("        Reset chargers affected by suggestion.");
@@ -161,4 +188,8 @@ public class Conversation {
     }
 
     public ArrayList<EVInfo> getAcceptedEVs () { return acceptedEVs; }
+
+    public ArrayList<EVInfo> getPendingEvs() {
+        return pendingEvs;
+    }
 }

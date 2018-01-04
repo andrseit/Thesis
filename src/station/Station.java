@@ -91,22 +91,27 @@ public class Station{
             Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), schedule.getRemainingChargers(), price);
             //neg.computeSuggestions();
             neg.start();
-            /*
             //System.out.println(schedule.printFullScheduleMap(price));
             //System.out.println("\n====================================================================\n");
             System.out.println("\n===================== 4) Conversation ===================================\n");
-            Conversation conversation = new Conversation(neg.getFilteredSuggestionList(), neg.getChargers());
+            Conversation conversation = new Conversation(neg.getFilteredSuggestionList());
             conversation.conversation();
-            System.out.println("\n====================================================================\n");
+            schedule.updateNegotiationChargers(conversation.getAcceptedEVs());
 
             System.out.println("\n===================== 5) Updating Chargers & Schedule ===================================\n");
-            schedule.updateNegotiationChargers(conversation.getAcceptedEVs());
-            ev_bidders = conversation.getAcceptedEVs();
-            //v = new VCG(this);
-            //v.vcg();
+
+            //ev_bidders = conversation.getAcceptedEVs();
             System.out.println(schedule.printFullScheduleMap(price));
             System.out.println("\n====================================================================\n");
-            */
+
+            while (conversation.getPendingEvs().size() > 0 && neg.hasFinished() == false) {
+                neg = new Negotiations(conversation.getPendingEvs(), schedule.getFullScheduleMap(), schedule.getRemainingChargers(), price);
+                neg.start();
+                if (!neg.hasFinished()) {
+                    conversation = new Conversation(neg.getFilteredSuggestionList());
+                    conversation.conversation();
+                }
+            }
         }
 
     }

@@ -37,8 +37,8 @@ public class EV {
         accept = generator.nextInt(3) + 1;
         return 1;
         */
-        return 1;
-        //return strategy.evaluate(suggestion);
+        //return 1;
+        return strategy.evaluate(suggestion);
     }
 
     public Strategy getStrategy () {

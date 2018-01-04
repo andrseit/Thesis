@@ -27,6 +27,8 @@ public class Negotiations {
     private int[] price;
     private int initial_utility;
 
+    private boolean finish;
+
     private SuggestionComputer computer;
     private Comparator<EVInfo> comparator;
 
@@ -51,17 +53,41 @@ public class Negotiations {
             }
         };
 
-        suggestions_queue = new PriorityQueue<>(evs.size(), comparator);
+        suggestions_queue = new PriorityQueue<>(5, comparator);
     }
 
 
     public void start () {
         initial_utility = this.computeSuggestions();
-        ArrayFileWriter w = new ArrayFileWriter();
-        w.writeSuggestions(this.createSuggestionsMap());
-        this.chargers = Arrays.copyOf(initial_chargers, initial_chargers.length);
-        computer = new SuggestionComputer(this.chargers, price, IntegerConstants.SUGGESTION_COMPUTER_INITIAL);
-        this.vcg();
+
+        if (initial_utility > 0 ) {
+            this.saveOriginalSuggestions();
+            ArrayFileWriter w = new ArrayFileWriter();
+            w.writeSuggestions(this.createSuggestionsMap());
+            this.chargers = Arrays.copyOf(initial_chargers, initial_chargers.length);
+            computer = new SuggestionComputer(this.chargers, price, IntegerConstants.SUGGESTION_COMPUTER_INITIAL);
+            this.vcg();
+            this.resetBestRatings();
+        } else {
+            System.out.println("No available suggestions!");
+            finish = true;
+        }
+    }
+
+    /**
+     * Saves initial suggestions before vcg
+     */
+    private void saveOriginalSuggestions () {
+        for (EVInfo ev: evs) {
+            ev.setFinalSuggestion();
+            ev.saveBests();
+        }
+    }
+
+    private void resetBestRatings () {
+        for (EVInfo ev: evs) {
+            ev.resetBests();
+        }
     }
 
     /**
@@ -81,34 +107,42 @@ public class Negotiations {
             this.compareSuggestions(ev, first, second);
             */
             computer.computeAlternative(ev);
-            suggestions_queue.offer(ev);
+            if (ev.hasSuggestion())
+                suggestions_queue.offer(ev);
         }
-        //this.computeProfits();
-        this.printOrderedSuggestions();
-        this.updateChargers();
-        this.filterSuggestions();
-        util = this.computeUtility();
-        this.printFinalOrderedSuggestions();
-        return util;
+        if (suggestions_queue.size() > 0) {
+            //this.computeProfits();
+            this.printOrderedSuggestions();
+            this.updateChargers();
+            this.filterSuggestions();
+            util = this.computeUtility();
+            this.printFinalOrderedSuggestions();
+            return util;
+        } else {
+            return -1;
+        }
     }
 
 
     private void vcg () {
         System.out.println("===== Negotiations VCG =====");
-        for (int ev = 0; ev < evs.size(); ev++) {
-            this.chargers = Arrays.copyOf(initial_chargers, initial_chargers.length);
-            int id = evs.get(0).getId();
-            System.out.println("\nComputing for ev" + id);
-            int remove = 0;
-            EVInfo removed = evs.get(remove);
-            evs.remove(removed);
+        if (evs.size() > 1) {
+            for (int ev = 0; ev < evs.size(); ev++) {
+                this.chargers = Arrays.copyOf(initial_chargers, initial_chargers.length);
+                int id = evs.get(0).getId();
+                System.out.println("\nComputing for ev" + id);
+                int remove = 0;
+                EVInfo removed = evs.get(remove);
+                evs.remove(removed);
 
-            int new_utility = this.computeSuggestions();
-            int payment = new_utility - (initial_utility - removed.getBid() * removed.getEnergy());
-            evs.get(0).setSuggestionPayment(payment);
-            evs.add(removed);
+                int new_utility = this.computeSuggestions();
+                int payment = new_utility - (initial_utility - removed.getBid() * removed.getEnergy());
+                evs.get(0).setSuggestionPayment(payment);
+                evs.add(removed);
+            }
+        } else if (evs.size() == 1){
+            evs.get(0).setSuggestionPayment(0);
         }
-
 
         System.out.println("Final payments: ");
         for (int ev = 0; ev < evs.size(); ev++) {
@@ -185,7 +219,12 @@ public class Negotiations {
             System.out.println();
         } else {
             System.out.println("No suggestions!");
+            finish = true;
         }
+    }
+
+    public boolean hasFinished () {
+        return finish;
     }
 
     private void printFinalOrderedSuggestions () {
@@ -251,11 +290,12 @@ public class Negotiations {
                 System.out.println("    Not available chargers found." +
                         "Must compute alternative suggestion.\n");
                 computer.computeAlternative(ev);
-                suggestions_queue.offer(ev);
+                if (ev.hasSuggestion())
+                    suggestions_queue.offer(ev);
             }
             else {
                 System.out.println("    Chargers updated successfully!\n");
-                ev.setHasSuggestion(true);
+                //ev.setHasSuggestion(true);
                 ev.getSuggestion().setSlotsAffected(slots_changed);
             }
 
@@ -295,7 +335,6 @@ public class Negotiations {
 
     private int[][] createSuggestionsMap () {
         int[][] s = new int[evs.size()][chargers.length + 1];
-        System.out.println("SIZE of ARRAY: " + evs.size() + " - " + (chargers.length+1));
         for (int ev = 0; ev < evs.size(); ev++) {
             EVInfo evInfo = evs.get(ev);
             s[ev][chargers.length] = evInfo.getId();
