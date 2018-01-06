@@ -120,6 +120,7 @@ public class Conversation {
      * opote h tha xreiastei kai edw priority queue h tha ginetai sort.
      * mporei na ginei ena priority queue pou tha exei mono autous pou exoun dynates alternatives
      */
+    /*
     private void computeSuggestionsForPending () {
 
         PriorityQueue<EVInfo> queue = new PriorityQueue<>(10, new Comparator<EVInfo>() {
@@ -169,6 +170,7 @@ public class Conversation {
 
         }
     }
+    */
 
     /**
      *

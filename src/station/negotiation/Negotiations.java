@@ -1,12 +1,9 @@
 package station.negotiation;
 
 import io.ArrayFileWriter;
-import optimize.ProfitCPLEX;
 import station.EVInfo;
 import various.ArrayTransformations;
-import various.IntegerConstants;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -27,6 +24,7 @@ public class Negotiations {
     private int[] price;
     private int initial_utility;
 
+    private int negotiation_state;
     private boolean finish;
 
     private SuggestionComputer computer;
@@ -34,13 +32,14 @@ public class Negotiations {
 
     private PriorityQueue<EVInfo> suggestions_queue; // instead of ArrayList<> - smaller to bigger
 
-    public Negotiations(ArrayList<EVInfo> evs, int[][] schedule, int[] chargers, int[] price) {
+    public Negotiations(ArrayList<EVInfo> evs, int[][] schedule, int[] chargers, int[] price, int negotiation_state) {
         this.evs = evs;
         this.schedule = schedule;
         this.chargers = Arrays.copyOf(chargers, chargers.length);
         this.initial_chargers = chargers;
         this.price = price;
-        computer = new SuggestionComputer(this.chargers, price, IntegerConstants.SUGGESTION_COMPUTER_INITIAL);
+        this.negotiation_state = negotiation_state;
+        computer = new SuggestionComputer(this.chargers, price, negotiation_state);
         comparator = new Comparator<EVInfo>() {
             @Override
             public int compare(EVInfo o1, EVInfo o2) {
@@ -65,7 +64,7 @@ public class Negotiations {
             ArrayFileWriter w = new ArrayFileWriter();
             w.writeSuggestions(this.createSuggestionsMap());
             this.chargers = Arrays.copyOf(initial_chargers, initial_chargers.length);
-            computer = new SuggestionComputer(this.chargers, price, IntegerConstants.SUGGESTION_COMPUTER_INITIAL);
+            //computer = new SuggestionComputer(this.chargers, price, negotiation_state);
             this.vcg();
             this.resetBestRatings();
         } else {
@@ -86,7 +85,7 @@ public class Negotiations {
 
     private void resetBestRatings () {
         for (EVInfo ev: evs) {
-            ev.resetBests();
+            ev.resetBestsVCG();
         }
     }
 
@@ -289,6 +288,7 @@ public class Negotiations {
             if (alt) {
                 System.out.println("    Not available chargers found." +
                         "Must compute alternative suggestion.\n");
+                ev.resetBestsUpdatingChargers();
                 computer.computeAlternative(ev);
                 if (ev.hasSuggestion())
                     suggestions_queue.offer(ev);

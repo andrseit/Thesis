@@ -25,6 +25,10 @@ public class Main {
         //test.staticOnline();
         test.staticOffline();
 
+//        DataGenerator dt = new DataGenerator();
+//        dt.generateEVsFile(4, 10,5);
+//        dt.generateStationFile(10, 2);
+
 
         /**
          * data files generation

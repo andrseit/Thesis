@@ -158,7 +158,7 @@ public class SuggestionComputer {
      * an alternative suggestion
      * WARNING: na chekarw na min einai idia me tin proigoumeni - return false na nai
      */
-    public boolean computeAlternative (EVInfo ev) {
+    public void computeAlternative (EVInfo ev) {
 
         System.out.println("--Computing alternative for ev: " + ev.getId());
 
@@ -168,11 +168,10 @@ public class SuggestionComputer {
         altered_window_suggestion.setType(IntegerConstants.ALTERED_WINDOW_TYPE);
         this.evaluateSuggestion(ev.getPreferences(), less_energy_suggestion);
         this.evaluateSuggestion(ev.getPreferences(), altered_window_suggestion);
-        boolean isSet = this.compareSuggestions(ev, less_energy_suggestion, altered_window_suggestion);
+        this.compareSuggestions(ev, less_energy_suggestion, altered_window_suggestion);
         this.checkSuggestion(ev);
         if (ev.hasSuggestion())
             this.computeProfit(ev);
-        return isSet;
 
 
         //suggestions_queue.offer(ev);
@@ -190,7 +189,6 @@ public class SuggestionComputer {
 
         suggestion.setRating(start_dif + end_diff + energy_diff);
         //System.out.println("\nDifferences: " + start_dif + ", " + end_diff + ", " + energy_diff);
-
     }
 
     private void computeProfit (EVInfo ev) {
@@ -217,10 +215,9 @@ public class SuggestionComputer {
      Suggestion suggestion = ev.getSuggestion();
      if (suggestion.getStart() == Integer.MAX_VALUE || suggestion.getEnd() == Integer.MAX_VALUE || suggestion.getEnergy() == 0) {
          ev.setHasSuggestion(false);
-     } else {
-         ev.setHasSuggestion(true);
      }
 
+     /*
      if (ev.getSuggestion().getType() == IntegerConstants.LESS_ENERGY_TYPE) {
          if (ev.getSuggestion().getRating() >= ev.getBestLessEnergy()) {
              ev.setHasSuggestion(false);
@@ -234,7 +231,9 @@ public class SuggestionComputer {
              ev.setBestRating(suggestion.getType(), suggestion.getRating());
          }
      }
+     */
     }
+
 
     /**
      * WARNING: prosoxi na min enallasontai oi protaseis, dld proteinei mia l.e. = 3
@@ -244,7 +243,7 @@ public class SuggestionComputer {
      * @param s2
      * @return
      */
-    private boolean compareSuggestions (EVInfo ev, Suggestion s1, Suggestion s2) {
+    private void compareSuggestions (EVInfo ev, Suggestion s1, Suggestion s2) {
         int difference = s1.getRating() - s2.getRating();
         Suggestion best, alt;
         if (difference < 0) {
@@ -258,19 +257,27 @@ public class SuggestionComputer {
             //ev.setSuggestion(s2);
         }
 
+        System.out.println("State: " + state);
         if (state == IntegerConstants.SUGGESTION_COMPUTER_CONVERSATION) {
+            System.out.println("OK");
             if (isBetter(ev, best)) {
+                System.out.println("OK1");
                 ev.setSuggestion(best);
-                return true;
+                ev.setHasSuggestion(true);
             } else if (isBetter(ev, alt)) {
+                System.out.println("OK2");
+                System.out.println(alt.toString());
                 ev.setSuggestion(alt);
-                return true;
+                ev.setHasSuggestion(true);
             } else {
-                return false;
+                System.out.println("OK3");
+                ev.setHasSuggestion(false);
             }
         } else {
+            System.out.println("What zi fak");
             ev.setSuggestion(best);
-            return true;
+            ev.setBestRating(best.getType(), best.getRating());
+            ev.setHasSuggestion(true);
         }
 
         /*
@@ -299,15 +306,18 @@ public class SuggestionComputer {
                 ev.setBestLessEnergy(suggestion.getRating());
                 suggestion.findSlotsAffected(chargers);
                 return true;
+            } else {
+                return false;
             }
-            return false;
         } else {
             if (suggestion.getRating() < ev.getBestAlteredWindow()) {
                 suggestion.findSlotsAffected(chargers);
                 ev.setBestAlteredWindow(suggestion.getRating());
                 return true;
+            } else {
+                return false;
             }
-            return false;
+
         }
     }
 

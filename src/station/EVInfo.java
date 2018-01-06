@@ -63,6 +63,8 @@ public class EVInfo{
     // so that a new suggestion can be checked if it is worth making
     private int best_less_energy; // the rating of the best less energy suggestion so far
     private int best_altered_window; // the rating of the bes altered window suggestion so far
+    private int previous_best_le; // to reset if a suggestion is invalid
+    private int previous_best_aw;
     private int[] suggestion_map;
     //private int start;
     //private int end;
@@ -281,10 +283,14 @@ public class EVInfo{
     }
 
     public void setBestRating (int type, int rating) {
-        if (type == IntegerConstants.LESS_ENERGY_TYPE)
+        if (type == IntegerConstants.LESS_ENERGY_TYPE) {
+            previous_best_le = best_less_energy;
             best_less_energy = rating;
-        else
+        }
+        else {
+            previous_best_aw = best_altered_window;
             best_altered_window = rating;
+        }
     }
 
     public int[] getSuggestionMap() {
@@ -325,8 +331,22 @@ public class EVInfo{
         best_altered_window = Integer.MAX_VALUE;
     }
 
-    public void resetBests () {
+    public void resetBestsVCG() {
         best_less_energy = final_best_le;
         best_altered_window = final_best_aw;
     }
+
+    /**
+     * If there are no chargers for the initial
+     */
+    public void resetBestsUpdatingChargers () {
+        if (suggestion.getType() == IntegerConstants.LESS_ENERGY_TYPE) {
+            best_less_energy = previous_best_le;
+            System.out.println(best_less_energy);
+        } else {
+            best_altered_window = previous_best_aw;
+            System.out.println(best_altered_window);
+        }
+    }
+
 }
