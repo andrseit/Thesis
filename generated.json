@@ -1,0 +1,10 @@
+{"preferences":{"inform":0,"start":4,"end":8,"bid":5,"energy":2},"strategy":{"probability":3,"start":2,"end":9,"rounds":1,"energy":1}}
+{"preferences":{"inform":1,"start":3,"end":9,"bid":2,"energy":7},"strategy":{"probability":59,"start":1,"end":9,"rounds":4,"energy":6}}
+{"preferences":{"inform":0,"start":0,"end":2,"bid":5,"energy":1},"strategy":{"probability":31,"start":0,"end":3,"rounds":4,"energy":1}}
+{"preferences":{"inform":1,"start":9,"end":9,"bid":3,"energy":1},"strategy":{"probability":82,"start":6,"end":9,"rounds":1,"energy":1}}
+{"preferences":{"inform":2,"start":5,"end":5,"bid":4,"energy":1},"strategy":{"probability":81,"start":3,"end":7,"rounds":3,"energy":1}}
+{"preferences":{"inform":1,"start":5,"end":8,"bid":5,"energy":3},"strategy":{"probability":87,"start":2,"end":8,"rounds":4,"energy":1}}
+{"preferences":{"inform":0,"start":3,"end":7,"bid":2,"energy":5},"strategy":{"probability":53,"start":0,"end":8,"rounds":1,"energy":4}}
+{"preferences":{"inform":5,"start":8,"end":8,"bid":4,"energy":1},"strategy":{"probability":61,"start":0,"end":9,"rounds":1,"energy":1}}
+{"preferences":{"inform":0,"start":6,"end":8,"bid":4,"energy":1},"strategy":{"probability":89,"start":0,"end":8,"rounds":3,"energy":1}}
+{"preferences":{"inform":4,"start":6,"end":9,"bid":3,"energy":1},"strategy":{"probability":53,"start":1,"end":9,"rounds":1,"energy":1}}

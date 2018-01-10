@@ -29,7 +29,7 @@ public class EVOnlineAgent extends OnlineAgent {
     @Override
     protected void setup() {
         super.setup();
-        System.out.println("EVInfo agent created!");
+        System.out.println("EVObject agent created!");
 
         JSONFileParser p = new JSONFileParser();
         Object[] args = this.getArguments();

@@ -10,4 +10,8 @@ public class IntegerConstants {
     public static int ALTERED_WINDOW_TYPE = 2;
     public static int SUGGESTION_COMPUTER_INITIAL = 1;
     public static int SUGGESTION_COMPUTER_CONVERSATION = 2;
+
+    public static int EV_EVALUATE_ACCEPT = 0;
+    public static int EV_EVALUATE_REJECT = 1;
+    public static int EV_EVALUATE_WAIT = 2;
 }

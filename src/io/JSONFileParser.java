@@ -1,14 +1,18 @@
 package io;
 
-import station.EVInfo;
+import evs.EV;
+import evs.Strategy;
+import station.EVObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import station.StationInfo;
 import various.EVData;
 
 import java.io.*;
 import java.util.ArrayList;
 
+import static java.lang.Math.log;
 import static java.lang.Math.toIntExact;
 
 /**
@@ -17,22 +21,41 @@ import static java.lang.Math.toIntExact;
 
 public class JSONFileParser {
 
+
     private int num_slots;
-    private int num_chargers;
 
-    public void readStationData(String path) {
+    public ArrayList<StationInfo> readStationData(String path) {
 
-        ArrayList<EVInfo> evs = new ArrayList<EVInfo>();
+        ArrayList<StationInfo> stations = new ArrayList<>();
+        int num_chargers;
+        int x, y;
+        int id = 0;
         JSONParser parser = new JSONParser();
         Reader reader = null;
         try {
             reader = new FileReader(path);
-            Object object = parser.parse(reader);
+            BufferedReader in = new BufferedReader(reader);
 
-            JSONObject json_ev = (JSONObject) object;
+            String line;
 
-            num_slots = toIntExact((long) json_ev.get("slots"));
-            num_chargers = toIntExact((long) json_ev.get("chargers"));
+            line = in.readLine();
+            num_slots = Integer.parseInt(line);
+
+            while ((line = in.readLine()) != null) {
+                Object object = parser.parse(line);
+
+                JSONObject station_json = (JSONObject) object;
+
+                num_chargers = toIntExact((long) station_json.get("chargers"));
+
+                JSONObject location = (JSONObject) station_json.get("location");
+                x = toIntExact((long) location.get("x"));
+                y = toIntExact((long) location.get("y"));
+
+                stations.add(new StationInfo(id, x, y, num_chargers));
+                id++;
+            }
+
 
             reader.close();
 
@@ -43,8 +66,7 @@ public class JSONFileParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+        return stations;
     }
 
 
@@ -95,9 +117,9 @@ public class JSONFileParser {
     }
 
 
-    public ArrayList<EVData> readEVsData(String path) {
+    public ArrayList<EV> readEVsData(String path) {
 
-        ArrayList<EVData> evs = new ArrayList<EVData>();
+        ArrayList<EV> evs = new ArrayList<>();
         JSONParser parser = new JSONParser();
         Reader reader = null;
         try {
@@ -105,12 +127,15 @@ public class JSONFileParser {
             BufferedReader in = new BufferedReader(reader);
 
             String line;
+            int id = 0;
             while ((line = in.readLine()) != null) {
 
                 Object object = parser.parse(line);
 
                 JSONObject json_ev = (JSONObject) object;
 
+                int x = toIntExact((long) json_ev.get("x"));
+                int y = toIntExact((long) json_ev.get("y"));
 
                 JSONObject preferences = (JSONObject) json_ev.get("preferences");
 
@@ -125,6 +150,7 @@ public class JSONFileParser {
 
                 int start_slot = toIntExact((long) preferences.get("start"));
                 int end_slot = toIntExact((long)(preferences.get("end")));
+                int max_distance = toIntExact((long) (preferences.get("distance")));
 
                 JSONObject strategy = (JSONObject) json_ev.get("strategy");
 
@@ -134,10 +160,10 @@ public class JSONFileParser {
                 int s_prob = toIntExact((long)(strategy.get("probability")));
                 int s_rounds = toIntExact((long)(strategy.get("rounds")));
 
-                EVData data = new EVData(energy, bid, start_slot, end_slot, inform_slot);
-                data.setStrategy(s_start, s_end, s_energy, s_prob, s_rounds);
-                data.setJSONString(line);
-                evs.add(data);
+                EV ev = new EV(id, x, y, start_slot, end_slot, energy, bid, max_distance,
+                        new Strategy(energy, s_start, s_end, s_prob, s_rounds));
+                evs.add(ev);
+                id++;
             }
             reader.close();
         } catch (FileNotFoundException e) {
@@ -151,8 +177,8 @@ public class JSONFileParser {
         return evs;
     }
 
-    public EVInfo parseBidsString (String bids) {
-        EVInfo ev = new EVInfo();
+    public EVObject parseBidsString (String bids) {
+        EVObject ev = new EVObject();
         try {
             JSONParser parser = new JSONParser();
             Object object = parser.parse(bids);
@@ -175,7 +201,7 @@ public class JSONFileParser {
         return ev;
     }
 
-    public int getSlotsNumber() { return num_slots; }
-
-    public int getChargersNumber() { return num_chargers; }
+    public int getSlotsNumber() {
+        return num_slots;
+    }
 }

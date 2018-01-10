@@ -22,7 +22,7 @@ public class StationAgent extends Agent {
     protected void setup () {
         super.setup();
         System.out.println("Station agent created!");
-        station = new Station();
+        //station = new Station();
         System.out.println("Station agent is registering in the yellow pages...");
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());

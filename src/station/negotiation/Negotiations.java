@@ -1,7 +1,8 @@
 package station.negotiation;
 
 import io.ArrayFileWriter;
-import station.EVInfo;
+import optimize.SuggestionsOptimizer;
+import station.EVObject;
 import various.ArrayTransformations;
 
 import java.util.*;
@@ -17,7 +18,7 @@ import java.util.*;
 public class Negotiations {
 
 
-    private ArrayList<EVInfo> evs;
+    private ArrayList<EVObject> evs;
     private int[][] schedule;
     private int[] chargers;
     private int[] initial_chargers;
@@ -28,11 +29,12 @@ public class Negotiations {
     private boolean finish;
 
     private SuggestionComputer computer;
-    private Comparator<EVInfo> comparator;
+    private Comparator<EVObject> comparator;
 
-    private PriorityQueue<EVInfo> suggestions_queue; // instead of ArrayList<> - smaller to bigger
+    private PriorityQueue<EVObject> suggestions_queue; // instead of ArrayList<> - smaller to bigger
+    SuggestionsOptimizer optimizer;
 
-    public Negotiations(ArrayList<EVInfo> evs, int[][] schedule, int[] chargers, int[] price, int negotiation_state) {
+    public Negotiations(ArrayList<EVObject> evs, int[][] schedule, int[] chargers, int[] price, int negotiation_state) {
         this.evs = evs;
         this.schedule = schedule;
         this.chargers = Arrays.copyOf(chargers, chargers.length);
@@ -40,9 +42,9 @@ public class Negotiations {
         this.price = price;
         this.negotiation_state = negotiation_state;
         computer = new SuggestionComputer(this.chargers, price, negotiation_state);
-        comparator = new Comparator<EVInfo>() {
+        comparator = new Comparator<EVObject>() {
             @Override
-            public int compare(EVInfo o1, EVInfo o2) {
+            public int compare(EVObject o1, EVObject o2) {
                 int comp = o1.getSuggestion().getRating() - o2.getSuggestion().getRating();
                 if (comp != 0)
                     return comp;
@@ -77,49 +79,56 @@ public class Negotiations {
      * Saves initial suggestions before vcg
      */
     private void saveOriginalSuggestions () {
-        for (EVInfo ev: evs) {
+        for (EVObject ev: evs) {
             ev.setFinalSuggestion();
             ev.saveBests();
         }
     }
 
     private void resetBestRatings () {
-        for (EVInfo ev: evs) {
+        for (EVObject ev: evs) {
             ev.resetBestsVCG();
         }
     }
 
     /**
-     * For each EVInfo not charged compute some suggestions
+     * For each EVObject not charged compute some suggestions
      */
     public int computeSuggestions () {
-        int util;
-        for (EVInfo ev: evs) {
 
-            /*
-            Suggestion first = computer.lessEnergy(ev.getPreferences());
-            this.evaluateSuggestion(ev.getPreferences(), first);
+        // compute suggestions
+        optimizer = new SuggestionsOptimizer(evs, chargers, price);
+        optimizer.optimizeSuggestions();
+        initial_utility = optimizer.getUtility();
 
-            Suggestion second = computer.alteredWindow(ev.getPreferences());
-            this.evaluateSuggestion(ev.getPreferences(), second);
-
-            this.compareSuggestions(ev, first, second);
-            */
-            computer.computeAlternative(ev);
-            if (ev.hasSuggestion())
-                suggestions_queue.offer(ev);
-        }
-        if (suggestions_queue.size() > 0) {
-            //this.computeProfits();
-            this.printOrderedSuggestions();
-            this.updateChargers();
-            this.filterSuggestions();
-            util = this.computeUtility();
-            this.printFinalOrderedSuggestions();
-            return util;
-        } else {
-            return -1;
-        }
+//        int util;
+//        for (EVObject ev: evs) {
+//
+//            /*
+//            Suggestion first = computer.lessEnergy(ev.getPreferences());
+//            this.evaluateSuggestionOld(ev.getPreferences(), first);
+//
+//            Suggestion second = computer.alteredWindow(ev.getPreferences());
+//            this.evaluateSuggestionOld(ev.getPreferences(), second);
+//
+//            this.compareSuggestions(ev, first, second);
+//            */
+//            computer.computeAlternative(ev);
+//            if (ev.hasSuggestion())
+//                suggestions_queue.offer(ev);
+//        }
+//        if (suggestions_queue.size() > 0) {
+//            //this.computeProfits();
+//            this.printOrderedSuggestions();
+//            this.updateChargers();
+//            this.filterSuggestions();
+//            util = this.computeUtility();
+//            this.printFinalOrderedSuggestions();
+//            return util;
+//        } else {
+//            return -1;
+//        }
+        return -1;
     }
 
 
@@ -127,14 +136,17 @@ public class Negotiations {
         System.out.println("===== Negotiations VCG =====");
         if (evs.size() > 1) {
             for (int ev = 0; ev < evs.size(); ev++) {
-                this.chargers = Arrays.copyOf(initial_chargers, initial_chargers.length);
-                int id = evs.get(0).getId();
-                System.out.println("\nComputing for ev" + id);
-                int remove = 0;
-                EVInfo removed = evs.get(remove);
-                evs.remove(removed);
 
-                int new_utility = this.computeSuggestions();
+                int remove = 0;
+                EVObject removed = evs.get(remove);
+                evs.remove(removed);
+                int id = removed.getId();
+                System.out.println("\nComputing for ev" + id);
+                optimizer = new SuggestionsOptimizer(evs, chargers, price);
+                optimizer.optimizeSuggestions();
+                int new_utility = optimizer.getUtility();
+                System.out.println("New utility: "  + new_utility);
+                //int payment = new_utility - (initial_utility - removed.getBid() * removed.getFinalSuggestion().getEnergy());
                 int payment = new_utility - (initial_utility - removed.getBid() * removed.getEnergy());
                 evs.get(0).setSuggestionPayment(payment);
                 evs.add(removed);
@@ -154,7 +166,7 @@ public class Negotiations {
     /*
 
     private void computeProfits () {
-        for (EVInfo ev: evs) {
+        for (EVObject ev: evs) {
             Suggestion suggestion = ev.getSuggestion();
             int start = suggestion.getStart();
             int end = suggestion.getEnd();
@@ -171,7 +183,7 @@ public class Negotiations {
         }
     }
 
-    private void computeProfits (EVInfo ev) {
+    private void computeProfits (EVObject ev) {
         Suggestion suggestion = ev.getSuggestion();
         int start = suggestion.getStart();
         int end = suggestion.getEnd();
@@ -191,7 +203,7 @@ public class Negotiations {
 
         int utility = 0;
 
-        for (EVInfo ev: evs) {
+        for (EVObject ev: evs) {
             utility += ev.getSuggestion().getProfit();
         }
         return utility;
@@ -200,8 +212,8 @@ public class Negotiations {
     private void printOrderedSuggestions () {
         System.out.println("Ordered Suggestions");
         int count = 0;
-        EVInfo ev = null;
-        ArrayList<EVInfo> temp = new ArrayList<>();
+        EVObject ev = null;
+        ArrayList<EVObject> temp = new ArrayList<>();
         if (suggestions_queue.size() > 0) {
             while (count < suggestions_queue.size() + 1) {
                 ev = suggestions_queue.poll();
@@ -212,7 +224,7 @@ public class Negotiations {
                 count++;
             }
 
-            for (EVInfo e : temp) {
+            for (EVObject e : temp) {
                 suggestions_queue.offer(e);
             }
             System.out.println();
@@ -230,7 +242,7 @@ public class Negotiations {
         System.out.println("Ordered Suggestions");
         Collections.sort(evs, comparator);
         int count = 0;
-        EVInfo ev = null;
+        EVObject ev = null;
         while (count != evs.size()) {
             ev = evs.get(count);
             System.out.println("    " + (count+1) + ". " + ev.getSuggestion().toString() +
@@ -244,10 +256,11 @@ public class Negotiations {
 
         System.out.println("Updating Chargers after first computation of Suggestions");
         ArrayTransformations t = new ArrayTransformations();
+        t.printOneDimensionArray("Before", chargers);
         boolean alt = false;
 
 
-        EVInfo ev = null;
+        EVObject ev = null;
         while ((ev = suggestions_queue.poll()) != null) {
             System.out.println("-Updating chargers for ev: " + ev.getId());
             Suggestion suggestion = ev.getSuggestion();
@@ -283,7 +296,6 @@ public class Negotiations {
                     // 2.1) if not available chargers, then reset the array
                 }
             }
-            t.printOneDimensionArray("Chargers", chargers);
 
             if (alt) {
                 System.out.println("    Not available chargers found." +
@@ -294,6 +306,7 @@ public class Negotiations {
                     suggestions_queue.offer(ev);
             }
             else {
+                t.printOneDimensionArray("After", chargers);
                 System.out.println("    Chargers updated successfully!\n");
                 //ev.setHasSuggestion(true);
                 ev.getSuggestion().setSlotsAffected(slots_changed);
@@ -313,12 +326,12 @@ public class Negotiations {
      */
     private void filterSuggestions () {
 
-        ArrayList<EVInfo> removed = new ArrayList<>();
-        for (EVInfo ev: evs) {
+        ArrayList<EVObject> removed = new ArrayList<>();
+        for (EVObject ev: evs) {
             if (!ev.hasSuggestion()) removed.add(ev);
         }
 
-        for (EVInfo ev: removed) {
+        for (EVObject ev: removed) {
             if (!ev.hasSuggestion()) evs.remove(ev);
         }
 
@@ -336,7 +349,7 @@ public class Negotiations {
     private int[][] createSuggestionsMap () {
         int[][] s = new int[evs.size()][chargers.length + 1];
         for (int ev = 0; ev < evs.size(); ev++) {
-            EVInfo evInfo = evs.get(ev);
+            EVObject evInfo = evs.get(ev);
             s[ev][chargers.length] = evInfo.getId();
             Suggestion suggestion = evInfo.getSuggestion();
             int start = suggestion.getStart();
@@ -352,7 +365,7 @@ public class Negotiations {
         return s;
     }
 
-    public ArrayList<EVInfo> getFilteredSuggestionList () {
+    public ArrayList<EVObject> getFilteredSuggestionList () {
         return evs;
     }
 

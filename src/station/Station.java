@@ -1,15 +1,11 @@
 package station;
 
-import io.ArrayFileWriter;
 import optimize.CPLEX;
 import station.auction.OptimalSchedule;
-import station.auction.VCG;
-import station.negotiation.Conversation;
-import station.negotiation.Negotiations;
 import io.JSONFileParser;
-import statistics.Statistics;
+import station.negotiation.Negotiations;
+import station.negotiation.Suggestion;
 import various.IntegerConstants;
-import various.PrintOuch;
 
 import java.util.ArrayList;
 
@@ -18,27 +14,29 @@ import java.util.ArrayList;
  */
 public class Station{
 
+    private StationInfo info;
+
     private Schedule schedule;
     private int[] map_occupancy; // remove it - it belongs to schedule
     private int[] demand; // how many evs demand to charge in each slot
     private int[] price; // the price of each slot, based on the demand
     private int num_slots;
     private int num_chargers;
-    private ArrayList<EVInfo> ev_bidders;
-    private ArrayList<EVInfo> locked_bidders;
-    private ArrayList<EVInfo> not_charged; // the ev's that did not fit in the initial schedule
+    private ArrayList<EVObject> ev_bidders;
+    private ArrayList<EVObject> locked_bidders;
+    private ArrayList<EVObject> not_charged; // the evs that did not fit in the initial schedule
+    private ArrayList<EVObject> waiting;// the evs that wait for a new suggestion
     private CPLEX cp;
 
     private int initial_utility;
 
     private int id_counter = 0;
 
-    public Station () {
+    public Station (StationInfo info, int num_slots) {
 
-        JSONFileParser parser = new JSONFileParser();
-        parser.readStationData("station.json");
-        num_slots = parser.getSlotsNumber();
-        num_chargers = parser.getChargersNumber();
+        this.num_slots = num_slots;
+        this.info = info;
+
         price = new int[num_slots];
         for (int s = 0; s < num_slots/2; s++) {
             price[s] = 1;
@@ -46,22 +44,24 @@ public class Station{
         for (int s = num_slots/2; s < num_slots; s++) {
             price[s] = 1;
         }
-        schedule = new Schedule(num_slots, num_chargers);
+        schedule = new Schedule(num_slots, info.getChargerNumber());
         demand = new int[num_slots];
-        schedule.printSchedule();
         cp = new CPLEX();
-        ev_bidders = new ArrayList<EVInfo>();
+        ev_bidders = new ArrayList<EVObject>();
         locked_bidders = new ArrayList<>();
         not_charged = new ArrayList<>();
+        waiting = new ArrayList<>();
     }
 
 
 
-    public void computeSchedule () {
+    public boolean computeSchedule () {
         if (ev_bidders.size() > 0) {
             this.compute();
+            return true;
         } else {
             System.out.println("No incoming vehicles!");
+            return false;
         }
     }
 
@@ -72,18 +72,117 @@ public class Station{
         System.out.println(process + " lasted: " + elapsedSeconds + " sec");
     }
 
-    private void compute() {
 
-        PrintOuch print = new PrintOuch();
-        System.out.println("========================== 1) Optimal Schedule ============================");
+    private void compute () {
         long tStart = System.currentTimeMillis();
         System.out.println("Starting -- Computing initial optimal schedule");
-        OptimalSchedule optimal = new OptimalSchedule(this);
+        cp = new CPLEX();
+        OptimalSchedule optimal = new OptimalSchedule(ev_bidders, num_slots, price, getRemainingChargers(), cp);
         optimal.computeOptimalSchedule();
+        //this.setScheduleMap(cp.getScheduleMap());
+        //this.showIDs();
         elapsedSeconds(tStart, "Scheduling");
-        System.out.println("\n====================================================================\n");
+
+        this.findMinWindow();
+        System.out.println(schedule.printFullScheduleMap(price));
+
+    }
+
+    /**
+     * The station returns a suggestion to each ev after the computation of the schedule
+     * If the ev has charged, it sends a suggestion with the min and max slot
+     * If the ev has not charged (suggestionsForNotCharged) it sends a new suggestion
+     */
+    private void findMinWindow () {
+        int[] who_charged = cp.getWhoCharges();
+        int[][] schedule_map = schedule.getFullScheduleMap();
+        for (int e = 0; e < ev_bidders.size(); e++) {
+            EVObject ev = ev_bidders.get(e);
+            int min = 0, max = 0;
+            if (who_charged[e] == 1) {
+                // find the min slot
+                for (int s = 0; s < num_slots; s++) {
+                    if (schedule_map[e][s] == 1) {
+                        min = s;
+                        break;
+                    }
+                }
+                for (int s = num_slots-1; s >= min; s--) {
+                    if (schedule_map[e][s] == 1) {
+                        max = s;
+                        break;
+                    }
+                }
+                Suggestion suggestion = new Suggestion();
+                suggestion.setStartEndSlots(min, max);
+                suggestion.setEnergy(ev.getEnergy());
+                suggestion.findSlotsAffected(getRemainingChargers());
+                ev.setSuggestion(suggestion);
+                ev.setFinalSuggestion();
+            } else {
+                Suggestion suggestion = new Suggestion();
+                suggestion.setStartEndSlots(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                suggestion.setEnergy(0);
+                //suggestion.findSlotsAffected(getRemainingChargers());
+                ev.setSuggestion(suggestion);
+                ev.setFinalSuggestion();
+            }
+
+        }
+    }
+
+    public void findSuggestions () {
+
+        Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), getRemainingChargers(),
+                price, 0);
+        neg.computeSuggestions();
+        for (EVObject ev: not_charged) {
+            if (neg.getFilteredSuggestionList().contains(ev))
+                ev.setFinalSuggestion();
+        }
+    }
+
+    public void sendSuggestionMessage () {
+        int[] who_charged = cp.getWhoCharges();
+        for (int e = 0; e < ev_bidders.size(); e++) {
+            //if (who_charged[e] == 1) {
+            EVObject ev = ev_bidders.get(e);
+            SuggestionMessage message = new SuggestionMessage(info, ev.getFinalSuggestion());
+            ev.getObjectAddress().addSuggestion(message);
+            //}
+        }
+    }
+
+    public void sendNewSuggestionMessage () {
+
+        for (int e = 0; e < waiting.size(); e++) {
+            EVObject ev = waiting.get(e);
+            if (ev.hasSuggestion()) {
+                SuggestionMessage message = new SuggestionMessage(info, ev.getFinalSuggestion());
+                ev.getObjectAddress().addSuggestion(message);
+            }
+        }
+    }
+
+    public void resetChargers () {
+        schedule.resetChargers();
+    }
+
+    private void compute2() {
+
+        //PrintOuch print = new PrintOuch();
+        //System.out.println("========================== 1) Optimal ScheduleOld ============================");
+        long tStart = System.currentTimeMillis();
+        System.out.println("Starting -- Computing initial optimal schedule");
+        OptimalSchedule optimal = new OptimalSchedule(ev_bidders, num_slots, price, getRemainingChargers(), cp);
+        optimal.computeOptimalSchedule();
+        //this.showIDs();
+        System.out.println(schedule.printFullScheduleMap(price));
+        elapsedSeconds(tStart, "Scheduling");
 
 
+        //System.out.println("\n====================================================================\n");
+        /*
         System.out.println("========================== 2) VCG Payments ============================");
         tStart = System.currentTimeMillis();
         this.findNotCharged();
@@ -97,6 +196,9 @@ public class Station{
         w.writeSchedule(schedule.getFullScheduleMap(), getRemainingChargers());
         System.out.println("\n====================================================================\n");
 
+        Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), schedule.getRemainingChargers(), price,
+                IntegerConstants.SUGGESTION_COMPUTER_INITIAL);
+        neg.start();
 
         tStart = System.currentTimeMillis();
         if (not_charged.size() != 0) {
@@ -112,7 +214,7 @@ public class Station{
             conversation.conversation();
             schedule.updateNegotiationChargers(conversation.getAcceptedEVs());
 
-            System.out.println("\n===================== 5) Updating Chargers & Schedule ===================================\n");
+            System.out.println("\n===================== 5) Updating Chargers & ScheduleOld ===================================\n");
 
             //ev_bidders = conversation.getAcceptedEVs();
             System.out.println(schedule.printFullScheduleMap(price));
@@ -134,16 +236,20 @@ public class Station{
         Statistics stats = new Statistics();
         stats.occupancyPercentage(schedule.getFullScheduleMap(), num_chargers);
         stats.evsChargedPercentage(schedule.getFullScheduleMap());
+        */
 
     }
 
-
-
+    private void showIDs () {
+        for (EVObject ev: ev_bidders) {
+            System.out.println("ev_" + ev.getStationId() + " ---> " + " ev_" + ev.getId());
+        }
+    }
 
     public void findNotCharged () {
         int[] who_charged = cp.getWhoCharges();
         for (int ev = 0; ev < who_charged.length; ev++) {
-            EVInfo current = ev_bidders.get(ev);
+            EVObject current = ev_bidders.get(ev);
             if (who_charged[ev] == 1) {
                 current.setCharged(true);
             } else {
@@ -153,25 +259,101 @@ public class Station{
     }
 
 
-    private void moveLockedBidders () {
-        for (EVInfo ev: ev_bidders) {
-            locked_bidders.add(ev);
+    /**
+     * Checks if someone who asked for a better offer - because he did not fit in the
+     * schedule with his initial preferences, can now charged with these preferences
+     */
+    public void checkWaiting () {
+        int[][] schedule_map = cp.getScheduleMap();
+        int[] who_charged = cp.getWhoCharges();
+        for (EVObject ev: waiting) {
+
+            if (who_charged[ev.getStationId()] == 1) {
+                System.out.println("ev_" + ev.getId() + "(" + ev.getStationId()+") was found an offer!");
+                int min = ev.getStartSlot(), max = ev.getEndSlot();
+                // find the min slot
+                for (int s = 0; s < num_slots; s++) {
+                    if (schedule_map[ev.getStationId()][s] == 1) {
+                        min = s;
+                        break;
+                    }
+                }
+                for (int s = num_slots-1; s >= min; s--) {
+                    if (schedule_map[ev.getStationId()][s] == 1) {
+                        max = s;
+                        break;
+                    }
+                }
+                Suggestion suggestion = new Suggestion();
+                suggestion.setStartEndSlots(min, max);
+                suggestion.setEnergy(ev.getEnergy());
+                suggestion.findSlotsAffected(getRemainingChargers());
+                ev.setSuggestion(suggestion);
+                ev.setFinalSuggestion();
+                System.out.println(min + " - " + max);
+            }
+        }
+    }
+
+    public void moveLockedBidders () {
+        for (EVObject ev: ev_bidders) {
+            if (!waiting.contains(ev))
+                locked_bidders.add(ev);
         }
         ev_bidders.clear();
     }
 
-
-
-    public void addEVBidder (EVInfo ev) {
-        ev.setID(id_counter);
+    public void addEVBidder (EVObject ev) {
+        ev.setStationId(id_counter);
         id_counter++;
         ev_bidders.add(ev);
     }
 
+    public void markEVBidder (int id, int state) {
+        for (EVObject ev: ev_bidders) {
+            if (ev.getId() == id && (state != IntegerConstants.EV_EVALUATE_REJECT)) {
+                ev.setAcceptedAndWaiting(true, state);
+            }
+            if (waiting.contains(ev) && (state == IntegerConstants.EV_EVALUATE_ACCEPT || state == IntegerConstants.EV_EVALUATE_REJECT)) {
+                ev.setWaiting(false);
+                waiting.remove(ev);
+            }
+        }
+        if (state == IntegerConstants.EV_EVALUATE_ACCEPT)
+            System.out.println("ev_" + id + " accepted offer!");
+        else if (state == IntegerConstants.EV_EVALUATE_WAIT)
+            System.out.println("ev_" + id + " waits for new offer!");
+        else
+            System.out.println("ev_" + id + " rejected offer!");
+    }
+
+    public void setScheduleMap (int[][] map) {
+        schedule.setFullScheduleMap(map);
+    }
+
+    public void updateEVBiddersList () {
+        ArrayList<EVObject> remove = new ArrayList<>();
+        int id = 0;
+        for (EVObject ev: ev_bidders) {
+            if (!ev.isAccepted())
+                remove.add(ev);
+            else {
+                ev.setStationId(id);
+                if (ev.isWaiting())
+                    waiting.add(ev);
+                id++;
+            }
+        }
+        for (EVObject ev: remove) {
+            ev_bidders.remove(ev);
+        }
+    }
+
+
     public void addEVBidder (String ev_json) {
 
         JSONFileParser p = new JSONFileParser();
-        EVInfo ev = p.parseBidsString(ev_json);
+        EVObject ev = p.parseBidsString(ev_json);
         ev.setID(id_counter);
         id_counter++;
         ev_bidders.add(ev);
@@ -179,22 +361,34 @@ public class Station{
 
     public String printEVBidders () {
         StringBuilder str = new StringBuilder();
-        for (EVInfo ev: ev_bidders) {
+        for (EVObject ev: ev_bidders) {
             str.append(ev.printEV());
         }
         return str.toString();
     }
 
+    public String printEVWaiting () {
+        StringBuilder str = new StringBuilder();
+        for (EVObject ev: waiting) {
+            str.append(ev.printEV());
+        }
+        return str.toString();
+    }
+
+    public void printNotChargedBidders () {
+        for (EVObject ev: not_charged) {
+            System.out.println(ev.toString());
+        }
+    }
     public void chooseBidders () {
         for(int ev = 0; ev < ev_bidders.size(); ev++) {
-            EVInfo current = ev_bidders.get(ev);
+            EVObject current = ev_bidders.get(ev);
 
 
             // check slots if available - count how many are available in the given range
             //if(countAvailableSlots(start_slot, end_slot) >= energy)
         }
     }
-
 
     private int countAvailableSlots (int lb, int ub) {
         int available = 0;
@@ -205,26 +399,14 @@ public class Station{
         return available;
     }
 
-    private void computeDemand () {
-        for (EVInfo ev: ev_bidders) {
-            for (int b = 0; b < ev.getBidsNumber(); b++) {
-                int start = ev.getStartSlot(b);
-                int end = ev.getEndSlot(b);
-                for (int s = start; s <= end; s++) {
-                    demand[s]++;
-                }
-            }
-        }
-    }
-
     public void printPayments () {
-        for (EVInfo ev: locked_bidders) {
-            System.out.println("EVInfo: " + (ev.getId()-1) + " pays: " + ev.getFinalPayment());
+        for (EVObject ev: locked_bidders) {
+            System.out.println("EVObject: " + (ev.getId()-1) + " pays: " + ev.getFinalPayment());
         }
     }
 
     public void printBidders () {
-        for (EVInfo ev: ev_bidders) {
+        for (EVObject ev: ev_bidders) {
             System.out.println(ev.getObjectAddress());
         }
     }
@@ -243,7 +425,7 @@ public class Station{
 
     public int getBiddersNumber () { return this.ev_bidders.size(); }
 
-    public ArrayList<EVInfo> getBidderList () { return ev_bidders; }
+    public ArrayList<EVObject> getBidderList () { return ev_bidders; }
 
     public CPLEX getCP () { return cp; }
 
@@ -251,8 +433,8 @@ public class Station{
 
     public int[] getRemainingChargers () {return schedule.getRemainingChargers(); }
 
-    public void setScheduleMap (int[][] schedule_map) {
-        schedule.saveInitialScheduleMap(schedule_map);
+    public void concatScheduleMap(int[][] schedule_map) {
+        schedule.concatMaps(schedule_map);
     }
 
     public void setInitialUtility (int utility) {
@@ -263,5 +445,8 @@ public class Station{
         return initial_utility;
     }
 
-    public void updateRemainingChargers () { schedule.setRemainingChargers(num_slots); }
+    public StationInfo getInfo () { return info; }
+
+    public boolean isWaitingEmpty () { return waiting.isEmpty(); }
+
 }

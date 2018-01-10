@@ -1,10 +1,8 @@
 package station.negotiation;
 
 import evs.Preferences;
-import station.EVInfo;
-import various.ArrayTransformations;
+import station.EVObject;
 import various.IntegerConstants;
-import various.PrintOuch;
 
 /**
  * This class contains methods that compute the suggestions for the evs
@@ -158,7 +156,7 @@ public class SuggestionComputer {
      * an alternative suggestion
      * WARNING: na chekarw na min einai idia me tin proigoumeni - return false na nai
      */
-    public void computeAlternative (EVInfo ev) {
+    public void computeAlternative (EVObject ev) {
 
         System.out.println("--Computing alternative for ev: " + ev.getId());
 
@@ -172,13 +170,15 @@ public class SuggestionComputer {
         this.checkSuggestion(ev);
         if (ev.hasSuggestion())
             this.computeProfit(ev);
+        else
+            System.out.println("No suitable suggestion found!");
 
 
         //suggestions_queue.offer(ev);
     }
 
     /**
-     * Take as input a suggestion (new preferences) and the initial preferences of an EVInfo.
+     * Take as input a suggestion (new preferences) and the initial preferences of an EVObject.
      * Based on some metric check if the suggestion is legitimate.
      */
     private void evaluateSuggestion (Preferences initial, Suggestion suggestion) {
@@ -191,7 +191,7 @@ public class SuggestionComputer {
         //System.out.println("\nDifferences: " + start_dif + ", " + end_diff + ", " + energy_diff);
     }
 
-    private void computeProfit (EVInfo ev) {
+    private void computeProfit (EVObject ev) {
         Suggestion suggestion = ev.getSuggestion();
         int start = suggestion.getStart();
         int end = suggestion.getEnd();
@@ -211,7 +211,7 @@ public class SuggestionComputer {
      * also checks if is better than previous
      * @param ev
      */
-    private void checkSuggestion (EVInfo ev) {
+    private void checkSuggestion (EVObject ev) {
      Suggestion suggestion = ev.getSuggestion();
      if (suggestion.getStart() == Integer.MAX_VALUE || suggestion.getEnd() == Integer.MAX_VALUE || suggestion.getEnergy() == 0) {
          ev.setHasSuggestion(false);
@@ -243,7 +243,7 @@ public class SuggestionComputer {
      * @param s2
      * @return
      */
-    private void compareSuggestions (EVInfo ev, Suggestion s1, Suggestion s2) {
+    private void compareSuggestions (EVObject ev, Suggestion s1, Suggestion s2) {
         int difference = s1.getRating() - s2.getRating();
         Suggestion best, alt;
         if (difference < 0) {
@@ -257,28 +257,28 @@ public class SuggestionComputer {
             //ev.setSuggestion(s2);
         }
 
-        System.out.println("State: " + state);
-        if (state == IntegerConstants.SUGGESTION_COMPUTER_CONVERSATION) {
-            System.out.println("OK");
+        //if (state == IntegerConstants.SUGGESTION_COMPUTER_CONVERSATION) {
             if (isBetter(ev, best)) {
-                System.out.println("OK1");
                 ev.setSuggestion(best);
+                ev.setBestRating(best.getType(), best.getRating());
                 ev.setHasSuggestion(true);
             } else if (isBetter(ev, alt)) {
-                System.out.println("OK2");
-                System.out.println(alt.toString());
                 ev.setSuggestion(alt);
+                ev.setBestRating(alt.getType(), alt.getRating());
                 ev.setHasSuggestion(true);
             } else {
-                System.out.println("OK3");
                 ev.setHasSuggestion(false);
             }
-        } else {
-            System.out.println("What zi fak");
+        //}
+
+        /*
+        else {
             ev.setSuggestion(best);
             ev.setBestRating(best.getType(), best.getRating());
             ev.setHasSuggestion(true);
         }
+        */
+
 
         /*
         if (!isSame(ev.getSuggestion(), best)) {
@@ -294,12 +294,12 @@ public class SuggestionComputer {
     }
 
     /**
-     * WARNING: min ksexasw na kanw set to bestRating sto EVInfo, otan einai initial
+     * WARNING: min ksexasw na kanw set to bestRating sto EVObject, otan einai initial
      * @param ev
      * @param suggestion
      * @return
      */
-    private boolean isBetter (EVInfo ev, Suggestion suggestion) {
+    private boolean isBetter (EVObject ev, Suggestion suggestion) {
 
         if (suggestion.getType() == IntegerConstants.LESS_ENERGY_TYPE) {
             if (suggestion.getRating() < ev.getBestLessEnergy()) {
@@ -321,12 +321,4 @@ public class SuggestionComputer {
         }
     }
 
-    private boolean isSame (Suggestion previous, Suggestion alternative) {
-        //System.out.println(previous.toString());
-        //System.out.println(alternative.toString());
-        if (previous.getStart() == alternative.getStart() && previous.getEnd() == alternative.getEnd() &&
-                previous.getEnergy() == alternative.getEnergy())
-            return true;
-        return false;
-    }
 }

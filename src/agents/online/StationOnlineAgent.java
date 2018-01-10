@@ -26,7 +26,7 @@ public class StationOnlineAgent extends OnlineAgent {
         super.setup();
         System.out.println("Station agent created!");
         slot = 0;
-        station = new Station();
+        station = null; //new Station();
 
         this.setUIDimensions(250, 800);
         addBehaviour(new CreateUI());

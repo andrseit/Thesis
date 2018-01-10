@@ -1,6 +1,6 @@
 package optimize;
 
-import station.EVInfo;
+import station.EVObject;
 import ilog.concert.*;
 import ilog.cplex.IloCplex;
 
@@ -103,13 +103,13 @@ public class CPLEX {
         }
     }
 
-    private void addObjectiveAndEnergyConstraints (ArrayList<EVInfo> evs, int[] price, int min_slot) {
+    private void addObjectiveAndEnergyConstraints (ArrayList<EVObject> evs, int[] price, int min_slot) {
         try {
 
 
             for (int ev = 0; ev < evs.size(); ev++) {
 
-                EVInfo current = evs.get(ev);
+                EVObject current = evs.get(ev);
                 int ev_position = ev;
                 boolean[] checked_slot = new boolean[slots_number];
 
@@ -160,7 +160,7 @@ public class CPLEX {
         }
     }
 
-    private void solveLinearProblem (ArrayList<EVInfo> evs, int slots_number, int min_slot, int max_slot) {
+    private void solveLinearProblem (ArrayList<EVObject> evs, int slots_number, int min_slot, int max_slot) {
 
         //System.out.println(min_slot + " -- " + max_slot);
         try {
@@ -204,7 +204,7 @@ public class CPLEX {
      * @param min_slot is the minimum slot that the evs requested for energy, the map computed here will start from there
      * @param max_slot and end here
      */
-    public void model (ArrayList<EVInfo> evs, int slots_number, int[] price, int[] chargers, int min_slot, int max_slot) {
+    public void model (ArrayList<EVObject> evs, int slots_number, int[] price, int[] chargers, int min_slot, int max_slot) {
         this.initializeVariables(evs.size(), max_slot - min_slot + 1);
         //this.lockPreviousBidders(previous_schedule, previous_bidders_number);
         this.addObjectiveAndEnergyConstraints(evs, price, min_slot);
@@ -214,190 +214,6 @@ public class CPLEX {
     }
 
 
-
-    public void buildModel (ArrayList<EVInfo> evs, int chargers_number, int slots_number, int[] price, int[][] previous_schedule, int previous_bidders_number) {
-
-
-        evs_number = evs.size() + previous_bidders_number; // the number of all the evs in the schedule
-        this.slots_number = slots_number; // the number of the slots
-        var = new IloNumVar[evs_number][slots_number]; // the variable that stores if an ev charges in a slot
-        charges = new IloNumVar[evs_number]; // defines if an ev will be charged
-        ev_bid = new IloNumVar[evs_number][]; // defines which bid of an ev is going to be use. e.g. ev made 3 bids, but bid 2 will be selected, so ev_bid[ev][1] = 1
-
-        try {
-
-            // initialize variables
-            for (int i = 0; i < evs_number; i++) {
-                for (int j = 0; j < slots_number; j++) {
-                    var[i][j] = cp.boolVar("var(" + i + ", " + j + ")");
-                }
-                charges[i] = cp.boolVar("c(" + i + ")");
-            }
-
-
-
-            IloLinearNumExpr obj = cp.linearNumExpr(); // objective function
-
-
-
-            // CONSTRAINTS
-
-            // for every new vehicle
-            for (int ev = 0; ev < evs.size(); ev++) {
-
-                int ev_position = ev + previous_bidders_number; // the position of the new evs in the schedule, as the first "previous_bidders_number" lines are occupied by the older evs
-
-                boolean[] checked_slot = new boolean[slots_number]; // if a slot is checked in some bid, then don't add it to zero
-
-
-
-                IloLinearNumExpr p = cp.linearNumExpr();
-                IloLinearNumExpr zero = cp.linearNumExpr(); // if an ev has not bidden for a slot, then var[ev][s] should be zero - this helps to make sure that this happens
-
-
-                EVInfo current = evs.get(ev);
-
-                ev_bid[ev_position] = new IloNumVar[current.getSlots().size()]; // set an array with a size of bids number
-
-
-                // for each bid of the ev, initialize its decision variable
-                for (int i = 0; i < ev_bid[ev_position].length; i++) {
-                    ev_bid[ev_position][i] = cp.boolVar();
-                }
-
-                // for every bid of the vehicle
-                for (int i = 0; i < current.getBidsNumber(); i++) {
-                    IloLinearNumExpr inner = cp.linearNumExpr();
-
-                    int start = current.getStartSlot(i); // get start slot
-                    int end = current.getEndSlot(i); // get end slot
-                    int bid = current.getBid(i); // get bid for these slots
-
-                    // for each slot in the bid
-                    for (int s = 0; s < slots_number; s++) {
-                        //IloLinearNumExpr price_constraint = cp.linearNumExpr();
-
-
-                        if (s >= start && s <= end) {
-                            int v = price[s] * bid; // the final cost for the slot for the specific ev
-                            inner.addTerm(1, var[ev_position][s]);
-                            p.addTerm(1, var[ev_position][s]);
-                            //obj.addTerm(v, var[ev][s]);
-
-                            int temp_price = price[s];
-                            if (bid - price[s] == 0) {
-                                obj.addTerm(0.5, var[ev_position][s]);
-                            } else {
-                                obj.addTerm(bid, var[ev_position][s]);
-                                obj.addTerm(-temp_price, var[ev_position][s]);
-                            }
-
-                            zero.remove(var[ev_position][s]);
-
-                            //price_constraint.addTerm(1, var[ev_position][s]);
-
-
-                            //cp.addLe(cp.prod(price[s], var[ev_position][s]), bid); // if the slot is selected then the bid of the ev has to be higher than the price
-
-                            // do not add at zero
-                            checked_slot[s] = true;
-                        }
-
-                        // check every slot and add the slots that the ev did not bid to zero
-
-                        for (int c = 0; c < slots_number; c ++) {
-                            if (!checked_slot[c])
-                                zero.addTerm(1, var[ev_position][c]);
-                        }
-
-                    }
-
-                    cp.addEq(inner, cp.prod(ev_bid[ev_position][i], current.getEnergy()));
-                }
-
-//                for (int t = evs.get(ev).getStartSlot(); t < evs.get(ev).getEndSlot() + 1; t++) {
-//                    p.addTerm(1, var[ev][t]);
-//                }
-
-
-                cp.addEq(p, cp.prod(charges[ev_position], evs.get(ev).getEnergy()));
-                cp.addEq(zero, 0);
-            }
-
-            for (int t = 0; t < slots_number; t++) {
-                IloLinearNumExpr p = cp.linearNumExpr();
-                for (int ev = 0; ev < evs_number; ev++) {
-                    p.addTerm(1, var[ev][t]);
-                }
-                cp.addLe(p, chargers_number);
-            }
-
-
-            // lock the positions of the previous bidders
-            for (int ev = 0; ev < previous_bidders_number; ev++) {
-                int temp = 0;
-                for (int slot = 0; slot < slots_number; slot++) {
-                    if (previous_schedule[ev][slot] == 1) {
-                        temp++;
-
-                        cp.addEq(var[ev][slot], 1);
-                    }
-                }
-                if (temp > 0)
-                    cp.addEq(charges[ev], 1);
-            }
-            // constraint gia energeia, alla den tin exw valei akoma
-
-
-
-//            for (int ev = 0; ev < evs.size(); ev ++) {
-//
-//                int start_slot = evs.get(ev).getStartSlot();
-//                int end_slot = evs.get(ev).getEndSlot() + 1;
-//
-//                for (int s = start_slot; s < end_slot; s++) {
-//                    obj.addTerm(evs.get(ev).getBid(), var[ev][s]);
-//                }
-//            }
-            cp.addMaximize(obj);
-            //System.out.println(obj);
-
-            if(cp.solve())
-            {
-                schedule = new int[evs_number][slots_number];
-                charges_int = new int[evs_number][2];
-
-
-
-                // setting charging state for the new evs
-                for (int ev = 0; ev < evs.size(); ev++) {
-
-                    charges_int[ev][0] = evs.get(ev).getId();
-                    charges_int[ev][1] = (int) cp.getValue(charges[ev]);
-                    if ((int) cp.getValue(charges[ev]) == 1)
-                        evs.get(ev).setCharged(true);
-                    else
-                        evs.get(ev).setCharged(false);
-                }
-
-                for (int ev = 0; ev < evs_number; ev++) {
-                    for (int s = 0; s < slots_number; s++) {
-                        schedule[ev][s] = (int) cp.getValue(var[ev][s]);
-                        //System.out.print(cp.getValue(var[ev][s]) + " ");
-                    }
-
-
-                    //System.out.println();
-                }
-
-                //System.out.println("Schedule computed");
-                this.clearModel();
-            }
-        } catch (IloException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private void clearModel()
     {

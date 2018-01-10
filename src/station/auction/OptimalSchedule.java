@@ -1,10 +1,12 @@
 package station.auction;
 
-import optimize.CLPEX2;
-import station.EVInfo;
+import com.sun.org.apache.bcel.internal.generic.NEW;
+import station.EVObject;
 import optimize.CPLEX;
+import station.NewStation;
 import station.Station;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -13,16 +15,23 @@ import java.util.PriorityQueue;
  */
 public class OptimalSchedule {
 
-    private Station station;
+    private ArrayList<EVObject> bidders_list;
+    private int slots_number;
+    private int[] price;
+    private int[] remaining_chargers;
+
     private CPLEX cp;
 
 
-    public OptimalSchedule (Station station) {
-        this.station = station;
-        this.cp = station.getCP();
+    public OptimalSchedule(ArrayList<EVObject> bidders_list, int slots_number, int[] price, int[] remaining_chargers, CPLEX cp) {
+        this.bidders_list = bidders_list;
+        this.slots_number = slots_number;
+        this.price = price;
+        this.remaining_chargers = remaining_chargers;
+        this.cp = cp;
     }
 
-    public void computeOptimalSchedule () {
+    public int[][] computeOptimalSchedule () {
 
 
         System.out.println("Computing optimal schedule...");
@@ -32,39 +41,39 @@ public class OptimalSchedule {
 
 
         System.out.println(getMinSlot() + "-----" + getMaxSlot());
-        cp.model(station.getBidderList(), station.getSlotsNumber(), station.getPrice(),
-                station.getRemainingChargers(), min_slot, max_slot);
+        cp.model(bidders_list, slots_number, price,
+                remaining_chargers, min_slot, max_slot);
 
-        station.setScheduleMap(cp.getScheduleMap());
-        station.setInitialUtility(cp.getUtility());
+        //station.concatScheduleMap(cp.getScheduleMap());
+       //station.setInitialUtility(cp.getUtility());
 
-        System.out.println("Schedule computed!");
-
+        System.out.println("ScheduleOld computed!");
+        return cp.getScheduleMap();
     }
 
     private int getMinSlot () {
-        PriorityQueue<EVInfo> queue = new PriorityQueue<EVInfo>(10, new Comparator<EVInfo>() {
+        PriorityQueue<EVObject> queue = new PriorityQueue<EVObject>(10, new Comparator<EVObject>() {
             @Override
-            public int compare(EVInfo ev1, EVInfo ev2) {
+            public int compare(EVObject ev1, EVObject ev2) {
                 return ev1.getMinSlot() - ev2.getMinSlot();
             }
         });
 
-        for (EVInfo ev: station.getBidderList()) {
+        for (EVObject ev: bidders_list) {
             queue.offer(ev);
         }
         return queue.peek().getMinSlot();
     }
 
     private int getMaxSlot () {
-        PriorityQueue<EVInfo> queue = new PriorityQueue<EVInfo>(10, new Comparator<EVInfo>() {
+        PriorityQueue<EVObject> queue = new PriorityQueue<EVObject>(10, new Comparator<EVObject>() {
             @Override
-            public int compare(EVInfo ev1, EVInfo ev2) {
+            public int compare(EVObject ev1, EVObject ev2) {
                 return ev2.getMaxSlot() - ev1.getMaxSlot();
             }
         });
 
-        for (EVInfo ev: station.getBidderList()) {
+        for (EVObject ev: bidders_list) {
             queue.offer(ev);
         }
 

@@ -1,13 +1,19 @@
 package evs;
 
+import station.SuggestionMessage;
 import station.negotiation.Suggestion;
+import various.IntegerConstants;
 
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Created by Thesis on 18/12/2017.
  */
 public class Strategy {
+
+    private ArrayList<SuggestionMessage> suggestions;
 
     private int energy;
     private int start;
@@ -19,6 +25,7 @@ public class Strategy {
     private int s_rounds; // how many suggestions have been made
 
     public Strategy(int energy, int start, int end, int probability, int rounds) {
+        suggestions = new ArrayList<>();
         this.energy = energy;
         this.start = start;
         this.end = end;
@@ -27,6 +34,12 @@ public class Strategy {
         s_rounds = 0;
     }
 
+    public void addSuggestion (SuggestionMessage suggestion) {
+        suggestions.add(suggestion);
+    }
+
+
+    /*
     public int evaluate (Preferences suggestion) {
 
         Random generator = new Random();
@@ -53,6 +66,65 @@ public class Strategy {
             } else {
                 return 2; // zita kai alli protasi
             }
+        }
+    }
+    */
+
+    public void evaluate (EVInfo info) {
+
+        if (!suggestions.isEmpty()) {
+            // the decision for every station suggestion
+            int[] states = new int[suggestions.size()];
+            for (int i = 0; i < states.length; i++) {
+                states[i] = -1;
+            }
+            int choice = -1;
+            for (int s = 0; s < suggestions.size(); s++) {
+                int state;
+                Scanner scanner = new Scanner(System.in);
+                Random random = new Random();
+                state = scanner.nextInt(); //random.nextInt(3);
+                if (state == IntegerConstants.EV_EVALUATE_ACCEPT &&
+                        (suggestions.get(s).getStart() < Integer.MAX_VALUE)) {
+                    choice = s;
+                    states[s] = state;
+                    break;
+                }
+                states[s] = state;
+            }
+            if (choice != -1) {
+                for (int s = 0; s < suggestions.size(); s++) {
+                    if (states[s] == IntegerConstants.EV_EVALUATE_ACCEPT) {
+                        SuggestionMessage suggestion = suggestions.get(s);
+                        suggestion.getStationAddress().checkIn(info, IntegerConstants.EV_EVALUATE_ACCEPT);
+                    } else {
+                        SuggestionMessage suggestion = suggestions.get(s);
+                        suggestion.getStationAddress().checkIn(info, IntegerConstants.EV_EVALUATE_REJECT);
+                    }
+                }
+            } else {
+                for (int s = 0; s < suggestions.size(); s++) {
+                    SuggestionMessage suggestion = suggestions.get(s);
+                    suggestion.getStationAddress().checkIn(info, states[s]);
+                }
+            }
+
+            suggestions.clear();
+        }
+    }
+
+    /**
+     * this method checks if a suggestion is inside the
+     * initial preferences slots range and same energy
+     * @return
+     */
+    private boolean isOK () {
+        return true;
+    }
+
+    public void printSuggestionsList () {
+        for (Preferences p: suggestions) {
+            System.out.println("    " + p.toString());
         }
     }
 

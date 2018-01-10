@@ -1,5 +1,10 @@
 package evs;
 
+import station.Station;
+import station.StationInfo;
+import station.SuggestionMessage;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -7,41 +12,49 @@ import java.util.Random;
  */
 public class EV {
 
-    private Preferences preferences;
+    private EVInfo info;
     private Strategy strategy;
     private int bid;
 
-    public EV (int start, int end, int energy, int bid, Strategy strategy) {
-        preferences = new Preferences();
-        preferences.setStart(start);
-        preferences.setEnd(end);
-        preferences.setEnergy(energy);
+    public EV (int id, int x, int y, int start, int end, int energy, int bid, int max_distance, Strategy strategy) {
+        info = new EVInfo(id, x, y, start, end, energy, bid, max_distance);
+        info.setObjectAddress(this);
         this.bid = bid;
         this.strategy = strategy;
     }
 
 
-    /**
-     * Dexetai mia protasei kai elegxei an tou aresei
-     * an nai tote epistrefei 1
-     * an oxi kai thelei na lave alli protasi tote epistrefei 2
-     * an oxi kai de thelei na lavei alli protasei tote epistrefei 3
-     * @param suggestion
-     * @return
-     */
-    public int evaluateSuggestion (Preferences suggestion) {
-
-        /*
-        int accept;
-        Random generator = new Random();
-        accept = generator.nextInt(3) + 1;
-        return 1;
-        */
-        //return 1;
-        return strategy.evaluate(suggestion);
+    public void addSuggestion (SuggestionMessage suggestion) {
+        strategy.addSuggestion(suggestion);
     }
 
-    public Strategy getStrategy () {
-        return strategy;
+
+
+    public void evaluateSuggestions () {
+        strategy.evaluate(info);
+    }
+
+    public EVInfo getInfo () { return info; }
+
+    public void requestStation (ArrayList<StationInfo> stations) {
+
+        for (StationInfo s_info : stations) {
+            int distance = this.computeDistance(info.getLocationX(), info.getLocationY(),
+                    s_info.getLocationX(), s_info.getLocationY());
+
+            if (distance <= info.getPreferences().getMaxDistance()) {
+                s_info.request(info);
+                System.out.println("ev_" + info.getId() + " requested from station_" + s_info.getId());
+            }
+        }
+    }
+
+    private int computeDistance (int x1, int y1, int x2, int y2) {
+        return Math.abs(x1-x2) + Math.abs(y1-y2);
+    }
+
+    public void printSuggestionsList () {
+        System.out.println("ev_" + info.getId() + "'s list:");
+        strategy.printSuggestionsList();
     }
 }

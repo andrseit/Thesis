@@ -4,18 +4,60 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/statistics/Statistics.java" />
+    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="some fixes in the computing of the suggestions">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/map.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/schedule" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/suggestions" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chargers" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/evs.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generated.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/evs/EVInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/Thesis2.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/NewStation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/ScheduleOld.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/StationInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/SuggestionMessage.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/optimize/CPLEX.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/optimize/CPLEX.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/optimize/ProfitCPLEX.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/various/TestRunner.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/station/EVInfo.java" afterPath="$PROJECT_DIR$/src/station/EVObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/EVAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/offline/EVAgent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/StationAgent$StationBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/offline/StationAgent$StationBehaviour.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/StationAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/offline/StationAgent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$ComputeScheduleBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$ComputeScheduleBehaviour.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$SchedulingBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$SchedulingBehaviour.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$StationBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$StationBehaviour.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/evs/EV.class" afterPath="$PROJECT_DIR$/out/production/Thesis/evs/EV.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" afterPath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/optimize/CPLEX.class" afterPath="$PROJECT_DIR$/out/production/Thesis/optimize/CPLEX.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Schedule.class" afterPath="$PROJECT_DIR$/out/production/Thesis/station/Schedule.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Station.class" afterPath="$PROJECT_DIR$/out/production/Thesis/station/Station.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/various/IntegerConstants.class" afterPath="$PROJECT_DIR$/out/production/Thesis/various/IntegerConstants.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/offline/EVAgent.java" afterPath="$PROJECT_DIR$/src/agents/offline/EVAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/offline/StationAgent.java" afterPath="$PROJECT_DIR$/src/agents/offline/StationAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java" afterPath="$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java" afterPath="$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evs/EV.java" afterPath="$PROJECT_DIR$/src/evs/EV.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evs/Preferences.java" afterPath="$PROJECT_DIR$/src/evs/Preferences.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evs/Strategy.java" afterPath="$PROJECT_DIR$/src/evs/Strategy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/io/JSONFileParser.java" afterPath="$PROJECT_DIR$/src/io/JSONFileParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/Main.java" afterPath="$PROJECT_DIR$/src/main/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/EVInfo.java" afterPath="$PROJECT_DIR$/src/station/EVInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/optimize/CPLEX.java" afterPath="$PROJECT_DIR$/src/optimize/CPLEX.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/Schedule.java" afterPath="$PROJECT_DIR$/src/station/Schedule.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/Station.java" afterPath="$PROJECT_DIR$/src/station/Station.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/auction/OptimalSchedule.java" afterPath="$PROJECT_DIR$/src/station/auction/OptimalSchedule.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/auction/VCG.java" afterPath="$PROJECT_DIR$/src/station/auction/VCG.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/negotiation/Conversation.java" afterPath="$PROJECT_DIR$/src/station/negotiation/Conversation.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" afterPath="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java" afterPath="$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/various/IntegerConstants.java" afterPath="$PROJECT_DIR$/src/various/IntegerConstants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/various/PrintOuch.java" afterPath="$PROJECT_DIR$/src/various/PrintOuch.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/station.json" afterPath="$PROJECT_DIR$/station.json" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,91 +80,71 @@
     <favorites_list name="Thesis" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4953125">
+    <splitter split-orientation="horizontal" split-proportion="0.52237004">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Station.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/Station.java">
+          <file leaf-file-name="Thesis2.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/Thesis2.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="408">
-                  <caret line="120" column="91" lean-forward="false" selection-start-line="120" selection-start-column="91" selection-end-line="120" selection-end-column="91" />
+                <state relative-caret-position="620">
+                  <caret line="117" column="32" lean-forward="false" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
                   <folding>
-                    <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
-                    <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
+                    <element signature="imports" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="VCG.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/auction/VCG.java">
+          <file leaf-file-name="OptimalSchedule.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/station/auction/OptimalSchedule.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="484">
-                  <caret line="53" column="83" lean-forward="false" selection-start-line="53" selection-start-column="83" selection-end-line="53" selection-end-column="83" />
-                  <folding>
-                    <element signature="method#getMaxSlot#0;class#VCG#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Schedule.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="986">
-                  <caret line="65" column="59" lean-forward="false" selection-start-line="65" selection-start-column="59" selection-end-line="65" selection-end-column="59" />
-                  <folding>
-                    <element signature="imports" expanded="false" />
-                    <element signature="e#5150#5151#0" expanded="false" />
-                    <element signature="e#5185#5186#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Suggestion.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/negotiation/Suggestion.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="748">
-                  <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#699#700#0" expanded="false" />
-                    <element signature="e#735#736#0" expanded="false" />
-                    <element signature="e#1457#1458#0" expanded="false" />
-                    <element signature="e#1508#1509#0" expanded="false" />
-                    <element signature="e#1798#1799#0" expanded="false" />
-                    <element signature="e#1834#1835#0" expanded="false" />
-                    <element signature="e#1872#1873#0" expanded="false" />
-                    <element signature="e#1904#1905#0" expanded="false" />
-                    <element signature="e#1933#1934#0" expanded="false" />
-                    <element signature="e#1960#1961#0" expanded="false" />
-                    <element signature="e#1990#1991#0" expanded="false" />
-                    <element signature="e#2019#2020#0" expanded="false" />
-                    <element signature="e#2060#2061#0" expanded="false" />
-                    <element signature="e#2096#2097#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="SuggestionComputer.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3519">
-                  <caret line="279" column="36" lean-forward="false" selection-start-line="279" selection-start-column="36" selection-end-line="279" selection-end-column="36" />
-                  <folding>
-                    <element signature="method#searchSlots#0;class#SuggestionComputer#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="EVInfo.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/EVInfo.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="725">
-                  <caret line="347" column="50" lean-forward="false" selection-start-line="347" selection-start-column="50" selection-end-line="347" selection-end-column="50" />
+                <state relative-caret-position="595">
+                  <caret line="61" column="38" lean-forward="false" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
                   <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="StationInfo.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/station/StationInfo.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="59">
+                  <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#634#635#0" expanded="true" />
+                    <element signature="e#662#663#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="NewStation.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/station/NewStation.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="316">
+                  <caret line="205" column="24" lean-forward="false" selection-start-line="205" selection-start-column="16" selection-end-line="205" selection-end-column="24" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="method#checkWaiting#0;class#NewStation#0" expanded="false" />
+                    <element signature="docComment;method#findMinWindow#0;class#NewStation#0" expanded="false" />
+                    <element signature="method#findMinWindow#0;class#NewStation#0" expanded="false" />
+                    <element signature="method#elapsedSeconds#0;class#NewStation#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="EV.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="569">
+                  <caret line="45" column="37" lean-forward="true" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="37" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#746#747#0" expanded="true" />
+                    <element signature="e#785#786#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -130,38 +152,48 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="CPLEX.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.java">
+        <leaf>
+          <file leaf-file-name="Schedule.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="59">
-                  <caret line="144" column="0" lean-forward="true" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+                <state relative-caret-position="657">
+                  <caret line="100" column="55" lean-forward="false" selection-start-line="100" selection-start-column="55" selection-end-line="100" selection-end-column="55" />
                   <folding>
-                    <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
-                    <element signature="method#buildModel#0;class#CPLEX#0" expanded="false" />
+                    <element signature="imports" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Negotiations.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/station/negotiation/Negotiations.java">
+          <file leaf-file-name="EVObject.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/station/EVObject.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="537">
-                  <caret line="290" column="48" lean-forward="false" selection-start-line="290" selection-start-column="48" selection-end-line="290" selection-end-column="48" />
+                <state relative-caret-position="504">
+                  <caret line="284" column="24" lean-forward="false" selection-start-line="284" selection-start-column="24" selection-end-line="284" selection-end-column="24" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Conversation.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/negotiation/Conversation.java">
+          <file leaf-file-name="SuggestionComputer.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="368">
-                  <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+                <state relative-caret-position="833">
+                  <caret line="173" column="61" lean-forward="false" selection-start-line="173" selection-start-column="61" selection-end-line="173" selection-end-column="61" />
                   <folding>
-                    <element signature="e#7099#7100#0" expanded="true" />
-                    <element signature="e#7132#7133#0" expanded="true" />
+                    <element signature="method#searchSlots#0;class#SuggestionComputer#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Strategy.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/evs/Strategy.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="287">
+                  <caret line="24" column="35" lean-forward="false" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+                  <folding>
+                    <marker date="1515581084605" expanded="false" signature="1051:1864" ph="{...}" />
                   </folding>
                 </state>
               </provider>
@@ -181,36 +213,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>num_evs</find>
-      <find>0.0</find>
-      <find>setCharged</find>
-      <find>EV</find>
-      <find>getWhoCharges</find>
-      <find>min_slot</find>
-      <find>printfu</find>
-      <find>System.out.printl</find>
-      <find>Search slot</find>
-      <find>Prior</find>
-      <find>schedule</find>
-      <find>System.out</find>
-      <find>Rows:</find>
-      <find>toString</find>
-      <find>saveinit</find>
-      <find>addmaxi</find>
-      <find>alternat</find>
-      <find>VCG</find>
-      <find>hasS</find>
-      <find>MAX</find>
+      <find>sendsug</find>
+      <find>setSta</find>
+      <find>setStar</find>
+      <find>getslot</find>
+      <find>setstart</find>
+      <find>showI</find>
+      <find>getmax</find>
+      <find>sends</find>
+      <find>isA</find>
+      <find>moveloc</find>
+      <find>checkwa</find>
+      <find>sendnew</find>
+      <find>sendme</find>
       <find>update</find>
-      <find>setratin</find>
-      <find>No s</find>
-      <find>SIZE O</find>
-      <find>computer</find>
-      <find>compute</find>
-      <find>isse</find>
-      <find>computeal</find>
-      <find>bestle</find>
-      <find>setbestr</find>
+      <find>updatenego</find>
+      <find>findsu</find>
+      <find>setfinals</find>
+      <find>addEV</find>
+      <find>sendsu</find>
+      <find>elapse</find>
+      <find>setwa</find>
+      <find>waiting.ad</find>
+      <find>boolean</find>
+      <find>printev</find>
+      <find>Station</find>
+      <find>resetc</find>
+      <find>mark</find>
+      <find>marke</find>
+      <find>acc</find>
+      <find>updatene</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -225,16 +257,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/optimize/CPLEXOutput.java" />
-        <option value="$PROJECT_DIR$/src/various/JSONParser.java" />
-        <option value="$PROJECT_DIR$/src/io/FileReaderEvs.java" />
-        <option value="$PROJECT_DIR$/src/io/DataGenerator.java" />
-        <option value="$PROJECT_DIR$/src/station/NegotiationComputer.java" />
-        <option value="$PROJECT_DIR$/src/evs/EVAgent.java" />
-        <option value="$PROJECT_DIR$/src/agents/StationAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/EVAgent.java" />
-        <option value="$PROJECT_DIR$/src/agents/offline/StationAgent.java" />
         <option value="$PROJECT_DIR$/src/main/SchedulingProcess.java" />
         <option value="$PROJECT_DIR$/src/main/StaticRun.java" />
         <option value="$PROJECT_DIR$/src/station/Negotiation.java" />
@@ -242,40 +265,49 @@
         <option value="$PROJECT_DIR$/src/station/negotiations/Negotiation.java" />
         <option value="$PROJECT_DIR$/src/agents/online/OnlineAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/gui/ClockAgentUI.java" />
-        <option value="$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/online/ClockAgent.java" />
         <option value="$PROJECT_DIR$/src/auction/VCG.java" />
         <option value="$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/offline/EVAgent.java" />
         <option value="$PROJECT_DIR$/data.json" />
         <option value="$PROJECT_DIR$/src/station/negotiation/SuggestionsList.java" />
-        <option value="$PROJECT_DIR$/src/evs/Preferences.java" />
         <option value="$PROJECT_DIR$/src/agents/gui/AgentUI.java" />
         <option value="$PROJECT_DIR$/src/various/ArrayTransformations.java" />
         <option value="$PROJECT_DIR$/src/various/PrintOuch.java" />
-        <option value="$PROJECT_DIR$/src/various/IntegerConstants.java" />
         <option value="$PROJECT_DIR$/src/various/EVData.java" />
-        <option value="$PROJECT_DIR$/src/evs/Strategy.java" />
         <option value="$PROJECT_DIR$/src/various/JSONFileParser.java" />
         <option value="$PROJECT_DIR$/src/various/DataGenerator.java" />
-        <option value="$PROJECT_DIR$/src/io/JSONFileParser.java" />
-        <option value="$PROJECT_DIR$/src/various/TestRunner.java" />
         <option value="$PROJECT_DIR$/src/optimize/CLPEX2.java" />
-        <option value="$PROJECT_DIR$/src/station/auction/OptimalSchedule.java" />
         <option value="$PROJECT_DIR$/src/optimize/ProfitCPLEX.java" />
         <option value="$PROJECT_DIR$/src/station/negotiation/Suggestion.java" />
         <option value="$PROJECT_DIR$/src/io/ArrayFileWriter.java" />
-        <option value="$PROJECT_DIR$/src/station/Schedule.java" />
-        <option value="$PROJECT_DIR$/src/evs/EV.java" />
         <option value="$PROJECT_DIR$/src/statistics/Statistics.java" />
-        <option value="$PROJECT_DIR$/src/optimize/CPLEX.java" />
         <option value="$PROJECT_DIR$/src/station/auction/VCG.java" />
-        <option value="$PROJECT_DIR$/src/main/Main.java" />
-        <option value="$PROJECT_DIR$/src/station/Station.java" />
-        <option value="$PROJECT_DIR$/src/station/negotiation/Conversation.java" />
-        <option value="$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java" />
-        <option value="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" />
         <option value="$PROJECT_DIR$/src/station/EVInfo.java" />
+        <option value="$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java" />
+        <option value="$PROJECT_DIR$/src/agents/offline/StationAgent.java" />
+        <option value="$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java" />
+        <option value="$PROJECT_DIR$/src/various/TestRunner.java" />
+        <option value="$PROJECT_DIR$/src/io/JSONFileParser.java" />
+        <option value="$PROJECT_DIR$/src/evs/EVInfo.java" />
+        <option value="$PROJECT_DIR$/src/evs/Preferences.java" />
+        <option value="$PROJECT_DIR$/src/station/SuggestionMessage.java" />
+        <option value="$PROJECT_DIR$/src/station/negotiation/Conversation.java" />
+        <option value="$PROJECT_DIR$/src/evs/EV.java" />
+        <option value="$PROJECT_DIR$/src/station/ScheduleOld.java" />
+        <option value="$PROJECT_DIR$/src/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" />
+        <option value="$PROJECT_DIR$/src/various/IntegerConstants.java" />
+        <option value="$PROJECT_DIR$/src/optimize/CPLEX.java" />
+        <option value="$PROJECT_DIR$/src/evs/Strategy.java" />
+        <option value="$PROJECT_DIR$/src/station/auction/OptimalSchedule.java" />
+        <option value="$PROJECT_DIR$/src/station/Station.java" />
+        <option value="$PROJECT_DIR$/src/station/StationInfo.java" />
+        <option value="$PROJECT_DIR$/src/station/Schedule.java" />
+        <option value="$PROJECT_DIR$/src/station/EVObject.java" />
+        <option value="$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java" />
+        <option value="$PROJECT_DIR$/src/station/NewStation.java" />
+        <option value="$PROJECT_DIR$/src/main/Thesis2.java" />
       </list>
     </option>
   </component>
@@ -319,8 +351,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -415,6 +445,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="negotiation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="station" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="auction" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -430,6 +482,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="optimize" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -461,12 +517,64 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="io" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="evs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="libs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -874,7 +982,14 @@
       <option name="project" value="LOCAL" />
       <updated>1515084976265</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="some fixes in the computing of the suggestions">
+      <created>1515259064592</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1515259064592</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView">
@@ -899,19 +1014,19 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.397463" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.5264271" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" x="795" y="88" width="819" height="785" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.5264271" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" x="779" y="185" width="925" height="677" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.077083334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" x="-839" y="57" width="838" height="978" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13854167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" x="-839" y="57" width="838" height="978" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -938,11 +1053,12 @@
     <MESSAGE value="added simple data generator" />
     <MESSAGE value="added vcg in negotiations" />
     <MESSAGE value="new type of conversation (rounds)" />
-    <option name="LAST_COMMIT_MESSAGE" value="new type of conversation (rounds)" />
+    <MESSAGE value="some fixes in the computing of the suggestions" />
+    <option name="LAST_COMMIT_MESSAGE" value="some fixes in the computing of the suggestions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="21" />
+      <option name="time" value="23" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -951,44 +1067,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/agents/offline/EVAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="58" column="54" lean-forward="false" selection-start-line="58" selection-start-column="54" selection-end-line="58" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/SchedulingProcess.java" />
-    <entry file="file://$PROJECT_DIR$/src/static/StaticRun.kt" />
-    <entry file="file://$PROJECT_DIR$/station.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Thesis.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/negotiations/NegotiationComputer.java" />
-    <entry file="file://$PROJECT_DIR$/src/agents/online/OnlineAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="97" column="42" lean-forward="false" selection-start-line="97" selection-start-column="42" selection-end-line="97" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/agents/gui/ClockAgentUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1018,20 +1096,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/auction/VCG.java" />
-    <entry file="file://$PROJECT_DIR$/src/agents/offline/StationAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="60" column="17" lean-forward="false" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
@@ -1057,20 +1121,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/evs/Preferences.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/various/ArrayTransformations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/various/PrintOuch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -1082,13 +1132,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/various/EVData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="58" column="60" lean-forward="false" selection-start-line="58" selection-start-column="54" selection-end-line="58" selection-end-column="60" />
         </state>
       </provider>
     </entry>
@@ -1113,30 +1156,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/io/JSONFileParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="97" column="52" lean-forward="false" selection-start-line="97" selection-start-column="52" selection-end-line="97" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/various/TestRunner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3995">
-          <caret line="251" column="9" lean-forward="false" selection-start-line="251" selection-start-column="9" selection-end-line="251" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2018#2019#0" expanded="false" />
-            <element signature="e#2086#2087#0" expanded="false" />
-            <element signature="e#8909#8910#0" expanded="false" />
-            <element signature="e#8989#8990#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chargers">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1144,31 +1163,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/optimize/CLPEX2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="671">
-          <caret line="121" column="0" lean-forward="true" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/auction/OptimalSchedule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#getMinSlot#0;class#OptimalSchedule#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/optimize/ProfitCPLEX.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1853">
-          <caret line="112" column="18" lean-forward="false" selection-start-line="112" selection-start-column="18" selection-end-line="112" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/optimize/ProfitCPLEX.java" />
     <entry file="file://$PROJECT_DIR$/src/io/ArrayFileWriter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -1176,15 +1171,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
+    <entry file="file://$PROJECT_DIR$/src/statistics/Statistics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="65" column="59" lean-forward="false" selection-start-line="65" selection-start-column="59" selection-end-line="65" selection-end-column="59" />
+        <state relative-caret-position="680">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.txt" />
+    <entry file="file://$PROJECT_DIR$/src/optimize/CLPEX2.java" />
+    <entry file="file://$PROJECT_DIR$/src/agents/offline/StationAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="24" column="10" lean-forward="false" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="28" column="26" lean-forward="false" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/various/EVData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="58" column="60" lean-forward="false" selection-start-line="58" selection-start-column="54" selection-end-line="58" selection-end-column="60" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#5150#5151#0" expanded="false" />
-            <element signature="e#5185#5186#0" expanded="false" />
+            <element signature="e#1343#1344#0" expanded="false" />
+            <element signature="e#1422#1423#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/various/TestRunner.java" />
+    <entry file="file://$PROJECT_DIR$/src/io/JSONFileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-315">
+          <caret line="41" column="47" lean-forward="false" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+          <folding>
+            <element signature="method#writeToFile#0;class#JSONFileParser#0" expanded="false" />
+            <element signature="method#getJSONStringEV#0;class#JSONFileParser#0" expanded="false" />
+            <element signature="method#readEVsData#0;class#JSONFileParser#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/evs/Preferences.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1192,47 +1232,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="748">
           <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding>
-            <element signature="e#699#700#0" expanded="false" />
-            <element signature="e#735#736#0" expanded="false" />
-            <element signature="e#1457#1458#0" expanded="false" />
-            <element signature="e#1508#1509#0" expanded="false" />
-            <element signature="e#1798#1799#0" expanded="false" />
-            <element signature="e#1834#1835#0" expanded="false" />
-            <element signature="e#1872#1873#0" expanded="false" />
-            <element signature="e#1904#1905#0" expanded="false" />
-            <element signature="e#1933#1934#0" expanded="false" />
-            <element signature="e#1960#1961#0" expanded="false" />
-            <element signature="e#1990#1991#0" expanded="false" />
-            <element signature="e#2019#2020#0" expanded="false" />
-            <element signature="e#2060#2061#0" expanded="false" />
-            <element signature="e#2096#2097#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
-          <folding>
-            <element signature="e#1074#1075#0" expanded="false" />
-            <element signature="e#1105#1106#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/statistics/Statistics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Conversation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="51" column="32" lean-forward="false" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1101#1102#0" expanded="false" />
+            <element signature="e#1130#1131#0" expanded="false" />
+            <element signature="e#7001#7002#0" expanded="false" />
+            <element signature="e#7034#7035#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/station/auction/VCG.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
+        <state relative-caret-position="212">
           <caret line="53" column="83" lean-forward="false" selection-start-line="53" selection-start-column="83" selection-end-line="53" selection-end-column="83" />
           <folding>
             <element signature="method#getMaxSlot#0;class#VCG#0" expanded="false" />
@@ -1240,85 +1260,209 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/various/ArrayTransformations.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="654">
-          <caret line="41" column="24" lean-forward="true" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.java">
+    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="144" column="0" lean-forward="true" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+        <state relative-caret-position="204">
+          <caret line="12" column="44" lean-forward="false" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
           <folding>
-            <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
-            <element signature="method#buildModel#0;class#CPLEX#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/various/IntegerConstants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="59" lean-forward="false" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
+        <state relative-caret-position="255">
+          <caret line="15" column="43" lean-forward="false" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/Station.java">
+    <entry file="file://$PROJECT_DIR$/src/evs/EVInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="120" column="91" lean-forward="false" selection-start-line="120" selection-start-column="91" selection-end-line="120" selection-end-column="91" />
+        <state relative-caret-position="85">
+          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/SuggestionMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="54" column="41" lean-forward="false" selection-start-line="54" selection-start-column="41" selection-end-line="54" selection-end-column="41" />
           <folding>
-            <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
-            <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
+            <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Conversation.java">
+    <entry file="file://$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+        <state relative-caret-position="841">
+          <caret line="192" column="21" lean-forward="false" selection-start-line="192" selection-start-column="21" selection-end-line="192" selection-end-column="21" />
           <folding>
-            <element signature="e#7099#7100#0" expanded="true" />
-            <element signature="e#7132#7133#0" expanded="true" />
+            <element signature="method#SuggestionsOptimizer#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="method#updateChargers#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="method#filterSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="method#computeUtility#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="method#printOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="method#printFinalOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="e#6123#6124#0" expanded="false" />
+            <element signature="e#6151#6152#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Negotiations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+          <folding>
+            <element signature="method#computeUtility#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#printOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#printFinalOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#updateChargers#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#filterSuggestions#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#hybrid#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#createSuggestionsMap#0;class#Negotiations#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/ScheduleOld.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="79" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="45" column="37" lean-forward="true" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#746#747#0" expanded="true" />
+            <element signature="e#785#786#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/evs/Strategy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="287">
+          <caret line="24" column="35" lean-forward="false" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+          <folding>
+            <marker date="1515581084605" expanded="false" signature="1051:1864" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Negotiations.java">
+    <entry file="file://$PROJECT_DIR$/src/station/Station.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="290" column="48" lean-forward="false" selection-start-line="290" selection-start-column="48" selection-end-line="290" selection-end-column="48" />
-          <folding />
+        <state relative-caret-position="406">
+          <caret line="321" column="0" lean-forward="false" selection-start-line="321" selection-start-column="0" selection-end-line="326" selection-end-column="64" />
+          <folding>
+            <element signature="e#5705#5706#0" expanded="true" />
+            <element signature="e#5745#5746#0" expanded="true" />
+            <element signature="method#compute2#0;class#Station#0" expanded="false" />
+            <element signature="method#showIDs#0;class#Station#0" expanded="false" />
+            <element signature="method#findNotCharged#0;class#Station#0" expanded="false" />
+            <element signature="method#checkWaiting#0;class#Station#0" expanded="false" />
+            <element signature="method#addEVBidder#1;class#Station#0" expanded="false" />
+            <element signature="method#chooseBidders#0;class#Station#0" expanded="false" />
+            <element signature="method#countAvailableSlots#0;class#Station#0" expanded="false" />
+            <element signature="method#printPayments#0;class#Station#0" expanded="false" />
+            <element signature="method#printBidders#0;class#Station#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/EVInfo.java">
+    <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="347" column="50" lean-forward="false" selection-start-line="347" selection-start-column="50" selection-end-line="347" selection-end-column="50" />
+        <state relative-caret-position="657">
+          <caret line="100" column="55" lean-forward="false" selection-start-line="100" selection-start-column="55" selection-end-line="100" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/EVObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="284" column="24" lean-forward="false" selection-start-line="284" selection-start-column="24" selection-end-line="284" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3519">
-          <caret line="279" column="36" lean-forward="false" selection-start-line="279" selection-start-column="36" selection-end-line="279" selection-end-column="36" />
+        <state relative-caret-position="833">
+          <caret line="173" column="61" lean-forward="false" selection-start-line="173" selection-start-column="61" selection-end-line="173" selection-end-column="61" />
           <folding>
             <element signature="method#searchSlots#0;class#SuggestionComputer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/auction/OptimalSchedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="61" column="38" lean-forward="false" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/StationInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="59">
+          <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#634#635#0" expanded="true" />
+            <element signature="e#662#663#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/NewStation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="205" column="24" lean-forward="false" selection-start-line="205" selection-start-column="16" selection-end-line="205" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#checkWaiting#0;class#NewStation#0" expanded="false" />
+            <element signature="docComment;method#findMinWindow#0;class#NewStation#0" expanded="false" />
+            <element signature="method#findMinWindow#0;class#NewStation#0" expanded="false" />
+            <element signature="method#elapsedSeconds#0;class#NewStation#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Thesis2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="117" column="32" lean-forward="false" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

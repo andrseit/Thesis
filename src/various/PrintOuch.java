@@ -1,7 +1,7 @@
 package various;
 
 import evs.Preferences;
-import station.EVInfo;
+import station.EVObject;
 import station.negotiation.Suggestion;
 
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public class PrintOuch {
 
 
-    public void printEVs (ArrayList<EVInfo> evs) {
-        for (EVInfo ev: evs) {
+    public void printEVs (ArrayList<EVObject> evs) {
+        for (EVObject ev: evs) {
             System.out.println(ev.toString());
         }
     }
