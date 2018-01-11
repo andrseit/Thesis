@@ -122,6 +122,8 @@ public class Strategy {
         return true;
     }
 
+    public boolean isEmpty () { return suggestions.isEmpty(); }
+
     public void printSuggestionsList () {
         for (Preferences p: suggestions) {
             System.out.println("    " + p.toString());

@@ -8,6 +8,7 @@ import station.Station;
 import station.StationInfo;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by Thesis on 8/1/2018.
@@ -72,7 +73,8 @@ public class Thesis2 {
 
 
         // compute new offers
-        for (NewStation station: stations) {
+        for (int s = 0; s < stations.size(); s++) {
+            NewStation station = stations.get(s);
             System.out.println(" ======= Station_" + station.getInfo().getId() + " =======");
             station.updateBiddersLists();
             System.out.println(station.printEVBidders());
@@ -85,7 +87,10 @@ public class Thesis2 {
                 station.findSuggestions();
                 station.sendNewSuggestionMessage();
             }
-            break;
+            if (station.isFinished()) {
+                finished_stations[s] = true;
+                System.out.println(s);
+            }
         }
 
         // answer to these offers
@@ -95,8 +100,10 @@ public class Thesis2 {
         while (!checkFinished()) {
 
             for (EV ev: evs) {
-                ev.printSuggestionsList();
-                ev.evaluateSuggestions();
+                if (!ev.isFinished()) {
+                    ev.printSuggestionsList();
+                    ev.evaluateSuggestions();
+                }
                 //System.out.println();
             }
 
@@ -104,28 +111,28 @@ public class Thesis2 {
             for (int s = 0; s < stations.size(); s++) {
                 NewStation station = stations.get(s);
                 System.out.println(" ======= Station_" + station.getInfo().getId() + " =======");
-                station.updateBiddersLists();
-                station.updateNegotiationSchedule();
-                System.out.println(station.printEVBidders());
-                if (!station.isWaitingEmpty()) {
-                    System.out.println("Waiting...");
-                    System.out.println(station.printEVWaiting());
-                    station.findSuggestions();
-                    station.sendNewSuggestionMessage();
-                }
-                if (station.isFinished()) {
-                    finished_stations[s] = true;
-                    // WARNING: auto na fygei, einai apla gia debugging
-                    for (int i = 0; i < finished_stations.length; i++) {
-                        finished_stations[i] = true;
+                if (!finished_stations[s]) {
+                    station.updateBiddersLists();
+                    station.updateNegotiationSchedule();
+                    System.out.println(station.printEVBidders());
+                    if (!station.isWaitingEmpty()) {
+                        System.out.println("Waiting...");
+                        System.out.println(station.printEVWaiting());
+                        station.findSuggestions();
+                        station.sendNewSuggestionMessage();
                     }
-                }
-                else
-                    System.out.println("You have failed Andrias");
-                break;
+                    station.printEVWaiting();
+                    if (station.isFinished()) {
+                        finished_stations[s] = true;
+                    } else
+                        System.out.println("You have failed Andrias");
+                } else
+                    System.out.println("Station has no more duties!");
             }
-
+            Scanner s = new Scanner(System.in);
+            //s.nextInt();
         }
+
     }
 
 

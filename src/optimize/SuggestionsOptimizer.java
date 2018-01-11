@@ -55,10 +55,11 @@ public class SuggestionsOptimizer {
         if (suggestions_queue.size() > 0) {
             this.printOrderedSuggestions();
             this.updateChargers();
-            this.filterSuggestions();
+            //this.filterSuggestions();
             this.computeUtility();
             this.printFinalOrderedSuggestions();
         } else {
+            //this.filterSuggestions();
             empty = true;
         }
     }

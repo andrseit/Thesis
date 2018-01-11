@@ -22,6 +22,7 @@ public class NewStation {
     private ArrayList<EVObject> ev_bidders;
     private ArrayList<EVObject> waiting;
     private ArrayList<EVObject> accepted_suggestions;
+    private ArrayList<EVObject> message_receivers;
 
     private int id_counter;
     private boolean finished; // shows when there are no other vehicles to service or negotiations to be made
@@ -42,8 +43,10 @@ public class NewStation {
         ev_bidders = new ArrayList<>();
         waiting = new ArrayList<>();
         accepted_suggestions = new ArrayList<>();
+        message_receivers = new ArrayList<>();
+
         id_counter = 0;
-        finished = true;
+        finished = false;
 
         schedule = new Schedule(slots_number, info.getChargerNumber());
         cp = new CPLEX();
@@ -56,6 +59,8 @@ public class NewStation {
             return true;
         } else {
             System.out.println("No incoming vehicles!");
+            finished = true;
+            System.out.println("Finished = true;");
             return false;
         }
     }
@@ -81,14 +86,16 @@ public class NewStation {
     }
 
     public void sendNewSuggestionMessage () {
-
-        for (int e = 0; e < waiting.size(); e++) {
-            EVObject ev = waiting.get(e);
-            if (ev.hasSuggestion()) {
+        System.out.println("Sending new offers messages!");
+        for (int e = 0; e < message_receivers.size(); e++) {
+            EVObject ev = message_receivers.get(e);
+            System.out.println(" to... ev_" + ev.getId());
+            //if (ev.hasSuggestion()) {
                 SuggestionMessage message = new SuggestionMessage(info, ev.getFinalSuggestion());
                 ev.getObjectAddress().addSuggestion(message);
-            }
+            //}
         }
+        message_receivers.clear();
     }
 
     /**
@@ -96,55 +103,82 @@ public class NewStation {
      * schedule with his initial preferences, can now charged with these preferences
      */
     public void checkWaiting () {
-        ArrayList<EVObject> removed = new ArrayList<>();
-        int[][] schedule_map = cp.getScheduleMap();
-        int[] who_charged = cp.getWhoCharges();
-        for (EVObject ev: waiting) {
 
-            if (who_charged[ev.getStationId()] == 1) {
-                System.out.println("ev_" + ev.getId() + "(" + ev.getStationId()+") was found an offer!");
-                int min = ev.getStartSlot(), max = ev.getEndSlot();
-                // find the min slot
-                for (int s = 0; s < slots_number; s++) {
-                    if (schedule_map[ev.getStationId()][s] == 1) {
-                        min = s;
-                        break;
-                    }
-                }
-                for (int s = slots_number-1; s >= min; s--) {
-                    if (schedule_map[ev.getStationId()][s] == 1) {
-                        max = s;
-                        break;
-                    }
-                }
-                Suggestion suggestion = new Suggestion();
-                suggestion.setStartEndSlots(min, max);
-                suggestion.setEnergy(ev.getEnergy());
-                suggestion.findSlotsAffected(schedule.getRemainingChargers());
-                ev.setSuggestion(suggestion);
-                ev.setFinalSuggestion();
-                System.out.println(min + " - " + max);
-                removed.add(ev);
-            }
+        if (waiting.isEmpty()) {
+            finished = true;
+            System.out.println("Finished = true;");
         }
 
-        for (EVObject ev: removed) {
-            waiting.remove(ev);
+        else {
+            ArrayList<EVObject> removed = new ArrayList<>();
+            int[][] schedule_map = cp.getScheduleMap();
+            int[] who_charged = cp.getWhoCharges();
+            for (EVObject ev : waiting) {
+                if (who_charged[ev.getStationId()] == 1) {
+                    System.out.println("ev_" + ev.getId() + "(" + ev.getStationId() + ") was found an offer!");
+                    int min = ev.getStartSlot(), max = ev.getEndSlot();
+                    // find the min slot
+                    for (int s = 0; s < slots_number; s++) {
+                        if (schedule_map[ev.getStationId()][s] == 1) {
+                            min = s;
+                            break;
+                        }
+                    }
+                    for (int s = slots_number - 1; s >= min; s--) {
+                        if (schedule_map[ev.getStationId()][s] == 1) {
+                            max = s;
+                            break;
+                        }
+                    }
+                    Suggestion suggestion = new Suggestion();
+                    suggestion.setStartEndSlots(min, max);
+                    suggestion.setEnergy(ev.getEnergy());
+                    suggestion.findSlotsAffected(schedule.getRemainingChargers());
+                    ev.setSuggestion(suggestion);
+                    ev.setFinalSuggestion();
+                    System.out.println(min + " - " + max);
+                    removed.add(ev);
+                    message_receivers.add(ev);
+                }
+            }
+
+            /*
+            for (EVObject ev : removed) {
+                waiting.remove(ev);
+            }
+            */
         }
     }
 
 
     public void findSuggestions () {
 
-        Negotiations neg = new Negotiations(waiting, schedule.getFullScheduleMap(), schedule.getRemainingChargers(),
+        ArrayList<EVObject> suggestees = new ArrayList<>();
+        for (EVObject ev: waiting) {
+            if (!message_receivers.contains(ev))
+                suggestees.add(ev);
+        }
+        Negotiations neg = new Negotiations(suggestees, schedule.getFullScheduleMap(), schedule.getRemainingChargers(),
                 price, 0);
         neg.computeSuggestions();
         if (!neg.getFilteredSuggestionList().isEmpty()) {
             for (EVObject ev : waiting) {
-                if (neg.getFilteredSuggestionList().contains(ev))
+                System.out.println("In list ev_" + ev.getId());
+                if (neg.getFilteredSuggestionList().contains(ev)) {
                     ev.setFinalSuggestion();
+                }
+                else {
+                    Suggestion suggestion = new Suggestion();
+                    suggestion.setStartEndSlots(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                    suggestion.setEnergy(0);
+                    //suggestion.findSlotsAffected(getRemainingChargers());
+                    ev.setSuggestion(suggestion);
+                    ev.setFinalSuggestion();
+                }
+                message_receivers.add(ev);
             }
-        } else {
+        } else if (neg.getFilteredSuggestionList().isEmpty() && waiting.isEmpty()){
+            System.out.println("I am doing it right here");
             finished = true;
         }
     }

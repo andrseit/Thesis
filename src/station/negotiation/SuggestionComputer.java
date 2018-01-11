@@ -170,8 +170,9 @@ public class SuggestionComputer {
         this.checkSuggestion(ev);
         if (ev.hasSuggestion())
             this.computeProfit(ev);
-        else
+        else {
             System.out.println("No suitable suggestion found!");
+        }
 
 
         //suggestions_queue.offer(ev);
@@ -204,6 +205,17 @@ public class SuggestionComputer {
             }
         }
         suggestion.setProfit(profit);
+    }
+
+    /**
+     * Sets max Integers which is translated by the evs as No Suggestion
+     * @param ev
+     */
+    private void setNoSuggestion (EVObject ev) {
+        Suggestion suggestion = new Suggestion();
+        suggestion.setStartEndSlots(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        suggestion.setEnergy(0);
+        ev.setSuggestion(suggestion);
     }
 
     /**

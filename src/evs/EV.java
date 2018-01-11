@@ -28,11 +28,11 @@ public class EV {
         strategy.addSuggestion(suggestion);
     }
 
-
-
     public void evaluateSuggestions () {
         strategy.evaluate(info);
     }
+
+    public boolean isFinished () { return strategy.isEmpty(); }
 
     public EVInfo getInfo () { return info; }
 

@@ -4,59 +4,15 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="some fixes in the computing of the suggestions">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/map.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/schedule" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/suggestions" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chargers" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/evs.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generated.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/evs/EVInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/Thesis2.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/NewStation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/ScheduleOld.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/StationInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/SuggestionMessage.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/optimize/CPLEX.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/optimize/CPLEX.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/optimize/ProfitCPLEX.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/various/TestRunner.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/station/EVInfo.java" afterPath="$PROJECT_DIR$/src/station/EVObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/EVAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/offline/EVAgent.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/StationAgent$StationBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/offline/StationAgent$StationBehaviour.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/StationAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/offline/StationAgent.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$ComputeScheduleBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$ComputeScheduleBehaviour.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$SchedulingBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$SchedulingBehaviour.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$StationBehaviour.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$StationBehaviour.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent.class" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent.class" />
+    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/evs/EV.class" afterPath="$PROJECT_DIR$/out/production/Thesis/evs/EV.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" afterPath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/optimize/CPLEX.class" afterPath="$PROJECT_DIR$/out/production/Thesis/optimize/CPLEX.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Schedule.class" afterPath="$PROJECT_DIR$/out/production/Thesis/station/Schedule.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Station.class" afterPath="$PROJECT_DIR$/out/production/Thesis/station/Station.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/various/IntegerConstants.class" afterPath="$PROJECT_DIR$/out/production/Thesis/various/IntegerConstants.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/offline/EVAgent.java" afterPath="$PROJECT_DIR$/src/agents/offline/EVAgent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/offline/StationAgent.java" afterPath="$PROJECT_DIR$/src/agents/offline/StationAgent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java" afterPath="$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java" afterPath="$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evs/EV.java" afterPath="$PROJECT_DIR$/src/evs/EV.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evs/Preferences.java" afterPath="$PROJECT_DIR$/src/evs/Preferences.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evs/Strategy.java" afterPath="$PROJECT_DIR$/src/evs/Strategy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/io/JSONFileParser.java" afterPath="$PROJECT_DIR$/src/io/JSONFileParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/Main.java" afterPath="$PROJECT_DIR$/src/main/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/optimize/CPLEX.java" afterPath="$PROJECT_DIR$/src/optimize/CPLEX.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/Schedule.java" afterPath="$PROJECT_DIR$/src/station/Schedule.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/Station.java" afterPath="$PROJECT_DIR$/src/station/Station.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/auction/OptimalSchedule.java" afterPath="$PROJECT_DIR$/src/station/auction/OptimalSchedule.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/auction/VCG.java" afterPath="$PROJECT_DIR$/src/station/auction/VCG.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/negotiation/Conversation.java" afterPath="$PROJECT_DIR$/src/station/negotiation/Conversation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" afterPath="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/Thesis2.java" afterPath="$PROJECT_DIR$/src/main/Thesis2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java" afterPath="$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/NewStation.java" afterPath="$PROJECT_DIR$/src/station/NewStation.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java" afterPath="$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/various/IntegerConstants.java" afterPath="$PROJECT_DIR$/src/various/IntegerConstants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/various/PrintOuch.java" afterPath="$PROJECT_DIR$/src/various/PrintOuch.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/station.json" afterPath="$PROJECT_DIR$/station.json" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -83,11 +39,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.52237004">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Thesis2.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Thesis2.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/Thesis2.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="620">
-                  <caret line="117" column="32" lean-forward="false" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
+                <state relative-caret-position="348">
+                  <caret line="87" column="51" lean-forward="true" selection-start-line="85" selection-start-column="16" selection-end-line="87" selection-end-column="51" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -98,38 +54,61 @@
           <file leaf-file-name="OptimalSchedule.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/station/auction/OptimalSchedule.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="595">
+                <state relative-caret-position="867">
                   <caret line="61" column="38" lean-forward="false" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="StationInfo.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/StationInfo.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="59">
-                  <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
                   <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#634#635#0" expanded="true" />
-                    <element signature="e#662#663#0" expanded="true" />
+                    <element signature="imports" expanded="false" />
+                    <element signature="e#1620#1621#0" expanded="false" />
+                    <element signature="e#1694#1695#0" expanded="false" />
+                    <element signature="e#2053#2054#0" expanded="false" />
+                    <element signature="e#2127#2128#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="NewStation.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="NewStation.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/station/NewStation.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="316">
-                  <caret line="205" column="24" lean-forward="false" selection-start-line="205" selection-start-column="16" selection-end-line="205" selection-end-column="24" />
+                <state relative-caret-position="555">
+                  <caret line="160" column="54" lean-forward="false" selection-start-line="160" selection-start-column="54" selection-end-line="160" selection-end-column="54" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="method#checkWaiting#0;class#NewStation#0" expanded="false" />
                     <element signature="docComment;method#findMinWindow#0;class#NewStation#0" expanded="false" />
-                    <element signature="method#findMinWindow#0;class#NewStation#0" expanded="false" />
                     <element signature="method#elapsedSeconds#0;class#NewStation#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Negotiations.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/station/negotiation/Negotiations.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="340">
+                  <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+                  <folding>
+                    <element signature="method#computeUtility#0;class#Negotiations#0" expanded="false" />
+                    <element signature="method#printOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
+                    <element signature="method#printFinalOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
+                    <element signature="method#updateChargers#0;class#Negotiations#0" expanded="false" />
+                    <element signature="method#filterSuggestions#0;class#Negotiations#0" expanded="false" />
+                    <element signature="method#hybrid#0;class#Negotiations#0" expanded="false" />
+                    <element signature="method#createSuggestionsMap#0;class#Negotiations#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SuggestionsOptimizer.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="646">
+                  <caret line="61" column="14" lean-forward="false" selection-start-line="61" selection-start-column="14" selection-end-line="61" selection-end-column="14" />
+                  <folding>
+                    <element signature="method#SuggestionsOptimizer#0;class#SuggestionsOptimizer#0" expanded="false" />
+                    <element signature="method#computeUtility#0;class#SuggestionsOptimizer#0" expanded="false" />
+                    <element signature="method#printOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
+                    <element signature="method#printFinalOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -138,13 +117,21 @@
           <file leaf-file-name="EV.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="569">
-                  <caret line="45" column="37" lean-forward="true" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="37" />
+                <state relative-caret-position="416">
+                  <caret line="34" column="62" lean-forward="false" selection-start-line="34" selection-start-column="62" selection-end-line="34" selection-end-column="62" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#746#747#0" expanded="true" />
-                    <element signature="e#785#786#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="EVInfo.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/evs/EVInfo.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="85">
+                  <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -152,8 +139,8 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
-          <file leaf-file-name="Schedule.java" pinned="false" current-in-tab="true">
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="Schedule.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="657">
@@ -168,18 +155,98 @@
           <file leaf-file-name="EVObject.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/station/EVObject.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="504">
+                <state relative-caret-position="3553">
                   <caret line="284" column="24" lean-forward="false" selection-start-line="284" selection-start-column="24" selection-end-line="284" selection-end-column="24" />
-                  <folding />
+                  <folding>
+                    <element signature="imports" expanded="false" />
+                    <element signature="e#1904#1905#0" expanded="false" />
+                    <element signature="e#1950#1951#0" expanded="false" />
+                    <element signature="e#2853#2854#0" expanded="false" />
+                    <element signature="e#2898#2899#0" expanded="false" />
+                    <element signature="e#2930#2931#0" expanded="false" />
+                    <element signature="e#2973#2974#0" expanded="false" />
+                    <element signature="e#2999#3000#0" expanded="false" />
+                    <element signature="e#3024#3025#0" expanded="false" />
+                    <element signature="e#3054#3055#0" expanded="false" />
+                    <element signature="e#3100#3101#0" expanded="false" />
+                    <element signature="e#3142#3143#0" expanded="false" />
+                    <element signature="e#3187#3188#0" expanded="false" />
+                    <element signature="e#3227#3228#0" expanded="false" />
+                    <element signature="e#3270#3271#0" expanded="false" />
+                    <element signature="e#3298#3299#0" expanded="false" />
+                    <element signature="e#3333#3334#0" expanded="false" />
+                    <element signature="e#3370#3371#0" expanded="false" />
+                    <element signature="e#3410#3411#0" expanded="false" />
+                    <element signature="e#3458#3459#0" expanded="false" />
+                    <element signature="e#3505#3506#0" expanded="false" />
+                    <element signature="e#3550#3551#0" expanded="false" />
+                    <element signature="e#3588#3589#0" expanded="false" />
+                    <element signature="e#3624#3625#0" expanded="false" />
+                    <element signature="e#3657#3658#0" expanded="false" />
+                    <element signature="e#3698#3699#0" expanded="false" />
+                    <element signature="e#3730#3731#0" expanded="false" />
+                    <element signature="e#3765#3766#0" expanded="false" />
+                    <element signature="e#3795#3796#0" expanded="false" />
+                    <element signature="e#3838#3839#0" expanded="false" />
+                    <element signature="e#3877#3878#0" expanded="false" />
+                    <element signature="e#3912#3913#0" expanded="false" />
+                    <element signature="e#3947#3948#0" expanded="false" />
+                    <element signature="e#3988#3989#0" expanded="false" />
+                    <element signature="e#4033#4034#0" expanded="false" />
+                    <element signature="e#4066#4067#0" expanded="false" />
+                    <element signature="e#4094#4095#0" expanded="false" />
+                    <element signature="e#4128#4129#0" expanded="false" />
+                    <element signature="e#4162#4163#0" expanded="false" />
+                    <element signature="e#4212#4213#0" expanded="false" />
+                    <element signature="e#4258#4259#0" expanded="false" />
+                    <element signature="e#4487#4488#0" expanded="false" />
+                    <element signature="e#4532#4533#0" expanded="false" />
+                    <element signature="e#4564#4565#0" expanded="false" />
+                    <element signature="e#4607#4608#0" expanded="false" />
+                    <element signature="e#4635#4636#0" expanded="false" />
+                    <element signature="e#4661#4662#0" expanded="false" />
+                    <element signature="e#4830#4831#0" expanded="false" />
+                    <element signature="e#4863#4864#0" expanded="false" />
+                    <element signature="e#4919#4920#0" expanded="false" />
+                    <element signature="e#4963#4964#0" expanded="false" />
+                    <element signature="e#5001#5002#0" expanded="false" />
+                    <element signature="e#5038#5039#0" expanded="false" />
+                    <element signature="e#5098#5099#0" expanded="false" />
+                    <element signature="e#5150#5151#0" expanded="false" />
+                    <element signature="e#5499#5500#0" expanded="false" />
+                    <element signature="e#5538#5539#0" expanded="false" />
+                    <element signature="e#5579#5580#0" expanded="false" />
+                    <element signature="e#5621#5622#0" expanded="false" />
+                    <element signature="e#5680#5681#0" expanded="false" />
+                    <element signature="e#5736#5737#0" expanded="false" />
+                    <element signature="e#5801#5802#0" expanded="false" />
+                    <element signature="e#5863#5864#0" expanded="false" />
+                    <element signature="e#6241#6242#0" expanded="false" />
+                    <element signature="e#6282#6283#0" expanded="false" />
+                    <element signature="e#6346#6347#0" expanded="false" />
+                    <element signature="e#6406#6407#0" expanded="false" />
+                    <element signature="e#6453#6454#0" expanded="false" />
+                    <element signature="e#6492#6493#0" expanded="false" />
+                    <element signature="e#7560#7561#0" expanded="false" />
+                    <element signature="e#7593#7594#0" expanded="false" />
+                    <element signature="e#7641#7642#0" expanded="false" />
+                    <element signature="e#7685#7686#0" expanded="false" />
+                    <element signature="e#8133#8134#0" expanded="false" />
+                    <element signature="e#8164#8165#0" expanded="false" />
+                    <element signature="e#8198#8199#0" expanded="false" />
+                    <element signature="e#8228#8229#0" expanded="false" />
+                    <element signature="e#8275#8276#0" expanded="false" />
+                    <element signature="e#8313#8314#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="SuggestionComputer.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="SuggestionComputer.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="833">
-                  <caret line="173" column="61" lean-forward="false" selection-start-line="173" selection-start-column="61" selection-end-line="173" selection-end-column="61" />
+                <state relative-caret-position="272">
+                  <caret line="172" column="14" lean-forward="false" selection-start-line="172" selection-start-column="14" selection-end-line="172" selection-end-column="14" />
                   <folding>
                     <element signature="method#searchSlots#0;class#SuggestionComputer#0" expanded="false" />
                   </folding>
@@ -191,9 +258,9 @@
             <entry file="file://$PROJECT_DIR$/src/evs/Strategy.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="287">
-                  <caret line="24" column="35" lean-forward="false" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+                  <caret line="24" column="64" lean-forward="false" selection-start-line="24" selection-start-column="64" selection-end-line="24" selection-end-column="64" />
                   <folding>
-                    <marker date="1515581084605" expanded="false" signature="1051:1864" ph="{...}" />
+                    <marker date="1515659452334" expanded="false" signature="1051:1864" ph="{...}" />
                   </folding>
                 </state>
               </provider>
@@ -213,23 +280,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sendsug</find>
-      <find>setSta</find>
-      <find>setStar</find>
-      <find>getslot</find>
-      <find>setstart</find>
-      <find>showI</find>
-      <find>getmax</find>
-      <find>sends</find>
-      <find>isA</find>
-      <find>moveloc</find>
-      <find>checkwa</find>
-      <find>sendnew</find>
-      <find>sendme</find>
-      <find>update</find>
-      <find>updatenego</find>
-      <find>findsu</find>
-      <find>setfinals</find>
       <find>addEV</find>
       <find>sendsu</find>
       <find>elapse</find>
@@ -243,6 +293,23 @@
       <find>marke</find>
       <find>acc</find>
       <find>updatene</find>
+      <find>checkwa</find>
+      <find>finished</find>
+      <find>Edw</find>
+      <find>Edw gin</find>
+      <find>finished =</find>
+      <find>sendnewo</find>
+      <find>hassu</find>
+      <find>removi</find>
+      <find>To remo</find>
+      <find>UPDATE</find>
+      <find>findMinWindow</find>
+      <find>filter</find>
+      <find>findsug</find>
+      <find>waiting.remo</find>
+      <find>findsu</find>
+      <find>sendnew</find>
+      <find>isFini</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -284,7 +351,6 @@
         <option value="$PROJECT_DIR$/src/statistics/Statistics.java" />
         <option value="$PROJECT_DIR$/src/station/auction/VCG.java" />
         <option value="$PROJECT_DIR$/src/station/EVInfo.java" />
-        <option value="$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java" />
         <option value="$PROJECT_DIR$/src/agents/offline/StationAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java" />
         <option value="$PROJECT_DIR$/src/various/TestRunner.java" />
@@ -293,21 +359,22 @@
         <option value="$PROJECT_DIR$/src/evs/Preferences.java" />
         <option value="$PROJECT_DIR$/src/station/SuggestionMessage.java" />
         <option value="$PROJECT_DIR$/src/station/negotiation/Conversation.java" />
-        <option value="$PROJECT_DIR$/src/evs/EV.java" />
         <option value="$PROJECT_DIR$/src/station/ScheduleOld.java" />
         <option value="$PROJECT_DIR$/src/main/Main.java" />
         <option value="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" />
         <option value="$PROJECT_DIR$/src/various/IntegerConstants.java" />
         <option value="$PROJECT_DIR$/src/optimize/CPLEX.java" />
-        <option value="$PROJECT_DIR$/src/evs/Strategy.java" />
         <option value="$PROJECT_DIR$/src/station/auction/OptimalSchedule.java" />
         <option value="$PROJECT_DIR$/src/station/Station.java" />
         <option value="$PROJECT_DIR$/src/station/StationInfo.java" />
         <option value="$PROJECT_DIR$/src/station/Schedule.java" />
         <option value="$PROJECT_DIR$/src/station/EVObject.java" />
+        <option value="$PROJECT_DIR$/src/evs/EV.java" />
+        <option value="$PROJECT_DIR$/src/evs/Strategy.java" />
         <option value="$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java" />
-        <option value="$PROJECT_DIR$/src/station/NewStation.java" />
+        <option value="$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java" />
         <option value="$PROJECT_DIR$/src/main/Thesis2.java" />
+        <option value="$PROJECT_DIR$/src/station/NewStation.java" />
       </list>
     </option>
   </component>
@@ -351,6 +418,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -575,7 +643,6 @@
       </pane>
       <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -989,7 +1056,14 @@
       <option name="project" value="LOCAL" />
       <updated>1515259064592</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="changed the scenario. now there are multiple stations. this is the first version">
+      <created>1515591346234</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1515591346234</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1014,19 +1088,20 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.397463" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.5264271" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" x="795" y="88" width="819" height="785" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="true" show_stripe_button="true" weight="0.5264271" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" x="911" y="31" width="819" height="1010" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13854167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" x="-839" y="57" width="838" height="978" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32769555" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1035,7 +1110,6 @@
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.59196615" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32769555" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -1054,7 +1128,8 @@
     <MESSAGE value="added vcg in negotiations" />
     <MESSAGE value="new type of conversation (rounds)" />
     <MESSAGE value="some fixes in the computing of the suggestions" />
-    <option name="LAST_COMMIT_MESSAGE" value="some fixes in the computing of the suggestions" />
+    <MESSAGE value="changed the scenario. now there are multiple stations. this is the first version" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed the scenario. now there are multiple stations. this is the first version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1228,14 +1303,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Suggestion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/station/negotiation/Conversation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
@@ -1273,7 +1340,7 @@
         <state relative-caret-position="204">
           <caret line="12" column="44" lean-forward="false" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1282,14 +1349,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="43" lean-forward="false" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/evs/EVInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -1312,39 +1371,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="841">
-          <caret line="192" column="21" lean-forward="false" selection-start-line="192" selection-start-column="21" selection-end-line="192" selection-end-column="21" />
-          <folding>
-            <element signature="method#SuggestionsOptimizer#0;class#SuggestionsOptimizer#0" expanded="false" />
-            <element signature="method#updateChargers#0;class#SuggestionsOptimizer#0" expanded="false" />
-            <element signature="method#filterSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
-            <element signature="method#computeUtility#0;class#SuggestionsOptimizer#0" expanded="false" />
-            <element signature="method#printOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
-            <element signature="method#printFinalOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
-            <element signature="e#6123#6124#0" expanded="false" />
-            <element signature="e#6151#6152#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Negotiations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding>
-            <element signature="method#computeUtility#0;class#Negotiations#0" expanded="false" />
-            <element signature="method#printOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
-            <element signature="method#printFinalOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
-            <element signature="method#updateChargers#0;class#Negotiations#0" expanded="false" />
-            <element signature="method#filterSuggestions#0;class#Negotiations#0" expanded="false" />
-            <element signature="method#hybrid#0;class#Negotiations#0" expanded="false" />
-            <element signature="method#createSuggestionsMap#0;class#Negotiations#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/station/ScheduleOld.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="316">
@@ -1353,35 +1379,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="45" column="37" lean-forward="true" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#746#747#0" expanded="true" />
-            <element signature="e#785#786#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/evs/Strategy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="24" column="35" lean-forward="false" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
-          <folding>
-            <marker date="1515581084605" expanded="false" signature="1051:1864" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/station/Station.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
           <caret line="321" column="0" lean-forward="false" selection-start-line="321" selection-start-column="0" selection-end-line="326" selection-end-column="64" />
           <folding>
-            <element signature="e#5705#5706#0" expanded="true" />
-            <element signature="e#5745#5746#0" expanded="true" />
+            <element signature="e#5705#5706#0" expanded="false" />
+            <element signature="e#5745#5746#0" expanded="false" />
             <element signature="method#compute2#0;class#Station#0" expanded="false" />
             <element signature="method#showIDs#0;class#Station#0" expanded="false" />
             <element signature="method#findNotCharged#0;class#Station#0" expanded="false" />
@@ -1407,62 +1411,209 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/station/EVObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
+        <state relative-caret-position="3553">
           <caret line="284" column="24" lean-forward="false" selection-start-line="284" selection-start-column="24" selection-end-line="284" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="173" column="61" lean-forward="false" selection-start-line="173" selection-start-column="61" selection-end-line="173" selection-end-column="61" />
           <folding>
-            <element signature="method#searchSlots#0;class#SuggestionComputer#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1904#1905#0" expanded="false" />
+            <element signature="e#1950#1951#0" expanded="false" />
+            <element signature="e#2853#2854#0" expanded="false" />
+            <element signature="e#2898#2899#0" expanded="false" />
+            <element signature="e#2930#2931#0" expanded="false" />
+            <element signature="e#2973#2974#0" expanded="false" />
+            <element signature="e#2999#3000#0" expanded="false" />
+            <element signature="e#3024#3025#0" expanded="false" />
+            <element signature="e#3054#3055#0" expanded="false" />
+            <element signature="e#3100#3101#0" expanded="false" />
+            <element signature="e#3142#3143#0" expanded="false" />
+            <element signature="e#3187#3188#0" expanded="false" />
+            <element signature="e#3227#3228#0" expanded="false" />
+            <element signature="e#3270#3271#0" expanded="false" />
+            <element signature="e#3298#3299#0" expanded="false" />
+            <element signature="e#3333#3334#0" expanded="false" />
+            <element signature="e#3370#3371#0" expanded="false" />
+            <element signature="e#3410#3411#0" expanded="false" />
+            <element signature="e#3458#3459#0" expanded="false" />
+            <element signature="e#3505#3506#0" expanded="false" />
+            <element signature="e#3550#3551#0" expanded="false" />
+            <element signature="e#3588#3589#0" expanded="false" />
+            <element signature="e#3624#3625#0" expanded="false" />
+            <element signature="e#3657#3658#0" expanded="false" />
+            <element signature="e#3698#3699#0" expanded="false" />
+            <element signature="e#3730#3731#0" expanded="false" />
+            <element signature="e#3765#3766#0" expanded="false" />
+            <element signature="e#3795#3796#0" expanded="false" />
+            <element signature="e#3838#3839#0" expanded="false" />
+            <element signature="e#3877#3878#0" expanded="false" />
+            <element signature="e#3912#3913#0" expanded="false" />
+            <element signature="e#3947#3948#0" expanded="false" />
+            <element signature="e#3988#3989#0" expanded="false" />
+            <element signature="e#4033#4034#0" expanded="false" />
+            <element signature="e#4066#4067#0" expanded="false" />
+            <element signature="e#4094#4095#0" expanded="false" />
+            <element signature="e#4128#4129#0" expanded="false" />
+            <element signature="e#4162#4163#0" expanded="false" />
+            <element signature="e#4212#4213#0" expanded="false" />
+            <element signature="e#4258#4259#0" expanded="false" />
+            <element signature="e#4487#4488#0" expanded="false" />
+            <element signature="e#4532#4533#0" expanded="false" />
+            <element signature="e#4564#4565#0" expanded="false" />
+            <element signature="e#4607#4608#0" expanded="false" />
+            <element signature="e#4635#4636#0" expanded="false" />
+            <element signature="e#4661#4662#0" expanded="false" />
+            <element signature="e#4830#4831#0" expanded="false" />
+            <element signature="e#4863#4864#0" expanded="false" />
+            <element signature="e#4919#4920#0" expanded="false" />
+            <element signature="e#4963#4964#0" expanded="false" />
+            <element signature="e#5001#5002#0" expanded="false" />
+            <element signature="e#5038#5039#0" expanded="false" />
+            <element signature="e#5098#5099#0" expanded="false" />
+            <element signature="e#5150#5151#0" expanded="false" />
+            <element signature="e#5499#5500#0" expanded="false" />
+            <element signature="e#5538#5539#0" expanded="false" />
+            <element signature="e#5579#5580#0" expanded="false" />
+            <element signature="e#5621#5622#0" expanded="false" />
+            <element signature="e#5680#5681#0" expanded="false" />
+            <element signature="e#5736#5737#0" expanded="false" />
+            <element signature="e#5801#5802#0" expanded="false" />
+            <element signature="e#5863#5864#0" expanded="false" />
+            <element signature="e#6241#6242#0" expanded="false" />
+            <element signature="e#6282#6283#0" expanded="false" />
+            <element signature="e#6346#6347#0" expanded="false" />
+            <element signature="e#6406#6407#0" expanded="false" />
+            <element signature="e#6453#6454#0" expanded="false" />
+            <element signature="e#6492#6493#0" expanded="false" />
+            <element signature="e#7560#7561#0" expanded="false" />
+            <element signature="e#7593#7594#0" expanded="false" />
+            <element signature="e#7641#7642#0" expanded="false" />
+            <element signature="e#7685#7686#0" expanded="false" />
+            <element signature="e#8133#8134#0" expanded="false" />
+            <element signature="e#8164#8165#0" expanded="false" />
+            <element signature="e#8198#8199#0" expanded="false" />
+            <element signature="e#8228#8229#0" expanded="false" />
+            <element signature="e#8275#8276#0" expanded="false" />
+            <element signature="e#8313#8314#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/station/auction/OptimalSchedule.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
+        <state relative-caret-position="867">
           <caret line="61" column="38" lean-forward="false" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1620#1621#0" expanded="false" />
+            <element signature="e#1694#1695#0" expanded="false" />
+            <element signature="e#2053#2054#0" expanded="false" />
+            <element signature="e#2127#2128#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/station/StationInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="59">
-          <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#634#635#0" expanded="true" />
-            <element signature="e#662#663#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/NewStation.java">
+    <entry file="file://$PROJECT_DIR$/src/evs/EVInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="205" column="24" lean-forward="false" selection-start-line="205" selection-start-column="16" selection-end-line="205" selection-end-column="24" />
+        <state relative-caret-position="85">
+          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="34" column="62" lean-forward="false" selection-start-line="34" selection-start-column="62" selection-end-line="34" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#checkWaiting#0;class#NewStation#0" expanded="false" />
-            <element signature="docComment;method#findMinWindow#0;class#NewStation#0" expanded="false" />
-            <element signature="method#findMinWindow#0;class#NewStation#0" expanded="false" />
-            <element signature="method#elapsedSeconds#0;class#NewStation#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/evs/Strategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="24" column="64" lean-forward="false" selection-start-line="24" selection-start-column="64" selection-end-line="24" selection-end-column="64" />
+          <folding>
+            <marker date="1515659452334" expanded="false" signature="1051:1864" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Suggestion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="671">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="172" column="14" lean-forward="false" selection-start-line="172" selection-start-column="14" selection-end-line="172" selection-end-column="14" />
+          <folding>
+            <element signature="method#searchSlots#0;class#SuggestionComputer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Negotiations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+          <folding>
+            <element signature="method#computeUtility#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#printOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#printFinalOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#updateChargers#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#filterSuggestions#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#hybrid#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#createSuggestionsMap#0;class#Negotiations#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="61" column="14" lean-forward="false" selection-start-line="61" selection-start-column="14" selection-end-line="61" selection-end-column="14" />
+          <folding>
+            <element signature="method#SuggestionsOptimizer#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="method#computeUtility#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="method#printOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="method#printFinalOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Thesis2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="117" column="32" lean-forward="false" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
+        <state relative-caret-position="348">
+          <caret line="87" column="51" lean-forward="true" selection-start-line="85" selection-start-column="16" selection-end-line="87" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/NewStation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="160" column="54" lean-forward="false" selection-start-line="160" selection-start-column="54" selection-end-line="160" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;method#findMinWindow#0;class#NewStation#0" expanded="false" />
+            <element signature="method#elapsedSeconds#0;class#NewStation#0" expanded="false" />
           </folding>
         </state>
       </provider>
