@@ -1,10 +1,8 @@
 package main;
 
 import evs.EV;
-import evs.EVInfo;
 import io.JSONFileParser;
 import station.NewStation;
-import station.Station;
 import station.StationInfo;
 
 import java.util.ArrayList;
@@ -57,7 +55,7 @@ public class Thesis2 {
             "  =================");
             System.out.println(station.printEVBidders());
             station.computeSchedule();
-            station.sendInitialOffer();
+            station.sendSuggestionMessage();
             System.out.println();
             //break;
         }
@@ -113,11 +111,14 @@ public class Thesis2 {
                 System.out.println(" ======= Station_" + station.getInfo().getId() + " =======");
                 if (!finished_stations[s]) {
                     station.updateBiddersLists();
-                    station.updateNegotiationSchedule();
+                    station.resetChargers();
+                    station.computeSchedule();
+                    //station.updateNegotiationSchedule();
                     System.out.println(station.printEVBidders());
                     if (!station.isWaitingEmpty()) {
                         System.out.println("Waiting...");
                         System.out.println(station.printEVWaiting());
+                        station.checkWaiting();
                         station.findSuggestions();
                         station.sendNewSuggestionMessage();
                     }

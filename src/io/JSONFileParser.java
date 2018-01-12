@@ -1,18 +1,16 @@
 package io;
 
 import evs.EV;
-import evs.Strategy;
+import evs.strategy.Strategy;
 import station.EVObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import station.StationInfo;
-import various.EVData;
 
 import java.io.*;
 import java.util.ArrayList;
 
-import static java.lang.Math.log;
 import static java.lang.Math.toIntExact;
 
 /**
@@ -136,6 +134,8 @@ public class JSONFileParser {
 
                 int x = toIntExact((long) json_ev.get("x"));
                 int y = toIntExact((long) json_ev.get("y"));
+                int f_x = toIntExact((long) json_ev.get("f_x"));
+                int f_y = toIntExact((long) json_ev.get("f_y"));
 
                 JSONObject preferences = (JSONObject) json_ev.get("preferences");
 
@@ -160,8 +160,8 @@ public class JSONFileParser {
                 int s_prob = toIntExact((long)(strategy.get("probability")));
                 int s_rounds = toIntExact((long)(strategy.get("rounds")));
 
-                EV ev = new EV(id, x, y, start_slot, end_slot, energy, bid, max_distance,
-                        new Strategy(energy, s_start, s_end, s_prob, s_rounds));
+                EV ev = new EV(id, x, y, f_x, f_y, start_slot, end_slot, energy, bid, max_distance,
+                        new Strategy(s_energy, s_start, s_end, s_prob, s_rounds));
                 evs.add(ev);
                 id++;
             }

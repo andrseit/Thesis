@@ -1,12 +1,11 @@
-package evs;
+package evs.strategy;
 
+import evs.EVInfo;
+import evs.Preferences;
 import station.SuggestionMessage;
-import station.negotiation.Suggestion;
 import various.IntegerConstants;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by Thesis on 18/12/2017.
@@ -15,22 +14,12 @@ public class Strategy {
 
     private ArrayList<SuggestionMessage> suggestions;
 
-    private int energy;
-    private int start;
-    private int end;
-    private int movement; // orio metakinisis, na proste8ei argotera
-    private int rounds;
-    private int probability;
-
-    private int s_rounds; // how many suggestions have been made
+    private StrategyPreferences strategyPreferences;
+    private int s_rounds;
 
     public Strategy(int energy, int start, int end, int probability, int rounds) {
         suggestions = new ArrayList<>();
-        this.energy = energy;
-        this.start = start;
-        this.end = end;
-        this.rounds = rounds;
-        this.probability = probability;
+        strategyPreferences = new StrategyPreferences(energy, start, end, 0, rounds, probability, "price");
         s_rounds = 0;
     }
 
@@ -72,6 +61,23 @@ public class Strategy {
 
     public void evaluate (EVInfo info) {
 
+        StrategyComputer computer = new StrategyComputer(info, strategyPreferences);
+        ArrayList<ComparableSuggestion> comparable_suggestions = computer.produceComparableSuggestions(suggestions);
+        System.out.println("    Comparable suggestions");
+        for (ComparableSuggestion s: comparable_suggestions) {
+            System.out.println("        " + s.toString());
+        }
+        if (!comparable_suggestions.isEmpty()) {
+            int[] states = this.compareSuggestions(comparable_suggestions);
+            for (int s = 0; s < states.length; s++) {
+                comparable_suggestions.get(s).getStationAddress().checkIn(info, states[s]);
+            }
+            suggestions.clear();
+        }
+
+
+
+        /*
         if (!suggestions.isEmpty()) {
             // the decision for every station suggestion
             int[] states = new int[suggestions.size()];
@@ -109,9 +115,35 @@ public class Strategy {
                 }
             }
 
+
             suggestions.clear();
         }
+        */
     }
+
+    private int[] compareSuggestions (ArrayList<ComparableSuggestion> comparableSuggestions) {
+        // in which station it accpeted/rejected/asked for better suggestion
+        int[] states = new int[comparableSuggestions.size()];
+        for (int s = 0; s < states.length; s++) {
+            states[s] = -1;
+        }
+        for (int s = 0; s < comparableSuggestions.size(); s++) {
+            ComparableSuggestion suggestion = comparableSuggestions.get(s);
+            if (suggestion.getPreferencesDistance() < Integer.MAX_VALUE) {
+                states[s] = IntegerConstants.EV_EVALUATE_ACCEPT;
+                for (int i = 0; i < states.length; i++) {
+                    if (i != s)
+                        states[i] = IntegerConstants.EV_EVALUATE_REJECT;
+                }
+                break;
+            } else
+                states[s] = IntegerConstants.EV_EVALUATE_WAIT;
+        }
+        return states;
+    }
+
+
+
 
     /**
      * this method checks if a suggestion is inside the
@@ -133,10 +165,10 @@ public class Strategy {
     public String toString () {
         StringBuilder str = new StringBuilder();
         str.append("Bounds: \n");
-        str.append("    Start: " + start + "\n");
-        str.append("    End: " + end + "\n");
-        str.append("    Rounds: " + rounds + "\n");
-        str.append("    Probability: " + probability);
+        str.append("    Start: " + strategyPreferences.getStart() + "\n");
+        str.append("    End: " + strategyPreferences.getEnd() + "\n");
+        str.append("    Rounds: " + strategyPreferences.getRounds() + "\n");
+        str.append("    Probability: " + strategyPreferences.getPriority());
         return str.toString();
     }
 }

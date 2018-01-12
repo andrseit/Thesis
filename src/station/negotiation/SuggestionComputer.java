@@ -123,10 +123,10 @@ public class SuggestionComputer {
         }
 
         // clear zero slots
-        while (chargers[left] == 0 && (left < chargers.length && left > 0)) {
+        while (chargers[left] == 0 && (left < chargers.length && left >= 0)) {
             left += step;
         }
-        while (chargers[right] == 0 && (right < chargers.length && right > 0)) {
+        while (chargers[right] == 0 && (right < chargers.length && right >= 0)) {
             right -= step;
         }
 

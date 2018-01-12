@@ -1,6 +1,6 @@
 package various;
 
-import evs.Strategy;
+import evs.strategy.Strategy;
 
 import java.util.ArrayList;
 

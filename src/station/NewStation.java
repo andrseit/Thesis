@@ -1,5 +1,6 @@
 package station;
 
+import evs.EV;
 import optimize.CPLEX;
 import station.auction.OptimalSchedule;
 import station.negotiation.Negotiations;
@@ -39,6 +40,7 @@ public class NewStation {
         for (int s = slots_number/2; s < slots_number; s++) {
             price[s] = 1;
         }
+        price[4] = 2;
 
         ev_bidders = new ArrayList<>();
         waiting = new ArrayList<>();
@@ -76,11 +78,12 @@ public class NewStation {
         System.out.println(schedule.printFullScheduleMap(price));
     }
 
-    public void sendInitialOffer () {
+    public void sendSuggestionMessage() {
         this.findMinWindow();
         for (int e = 0; e < ev_bidders.size(); e++) {
             EVObject ev = ev_bidders.get(e);
             SuggestionMessage message = new SuggestionMessage(info, ev.getFinalSuggestion());
+            message.setCost(ev.getFinalPayment());
             ev.getObjectAddress().addSuggestion(message);
         }
     }
@@ -92,6 +95,7 @@ public class NewStation {
             System.out.println(" to... ev_" + ev.getId());
             //if (ev.hasSuggestion()) {
                 SuggestionMessage message = new SuggestionMessage(info, ev.getFinalSuggestion());
+                message.setCost(ev.getFinalPayment());
                 ev.getObjectAddress().addSuggestion(message);
             //}
         }
@@ -133,10 +137,11 @@ public class NewStation {
                     Suggestion suggestion = new Suggestion();
                     suggestion.setStartEndSlots(min, max);
                     suggestion.setEnergy(ev.getEnergy());
-                    suggestion.findSlotsAffected(schedule.getRemainingChargers());
+                    suggestion.findSlotsAffected(schedule_map, ev.getStationId());
+                    ev.setFinalPayment(this.computePrice(suggestion));
                     ev.setSuggestion(suggestion);
                     ev.setFinalSuggestion();
-                    System.out.println(min + " - " + max);
+                    System.out.println(suggestion.toString());
                     removed.add(ev);
                     message_receivers.add(ev);
                 }
@@ -153,9 +158,10 @@ public class NewStation {
 
     public void findSuggestions () {
 
+        int[] who_charged = cp.getWhoCharges();
         ArrayList<EVObject> suggestees = new ArrayList<>();
         for (EVObject ev: waiting) {
-            if (!message_receivers.contains(ev))
+            if (!message_receivers.contains(ev) && !(who_charged[ev.getStationId()] == 1))
                 suggestees.add(ev);
         }
         Negotiations neg = new Negotiations(suggestees, schedule.getFullScheduleMap(), schedule.getRemainingChargers(),
@@ -165,13 +171,14 @@ public class NewStation {
             for (EVObject ev : waiting) {
                 System.out.println("In list ev_" + ev.getId());
                 if (neg.getFilteredSuggestionList().contains(ev)) {
+                    ev.setFinalPayment(this.computePrice(ev.getSuggestion()));
                     ev.setFinalSuggestion();
                 }
                 else {
                     Suggestion suggestion = new Suggestion();
                     suggestion.setStartEndSlots(Integer.MAX_VALUE, Integer.MAX_VALUE);
                     suggestion.setEnergy(0);
-                    //suggestion.findSlotsAffected(getRemainingChargers());
+                    suggestion.findSlotsAffected(schedule.getRemainingChargers());
                     ev.setSuggestion(suggestion);
                     ev.setFinalSuggestion();
                 }
@@ -205,13 +212,18 @@ public class NewStation {
     }
 
     public void updateBiddersLists () {
+        int[] who_charged = cp.getWhoCharges();
         ArrayList<EVObject> removed = new ArrayList<>();
         int id = 0;
-        for (EVObject ev: ev_bidders) {
+        for (int e = 0; e < ev_bidders.size(); e++) {
+            EVObject ev = ev_bidders.get(e);
             if (!ev.isAccepted()) {
+                System.out.println("Station_" + info.getId() + " removes ev_" + ev.getId());
                 removed.add(ev);
-                if (waiting.contains(ev))
+                if (waiting.contains(ev)) {
                     waiting.remove(ev);
+                    System.out.println(", also from the waiting list...");
+                }
             }
             else {
                 ev.setStationId(id);
@@ -219,7 +231,8 @@ public class NewStation {
                     waiting.add(ev);
                 else if (waiting.contains(ev) && !ev.isWaiting()) {
                     waiting.remove(ev);
-                    accepted_suggestions.add(ev);
+                    if (who_charged[e] != 1)
+                        accepted_suggestions.add(ev);
                 }
                 id++;
             }
@@ -293,7 +306,8 @@ public class NewStation {
                 Suggestion suggestion = new Suggestion();
                 suggestion.setStartEndSlots(min, max);
                 suggestion.setEnergy(ev.getEnergy());
-                suggestion.findSlotsAffected(schedule.getRemainingChargers());
+                suggestion.findSlotsAffected(schedule_map, ev.getStationId());
+                ev.setFinalPayment(this.computePrice(suggestion));
                 ev.setSuggestion(suggestion);
                 ev.setFinalSuggestion();
             } else {
@@ -301,12 +315,25 @@ public class NewStation {
                 suggestion.setStartEndSlots(Integer.MAX_VALUE, Integer.MAX_VALUE);
                 suggestion.setEnergy(0);
                 //suggestion.findSlotsAffected(getRemainingChargers());
+                suggestion.setCost(0);
                 ev.setSuggestion(suggestion);
                 ev.setFinalSuggestion();
             }
 
         }
     }
+
+    private int computePrice (Suggestion suggestion) {
+        int cost = 0;
+        int[] slots_affected = suggestion.getSlotsAfected();
+        for (int s = 0; s < price.length; s++) {
+            if (slots_affected[s] == 1) {
+                cost += price[s];
+            }
+        }
+        return cost;
+    }
+
 
     private void elapsedSeconds (long start, String process) {
         long tEnd = System.currentTimeMillis();

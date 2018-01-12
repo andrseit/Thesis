@@ -1,8 +1,11 @@
 package main;
 
 
+import evs.strategy.ComparableSuggestion;
+
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by Darling on 28/8/2017.
@@ -14,6 +17,7 @@ public class Main {
         Thesis2 run = new Thesis2();
         run.start();
     }
+
 
 
 

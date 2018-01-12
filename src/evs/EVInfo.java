@@ -7,12 +7,14 @@ public class EVInfo {
 
     private int id, bid;
     private Preferences preferences;
-    private int locationX, locationY;
+    private int locationX, locationY, final_locationX, final_locationY;
     private EV object_address;
 
-    public EVInfo(int id, int x, int y, int start, int end, int energy, int bid, int max_distance) {
+    public EVInfo(int id, int x, int y, int finalX, int finalY, int start, int end, int energy, int bid, int max_distance) {
         this.locationX = x;
         this.locationY = y;
+        this.final_locationX = finalX;
+        this.final_locationY = finalY;
         this.id = id;
         this.bid = bid;
         preferences = new Preferences();
@@ -56,5 +58,11 @@ public class EVInfo {
         return locationY;
     }
 
+    public int getFinalLocationX() {
+        return final_locationX;
+    }
 
+    public int getFinalLocationY() {
+        return final_locationY;
+    }
 }

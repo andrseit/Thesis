@@ -12,6 +12,7 @@ import evs.Preferences;
 public class SuggestionMessage extends Preferences {
 
     private StationInfo station;
+    private int cost;
 
     public SuggestionMessage(StationInfo station, Preferences preferences) {
         this.station = station;
@@ -20,12 +21,20 @@ public class SuggestionMessage extends Preferences {
         this.energy = preferences.getEnergy();
     }
 
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
     public StationInfo getStationAddress() {
         return station;
     }
 
     public String toString () {
         return "Station_" + station.getId() + ": " +
-                start + "-" + end + "/" + energy;
+                start + "-" + end + "/" + energy + " -cost: " + cost;
     }
 }

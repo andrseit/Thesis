@@ -11,6 +11,7 @@ public class Suggestion extends Preferences {
     private int rating;
     private int type;
     private int profit;
+    protected int cost;
 
     // epeidi otan thes na epanafereis tous fortistes prepei na ksereis poia eixan allaksei
     // me to suggestion opote na pas kai na ta kaneis +1
@@ -63,6 +64,23 @@ public class Suggestion extends Preferences {
                 slots_afected[s] = 1;
             }
         }
+    }
+
+    public void findSlotsAffected (int[][] schedule, int row) {
+        slots_afected = new int[schedule[row].length];
+        for (int s = start; s <= end; s++) {
+            if (schedule[row][s] == 1) {
+                slots_afected[s] = 1;
+            }
+        }
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public int[] getSlotsAfected() {

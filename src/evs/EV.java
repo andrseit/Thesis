@@ -1,11 +1,10 @@
 package evs;
 
-import station.Station;
+import evs.strategy.Strategy;
 import station.StationInfo;
 import station.SuggestionMessage;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Thesis on 8/12/2017.
@@ -16,8 +15,8 @@ public class EV {
     private Strategy strategy;
     private int bid;
 
-    public EV (int id, int x, int y, int start, int end, int energy, int bid, int max_distance, Strategy strategy) {
-        info = new EVInfo(id, x, y, start, end, energy, bid, max_distance);
+    public EV (int id, int x, int y, int finalX, int finalY, int start, int end, int energy, int bid, int max_distance, Strategy strategy) {
+        info = new EVInfo(id, x, y, finalX, finalY, start, end, energy, bid, max_distance);
         info.setObjectAddress(this);
         this.bid = bid;
         this.strategy = strategy;
