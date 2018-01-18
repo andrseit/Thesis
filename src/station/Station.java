@@ -55,13 +55,11 @@ public class Station{
 
 
 
-    public boolean computeSchedule () {
+    public void computeSchedule () {
         if (ev_bidders.size() > 0) {
             this.compute();
-            return true;
         } else {
             System.out.println("No incoming vehicles!");
-            return false;
         }
     }
 
@@ -134,7 +132,7 @@ public class Station{
     public void findSuggestions () {
 
         Negotiations neg = new Negotiations(not_charged, schedule.getScheduleMap(), getRemainingChargers(),
-                price, 0);
+                price);
         neg.computeSuggestions();
         for (EVObject ev: not_charged) {
             if (neg.getFilteredSuggestionList().contains(ev))

@@ -3,7 +3,6 @@ package evs.strategy;
 import evs.EVInfo;
 import evs.Preferences;
 import station.SuggestionMessage;
-import various.IntegerConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +11,7 @@ import java.util.Comparator;
 /**
  * Created by Thesis on 12/1/2018.
  */
-public class StrategyComputer {
+class StrategyComputer {
 
     private EVInfo info;
     private StrategyPreferences strategy_preferences;
@@ -64,10 +63,8 @@ public class StrategyComputer {
      * @return
      */
     private boolean hasSuggestion (SuggestionMessage message) {
-        if (message.getStart() == Integer.MAX_VALUE && message.getEnd() == Integer.MAX_VALUE
-                && message.getEnergy() == 0)
-            return false;
-        return true;
+        return !(message.getStart() == Integer.MAX_VALUE && message.getEnd() == Integer.MAX_VALUE
+                && message.getEnergy() == 0);
     }
 
     private int computePreferencesDistance (SuggestionMessage message, Preferences initial) {
@@ -78,9 +75,7 @@ public class StrategyComputer {
     }
 
     private boolean isWithinInitial (SuggestionMessage message, Preferences initial) {
-        if (message.getStart() >= initial.getStart() && message.getEnd() <= initial.getEnd() && message.getEnergy() == initial.getEnergy())
-            return true;
-        return false;
+        return message.getStart() >= initial.getStart() && message.getEnd() <= initial.getEnd() && message.getEnergy() == initial.getEnergy();
     }
 
     /**
@@ -89,8 +84,6 @@ public class StrategyComputer {
      * @param priority
      */
     private void orderMessages (ArrayList<ComparableSuggestion> messages, String priority) {
-
-        Comparator comparator = null;
         if (priority.equals("price"))
         {
             Collections.sort(messages, Comparator.comparing((ComparableSuggestion s)->s.getPreferencesDistance())
@@ -109,11 +102,9 @@ public class StrategyComputer {
      * @return
      */
     private boolean checkWithinRange (SuggestionMessage message) {
-        if (message.getStart() >= strategy_preferences.getStart()
+        return message.getStart() >= strategy_preferences.getStart()
                 && message.getEnd() <= strategy_preferences.getEnd()
-                && message.getEnergy() >= strategy_preferences.getEnergy())
-            return true;
-        return false;
+                && message.getEnergy() >= strategy_preferences.getEnergy();
     }
 
     private int computeTotalDistance (SuggestionMessage message) {

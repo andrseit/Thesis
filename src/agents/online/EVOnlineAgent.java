@@ -14,7 +14,7 @@ import io.JSONFileParser;
 /**
  * Created by Darling on 15/9/2017.
  */
-public class EVOnlineAgent extends OnlineAgent {
+class EVOnlineAgent extends OnlineAgent {
 
 
     private int energy;

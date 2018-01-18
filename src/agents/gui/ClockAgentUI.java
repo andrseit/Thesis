@@ -1,7 +1,6 @@
 package agents.gui;
 
 import agents.online.ClockAgent;
-import jade.core.Agent;
 
 import javax.swing.*;
 import java.awt.*;

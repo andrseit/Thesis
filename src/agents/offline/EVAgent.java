@@ -13,7 +13,7 @@ import io.JSONFileParser;
 /**
  * Created by Darling on 8/8/2017.
  */
-public class EVAgent extends Agent{
+class EVAgent extends Agent{
 
     private int energy;
     private int inform_slot;

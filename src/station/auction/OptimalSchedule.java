@@ -1,10 +1,7 @@
 package station.auction;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import station.EVObject;
 import optimize.CPLEX;
-import station.NewStation;
-import station.Station;
 
 import java.util.ArrayList;
 import java.util.Comparator;

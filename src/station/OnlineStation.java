@@ -1,12 +1,9 @@
 package station;
 
-import evs.EV;
 import various.ArrayTransformations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Created by Thesis on 17/1/2018.
@@ -30,9 +27,7 @@ public class OnlineStation extends NewStation {
 
     public boolean hasOffers (int slot) {
         System.out.println("Min slot: " + minSlot);
-        if (minSlot == slot)
-            return true;
-        return false;
+        return minSlot == slot;
     }
 
     public void addEVBidder (EVObject ev) {
@@ -50,7 +45,7 @@ public class OnlineStation extends NewStation {
      * When the procedure of the scheduling and negotiating in one slot is over
      * move bidders that charged to a list and remove them from the bidders list
      */
-    public void lockEVBidders () {
+    private void lockEVBidders() {
         int[] whoCharged = cp.getWhoCharges();
         ArrayList<EVObject> removed = new ArrayList<>();
         for (int s = 0; s < whoCharged.length; s++) {
@@ -79,7 +74,7 @@ public class OnlineStation extends NewStation {
         ev.setSlotsNeeded(distance);
     }
 
-    public int setLastSlot (EVObject ev) {
+    private int setLastSlot(EVObject ev) {
         int distance = ev.getSlotsNeeded();
         int start = ev.getStartSlot();
         int lastSlot = start - distance;
@@ -88,13 +83,13 @@ public class OnlineStation extends NewStation {
         return lastSlot;
     }
 
-    public void updateFullScheduleMap () {
+    private void updateFullScheduleMap() {
         ArrayTransformations t = new ArrayTransformations();
         fullScheduleMap = t.concatMaps(fullScheduleMap, schedule.getScheduleMap(), slots_number);
         t.printIntArray(fullScheduleMap);
     }
 
-    public void updateEVBiddersIDs () {
+    private void updateEVBiddersIDs() {
         for (EVObject ev: ev_bidders) {
             int oldID = ev.getStationId();
             ev.setStationId(oldID + fullScheduleMap.length);

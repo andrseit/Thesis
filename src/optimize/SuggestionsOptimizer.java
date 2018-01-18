@@ -15,7 +15,7 @@ public class SuggestionsOptimizer {
     private int[] remaining_chargers;
     private int[] price;
     private int utility;
-    SuggestionComputer computer;
+    private SuggestionComputer computer;
 
     private Comparator<EVObject> comparator;
     private PriorityQueue<EVObject> suggestions_queue; // instead of ArrayList<> - smaller to bigger
@@ -27,15 +27,12 @@ public class SuggestionsOptimizer {
         this.price = price;
         computer = new SuggestionComputer(this.remaining_chargers, price, 0);
 
-        comparator = new Comparator<EVObject>() {
-            @Override
-            public int compare(EVObject o1, EVObject o2) {
-                int comp = o1.getSuggestion().getRating() - o2.getSuggestion().getRating();
-                if (comp != 0)
-                    return comp;
-                else {
-                    return o2.getSuggestion().getProfit() - o1.getSuggestion().getProfit();
-                }
+        comparator = (o1, o2) -> {
+            int comp = o1.getSuggestion().getRating() - o2.getSuggestion().getRating();
+            if (comp != 0)
+                return comp;
+            else {
+                return o2.getSuggestion().getProfit() - o1.getSuggestion().getProfit();
             }
         };
         suggestions_queue = new PriorityQueue<>(5, comparator);
@@ -68,7 +65,7 @@ public class SuggestionsOptimizer {
         System.out.println("Updating Chargers after first computation of Suggestions");
         boolean alt = false;
 
-        EVObject ev = null;
+        EVObject ev;
 
         while ((ev = suggestions_queue.poll()) != null) {
             System.out.println("-Updating chargers for ev: " + ev.getId());
@@ -151,7 +148,7 @@ public class SuggestionsOptimizer {
     private void printOrderedSuggestions () {
         System.out.println("Ordered Suggestions");
         int count = 0;
-        EVObject ev = null;
+        EVObject ev;
         ArrayList<EVObject> temp = new ArrayList<>();
         if (suggestions_queue.size() > 0) {
             while (count < suggestions_queue.size() + 1) {
@@ -177,7 +174,7 @@ public class SuggestionsOptimizer {
         System.out.println("Ordered Suggestions");
         Collections.sort(evs, comparator);
         int count = 0;
-        EVObject ev = null;
+        EVObject ev;
         while (count != evs.size()) {
             ev = evs.get(count);
             System.out.println("    " + (count+1) + ". " + ev.getSuggestion().toString() +

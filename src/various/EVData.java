@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by Darling on 8/8/2017.
  */
-public class EVData {
+class EVData {
 
     private int energy;
     private int inform_slot;

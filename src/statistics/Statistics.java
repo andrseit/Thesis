@@ -5,7 +5,7 @@ import various.ArrayTransformations;
 /**
  * Created by Thesis on 4/1/2018.
  */
-public class Statistics {
+class Statistics {
 
     public void occupancyPercentage (int[][] map, int chargers) {
         ArrayTransformations at = new ArrayTransformations();

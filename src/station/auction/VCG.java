@@ -11,7 +11,7 @@ import java.util.PriorityQueue;
 /**
  * Created by Thesis on 17/11/2017.
  */
-public class VCG {
+class VCG {
 
     private Station station;
     private CPLEX cp;

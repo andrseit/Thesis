@@ -3,7 +3,7 @@ package evs.strategy;
 /**
  * Created by Thesis on 12/1/2018.
  */
-public class StrategyPreferences {
+class StrategyPreferences {
 
     private int energy;
     private int start;

@@ -16,22 +16,24 @@ import various.IntegerConstants;
 /**
  * Created by Darling on 28/9/2017.
  */
-public class OnlineAgent extends Agent {
+class OnlineAgent extends Agent {
 
-    protected AID clock;
-    protected AgentUI ui;
-    protected long first_slot, step;
-    protected int ui_height, ui_width;
-    protected int current_slot;
+    private AID clock;
+    AgentUI ui;
+    private long first_slot;
+    private long step;
+    private int ui_height;
+    private int ui_width;
+    int current_slot;
 
-    public void setUIDimensions(int ui_height, int ui_width) {
+    void setUIDimensions(int ui_height, int ui_width) {
         this.ui_height = ui_height;
         this.ui_width = ui_width;
     }
 
 
 
-    protected class ClockRequestBehaviour extends OneShotBehaviour {
+    class ClockRequestBehaviour extends OneShotBehaviour {
 
         @Override
         public void action() {
@@ -61,7 +63,7 @@ public class OnlineAgent extends Agent {
 
     }
 
-    protected class ReceiveStartingMillis extends Behaviour {
+    class ReceiveStartingMillis extends Behaviour {
 
         boolean finish = false;
         @Override
@@ -87,7 +89,7 @@ public class OnlineAgent extends Agent {
         }
     }
 
-    protected class CPUClockBehaviour extends Behaviour {
+    class CPUClockBehaviour extends Behaviour {
 
         @Override
         public void action() {
@@ -106,7 +108,7 @@ public class OnlineAgent extends Agent {
         }
     }
 
-    protected class CreateUI extends OneShotBehaviour {
+    class CreateUI extends OneShotBehaviour {
 
         @Override
         public void action() {

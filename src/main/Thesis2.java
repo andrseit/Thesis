@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * Created by Thesis on 8/1/2018.
  */
-public class Thesis2 {
+class Thesis2 {
 
     private int slots_number = 10;
     private ArrayList<NewStation> stations;
@@ -77,7 +77,6 @@ public class Thesis2 {
     }
 
     private void online () {
-        Scanner scanner = new Scanner(System.in);
         this.initialize();
         onlineStations = new ArrayList<>();
         for (StationInfo s : s_infos) {
@@ -99,12 +98,10 @@ public class Thesis2 {
             }
 
             // evs sending offers
-            EV ev = null;
-            boolean requested = false; // if any ev requested from stations
+            EV ev;
             while ((ev = orderedEVs.peek()) != null && ev.getInformSlot() == slot) {
                 orderedEVs.poll();
                 ev.requestStation(s_infos);
-                requested = true;
             }
 
             for (int st = 0; st < onlineStations.size(); st++) {
@@ -136,109 +133,6 @@ public class Thesis2 {
                     station.updateStationData();
                 }
             }
-
-
-
-            /*
-            if (requested) {
-                // stations
-                for (int st = 0; st < onlineStations.size(); st++) {
-                    OnlineStation station = onlineStations.get(st);
-                    System.out.println("Station_" + st + " bidders list:");
-                    System.out.println(station.printEVBidders());
-                    System.out.println("Min slot = " + station.getMinSlot());
-                    if (station.hasOffers(slot)) {
-                        System.out.println("I will compute the program now at slot " + slot);
-                        station.resetMinSlot();
-                        station.computeSchedule();
-                        station.sendSuggestionMessage();
-                    }
-                }
-                for (EV e : evs) {
-                    if (e.hasSuggestions()) {
-                        e.printSuggestionsList();
-                        e.evaluateSuggestions();
-                        //System.out.println();
-                    }
-                }
-                System.out.println("-------- Phase 1 -------");
-
-
-                // compute new offers
-                for (int st = 0; st < onlineStations.size(); st++) {
-
-                    OnlineStation station = onlineStations.get(st);
-                    System.out.println(" ======= Station_" + station.getInfo().getId() + " =======");
-                    if (station.isUpdate()) {
-                        station.updateBiddersLists();
-                        System.out.println(station.printEVBidders());
-                        System.out.println("Waiting...");
-                        System.out.println(station.printEVWaiting());
-                        station.resetChargers();
-                        boolean computed = station.computeSchedule();
-                        if (computed) {
-                            station.checkWaiting();
-                            station.findSuggestions();
-                            station.sendNewSuggestionMessage();
-                        }
-                        if (station.isFinished()) {
-                            finished_stations[st] = true;
-                            System.out.println("station_" + st + " hash finished!");
-                        }
-                    }
-                }
-
-
-                while (!checkFinished()) {
-                    System.out.println("Give input in while:");
-                    scanner.nextLine();
-                    for (EV e : evs) {
-                        if (e.hasSuggestions()) {
-                            e.printSuggestionsList();
-                            e.evaluateSuggestions();
-                        }
-                        //System.out.println();
-                    }
-
-                    // negotiations
-                    for (int st = 0; st < onlineStations.size(); st++) {
-                        OnlineStation station = onlineStations.get(st);
-                        System.out.println(" ======= Station_" + station.getInfo().getId() + " =======");
-                        if (!finished_stations[st] && station.isUpdate()) {
-                            station.updateBiddersLists();
-                            station.resetChargers();
-                            station.computeSchedule();
-                            //station.updateNegotiationSchedule();
-                            System.out.println(station.printEVBidders());
-                            if (!station.isWaitingEmpty()) {
-                                System.out.println("Waiting...");
-                                System.out.println(station.printEVWaiting());
-                                station.checkWaiting();
-                                station.findSuggestions();
-                                station.sendNewSuggestionMessage();
-                            }
-                            station.printEVWaiting();
-                            if (station.isFinished()) {
-                                finished_stations[st] = true;
-                            } else
-                                System.out.println("You have failed Andrias");
-                        } else {
-                            System.out.println("Station has no more duties!");
-                            finished_stations[st] = true;
-                        }
-                    }
-                }
-            }
-            scanner.nextLine();
-
-            for (int st = 0; st < onlineStations.size(); st++) {
-                OnlineStation station = onlineStations.get(st);
-                if (station.isUpdate()) {
-                    System.out.println("Updating");
-                    station.updateStationData();
-                }
-            }
-            */
         }
 
     }
@@ -347,7 +241,7 @@ public class Thesis2 {
 
     private boolean checkFinished () {
         for (int s = 0; s < finished_stations.length; s++) {
-            if (finished_stations[s] == false)
+            if (!finished_stations[s])
                 return false;
         }
         return true;

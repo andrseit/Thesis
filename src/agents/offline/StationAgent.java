@@ -14,7 +14,7 @@ import io.JSONFileParser;
 /**
  * Created by Darling on 8/8/2017.
  */
-public class StationAgent extends Agent {
+class StationAgent extends Agent {
 
     private Station station;
 

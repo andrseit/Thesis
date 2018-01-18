@@ -29,7 +29,7 @@ public class JSONFileParser {
         int x, y;
         int id = 0;
         JSONParser parser = new JSONParser();
-        Reader reader = null;
+        Reader reader;
         try {
             reader = new FileReader(path);
             BufferedReader in = new BufferedReader(reader);
@@ -119,7 +119,7 @@ public class JSONFileParser {
 
         ArrayList<EV> evs = new ArrayList<>();
         JSONParser parser = new JSONParser();
-        Reader reader = null;
+        Reader reader;
         try {
             reader = new FileReader(path);
             BufferedReader in = new BufferedReader(reader);

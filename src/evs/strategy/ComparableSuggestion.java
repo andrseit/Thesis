@@ -5,7 +5,7 @@ import station.StationInfo;
 /**
  * Created by Thesis on 11/1/2018.
  */
-public class ComparableSuggestion {
+class ComparableSuggestion {
 
     private int total_distance;
     private int price;

@@ -8,11 +8,12 @@ import java.util.ArrayList;
 /**
  * Created by Thesis on 9/1/2018.
  */
-public class Schedule {
+class Schedule {
 
     private int[][] scheduleMap;
     private int[] remaining_chargers;
-    int slots_number, chargers_number;
+    private int slots_number;
+    private int chargers_number;
 
     public Schedule(int slots_number, int chargers_number) {
         this.slots_number = slots_number;
@@ -45,9 +46,7 @@ public class Schedule {
 
     public void resetChargers (int[] chargers) {
         remaining_chargers = new int[slots_number];
-        for (int s = 0; s < slots_number; s++) {
-            remaining_chargers[s] = chargers[s];
-        }
+        System.arraycopy(chargers, 0, remaining_chargers, 0, slots_number);
     }
 
     private void computeRemainingChargers () {
@@ -68,26 +67,26 @@ public class Schedule {
         str.append("------------------------ Slots ------------------------\n");
         str.append("       ");
         for (int s = 0; s < slots_number; s++) {
-            str.append(s + " ");
+            str.append(s).append(" ");
         }
         str.append("\n");
 
         str.append("price: ");
         for (int s = 0; s < slots_number; s++) {
-            str.append(price[s] + " ");
+            str.append(price[s]).append(" ");
         }
         str.append("\n\n");
 
         str.append("charg: ");
         for (int s = 0; s < slots_number; s++) {
-            str.append(remaining_chargers[s] + " ");
+            str.append(remaining_chargers[s]).append(" ");
         }
         str.append("\n\n");
 
         for (int e = 0; e < scheduleMap.length; e++) {
-            str.append("ev_" + e + ":  ");
+            str.append("ev_").append(e).append(":  ");
             for (int s = 0; s < scheduleMap[0].length; s++) {
-                str.append(scheduleMap[e][s] + " ");
+                str.append(scheduleMap[e][s]).append(" ");
             }
             str.append("\n");
         }
@@ -101,26 +100,26 @@ public class Schedule {
         str.append("------------------------ Slots ------------------------\n");
         str.append("       ");
         for (int s = 0; s < slots_number; s++) {
-            str.append(s + " ");
+            str.append(s).append(" ");
         }
         str.append("\n");
 
         str.append("price: ");
         for (int s = 0; s < slots_number; s++) {
-            str.append(price[s] + " ");
+            str.append(price[s]).append(" ");
         }
         str.append("\n\n");
 
         str.append("charg: ");
         for (int s = 0; s < slots_number; s++) {
-            str.append(remaining_chargers[s] + " ");
+            str.append(remaining_chargers[s]).append(" ");
         }
         str.append("\n\n");
 
         for (int e = 0; e < map.length; e++) {
-            str.append("ev_" + e + ":  ");
+            str.append("ev_").append(e).append(":  ");
             for (int s = 0; s < map[0].length; s++) {
-                str.append(map[e][s] + " ");
+                str.append(map[e][s]).append(" ");
             }
             str.append("\n");
         }

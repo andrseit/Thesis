@@ -3,13 +3,8 @@ package station.negotiation;
 import io.ArrayFileWriter;
 import optimize.SuggestionsOptimizer;
 import station.EVObject;
-import various.ArrayTransformations;
 
 import java.util.*;
-
-/**
- * Created by Thesis on 18/11/2017.
- */
 
 /**
  * This class takes as inputs the evs that did not fit in the initial schedule, the initial schedule and the remaining chargers
@@ -25,21 +20,19 @@ public class Negotiations {
     private int[] price;
     private int initial_utility;
 
-    private int negotiation_state;
     private boolean finish;
 
     private Comparator<EVObject> comparator;
 
     private PriorityQueue<EVObject> suggestions_queue; // instead of ArrayList<> - smaller to bigger
-    SuggestionsOptimizer optimizer;
+    private SuggestionsOptimizer optimizer;
 
-    public Negotiations(ArrayList<EVObject> evs, int[][] schedule, int[] chargers, int[] price, int negotiation_state) {
+    public Negotiations(ArrayList<EVObject> evs, int[][] schedule, int[] chargers, int[] price) {
         this.evs = evs;
         this.schedule = schedule;
         this.chargers = Arrays.copyOf(chargers, chargers.length);
         this.initial_chargers = chargers;
         this.price = price;
-        this.negotiation_state = negotiation_state;
         comparator = new Comparator<EVObject>() {
             @Override
             public int compare(EVObject o1, EVObject o2) {
@@ -210,7 +203,7 @@ public class Negotiations {
     private void printOrderedSuggestions () {
         System.out.println("Ordered Suggestions");
         int count = 0;
-        EVObject ev = null;
+        EVObject ev;
         ArrayList<EVObject> temp = new ArrayList<>();
         if (suggestions_queue.size() > 0) {
             while (count < suggestions_queue.size() + 1) {
@@ -240,7 +233,7 @@ public class Negotiations {
         System.out.println("Ordered Suggestions");
         Collections.sort(evs, comparator);
         int count = 0;
-        EVObject ev = null;
+        EVObject ev;
         while (count != evs.size()) {
             ev = evs.get(count);
             System.out.println("    " + (count+1) + ". " + ev.getSuggestion().toString() +

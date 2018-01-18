@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by Thesis on 8/12/2017.
  */
-public class PrintOuch {
+class PrintOuch {
 
 
     public void printEVs (ArrayList<EVObject> evs) {

@@ -2,7 +2,6 @@ package various;
 
 import org.json.simple.JSONObject;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
@@ -10,7 +9,7 @@ import java.util.Random;
 /**
  * Created by Thesis on 20/12/2017.
  */
-public class DataGenerator {
+class DataGenerator {
 
     public void generateEVsFile(int evs_num, int slots_num, int bid_bound) {
 

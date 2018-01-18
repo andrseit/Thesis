@@ -37,11 +37,10 @@ public class StationInfo {
     }
 
     public String toString () {
-        StringBuilder str = new StringBuilder();
-        str.append("Station_" + id);
-        str.append(" (" + location_x + ", " + location_y + ") : ");
-        str.append(charger_number + " chargers.");
-        return str.toString();
+        String str = ("Station_" + id) +
+                " (" + location_x + ", " + location_y + ") : " +
+                charger_number + " chargers.";
+        return str;
     }
 
     public void setStation(NewStation station) {

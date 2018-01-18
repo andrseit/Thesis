@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * Created by Darling on 29/7/2017.
  */
-public class DataGenerator {
+class DataGenerator {
 
     public void generateEVsData(int num_evs, int slots_num) {
 

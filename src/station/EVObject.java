@@ -70,16 +70,15 @@ public class EVObject {
 
 
     public String printEV() {
-        StringBuilder str = new StringBuilder();
-        str.append("EVs id: " + id + "(" + station_id + ")" + " -> ");
-        str.append(getStartSlot() + "-" + getEndSlot() + "/" + getEnergy());
+        String str = ("EVs id: " + id + "(" + station_id + ")" + " -> ") +
+                getStartSlot() + "-" + getEndSlot() + "/" + getEnergy() +
+                "\n";
         //str.append(" informed at slot " + getInformSlot() + "\n");
-        str.append("\n");
         //str.append("EVs id: " + id + "(" + station_id + ")" + " -> energy needed: " + preferences.getEnergy() + "   informed at slot: " + inform_slot + ".\n");
         // str.append("\nSchedule row: " + schedule_row + "\n");
         //if (charged)
             //str.append(" will charge!");
-        return str.toString();
+        return str;
     }
 
     public int getMinSlot () {
@@ -197,11 +196,10 @@ public class EVObject {
     }
 
     public String toString () {
-        StringBuilder str = new StringBuilder();
-        str.append("ev_" + schedule_row + ": ");
-        str.append(preferences.getStart() + " - " + preferences.getEnd() + " / " + preferences.getEnergy());
-        str.append(" -- " + bid);
-        return str.toString();
+        String str = ("ev_" + schedule_row + ": ") +
+                preferences.getStart() + " - " + preferences.getEnd() + " / " + preferences.getEnergy() +
+                " -- " + bid;
+        return str;
     }
 
     public int getBestLessEnergy() {

@@ -11,7 +11,7 @@ public class Suggestion extends Preferences {
     private int rating;
     private int type;
     private int profit;
-    protected int cost;
+    private int cost;
 
     // epeidi otan thes na epanafereis tous fortistes prepei na ksereis poia eixan allaksei
     // me to suggestion opote na pas kai na ta kaneis +1
@@ -40,15 +40,15 @@ public class Suggestion extends Preferences {
         else
             str.append("Alt Window  -> ");
 
-        str.append("Start: " + start);
-        str.append(", End: " + end);
-        str.append(", Energy: " + energy);
-        str.append(", Rating: " + rating);
-        str.append(", Profit: " + profit);
+        str.append("Start: ").append(start);
+        str.append(", End: ").append(end);
+        str.append(", Energy: ").append(energy);
+        str.append(", Rating: ").append(rating);
+        str.append(", Profit: ").append(profit);
         str.append(", Slots affected: ");
         for (int s = 0; s < slots_afected.length; s++) {
             if (slots_afected[s] == 1)
-                str.append(s + ",");
+                str.append(s).append(",");
         }
         return str.toString();
     }

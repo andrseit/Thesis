@@ -13,22 +13,22 @@ import java.util.ArrayList;
  */
 public class NewStation {
 
-    protected StationInfo info;
+    StationInfo info;
 
-    protected Schedule schedule;
-    protected int[] price;
-    protected int slots_number;
+    Schedule schedule;
+    int[] price;
+    int slots_number;
 
-    protected ArrayList<EVObject> ev_bidders;
-    protected ArrayList<EVObject> waiting;
-    protected ArrayList<EVObject> accepted_suggestions;
-    protected ArrayList<EVObject> message_receivers;
+    ArrayList<EVObject> ev_bidders;
+    private ArrayList<EVObject> waiting;
+    private ArrayList<EVObject> accepted_suggestions;
+    private ArrayList<EVObject> message_receivers;
 
-    protected int id_counter;
-    protected boolean finished; // shows when there are no other vehicles to service or negotiations to be made
+    int id_counter;
+    boolean finished; // shows when there are no other vehicles to service or negotiations to be made
     private boolean update; // shows in online if it has computed schedule to remove evs
 
-    protected CPLEX cp;
+    CPLEX cp;
 
     public NewStation(StationInfo info, int slots_number) {
         this.info = info;
@@ -116,7 +116,6 @@ public class NewStation {
         }
 
         else {
-            ArrayList<EVObject> removed = new ArrayList<>();
             int[][] schedule_map = cp.getScheduleMap();
             int[] who_charged = cp.getWhoCharges();
             for (EVObject ev : waiting) {
@@ -144,7 +143,6 @@ public class NewStation {
                     ev.setSuggestion(suggestion);
                     ev.setFinalSuggestion();
                     System.out.println(suggestion.toString());
-                    removed.add(ev);
                     message_receivers.add(ev);
                 }
             }
@@ -167,7 +165,7 @@ public class NewStation {
                 suggestees.add(ev);
         }
         Negotiations neg = new Negotiations(suggestees, schedule.getScheduleMap(), schedule.getRemainingChargers(),
-                price, 0);
+                price);
         neg.computeSuggestions();
         if (!neg.getFilteredSuggestionList().isEmpty()) {
             for (EVObject ev : waiting) {

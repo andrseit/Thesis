@@ -33,7 +33,7 @@ public class SuggestionComputer {
      * First type of suggestion: Less energy in the initially given window
      * WARNING: Add a case where the available energy is zero - return a huge value
      */
-    public Suggestion lessEnergy (Preferences initial) {
+    private Suggestion lessEnergy(Preferences initial) {
 
         System.out.println("    *Computing less energy...");
         Suggestion suggestion = new Suggestion();
@@ -67,7 +67,7 @@ public class SuggestionComputer {
     /**
      * Second type of suggestion: Modify window (change given start-end slots) but keep the same energy
      */
-    public Suggestion alteredWindow (Preferences initial, int lowerBound) {
+    private Suggestion alteredWindow(Preferences initial, int lowerBound) {
 
         System.out.println("    *Computing altered window...");
         Suggestion suggestion = new Suggestion();

@@ -13,13 +13,13 @@ import java.awt.event.ActionListener;
 public class AgentUI extends JFrame {
 
     JPanel main_panel;
-    JTextArea console;
-    JTextArea clock_text;
+    private JTextArea console;
+    private JTextArea clock_text;
     JLabel title;
-    JScrollPane scrollPane;
-    JScrollPane clock_scrollPane;
-    Agent agent;
-    boolean suspended = false;
+    private JScrollPane scrollPane;
+    private JScrollPane clock_scrollPane;
+    private Agent agent;
+    private boolean suspended = false;
 
 
     public AgentUI (String agent, int width, int height, Agent a) {
