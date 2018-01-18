@@ -132,6 +132,7 @@ public class SuggestionsOptimizer {
         }
 
         for (EVObject ev: removed) {
+            System.out.println("EV in removed: " + ev.getId());
             if (!ev.hasSuggestion()) evs.remove(ev);
         }
 

@@ -31,7 +31,6 @@ public class StrategyComputer {
         for (SuggestionMessage message: messages) {
             int preferences_distance = 0;
             if (!hasSuggestion(message)) {
-                System.out.println("To aporriptw gia max value");
                 preferences_distance = Integer.MAX_VALUE;
                 comparable_suggestions.add(new ComparableSuggestion(0, 0, preferences_distance, message.getStationAddress()));
             }
@@ -42,13 +41,14 @@ public class StrategyComputer {
                     withingRange = this.checkWithinRange(message);
                     if (withingRange)
                         preferences_distance = this.computePreferencesDistance(message, initial_prefs);
+                    else
+                       comparable_suggestions.add(new ComparableSuggestion(0,0, -1, message.getStationAddress()));
                 }
                 if (withingRange) {
                     int price = message.getCost();
                     int total_distance = this.computeTotalDistance(message);
                     comparable_suggestions.add(new ComparableSuggestion(total_distance, price, preferences_distance, message.getStationAddress()));
-                } else
-                    System.out.println("To aporriptw logw ektos range");
+                }
             }
         }
         System.out.println(comparable_suggestions.size());
@@ -109,8 +109,6 @@ public class StrategyComputer {
      * @return
      */
     private boolean checkWithinRange (SuggestionMessage message) {
-        System.out.println("To energy tou message: " + message.getEnergy());
-        System.out.println("To energy tou strategy: " + strategy_preferences.getEnergy());
         if (message.getStart() >= strategy_preferences.getStart()
                 && message.getEnd() <= strategy_preferences.getEnd()
                 && message.getEnergy() >= strategy_preferences.getEnergy())

@@ -84,7 +84,7 @@ public class Station{
         elapsedSeconds(tStart, "Scheduling");
 
         this.findMinWindow();
-        System.out.println(schedule.printFullScheduleMap(price));
+        System.out.println(schedule.printScheduleMap(price));
 
     }
 
@@ -95,7 +95,7 @@ public class Station{
      */
     private void findMinWindow () {
         int[] who_charged = cp.getWhoCharges();
-        int[][] schedule_map = schedule.getFullScheduleMap();
+        int[][] schedule_map = schedule.getScheduleMap();
         for (int e = 0; e < ev_bidders.size(); e++) {
             EVObject ev = ev_bidders.get(e);
             int min = 0, max = 0;
@@ -133,7 +133,7 @@ public class Station{
 
     public void findSuggestions () {
 
-        Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), getRemainingChargers(),
+        Negotiations neg = new Negotiations(not_charged, schedule.getScheduleMap(), getRemainingChargers(),
                 price, 0);
         neg.computeSuggestions();
         for (EVObject ev: not_charged) {
@@ -177,7 +177,7 @@ public class Station{
         OptimalSchedule optimal = new OptimalSchedule(ev_bidders, num_slots, price, getRemainingChargers(), cp);
         optimal.computeOptimalSchedule();
         //this.showIDs();
-        System.out.println(schedule.printFullScheduleMap(price));
+        System.out.println(schedule.printScheduleMap(price));
         elapsedSeconds(tStart, "Scheduling");
 
 
@@ -191,23 +191,23 @@ public class Station{
         this.moveLockedBidders();
         updateRemainingChargers();
         elapsedSeconds(tStart, "VCG");
-        System.out.println(schedule.printFullScheduleMap(price));
+        System.out.println(schedule.printScheduleMap(price));
         ArrayFileWriter w = new ArrayFileWriter();
-        w.writeSchedule(schedule.getFullScheduleMap(), getRemainingChargers());
+        w.writeSchedule(schedule.getScheduleMap(), getRemainingChargers());
         System.out.println("\n====================================================================\n");
 
-        Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), schedule.getRemainingChargers(), price,
+        Negotiations neg = new Negotiations(not_charged, schedule.getScheduleMap(), schedule.getRemainingChargers(), price,
                 IntegerConstants.SUGGESTION_COMPUTER_INITIAL);
         neg.start();
 
         tStart = System.currentTimeMillis();
         if (not_charged.size() != 0) {
             System.out.println("\n============================= 3) Negotiation ============================\n");
-            Negotiations neg = new Negotiations(not_charged, schedule.getFullScheduleMap(), schedule.getRemainingChargers(), price,
+            Negotiations neg = new Negotiations(not_charged, schedule.getScheduleMap(), schedule.getRemainingChargers(), price,
                     IntegerConstants.SUGGESTION_COMPUTER_INITIAL);
             //neg.computeSuggestions();
             neg.start();
-            //System.out.println(schedule.printFullScheduleMap(price));
+            //System.out.println(schedule.printScheduleMap(price));
             //System.out.println("\n====================================================================\n");
             System.out.println("\n===================== 4) Conversation ===================================\n");
             Conversation conversation = new Conversation(neg.getFilteredSuggestionList());
@@ -217,11 +217,11 @@ public class Station{
             System.out.println("\n===================== 5) Updating Chargers & ScheduleOld ===================================\n");
 
             //ev_bidders = conversation.getAcceptedEVs();
-            System.out.println(schedule.printFullScheduleMap(price));
+            System.out.println(schedule.printScheduleMap(price));
             System.out.println("\n====================================================================\n");
 
             while (conversation.getPendingEvs().size() > 0 && neg.hasFinished() == false) {
-                neg = new Negotiations(conversation.getPendingEvs(), schedule.getFullScheduleMap(), schedule.getRemainingChargers(), price,
+                neg = new Negotiations(conversation.getPendingEvs(), schedule.getScheduleMap(), schedule.getRemainingChargers(), price,
                         IntegerConstants.SUGGESTION_COMPUTER_CONVERSATION);
                 neg.start();
                 if (!neg.hasFinished()) {
@@ -234,8 +234,8 @@ public class Station{
         elapsedSeconds(tStart, "Neogotiation");
         System.out.println("================== 6) Statistics ===========================");
         Statistics stats = new Statistics();
-        stats.occupancyPercentage(schedule.getFullScheduleMap(), num_chargers);
-        stats.evsChargedPercentage(schedule.getFullScheduleMap());
+        stats.occupancyPercentage(schedule.getScheduleMap(), num_chargers);
+        stats.evsChargedPercentage(schedule.getScheduleMap());
         */
 
     }
@@ -350,6 +350,7 @@ public class Station{
     }
 
 
+
     public void addEVBidder (String ev_json) {
 
         JSONFileParser p = new JSONFileParser();
@@ -412,7 +413,7 @@ public class Station{
     }
 
     public String printSchedule () {
-        return schedule.printFullScheduleMap(price);
+        return schedule.printScheduleMap(price);
     }
 
     public int getSlotsNumber() {
@@ -432,10 +433,6 @@ public class Station{
     public int[] getPrice () { return price; }
 
     public int[] getRemainingChargers () {return schedule.getRemainingChargers(); }
-
-    public void concatScheduleMap(int[][] schedule_map) {
-        schedule.concatMaps(schedule_map);
-    }
 
     public void setInitialUtility (int utility) {
         this.initial_utility = utility;

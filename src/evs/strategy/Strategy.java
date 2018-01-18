@@ -60,7 +60,7 @@ public class Strategy {
     */
 
     public void evaluate (EVInfo info) {
-
+        System.out.println("SUGGESTIONS SIZE: " + suggestions.size());
         StrategyComputer computer = new StrategyComputer(info, strategyPreferences);
         ArrayList<ComparableSuggestion> comparable_suggestions = computer.produceComparableSuggestions(suggestions);
         System.out.println("    Comparable suggestions");
@@ -73,6 +73,7 @@ public class Strategy {
                 comparable_suggestions.get(s).getStationAddress().checkIn(info, states[s]);
             }
             suggestions.clear();
+            s_rounds++;
         }
 
 
@@ -127,16 +128,27 @@ public class Strategy {
         for (int s = 0; s < states.length; s++) {
             states[s] = -1;
         }
+        if (s_rounds > strategyPreferences.getRounds()) {
+            for (int s = 0; s < states.length; s++) {
+                states[s] = IntegerConstants.EV_EVALUATE_REJECT;
+            }
+            return states;
+        }
+
+
         for (int s = 0; s < comparableSuggestions.size(); s++) {
             ComparableSuggestion suggestion = comparableSuggestions.get(s);
-            if (suggestion.getPreferencesDistance() < Integer.MAX_VALUE) {
+            if (suggestion.getPreferencesDistance() == -1) {
+                states[s] = IntegerConstants.EV_EVALUATE_REJECT;
+            }
+            else if (suggestion.getPreferencesDistance() < Integer.MAX_VALUE ) { //&& suggestion.getPreferencesDistance() > 0) {
                 states[s] = IntegerConstants.EV_EVALUATE_ACCEPT;
                 for (int i = 0; i < states.length; i++) {
                     if (i != s)
                         states[i] = IntegerConstants.EV_EVALUATE_REJECT;
                 }
                 break;
-            } else
+            } else if (suggestion.getPreferencesDistance() == Integer.MAX_VALUE)
                 states[s] = IntegerConstants.EV_EVALUATE_WAIT;
         }
         return states;

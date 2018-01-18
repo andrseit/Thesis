@@ -57,6 +57,7 @@ public class StationInfo {
         EVObject ev = new EVObject();
         ev.addEVPreferences(p.getStart(), p.getEnd(), info.getBid(), p.getEnergy());
         ev.setID(info.getId());
+        ev.setXY(info.getLocationX(), info.getLocationY());
         ev.setEVAddress(info.getObjectAddress());
         station.addEVBidder(ev);
     }

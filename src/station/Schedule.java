@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Schedule {
 
-    private int[][] full_schedule_map;
+    private int[][] scheduleMap;
     private int[] remaining_chargers;
     int slots_number, chargers_number;
 
@@ -24,7 +24,7 @@ public class Schedule {
     }
 
     public void setFullScheduleMap (int[][] map) {
-        this.full_schedule_map = map;
+        this.scheduleMap = map;
         this.updateChargers(map);
     }
 
@@ -43,19 +43,26 @@ public class Schedule {
         }
     }
 
+    public void resetChargers (int[] chargers) {
+        remaining_chargers = new int[slots_number];
+        for (int s = 0; s < slots_number; s++) {
+            remaining_chargers[s] = chargers[s];
+        }
+    }
+
     private void computeRemainingChargers () {
 
     }
 
-    public int[][] getFullScheduleMap() {
-        return full_schedule_map;
+    public int[][] getScheduleMap() {
+        return scheduleMap;
     }
 
     public int[] getRemainingChargers() {
         return remaining_chargers;
     }
 
-    public String printFullScheduleMap (int[] price) {
+    public String printScheduleMap(int[] price) {
 
         StringBuilder str = new StringBuilder();
         str.append("------------------------ Slots ------------------------\n");
@@ -77,10 +84,43 @@ public class Schedule {
         }
         str.append("\n\n");
 
-        for (int e = 0; e < full_schedule_map.length; e++) {
+        for (int e = 0; e < scheduleMap.length; e++) {
             str.append("ev_" + e + ":  ");
-            for (int s = 0; s < full_schedule_map[0].length; s++) {
-                str.append(full_schedule_map[e][s] + " ");
+            for (int s = 0; s < scheduleMap[0].length; s++) {
+                str.append(scheduleMap[e][s] + " ");
+            }
+            str.append("\n");
+        }
+        str.append("-------------------------------------------------------\n");
+        return str.toString();
+    }
+
+    public String printScheduleMap(int[][] map, int[] price) {
+
+        StringBuilder str = new StringBuilder();
+        str.append("------------------------ Slots ------------------------\n");
+        str.append("       ");
+        for (int s = 0; s < slots_number; s++) {
+            str.append(s + " ");
+        }
+        str.append("\n");
+
+        str.append("price: ");
+        for (int s = 0; s < slots_number; s++) {
+            str.append(price[s] + " ");
+        }
+        str.append("\n\n");
+
+        str.append("charg: ");
+        for (int s = 0; s < slots_number; s++) {
+            str.append(remaining_chargers[s] + " ");
+        }
+        str.append("\n\n");
+
+        for (int e = 0; e < map.length; e++) {
+            str.append("ev_" + e + ":  ");
+            for (int s = 0; s < map[0].length; s++) {
+                str.append(map[e][s] + " ");
             }
             str.append("\n");
         }
@@ -98,25 +138,9 @@ public class Schedule {
             for (int s = start; s <= end; s++) {
                 if (affected_slots[s] == 1) {
                     remaining_chargers[s] -= 1;
-                    full_schedule_map[ev.getStationId()][s] = 1;
+                    scheduleMap[ev.getStationId()][s] = 1;
                 }
             }
-        }
-    }
-
-
-    // concatenates old and new map
-    public void concatMaps(int[][] initial) {
-
-        ArrayTransformations t = new ArrayTransformations();
-        if (initial.length != 0) {
-            //this.full_schedule_map = initial;
-            int map_length = full_schedule_map.length;
-            int[][] new_full_schedule_map = new int[map_length + initial.length][remaining_chargers.length];
-            System.arraycopy(full_schedule_map, 0, new_full_schedule_map, 0, full_schedule_map.length);
-            System.arraycopy(initial, 0, new_full_schedule_map, full_schedule_map.length, initial.length);
-            full_schedule_map = new_full_schedule_map;
-            //System.out.println("Rows: " + full_schedule_map.length + ", Columns: " + full_schedule_map[0].length);
         }
     }
 }

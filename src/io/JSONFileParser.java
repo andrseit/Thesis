@@ -160,7 +160,7 @@ public class JSONFileParser {
                 int s_prob = toIntExact((long)(strategy.get("probability")));
                 int s_rounds = toIntExact((long)(strategy.get("rounds")));
 
-                EV ev = new EV(id, x, y, f_x, f_y, start_slot, end_slot, energy, bid, max_distance,
+                EV ev = new EV(id, inform_slot, x, y, f_x, f_y, start_slot, end_slot, energy, bid, max_distance,
                         new Strategy(s_energy, s_start, s_end, s_prob, s_rounds));
                 evs.add(ev);
                 id++;

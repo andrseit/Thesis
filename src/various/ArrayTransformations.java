@@ -104,4 +104,20 @@ public class ArrayTransformations {
             array[row][i] = 1;
         }
     }
+
+    // concatenates old and new map
+    public int[][] concatMaps(int[][] first, int[][] second, int columns) {
+
+        ArrayTransformations t = new ArrayTransformations();
+        if (second.length != 0) {
+            //this.scheduleMap = initial;
+            int map_length = first.length;
+            int[][] new_full_schedule_map = new int[map_length + second.length][columns];
+            System.arraycopy(first, 0, new_full_schedule_map, 0, first.length);
+            System.arraycopy(second, 0, new_full_schedule_map, first.length, second.length);
+            first = new_full_schedule_map;
+            //System.out.println("Rows: " + scheduleMap.length + ", Columns: " + scheduleMap[0].length);
+        }
+        return first;
+    }
 }

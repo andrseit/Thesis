@@ -11,11 +11,13 @@ import java.util.ArrayList;
  */
 public class EV {
 
+    private int informSlot;
     private EVInfo info;
     private Strategy strategy;
     private int bid;
 
-    public EV (int id, int x, int y, int finalX, int finalY, int start, int end, int energy, int bid, int max_distance, Strategy strategy) {
+    public EV (int id, int informSlot, int x, int y, int finalX, int finalY, int start, int end, int energy, int bid, int max_distance, Strategy strategy) {
+        this.informSlot = informSlot;
         info = new EVInfo(id, x, y, finalX, finalY, start, end, energy, bid, max_distance);
         info.setObjectAddress(this);
         this.bid = bid;
@@ -31,7 +33,7 @@ public class EV {
         strategy.evaluate(info);
     }
 
-    public boolean isFinished () { return strategy.isEmpty(); }
+    public boolean hasSuggestions() { return !strategy.isEmpty(); }
 
     public EVInfo getInfo () { return info; }
 
@@ -55,5 +57,9 @@ public class EV {
     public void printSuggestionsList () {
         System.out.println("ev_" + info.getId() + "'s list:");
         strategy.printSuggestionsList();
+    }
+
+    public int getInformSlot() {
+        return informSlot;
     }
 }

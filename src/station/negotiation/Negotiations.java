@@ -28,7 +28,6 @@ public class Negotiations {
     private int negotiation_state;
     private boolean finish;
 
-    private SuggestionComputer computer;
     private Comparator<EVObject> comparator;
 
     private PriorityQueue<EVObject> suggestions_queue; // instead of ArrayList<> - smaller to bigger
@@ -41,7 +40,6 @@ public class Negotiations {
         this.initial_chargers = chargers;
         this.price = price;
         this.negotiation_state = negotiation_state;
-        computer = new SuggestionComputer(this.chargers, price, negotiation_state);
         comparator = new Comparator<EVObject>() {
             @Override
             public int compare(EVObject o1, EVObject o2) {
@@ -252,6 +250,7 @@ public class Negotiations {
         System.out.println();
     }
 
+    /*
     private void updateChargers () {
 
         System.out.println("Updating Chargers after first computation of Suggestions");
@@ -316,6 +315,7 @@ public class Negotiations {
         }
 
     }
+    */
 
     /**
      * Set the final suggestions to each EV
@@ -367,10 +367,6 @@ public class Negotiations {
 
     public ArrayList<EVObject> getFilteredSuggestionList () {
         return evs;
-    }
-
-    public SuggestionComputer getComputer () {
-        return computer;
     }
 
     public int[] getChargers() {

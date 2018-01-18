@@ -21,6 +21,9 @@ public class EVObject {
     private int station_id;
    //private int energy;
     private int inform_slot;
+    private int slotsNeeded; // slots the ev needs to reach the station - so that it makes the offer in the right time
+    private int lastSlot; // the slot that at maximum the station can make the offer
+    private int x, y; // location on map
     private boolean charged = false;
     private int initial_pays; // what the ev will pay initially
     private int final_pays; // what the ev will finally pay
@@ -51,6 +54,7 @@ public class EVObject {
         best_altered_window = Integer.MAX_VALUE;
         accepted = false;
         waiting = false;
+        lastSlot = 0;
     }
 
     public void setEVAddress (EV evAddress) {
@@ -69,7 +73,7 @@ public class EVObject {
         StringBuilder str = new StringBuilder();
         str.append("EVs id: " + id + "(" + station_id + ")" + " -> ");
         str.append(getStartSlot() + "-" + getEndSlot() + "/" + getEnergy());
-        //str.append(" informed at slot " + getInformTime() + "\n");
+        //str.append(" informed at slot " + getInformSlot() + "\n");
         str.append("\n");
         //str.append("EVs id: " + id + "(" + station_id + ")" + " -> energy needed: " + preferences.getEnergy() + "   informed at slot: " + inform_slot + ".\n");
         // str.append("\nSchedule row: " + schedule_row + "\n");
@@ -209,20 +213,23 @@ public class EVObject {
     }
 
     public void setBestLessEnergy(int best_less_energy) {
+        previous_best_le = this.best_less_energy;
         this.best_less_energy = best_less_energy;
     }
 
     public void setBestAlteredWindow(int best_altered_window) {
+        previous_best_aw = this.best_altered_window;
         this.best_altered_window = best_altered_window;
     }
 
     public void setBestRating (int type, int rating) {
         if (type == IntegerConstants.LESS_ENERGY_TYPE) {
-            previous_best_le = best_less_energy;
+            //previous_best_le = best_less_energy;
             best_less_energy = rating;
         }
         else {
-            previous_best_aw = best_altered_window;
+            System.out.println("Setting:" + previous_best_aw + " to " + best_altered_window);
+            //previous_best_aw = best_altered_window;
             best_altered_window = rating;
         }
     }
@@ -265,10 +272,8 @@ public class EVObject {
     public void resetBestsUpdatingChargers () {
         if (suggestion.getType() == IntegerConstants.LESS_ENERGY_TYPE) {
             best_less_energy = previous_best_le;
-            System.out.println(best_less_energy);
         } else {
             best_altered_window = previous_best_aw;
-            System.out.println(best_altered_window);
         }
     }
 
@@ -304,4 +309,34 @@ public class EVObject {
     }
 
     public void setAccepted (boolean accepted) { this.accepted = accepted; }
+
+    public int getSlotsNeeded() {
+        return slotsNeeded;
+    }
+
+    public void setSlotsNeeded(int slotsNeeded) {
+        this.slotsNeeded = slotsNeeded;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setXY(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+
+    public int getLastSlot() {
+        return lastSlot;
+    }
+
+    public void setLastSlot(int lastSlot) {
+        this.lastSlot = lastSlot;
+    }
 }

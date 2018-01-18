@@ -67,22 +67,24 @@ public class SuggestionComputer {
     /**
      * Second type of suggestion: Modify window (change given start-end slots) but keep the same energy
      */
-    public Suggestion alteredWindow (Preferences initial) {
+    public Suggestion alteredWindow (Preferences initial, int lowerBound) {
 
         System.out.println("    *Computing altered window...");
         Suggestion suggestion = new Suggestion();
         suggestion.setEnergy(initial.getEnergy());
 
         int available_energy = energyInSlots(initial.getStart(), initial.getEnd(), suggestion);
-        this.searchSlots(1, initial, available_energy, suggestion);
+        this.searchSlots(1, initial, available_energy, suggestion, lowerBound);
 
         //System.out.println(new_preferences.toString());
         System.out.println("        Slots found: " + suggestion.getStart() + "-" + suggestion.getEnd() + "/" + suggestion.getEnergy());
         return suggestion;
     }
 
-    private void searchSlots (int step, Preferences p, int available_energy, Suggestion suggestion) {
+    private void searchSlots (int step, Preferences p, int available_energy, Suggestion suggestion, int lowerBound) {
 
+        System.out.println("LOWER BOUND! " + lowerBound);
+        lowerBound = 2;
         //ArrayTransformations t = new ArrayTransformations();
         //t.printOneDimensionArray("Search Slots Chargers: ", chargers);
         int left;
@@ -98,11 +100,11 @@ public class SuggestionComputer {
         }
         while (available_energy < p.getEnergy()) {
             right += step;
-            if(right == chargers.length || right < 0) {
+            if(right == chargers.length || right < lowerBound) {
                 right -= step;
                 break;
             }
-            if (chargers[right] !=0 ) {
+            if (chargers[right] != 0) {
                 affected_slots[right] = 1;
                 available_energy++;
             }
@@ -112,21 +114,21 @@ public class SuggestionComputer {
         // search to the right
         while (available_energy < p.getEnergy()) {
             left -= step;
-            if(left == chargers.length || left < 0) {
+            if(left == chargers.length || left < lowerBound) {
                 left += step;
                 break;
             }
-            if (chargers[left] != 0 ) {
+            if (chargers[left] != 0) {
                 affected_slots[left] = 1;
                 available_energy++;
             }
         }
 
         // clear zero slots
-        while (chargers[left] == 0 && (left < chargers.length && left >= 0)) {
+        while (chargers[left] == 0 && (left < chargers.length && left >= lowerBound)) {
             left += step;
         }
-        while (chargers[right] == 0 && (right < chargers.length && right >= 0)) {
+        while (chargers[right] == 0 && (right < chargers.length && right >= lowerBound)) {
             right -= step;
         }
 
@@ -162,14 +164,15 @@ public class SuggestionComputer {
 
         Suggestion less_energy_suggestion = this.lessEnergy(ev.getPreferences());
         less_energy_suggestion.setType(IntegerConstants.LESS_ENERGY_TYPE);
-        Suggestion altered_window_suggestion = this.alteredWindow(ev.getPreferences());
+        Suggestion altered_window_suggestion = this.alteredWindow(ev.getPreferences(), ev.getLastSlot());
         altered_window_suggestion.setType(IntegerConstants.ALTERED_WINDOW_TYPE);
         this.evaluateSuggestion(ev.getPreferences(), less_energy_suggestion);
         this.evaluateSuggestion(ev.getPreferences(), altered_window_suggestion);
         this.compareSuggestions(ev, less_energy_suggestion, altered_window_suggestion);
         this.checkSuggestion(ev);
-        if (ev.hasSuggestion())
+        if (ev.hasSuggestion()) {
             this.computeProfit(ev);
+        }
         else {
             System.out.println("No suitable suggestion found!");
         }

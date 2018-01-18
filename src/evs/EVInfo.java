@@ -43,7 +43,7 @@ public class EVInfo {
     public String toString () {
         return ("Ev_" + id + ": " + preferences.getStart() + " - " +
         preferences.getEnd() + " / " + preferences.getEnergy() + ", located at <" +
-        locationX + ", " + locationY + ">");
+        locationX + ", " + locationY + ">" + " -- needs ");
     }
 
     public int getBid() {
