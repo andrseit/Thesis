@@ -83,8 +83,7 @@ public class SuggestionComputer {
 
     private void searchSlots (int step, Preferences p, int available_energy, Suggestion suggestion, int lowerBound) {
 
-        System.out.println("LOWER BOUND! " + lowerBound);
-        lowerBound = 2;
+        lowerBound = 0;
         //ArrayTransformations t = new ArrayTransformations();
         //t.printOneDimensionArray("Search Slots Chargers: ", chargers);
         int left;

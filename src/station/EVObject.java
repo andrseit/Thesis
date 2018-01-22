@@ -113,10 +113,6 @@ public class EVObject {
         this.initial_pays = pays;
     }
 
-    public int paysDifference(int new_price) {
-        return new_price - initial_pays;
-    }
-
     public void setFinalPayment(int pays) {
         this.final_pays = pays;
     }

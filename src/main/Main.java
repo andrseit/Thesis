@@ -6,13 +6,23 @@ package main;
  */
 public class Main {
 
-
     public static void main(String[] args) {
-        Thesis2 run = new Thesis2();
-        run.start();
+
+        /*
+        Execution exe = new OnlineExecution();
+        System.out.println("Online");
+        //exe.execute();
+        exe = new OfflineExecution();
+        System.out.println("\n\nOffline");
+        exe.execute();
+        */
+
+        Execution2 exe = new OfflineExecution2();
+        //exe.execute();
+
+        exe = new OnlineExecution2();
+        exe.execute();
+
     }
-
-
-
 
 }

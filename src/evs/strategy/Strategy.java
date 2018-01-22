@@ -28,7 +28,6 @@ public class Strategy {
     }
 
     public void evaluate (EVInfo info) {
-        System.out.println("SUGGESTIONS SIZE: " + suggestions.size());
         StrategyComputer computer = new StrategyComputer(info, strategyPreferences);
         ArrayList<ComparableSuggestion> comparable_suggestions = computer.produceComparableSuggestions(suggestions);
         System.out.println("    Comparable suggestions");

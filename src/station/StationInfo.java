@@ -15,7 +15,7 @@ public class StationInfo {
     private int location_y;
     private int charger_number;
 
-    private NewStation station;
+    private AbstractStation station;
 
     public StationInfo(int id, int location_x, int location_y, int charger_number) {
         this.id = id;
@@ -43,7 +43,7 @@ public class StationInfo {
         return str;
     }
 
-    public void setStation(NewStation station) {
+    public void setStation(AbstractStation station) {
         this.station = station;
     }
 
