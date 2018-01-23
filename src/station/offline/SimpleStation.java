@@ -1,9 +1,13 @@
-package station;
+package station.offline;
 
 import optimize.CPLEX;
+import station.EVObject;
+import station.StationInfo;
 import station.auction.OptimalSchedule;
 import station.negotiation.Negotiations;
 import station.negotiation.Suggestion;
+import station.pricing.Pricing;
+import station.pricing.SimplePricing;
 
 /**
  * Created by Thesis on 19/1/2018.
@@ -21,6 +25,7 @@ public class SimpleStation extends AbstractStation {
     public SimpleStation(StationInfo info, int slotsNumber) {
         super(info, slotsNumber);
         rounds = 0;
+        pricing = new SimplePricing(price);
     }
 
     @Override
@@ -33,7 +38,6 @@ public class SimpleStation extends AbstractStation {
 
     @Override
     public void computeOffer(EVObject ev, int[] evRow) {
-        System.out.println("Computing offer for ev_" + ev.getId());
         Suggestion suggestion = new Suggestion();
         int start = ev.getStartSlot();
         int end = ev.getEndSlot();
@@ -52,10 +56,10 @@ public class SimpleStation extends AbstractStation {
     }
 
     @Override
-    public void offersNotCharged() {
+    public void offersNotCharged(Pricing pricing) {
         if (rounds != 0){
-            Negotiations neg = new Negotiations(waiting, schedule.getScheduleMap(), schedule.getRemainingChargers(),
-                    price);
+            Negotiations neg = new Negotiations(waiting, schedule.getRemainingChargers(),
+                    pricing);
             neg.computeSuggestions();
             if (!neg.getFilteredSuggestionList().isEmpty()) {
                 for (EVObject ev : waiting) {

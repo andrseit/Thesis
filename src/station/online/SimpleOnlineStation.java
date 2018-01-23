@@ -1,9 +1,13 @@
-package station;
+package station.online;
 
 import optimize.CPLEX;
+import station.EVObject;
+import station.StationInfo;
 import station.auction.OptimalSchedule;
 import station.negotiation.Negotiations;
 import station.negotiation.Suggestion;
+import station.online.AbstractOnlineStation;
+import station.pricing.Pricing;
 
 /**
  * Created by Thesis on 22/1/2018.
@@ -49,10 +53,10 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
     }
 
     @Override
-    public void offersNotCharged() {
+    public void offersNotCharged(Pricing pricing) {
         if (rounds != 0){
-            Negotiations neg = new Negotiations(waiting, schedule.getScheduleMap(), schedule.getRemainingChargers(),
-                    price);
+            Negotiations neg = new Negotiations(waiting, schedule.getRemainingChargers(),
+                    pricing);
             neg.computeSuggestions();
             if (!neg.getFilteredSuggestionList().isEmpty()) {
                 for (EVObject ev : waiting) {

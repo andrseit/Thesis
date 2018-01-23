@@ -17,11 +17,11 @@ public class Main {
         exe.execute();
         */
 
-        Execution2 exe = new OfflineExecution2();
-        //exe.execute();
-
-        exe = new OnlineExecution2();
+        Execution exe = new OfflineExecution();
         exe.execute();
+
+        exe = new OnlineExecution();
+        //exe.execute();
 
     }
 

@@ -4,69 +4,26 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="some code cleanup based on Intellij comments">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/Execution2.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/OfflineExecution2.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/OnlineExecution2.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/AbstractStation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/SimpleOnlineStation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/SimpleStation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/SuggestionsInterface.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/gui/AgentUI$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/gui/AgentUI.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/gui/ClockAgentUI$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/gui/ClockAgentUI.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/EVAgent$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/EVAgent$EVBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/EVAgent.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/StationAgent$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/StationAgent$StationBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/offline/StationAgent.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$CreateUI.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$RegisterBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent$StartExecution.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/ClockAgent.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent$EVBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent$RegisterStationBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/EVOnlineAgent.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/OnlineAgent$CPUClockBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/OnlineAgent$ClockRequestBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/OnlineAgent$CreateUI.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/OnlineAgent$ReceiveStartingMillis.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/OnlineAgent.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$ComputeScheduleBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$RegisterToYellowPagesBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$SchedulingBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent$StationBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/agents/online/StationOnlineAgent.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Station.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/agents/gui/AgentUI.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/agents/gui/ClockAgentUI.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/agents/offline/EVAgent.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/agents/offline/StationAgent.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/agents/online/ClockAgent.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/agents/online/EVOnlineAgent.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/agents/online/OnlineAgent.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/Thesis2.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/station/NewStation.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/station/Station.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/station/auction/VCG.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/station/OnlineStation.java" afterPath="$PROJECT_DIR$/src/station/AbstractOnlineStation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/io/DataGenerator.class" afterPath="$PROJECT_DIR$/out/production/Thesis/io/DataGenerator.class" />
+    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/pricing/Pricing.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/station/pricing/SimplePricing.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/Execution2.java" afterPath="$PROJECT_DIR$/src/main/Execution.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/OfflineExecution2.java" afterPath="$PROJECT_DIR$/src/main/OfflineExecution.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/OnlineExecution2.java" afterPath="$PROJECT_DIR$/src/main/OnlineExecution.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/station/AbstractOnlineStation.java" afterPath="$PROJECT_DIR$/src/station/online/AbstractOnlineStation.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/station/AbstractStation.java" afterPath="$PROJECT_DIR$/src/station/offline/AbstractStation.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/station/SimpleOnlineStation.java" afterPath="$PROJECT_DIR$/src/station/online/SimpleOnlineStation.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/station/SimpleStation.java" afterPath="$PROJECT_DIR$/src/station/offline/SimpleStation.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" afterPath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/station/Schedule.class" afterPath="$PROJECT_DIR$/out/production/Thesis/station/Schedule.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thesis/various/EVData.class" afterPath="$PROJECT_DIR$/out/production/Thesis/various/EVData.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evs/strategy/Strategy.java" afterPath="$PROJECT_DIR$/src/evs/strategy/Strategy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evs.json" afterPath="$PROJECT_DIR$/evs.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/Main.java" afterPath="$PROJECT_DIR$/src/main/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/EVObject.java" afterPath="$PROJECT_DIR$/src/station/EVObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java" afterPath="$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/Schedule.java" afterPath="$PROJECT_DIR$/src/station/Schedule.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/StationInfo.java" afterPath="$PROJECT_DIR$/src/station/StationInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" afterPath="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java" afterPath="$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/station.json" afterPath="$PROJECT_DIR$/station.json" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -89,119 +46,42 @@
     <favorites_list name="Thesis" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="AbstractOnlineStation.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/station/AbstractOnlineStation.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="385">
-                  <caret line="104" column="19" lean-forward="false" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="19" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#4099#4100#0" expanded="true" />
-                    <element signature="e#4128#4129#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="SimpleOnlineStation.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/SimpleOnlineStation.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="187">
-                  <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="AbstractStation.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/AbstractStation.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="756">
-                  <caret line="228" column="13" lean-forward="false" selection-start-line="228" selection-start-column="13" selection-end-line="228" selection-end-column="13" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="method#AbstractStation#0;class#AbstractStation#0" expanded="false" />
-                    <element signature="method#markEVBidder#0;class#AbstractStation#0" expanded="false" />
-                    <element signature="method#printEVBidders#0;class#AbstractStation#0" expanded="false" />
-                    <element signature="method#printEVWaiting#0;class#AbstractStation#0" expanded="false" />
-                    <element signature="e#6916#6917#0" expanded="true" />
-                    <element signature="e#6956#6957#0" expanded="true" />
-                    <element signature="method#computePrice#0;class#AbstractStation#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="OnlineExecution2.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/OnlineExecution2.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="467">
-                  <caret line="82" column="18" lean-forward="false" selection-start-line="82" selection-start-column="17" selection-end-line="82" selection-end-column="18" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="SimpleStation.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/station/SimpleStation.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1142">
-                  <caret line="71" column="21" lean-forward="true" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="21" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/Main.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
-                  <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="Execution2.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/Execution2.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="316">
-                  <caret line="46" column="13" lean-forward="false" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="13" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="OfflineExecution2.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/OfflineExecution2.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="603">
-                  <caret line="51" column="10" lean-forward="false" selection-start-line="51" selection-start-column="10" selection-end-line="51" selection-end-column="10" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="OfflineExecution.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/OfflineExecution.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="603">
+              <caret line="51" column="10" lean-forward="false" selection-start-line="51" selection-start-column="10" selection-end-line="51" selection-end-column="10" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Execution.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/Execution.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="586">
+              <caret line="60" column="14" lean-forward="false" selection-start-line="60" selection-start-column="14" selection-end-line="60" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimpleOnlineStation.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/station/online/SimpleOnlineStation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="218">
+              <caret line="58" column="27" lean-forward="false" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -214,10 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>filter</find>
-      <find>Setting</find>
-      <find>se</find>
-      <find>Best alte</find>
       <find>search</find>
       <find>lastslot</find>
       <find>Slot: 5</find>
@@ -244,6 +120,10 @@
       <find>isUpda</find>
       <find>isUp</find>
       <find>update</find>
+      <find>Sending</find>
+      <find>computer</find>
+      <find>Profit</find>
+      <find>setpro</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -258,13 +138,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/agents/offline/StationAgent.java" />
-        <option value="$PROJECT_DIR$/src/various/TestRunner.java" />
-        <option value="$PROJECT_DIR$/src/evs/Preferences.java" />
-        <option value="$PROJECT_DIR$/src/station/negotiation/Conversation.java" />
-        <option value="$PROJECT_DIR$/src/station/ScheduleOld.java" />
-        <option value="$PROJECT_DIR$/src/various/IntegerConstants.java" />
-        <option value="$PROJECT_DIR$/src/optimize/CPLEX.java" />
         <option value="$PROJECT_DIR$/src/station/auction/OptimalSchedule.java" />
         <option value="$PROJECT_DIR$/src/station/SuggestionMessage.java" />
         <option value="$PROJECT_DIR$/src/evs/ComparableSuggestions.java" />
@@ -277,14 +150,10 @@
         <option value="$PROJECT_DIR$/src/station/negotiation/Suggestion.java" />
         <option value="$PROJECT_DIR$/src/various/ArrayTransformations.java" />
         <option value="$PROJECT_DIR$/src/io/JSONFileParser.java" />
-        <option value="$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java" />
-        <option value="$PROJECT_DIR$/src/station/Schedule.java" />
-        <option value="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" />
         <option value="$PROJECT_DIR$/src/evs/EVInfo.java" />
         <option value="$PROJECT_DIR$/src/evs/strategy/StrategyComputer.java" />
         <option value="$PROJECT_DIR$/src/station/Station.java" />
         <option value="$PROJECT_DIR$/src/main/Operations.java" />
-        <option value="$PROJECT_DIR$/src/main/Execution.java" />
         <option value="$PROJECT_DIR$/src/main/Thesis2.java" />
         <option value="$PROJECT_DIR$/src/station/EVObject.java" />
         <option value="$PROJECT_DIR$/src/agents/online/StationOnlineAgent.java" />
@@ -298,17 +167,28 @@
         <option value="$PROJECT_DIR$/src/station/StationInfo.java" />
         <option value="$PROJECT_DIR$/src/main/OfflineExecution.java" />
         <option value="$PROJECT_DIR$/src/main/OnlineExecution.java" />
-        <option value="$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java" />
         <option value="$PROJECT_DIR$/src/evs/strategy/Strategy.java" />
         <option value="$PROJECT_DIR$/src/main/OfflineExecution2.java" />
         <option value="$PROJECT_DIR$/src/main/Execution2.java" />
         <option value="$PROJECT_DIR$/src/station/SimpleStation.java" />
         <option value="$PROJECT_DIR$/src/station/OnlineStation.java" />
-        <option value="$PROJECT_DIR$/src/main/Main.java" />
         <option value="$PROJECT_DIR$/src/main/OnlineExecution2.java" />
         <option value="$PROJECT_DIR$/src/station/AbstractStation.java" />
         <option value="$PROJECT_DIR$/src/station/SimpleOnlineStation.java" />
         <option value="$PROJECT_DIR$/src/station/AbstractOnlineStation.java" />
+        <option value="$PROJECT_DIR$/src/station/online/AbstractOnlineStation.java" />
+        <option value="$PROJECT_DIR$/src/station/Schedule.java" />
+        <option value="$PROJECT_DIR$/src/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/Execution.java" />
+        <option value="$PROJECT_DIR$/src/station/Pricing.java" />
+        <option value="$PROJECT_DIR$/src/station/offline/AbstractStation.java" />
+        <option value="$PROJECT_DIR$/src/station/pricing/Pricing.java" />
+        <option value="$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java" />
+        <option value="$PROJECT_DIR$/src/station/offline/SimpleStation.java" />
+        <option value="$PROJECT_DIR$/src/station/online/SimpleOnlineStation.java" />
+        <option value="$PROJECT_DIR$/src/station/negotiation/Negotiations.java" />
+        <option value="$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java" />
+        <option value="$PROJECT_DIR$/src/station/pricing/SimplePricing.java" />
       </list>
     </option>
   </component>
@@ -352,6 +232,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -425,6 +306,94 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="station" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="station" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pricing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="station" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="online" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="station" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="offline" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thesis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="station" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="negotiation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -538,9 +507,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -992,7 +960,14 @@
       <option name="project" value="LOCAL" />
       <updated>1516293890038</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="made stations and execution abstract (offline &amp; online)">
+      <created>1516614351807</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1516614351807</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1017,26 +992,26 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.59196615" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="true" show_stripe_button="true" weight="0.5264271" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" x="932" y="31" width="820" height="1008" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="true" show_stripe_button="true" weight="0.5264271" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" x="578" y="32" width="820" height="1008" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.159375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" x="-839" y="57" width="838" height="978" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41860464" sideWeight="0.49791667" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32769555" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39957717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261105" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41860464" sideWeight="0.49791667" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
     </layout>
@@ -1062,11 +1037,12 @@
     <MESSAGE value="evs basic strategy" />
     <MESSAGE value="online multi-station version 1" />
     <MESSAGE value="some code cleanup based on Intellij comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="some code cleanup based on Intellij comments" />
+    <MESSAGE value="made stations and execution abstract (offline &amp; online)" />
+    <option name="LAST_COMMIT_MESSAGE" value="made stations and execution abstract (offline &amp; online)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="25" />
+      <option name="time" value="26" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1075,23 +1051,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/optimize/CPLEX.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="54" column="41" lean-forward="false" selection-start-line="54" selection-start-column="41" selection-end-line="54" selection-end-column="41" />
-          <folding>
-            <element signature="method#lockPreviousBidders#0;class#CPLEX#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/auction/OptimalSchedule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="61" column="38" lean-forward="false" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_111/src.zip!/java/util/function/Function.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -1118,54 +1077,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Negotiations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="333" column="4" lean-forward="false" selection-start-line="333" selection-start-column="4" selection-end-line="333" selection-end-column="4" />
-          <folding>
-            <element signature="method#computeUtility#0;class#Negotiations#0" expanded="false" />
-            <element signature="method#printOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
-            <element signature="method#printFinalOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
-            <element signature="method#filterSuggestions#0;class#Negotiations#0" expanded="false" />
-            <element signature="method#hybrid#0;class#Negotiations#0" expanded="false" />
-            <element signature="method#createSuggestionsMap#0;class#Negotiations#0" expanded="false" />
-            <marker date="1516293818911" expanded="false" signature="7912:10415" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="51" column="4" lean-forward="false" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="4" />
-          <folding>
-            <element signature="method#printScheduleMap#1;class#Schedule#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="190" column="19" lean-forward="false" selection-start-line="190" selection-start-column="19" selection-end-line="190" selection-end-column="19" />
-          <folding>
-            <element signature="method#computeUtility#0;class#SuggestionsOptimizer#0" expanded="false" />
-            <element signature="method#printOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
-            <element signature="method#printFinalOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
-            <element signature="e#6082#6083#0" expanded="false" />
-            <element signature="e#6110#6111#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/evs/strategy/ComparableSuggestion.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="34" column="40" lean-forward="false" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
-          <folding>
-            <element signature="e#796#797#0" expanded="false" />
-            <element signature="e#826#827#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1173,7 +1088,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1343">
           <caret line="85" column="92" lean-forward="false" selection-start-line="85" selection-start-column="92" selection-end-line="85" selection-end-column="92" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1181,7 +1095,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1216,9 +1129,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="31" column="94" lean-forward="false" selection-start-line="31" selection-start-column="83" selection-end-line="31" selection-end-column="94" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1226,7 +1136,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="24" column="12" lean-forward="false" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1234,13 +1143,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1173">
           <caret line="121" column="21" lean-forward="false" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#writeToFile#0;class#JSONFileParser#0" expanded="false" />
-            <element signature="method#getJSONStringEV#0;class#JSONFileParser#0" expanded="false" />
-            <element signature="e#6100#6101#0" expanded="false" />
-            <element signature="e#6132#6133#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1249,7 +1151,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
           <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1273,26 +1174,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="884">
           <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Execution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="44" column="29" lean-forward="false" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="85" column="22" lean-forward="false" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Execution.java" />
     <entry file="file://$PROJECT_DIR$/src/station/SuggestionMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -1320,44 +1205,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="108" lean-forward="false" selection-start-line="11" selection-start-column="108" selection-end-line="11" selection-end-column="108" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/OnlineStation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="103" column="12" lean-forward="false" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/NewStation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="26" lean-forward="false" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/OfflineExecution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/OnlineExecution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="72" column="25" lean-forward="false" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/OnlineStation.java" />
+    <entry file="file://$PROJECT_DIR$/src/station/NewStation.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/OfflineExecution.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/OnlineExecution.java" />
     <entry file="file://$PROJECT_DIR$/src/evs/EV.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
@@ -1374,7 +1228,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/OfflineExecution2.java">
+    <entry file="file://$PROJECT_DIR$/src/main/OnlineExecution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="84" column="18" lean-forward="false" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/online/AbstractOnlineStation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="13" column="22" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#4199#4200#0" expanded="false" />
+            <element signature="e#4228#4229#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/Schedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+          <folding>
+            <element signature="method#printScheduleMap#1;class#Schedule#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/OfflineExecution.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="603">
           <caret line="51" column="10" lean-forward="false" selection-start-line="51" selection-start-column="10" selection-end-line="51" selection-end-column="10" />
@@ -1386,78 +1272,114 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+        <state relative-caret-position="391">
+          <caret line="23" column="10" lean-forward="false" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/SimpleStation.java">
+    <entry file="file://$PROJECT_DIR$/src/main/Execution.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1142">
-          <caret line="71" column="21" lean-forward="true" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="21" />
+        <state relative-caret-position="586">
+          <caret line="60" column="14" lean-forward="false" selection-start-line="60" selection-start-column="14" selection-end-line="60" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/OnlineExecution2.java">
+    <entry file="file://$PROJECT_DIR$/src/station/negotiation/Negotiations.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="82" column="18" lean-forward="false" selection-start-line="82" selection-start-column="17" selection-end-line="82" selection-end-column="18" />
+        <state relative-caret-position="-1156">
+          <caret line="33" column="18" lean-forward="false" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#computeUtility#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#printOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#printFinalOrderedSuggestions#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#filterSuggestions#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#hybrid#0;class#Negotiations#0" expanded="false" />
+            <element signature="method#createSuggestionsMap#0;class#Negotiations#0" expanded="false" />
+            <marker date="1516700231253" expanded="false" signature="7878:10381" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Execution2.java">
+    <entry file="file://$PROJECT_DIR$/src/station/negotiation/SuggestionComputer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="46" column="13" lean-forward="false" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="13" />
+        <state relative-caret-position="418">
+          <caret line="204" column="29" lean-forward="false" selection-start-line="204" selection-start-column="29" selection-end-line="204" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/optimize/SuggestionsOptimizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-604">
+          <caret line="26" column="11" lean-forward="false" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#filterSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="method#printOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="method#printFinalOrderedSuggestions#0;class#SuggestionsOptimizer#0" expanded="false" />
+            <element signature="e#6201#6202#0" expanded="true" />
+            <element signature="e#6229#6230#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/AbstractStation.java">
+    <entry file="file://$PROJECT_DIR$/src/station/pricing/SimplePricing.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="228" column="13" lean-forward="false" selection-start-line="228" selection-start-column="13" selection-end-line="228" selection-end-column="13" />
+        <state relative-caret-position="306">
+          <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+          <folding>
+            <element signature="e#186#187#0" expanded="true" />
+            <element signature="e#214#215#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/pricing/Pricing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="29" lean-forward="false" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+          <folding>
+            <element signature="e#162#163#0" expanded="true" />
+            <element signature="e#196#197#0" expanded="true" />
+            <element signature="e#315#316#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/station/offline/AbstractStation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="116" column="46" lean-forward="false" selection-start-line="116" selection-start-column="46" selection-end-line="116" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#AbstractStation#0;class#AbstractStation#0" expanded="false" />
+            <element signature="method#addEVBidder#0;class#AbstractStation#0" expanded="false" />
+            <element signature="method#addNotAvailableMessage#0;class#AbstractStation#0" expanded="false" />
             <element signature="method#markEVBidder#0;class#AbstractStation#0" expanded="false" />
-            <element signature="method#printEVBidders#0;class#AbstractStation#0" expanded="false" />
+            <element signature="method#updateBiddersLists#0;class#AbstractStation#0" expanded="false" />
             <element signature="method#printEVWaiting#0;class#AbstractStation#0" expanded="false" />
-            <element signature="e#6916#6917#0" expanded="true" />
-            <element signature="e#6956#6957#0" expanded="true" />
-            <element signature="method#computePrice#0;class#AbstractStation#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/SimpleOnlineStation.java">
+    <entry file="file://$PROJECT_DIR$/src/station/offline/SimpleStation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        <state relative-caret-position="371">
+          <caret line="61" column="27" lean-forward="false" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/station/AbstractOnlineStation.java">
+    <entry file="file://$PROJECT_DIR$/src/station/online/SimpleOnlineStation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="104" column="19" lean-forward="false" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4099#4100#0" expanded="true" />
-            <element signature="e#4128#4129#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="218">
+          <caret line="58" column="27" lean-forward="false" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>

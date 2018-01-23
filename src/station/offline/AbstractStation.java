@@ -1,7 +1,9 @@
-package station;
+package station.offline;
 
 import optimize.CPLEX;
+import station.*;
 import station.negotiation.Suggestion;
+import station.pricing.Pricing;
 import various.IntegerConstants;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 public abstract class AbstractStation {
 
     protected StationInfo info;
+    protected Pricing pricing;
 
     protected Schedule schedule;
     protected int[] price;
@@ -54,7 +57,7 @@ public abstract class AbstractStation {
      * px na tous valei oti de tha tous kanei prosfora
      * h' na vrei suggestions
      */
-    public abstract void offersNotCharged ();
+    public abstract void offersNotCharged (Pricing pricing);
 
     /**
      * Constructor
@@ -71,7 +74,7 @@ public abstract class AbstractStation {
         for (int s = slotsNumber/2; s < slotsNumber; s++) {
             price[s] = 1;
         }
-        price[4] = 2;
+        //price[4] = 2;
 
         evBidders = new ArrayList<>();
         waiting = new ArrayList<>();
@@ -111,7 +114,7 @@ public abstract class AbstractStation {
     public void computeOffers () {
         this.offersCharged();
         if (!waiting.isEmpty())
-            this.offersNotCharged();
+            this.offersNotCharged(this.pricing);
         else
             System.out.println("There are no pending vehicles!");
     }
@@ -147,6 +150,7 @@ public abstract class AbstractStation {
     public void sendOfferMessages () {
         for (int e = 0; e < messageReceivers.size(); e++) {
             EVObject ev = messageReceivers.get(e);
+            System.out.println("Sending to ev_" + ev.getId());
             SuggestionMessage message = new SuggestionMessage(info, ev.getFinalSuggestion());
             message.setCost(ev.getFinalPayment());
             ev.getObjectAddress().addSuggestion(message);
@@ -212,8 +216,9 @@ public abstract class AbstractStation {
 
     public String printEVBidders () {
         StringBuilder str = new StringBuilder();
-        for (EVObject ev: evBidders) {
-            str.append(ev.printEV());
+        for (int e = 0; e < evBidders.size(); e++) {
+            EVObject ev = evBidders.get(e);
+            str.append(e + ")" + ev.printEV());
         }
         return str.toString();
     }
@@ -230,8 +235,13 @@ public abstract class AbstractStation {
         schedule.resetChargers();
     }
 
-    // NA GINEI ABSTRACT
     protected int computePrice (Suggestion suggestion) {
+        if (suggestion.getSlotsAfected() == null) {
+            return 0;
+        } else
+            return pricing.computeCost(suggestion.getSlotsAfected());
+
+        /*
         int cost = 0;
         if (suggestion.getSlotsAfected() == null)
             return cost;
@@ -243,8 +253,9 @@ public abstract class AbstractStation {
                 }
             }
             return cost;
-        }
+        */
     }
+
 
     public StationInfo getInfo() {
         return info;

@@ -1,7 +1,7 @@
 package main;
 
 import evs.EV;
-import station.AbstractStation;
+import station.offline.AbstractStation;
 import station.StationInfo;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by Thesis on 19/1/2018.
  */
-public abstract class Execution2 {
+public abstract class Execution {
 
     protected int slotsNumber;
     protected ArrayList<EV> evs;
@@ -54,11 +54,11 @@ public abstract class Execution2 {
             station.updateBiddersLists();
             station.computeSchedule();
             System.out.println(station.printEVBidders());
-            if (!station.isWaitingEmpty()) {
+            //if (!station.isWaitingEmpty()) {
                 System.out.println("Waiting...");
                 System.out.println(station.printEVWaiting());
                 station.sendOfferMessages();
-            }
+            //}
             station.printEVWaiting();
             if (station.isFinished()) {
                 finished_stations[stationID] = true;

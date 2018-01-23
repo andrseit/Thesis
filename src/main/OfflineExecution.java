@@ -1,8 +1,8 @@
 package main;
 
 import io.JSONFileParser;
-import station.AbstractStation;
-import station.SimpleStation;
+import station.offline.AbstractStation;
+import station.offline.SimpleStation;
 import station.StationInfo;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by Thesis on 19/1/2018.
  */
-public class OfflineExecution2 extends Execution2 {
+public class OfflineExecution extends Execution {
 
     private ArrayList<AbstractStation> stations;
 

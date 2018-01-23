@@ -2,6 +2,7 @@ package station.negotiation;
 
 import evs.Preferences;
 import station.EVObject;
+import station.pricing.Pricing;
 import various.IntegerConstants;
 
 /**
@@ -13,20 +14,12 @@ public class SuggestionComputer {
 
     private int[] chargers;
     private int[] price;
-    /**
-     * this variable show whether the computer is used to computed the initial
-     * suggestions, before the conversation starts, or it is used while
-     * the conversation is running
-     * because if it is at the time of the conversation then it has to check
-     * if the new suggestion is better than the previous
-     * but in the initial suggestions it just needs to find a suitable suggestion
-     */
-    private int state;
+    private Pricing pricing;
 
-    public SuggestionComputer (int[] chargers, int[] price, int state) {
+    public SuggestionComputer (int[] chargers, Pricing pricing) {
         this.chargers = chargers;
-        this.price = price;
-        this.state = state;
+        this.pricing = pricing;
+        this.price = pricing.getPrice();
     }
 
     /**
@@ -195,7 +188,9 @@ public class SuggestionComputer {
     }
 
     private void computeProfit (EVObject ev) {
+
         Suggestion suggestion = ev.getSuggestion();
+        /*
         int start = suggestion.getStart();
         int end = suggestion.getEnd();
         int energy = suggestion.getEnergy();
@@ -206,7 +201,8 @@ public class SuggestionComputer {
                 profit += bid - price[s];
             }
         }
-        suggestion.setProfit(profit);
+        */
+        suggestion.setProfit(pricing.computeCost(suggestion.getSlotsAfected()));
     }
 
     /**

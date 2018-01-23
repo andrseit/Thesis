@@ -1,5 +1,8 @@
-package station;
+package station.online;
 
+import station.offline.AbstractStation;
+import station.EVObject;
+import station.StationInfo;
 import various.ArrayTransformations;
 
 import java.util.ArrayList;

@@ -3,6 +3,7 @@ package station.negotiation;
 import io.ArrayFileWriter;
 import optimize.SuggestionsOptimizer;
 import station.EVObject;
+import station.pricing.Pricing;
 
 import java.util.*;
 
@@ -14,10 +15,9 @@ public class Negotiations {
 
 
     private ArrayList<EVObject> evs;
-    private int[][] schedule;
     private int[] chargers;
     private int[] initial_chargers;
-    private int[] price;
+    private Pricing pricing;
     private int initial_utility;
 
     private boolean finish;
@@ -27,12 +27,11 @@ public class Negotiations {
     private PriorityQueue<EVObject> suggestions_queue; // instead of ArrayList<> - smaller to bigger
     private SuggestionsOptimizer optimizer;
 
-    public Negotiations(ArrayList<EVObject> evs, int[][] schedule, int[] chargers, int[] price) {
+    public Negotiations(ArrayList<EVObject> evs, int[] chargers, Pricing pricing) {
         this.evs = evs;
-        this.schedule = schedule;
         this.chargers = Arrays.copyOf(chargers, chargers.length);
         this.initial_chargers = chargers;
-        this.price = price;
+        this.pricing = pricing;
         comparator = new Comparator<EVObject>() {
             @Override
             public int compare(EVObject o1, EVObject o2) {
@@ -88,7 +87,7 @@ public class Negotiations {
     public int computeSuggestions () {
 
         // compute suggestions
-        optimizer = new SuggestionsOptimizer(evs, chargers, price);
+        optimizer = new SuggestionsOptimizer(evs, chargers, pricing);
         optimizer.optimizeSuggestions();
         initial_utility = optimizer.getUtility();
 
@@ -133,7 +132,7 @@ public class Negotiations {
                 evs.remove(removed);
                 int id = removed.getId();
                 System.out.println("\nComputing for ev" + id);
-                optimizer = new SuggestionsOptimizer(evs, chargers, price);
+                optimizer = new SuggestionsOptimizer(evs, chargers, pricing);
                 optimizer.optimizeSuggestions();
                 int new_utility = optimizer.getUtility();
                 System.out.println("New utility: "  + new_utility);

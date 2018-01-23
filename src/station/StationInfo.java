@@ -2,6 +2,7 @@ package station;
 
 import evs.EVInfo;
 import evs.Preferences;
+import station.offline.AbstractStation;
 
 /**
  * Created by Thesis on 8/1/2018.

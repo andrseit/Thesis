@@ -3,6 +3,8 @@ package main;
 import evs.EV;
 import io.JSONFileParser;
 import station.*;
+import station.online.AbstractOnlineStation;
+import station.online.SimpleOnlineStation;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,7 +13,7 @@ import java.util.PriorityQueue;
 /**
  * Created by Thesis on 19/1/2018.
  */
-public class OnlineExecution2 extends Execution2 {
+public class OnlineExecution extends Execution {
 
     private ArrayList<AbstractOnlineStation> stations;
     private PriorityQueue<EV> orderedEVs;

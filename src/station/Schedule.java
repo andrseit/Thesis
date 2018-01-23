@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by Thesis on 9/1/2018.
  */
-class Schedule {
+public class Schedule {
 
     private int[][] scheduleMap;
     private int[] remaining_chargers;

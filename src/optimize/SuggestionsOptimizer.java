@@ -3,6 +3,7 @@ package optimize;
 import station.EVObject;
 import station.negotiation.Suggestion;
 import station.negotiation.SuggestionComputer;
+import station.pricing.Pricing;
 
 import java.util.*;
 
@@ -13,7 +14,6 @@ public class SuggestionsOptimizer {
 
     private ArrayList<EVObject> evs;
     private int[] remaining_chargers;
-    private int[] price;
     private int utility;
     private SuggestionComputer computer;
 
@@ -21,11 +21,10 @@ public class SuggestionsOptimizer {
     private PriorityQueue<EVObject> suggestions_queue; // instead of ArrayList<> - smaller to bigger
     private boolean empty;
 
-    public SuggestionsOptimizer(ArrayList<EVObject> evs, int[] remaining_chargers, int[] price) {
+    public SuggestionsOptimizer(ArrayList<EVObject> evs, int[] remaining_chargers, Pricing pricing) {
         this.evs = evs;
         this.remaining_chargers = Arrays.copyOf(remaining_chargers, remaining_chargers.length);
-        this.price = price;
-        computer = new SuggestionComputer(this.remaining_chargers, price, 0);
+        computer = new SuggestionComputer(this.remaining_chargers, pricing);
 
         comparator = (o1, o2) -> {
             int comp = o1.getSuggestion().getRating() - o2.getSuggestion().getRating();
@@ -150,9 +149,11 @@ public class SuggestionsOptimizer {
         int count = 0;
         EVObject ev;
         ArrayList<EVObject> temp = new ArrayList<>();
+        System.out.println("queue size: " + suggestions_queue.size());
         if (suggestions_queue.size() > 0) {
-            while (count < suggestions_queue.size() + 1) {
-                ev = suggestions_queue.poll();
+            while ((ev = suggestions_queue.poll()) != null) {
+                System.out.println("count: " + count);
+                //ev = suggestions_queue.poll();
                 System.out.println("    " + count + ". " + ev.getSuggestion().toString() +
                         "(ev:" + ev.getId() + ")");
                 temp.add(ev);
@@ -171,7 +172,7 @@ public class SuggestionsOptimizer {
     }
 
     private void printFinalOrderedSuggestions () {
-        System.out.println("Ordered Suggestions");
+        System.out.println("Ordered Suggestions Final");
         Collections.sort(evs, comparator);
         int count = 0;
         EVObject ev;
