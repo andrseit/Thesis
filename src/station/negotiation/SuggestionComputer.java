@@ -28,13 +28,13 @@ public class SuggestionComputer {
      */
     private Suggestion lessEnergy(Preferences initial) {
 
-        System.out.println("    *Computing less energy...");
+        //System.out.println("    *Computing less energy...");
         Suggestion suggestion = new Suggestion();
         suggestion.setStart(initial.getStart());
         suggestion.setEnd(initial.getEnd());
 
         suggestion.setEnergy(this.energyInSlots(initial.getStart(), initial.getEnd(), suggestion));
-        System.out.println("        Energy found in given slots is: " + suggestion.getEnergy());
+        //System.out.println("        Energy found in given slots is: " + suggestion.getEnergy());
         return suggestion;
     }
 
@@ -62,7 +62,7 @@ public class SuggestionComputer {
      */
     private Suggestion alteredWindow(Preferences initial, int lowerBound) {
 
-        System.out.println("    *Computing altered window...");
+        //System.out.println("    *Computing altered window...");
         Suggestion suggestion = new Suggestion();
         suggestion.setEnergy(initial.getEnergy());
 
@@ -70,7 +70,7 @@ public class SuggestionComputer {
         this.searchSlots(1, initial, available_energy, suggestion, lowerBound);
 
         //System.out.println(new_preferences.toString());
-        System.out.println("        Slots found: " + suggestion.getStart() + "-" + suggestion.getEnd() + "/" + suggestion.getEnergy());
+        //System.out.println("        Slots found: " + suggestion.getStart() + "-" + suggestion.getEnd() + "/" + suggestion.getEnergy());
         return suggestion;
     }
 
@@ -152,7 +152,7 @@ public class SuggestionComputer {
      */
     public void computeAlternative (EVObject ev) {
 
-        System.out.println("--Computing alternative for ev: " + ev.getId());
+        //System.out.println("--Computing alternative for ev: " + ev.getId());
 
         Suggestion less_energy_suggestion = this.lessEnergy(ev.getPreferences());
         less_energy_suggestion.setType(IntegerConstants.LESS_ENERGY_TYPE);
@@ -166,7 +166,7 @@ public class SuggestionComputer {
             this.computeProfit(ev);
         }
         else {
-            System.out.println("No suitable suggestion found!");
+            //System.out.println("No suitable suggestion found!");
         }
 
 

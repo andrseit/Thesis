@@ -66,7 +66,6 @@ public class StationInfo {
      * This is used to receive a message, if an ev accepted the offer or not
      */
     public void checkIn (EVInfo ev, int state) {
-        System.out.print("station_" + id + ": ");
         station.markEVBidder(ev.getId(), state);
     }
 

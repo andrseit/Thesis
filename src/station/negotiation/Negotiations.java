@@ -48,39 +48,6 @@ public class Negotiations {
     }
 
 
-    public void start () {
-        initial_utility = this.computeSuggestions();
-
-        if (initial_utility > 0 ) {
-            this.saveOriginalSuggestions();
-            ArrayFileWriter w = new ArrayFileWriter();
-            w.writeSuggestions(this.createSuggestionsMap());
-            this.chargers = Arrays.copyOf(initial_chargers, initial_chargers.length);
-            //computer = new SuggestionComputer(this.chargers, price, negotiation_state);
-            this.vcg();
-            this.resetBestRatings();
-        } else {
-            System.out.println("No available suggestions!");
-            finish = true;
-        }
-    }
-
-    /**
-     * Saves initial suggestions before vcg
-     */
-    private void saveOriginalSuggestions () {
-        for (EVObject ev: evs) {
-            ev.setFinalSuggestion();
-            ev.saveBests();
-        }
-    }
-
-    private void resetBestRatings () {
-        for (EVObject ev: evs) {
-            ev.resetBestsVCG();
-        }
-    }
-
     /**
      * For each EVObject not charged compute some suggestions
      */
@@ -121,73 +88,6 @@ public class Negotiations {
         return -1;
     }
 
-
-    private void vcg () {
-        System.out.println("===== Negotiations VCG =====");
-        if (evs.size() > 1) {
-            for (int ev = 0; ev < evs.size(); ev++) {
-
-                int remove = 0;
-                EVObject removed = evs.get(remove);
-                evs.remove(removed);
-                int id = removed.getId();
-                System.out.println("\nComputing for ev" + id);
-                optimizer = new SuggestionsOptimizer(evs, chargers, pricing);
-                optimizer.optimizeSuggestions();
-                int new_utility = optimizer.getUtility();
-                System.out.println("New utility: "  + new_utility);
-                //int payment = new_utility - (initial_utility - removed.getBid() * removed.getFinalSuggestion().getEnergy());
-                int payment = new_utility - (initial_utility - removed.getBid() * removed.getEnergy());
-                evs.get(0).setSuggestionPayment(payment);
-                evs.add(removed);
-            }
-        } else if (evs.size() == 1){
-            evs.get(0).setSuggestionPayment(0);
-        }
-
-        System.out.println("Final payments: ");
-        for (int ev = 0; ev < evs.size(); ev++) {
-            int id = evs.get(ev).getId();
-            System.out.println("    ev" + id + " pays --> " + evs.get(ev).getSuggestionPayment());
-        }
-    }
-
-
-    /*
-
-    private void computeProfits () {
-        for (EVObject ev: evs) {
-            Suggestion suggestion = ev.getSuggestion();
-            int start = suggestion.getStart();
-            int end = suggestion.getEnd();
-            int energy = suggestion.getEnergy();
-            int bid = ev.getBid();
-            int profit = 0;
-            for (int s = start; s <= end; s++) {
-                if (chargers[s] > 0) {
-                    profit += bid - price[s];
-                }
-            }
-            suggestion.setProfit(profit);
-            suggestions_queue.offer(ev);
-        }
-    }
-
-    private void computeProfits (EVObject ev) {
-        Suggestion suggestion = ev.getSuggestion();
-        int start = suggestion.getStart();
-        int end = suggestion.getEnd();
-        int energy = suggestion.getEnergy();
-        int bid = ev.getBid();
-        int profit = 0;
-        for (int s = start; s <= end; s++) {
-            if (chargers[s] > 0) {
-                profit += bid - price[s];
-            }
-        }
-        suggestion.setProfit(profit);
-    }
-    */
 
     private int computeUtility () {
 
@@ -327,34 +227,6 @@ public class Negotiations {
             if (!ev.hasSuggestion()) evs.remove(ev);
         }
 
-    }
-
-
-    /**
-     * Combine the two types of suggestions: less energy + modify window
-     */
-    private void hybrid () {
-
-    }
-
-
-    private int[][] createSuggestionsMap () {
-        int[][] s = new int[evs.size()][chargers.length + 1];
-        for (int ev = 0; ev < evs.size(); ev++) {
-            EVObject evInfo = evs.get(ev);
-            s[ev][chargers.length] = evInfo.getId();
-            Suggestion suggestion = evInfo.getSuggestion();
-            int start = suggestion.getStart();
-            int end = suggestion.getEnd();
-            for (int slot = start; slot <= end; slot++) {
-                if (initial_chargers[slot] > 0) {
-                    s[ev][slot] = 1;
-                } else {
-                    s[ev][slot] = 0;
-                }
-            }
-        }
-        return s;
     }
 
     public ArrayList<EVObject> getFilteredSuggestionList () {

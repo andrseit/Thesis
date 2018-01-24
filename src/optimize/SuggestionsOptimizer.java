@@ -49,7 +49,7 @@ public class SuggestionsOptimizer {
         }
 
         if (suggestions_queue.size() > 0) {
-            this.printOrderedSuggestions();
+            //this.printOrderedSuggestions();
             this.updateChargers();
             //this.filterSuggestions();
             this.computeUtility();
@@ -61,13 +61,13 @@ public class SuggestionsOptimizer {
     }
 
     private void updateChargers () {
-        System.out.println("Updating Chargers after first computation of Suggestions");
+        //System.out.println("Updating Chargers after first computation of Suggestions");
         boolean alt = false;
 
         EVObject ev;
 
         while ((ev = suggestions_queue.poll()) != null) {
-            System.out.println("-Updating chargers for ev: " + ev.getId());
+            //System.out.println("-Updating chargers for ev: " + ev.getId());
             Suggestion suggestion = ev.getSuggestion();
 
             if (suggestion.getRating() > 15)
@@ -95,15 +95,15 @@ public class SuggestionsOptimizer {
             }
 
             if (alt) {
-                System.out.println("    Not available chargers found." +
-                        "Must compute alternative suggestion.\n");
+                //System.out.println("    Not available chargers found." +
+                        //"Must compute alternative suggestion.\n");
                 ev.resetBestsUpdatingChargers();
                 computer.computeAlternative(ev);
                 if (ev.hasSuggestion())
                     suggestions_queue.offer(ev);
             }
             else {
-                System.out.println("    Chargers updated successfully!\n");
+                //System.out.println("    Chargers updated successfully!\n");
                 //ev.setHasSuggestion(true);
                 ev.getSuggestion().setSlotsAffected(slots_changed);
             }

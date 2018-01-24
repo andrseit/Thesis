@@ -176,7 +176,6 @@ public class EVObject {
             best_less_energy = rating;
         }
         else {
-            System.out.println("Setting:" + previous_best_aw + " to " + best_altered_window);
             //previous_best_aw = best_altered_window;
             best_altered_window = rating;
         }

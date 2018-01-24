@@ -52,7 +52,6 @@ class StrategyComputer {
                 comparable_suggestions.add(new ComparableSuggestion(0, 0, -2, message.getStationAddress()));
             }
         }
-        System.out.println(comparable_suggestions.size());
         orderMessages(comparable_suggestions, strategy_preferences.getPriority());
 
         return comparable_suggestions;

@@ -36,15 +36,19 @@ public class EV {
 
     public void requestStation (ArrayList<StationInfo> stations) {
 
+        boolean requested = false;
         for (StationInfo s_info : stations) {
             int distance = this.computeDistance(info.getLocationX(), info.getLocationY(),
                     s_info.getLocationX(), s_info.getLocationY());
 
             if (distance <= info.getPreferences().getMaxDistance()) {
                 s_info.request(info);
-                System.out.println("ev_" + info.getId() + " requested from station_" + s_info.getId());
+                System.out.println("ev_" + info.getId() + " requests from station_" + s_info.getId());
+                requested = true;
             }
         }
+        if (requested)
+            System.out.println();
     }
 
     private int computeDistance (int x1, int y1, int x2, int y2) {

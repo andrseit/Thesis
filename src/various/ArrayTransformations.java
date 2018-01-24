@@ -22,7 +22,6 @@ public class ArrayTransformations {
             System.out.print(final_array[i] + " ");
         }
         */
-        System.out.println();
         return final_array;
     }
 

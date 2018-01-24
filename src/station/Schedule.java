@@ -61,10 +61,9 @@ public class Schedule {
         return remaining_chargers;
     }
 
-    public String printScheduleMap(int[] price) {
+    public void printScheduleMap(int[] price) {
 
         StringBuilder str = new StringBuilder();
-        str.append("------------------------ Slots ------------------------\n");
         str.append("       ");
         for (int s = 0; s < slots_number; s++) {
             str.append(s).append(" ");
@@ -90,14 +89,12 @@ public class Schedule {
             }
             str.append("\n");
         }
-        str.append("-------------------------------------------------------\n");
-        return str.toString();
+        System.out.println(str.toString());
     }
 
-    public String printScheduleMap(int[][] map, int[] price) {
+    public void printScheduleMap(int[][] map, int[] price) {
 
         StringBuilder str = new StringBuilder();
-        str.append("------------------------ Slots ------------------------\n");
         str.append("       ");
         for (int s = 0; s < slots_number; s++) {
             str.append(s).append(" ");
@@ -123,8 +120,7 @@ public class Schedule {
             }
             str.append("\n");
         }
-        str.append("-------------------------------------------------------\n");
-        return str.toString();
+        System.out.println(str.toString());
     }
 
 

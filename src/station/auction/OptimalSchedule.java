@@ -30,21 +30,14 @@ public class OptimalSchedule {
 
     public int[][] computeOptimalSchedule () {
 
-
-        System.out.println("Computing optimal schedule...");
-
         int min_slot = getMinSlot();
         int max_slot = getMaxSlot();
 
 
-        System.out.println(getMinSlot() + "-----" + getMaxSlot());
         cp.model(bidders_list, slots_number, price,
                 remaining_chargers, min_slot, max_slot);
 
-        //station.concatScheduleMap(cp.getScheduleMap());
-       //station.setInitialUtility(cp.getUtility());
 
-        System.out.println("ScheduleOld computed!");
         return cp.getScheduleMap();
     }
 

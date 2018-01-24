@@ -89,7 +89,6 @@ public abstract class AbstractStation {
     }
 
     public void addEVBidder (EVObject ev) {
-        System.out.println("Standard Station's Add");
         ev.setStationId(id_counter);
         id_counter++;
         evBidders.add(ev);
@@ -100,14 +99,14 @@ public abstract class AbstractStation {
     public boolean computeSchedule () {
         if (evBidders.size() > 0) {
             schedule.setFullScheduleMap(this.compute());
-            System.out.println(schedule.printScheduleMap(price));
+            schedule.printScheduleMap(price);
             this.computeOffers();
+            evBidders.contains(new EVObject());
             update = true;
             return true;
         } else {
-            System.out.println("No incoming vehicles!");
+            //System.out.println("No incoming vehicles!");
             finished = true;
-            System.out.println("Finished = true;");
             return false;
         }
     }
@@ -116,8 +115,8 @@ public abstract class AbstractStation {
         this.offersCharged();
         if (!waiting.isEmpty())
             this.offersNotCharged(this.pricing);
-        else
-            System.out.println("There are no pending vehicles!");
+        //else
+            //System.out.println("There are no pending vehicles!");
     }
 
     public void offersCharged () {
@@ -149,12 +148,24 @@ public abstract class AbstractStation {
     }
 
     public void sendOfferMessages () {
-        for (int e = 0; e < messageReceivers.size(); e++) {
-            EVObject ev = messageReceivers.get(e);
-            System.out.println("Sending to ev_" + ev.getId());
-            SuggestionMessage message = new SuggestionMessage(info, ev.getFinalSuggestion());
-            message.setCost(ev.getFinalPayment());
-            ev.getObjectAddress().addSuggestion(message);
+
+        if (!messageReceivers.isEmpty()) {
+            System.out.print("Sending messages to: ");
+            StringBuilder receivers = new StringBuilder();
+            for (int e = 0; e < messageReceivers.size(); e++) {
+                EVObject ev = messageReceivers.get(e);
+                SuggestionMessage message = new SuggestionMessage(info, ev.getFinalSuggestion());
+                message.setCost(ev.getFinalPayment());
+                ev.getObjectAddress().addSuggestion(message);
+
+                if (e == messageReceivers.size() - 1)
+                    receivers.append("ev_" + ev.getId() + "\n");
+                else
+                    receivers.append("ev_" + ev.getId() + ", ");
+            }
+            System.out.println(receivers);
+        } else {
+            System.out.println("There are no messages to send!");
         }
         messageReceivers.clear();
         waiting.clear();
@@ -166,6 +177,7 @@ public abstract class AbstractStation {
      * @param state
      */
     public void markEVBidder (int id, int state) {
+        System.out.print("\t\t\tStation_" + info.getId() + ": ");
         for (int e = 0; e < evBidders.size(); e++) {
             EVObject ev = evBidders.get(e);
             if (ev.getId() == id) {
@@ -249,9 +261,12 @@ public abstract class AbstractStation {
 
     public boolean isFinished () {
         if (messageReceivers.isEmpty() || evBidders.isEmpty()) {
-            System.out.println("Station_" + info.getId() + " is finished");
             return true;
         }
         return false;
+    }
+
+    public void printScheduleMap () {
+        schedule.printScheduleMap(price);
     }
 }

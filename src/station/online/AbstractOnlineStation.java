@@ -55,7 +55,6 @@ public abstract class AbstractOnlineStation extends AbstractStation {
     public abstract int setLastSlot(EVObject ev);
 
     public void addEVBidder (EVObject ev) {
-        System.out.println("Online Station's Add");
         ev.setStationId(id_counter);
         this.setSlotsNeeded(ev);
         int lastSlot = this.setLastSlot(ev);
@@ -76,8 +75,6 @@ public abstract class AbstractOnlineStation extends AbstractStation {
      */
     private void setSlotsNeeded (EVObject ev) {
         int distance = Math.abs(ev.getX() - info.getLocationX()) + Math.abs(ev.getY() - info.getLocationY());
-        System.out.println("<" + ev.getX() + ", " + ev.getY() + ">");
-        System.out.println("ev_" + ev.getId() + ": " + distance);
         ev.setSlotsNeeded(distance);
     }
 
@@ -96,13 +93,11 @@ public abstract class AbstractOnlineStation extends AbstractStation {
         }
         for (EVObject ev: removed) {
             evBidders.remove(ev);
-            System.out.println("Removing ev_" + ev.getId() + ", " + ev.getStationId());
         }
         id_counter = 0;
     }
 
     public void updateStationData () {
-
         chargersState = Arrays.copyOf(schedule.getRemainingChargers(), schedule.getRemainingChargers().length);
         this.updateBiddersLists();
         this.updateEVBiddersIDs();
@@ -111,7 +106,7 @@ public abstract class AbstractOnlineStation extends AbstractStation {
         finished = false;
         minSlot = Integer.MAX_VALUE;
         rounds = 0;
-        System.out.println(schedule.printScheduleMap(fullScheduleMap, price));
+        //System.out.println(schedule.printScheduleMap(fullScheduleMap, price));
     }
 
     /**
@@ -169,5 +164,9 @@ public abstract class AbstractOnlineStation extends AbstractStation {
 
     public boolean isUpdate () {
         return update;
+    }
+
+    public void printScheduleMap () {
+        schedule.printScheduleMap(fullScheduleMap, price);
     }
 }

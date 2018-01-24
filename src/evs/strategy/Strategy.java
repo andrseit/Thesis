@@ -34,10 +34,12 @@ public class Strategy {
     public void evaluate (EVInfo info) {
         StrategyComputer computer = new StrategyComputer(info, strategyPreferences);
         ArrayList<ComparableSuggestion> comparable_suggestions = computer.produceComparableSuggestions(suggestions);
-        System.out.println("    Comparable suggestions");
+
+        System.out.println("\tComparable suggestions");
         for (ComparableSuggestion s: comparable_suggestions) {
-            System.out.println("        " + s.toString());
+            System.out.println("\t\t" + s.toString());
         }
+
         if (!comparable_suggestions.isEmpty()) {
             int[] states = this.compareSuggestions(comparable_suggestions);
             for (int s = 0; s < states.length; s++) {
@@ -100,6 +102,7 @@ public class Strategy {
         for (Preferences p: suggestions) {
             System.out.println("    " + p.toString());
         }
+        System.out.println();
     }
 
     public String toString () {

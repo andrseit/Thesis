@@ -30,8 +30,6 @@ public class SimpleStation extends AbstractStation {
 
     @Override
     public int[][] compute() {
-        System.out.println("Starting -- Computing initial optimal schedule");
-        System.out.println(printEVBidders());
         cp = new CPLEX();
         OptimalSchedule optimal = new OptimalSchedule(evBidders, slotsNumber, price, schedule.getRemainingChargers(), cp);
         return optimal.computeOptimalSchedule();

@@ -3,6 +3,8 @@ package main;
 
 import io.DataGenerator;
 
+import java.util.HashSet;
+
 /**
  * Created by Darling on 28/8/2017.
  */
@@ -23,10 +25,10 @@ public class Main {
         */
 
         Execution exe = new OfflineExecution();
-        exe.execute();
+        //exe.execute();
 
         exe = new OnlineExecution();
-        //exe.execute();
+        exe.execute();
 
     }
 

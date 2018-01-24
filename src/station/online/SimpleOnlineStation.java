@@ -28,7 +28,6 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
 
     @Override
     public int[][] compute() {
-        System.out.println("Starting -- Computing initial optimal schedule");
         cp = new CPLEX();
         OptimalSchedule optimal = new OptimalSchedule(evBidders, slotsNumber, price, schedule.getRemainingChargers(), cp);
         return optimal.computeOptimalSchedule();
@@ -36,7 +35,6 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
 
     @Override
     public void computeOffer(EVObject ev, int[] evRow) {
-        System.out.println("Computing offer for ev_" + ev.getId());
         Suggestion suggestion = new Suggestion();
         int start = ev.getStartSlot();
         int end = ev.getEndSlot();
@@ -76,7 +74,6 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
                     //messageReceivers.add(ev);
                 }
             } else if (neg.getFilteredSuggestionList().isEmpty() && waiting.isEmpty()) {
-                System.out.println("I am doing it right here");
                 finished = true;
             }
         } else {
@@ -100,7 +97,6 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
         int start = ev.getStartSlot();
         int lastSlot = start - distance;
         ev.setLastSlot(lastSlot);
-        System.out.println("Last slot: " + lastSlot);
         return lastSlot;
     }
 }
