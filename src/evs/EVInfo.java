@@ -41,9 +41,10 @@ public class EVInfo {
     }
 
     public String toString () {
-        return ("Ev_" + id + ": " + preferences.getStart() + " - " +
-        preferences.getEnd() + " / " + preferences.getEnergy() + ", located at <" +
-        locationX + ", " + locationY + ">" + " -- needs ");
+        return "Initial Location: <" + locationX + ", " + locationY + ">"
+                +" Destination: <" + final_locationX + ", " + final_locationY + ">"
+                + "\n\t*Preferences:\n\t\t" + "Start: " + preferences.getStart() + " End: " + preferences.getEnd()
+                + " Energy: " + preferences.getEnergy() + " Distance: " + preferences.getMaxDistance();
     }
 
     public int getBid() {

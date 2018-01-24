@@ -8,6 +8,7 @@ import station.negotiation.Negotiations;
 import station.negotiation.Suggestion;
 import station.online.AbstractOnlineStation;
 import station.pricing.Pricing;
+import station.pricing.SimplePricing;
 
 /**
  * Created by Thesis on 22/1/2018.
@@ -22,6 +23,7 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
      */
     public SimpleOnlineStation(StationInfo info, int slotsNumber) {
         super(info, slotsNumber);
+        pricing = new SimplePricing(price);
     }
 
     @Override
@@ -71,7 +73,7 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
                         ev.setSuggestion(suggestion);
                         ev.setFinalSuggestion();
                     }
-                    messageReceivers.add(ev);
+                    //messageReceivers.add(ev);
                 }
             } else if (neg.getFilteredSuggestionList().isEmpty() && waiting.isEmpty()) {
                 System.out.println("I am doing it right here");
@@ -80,7 +82,7 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
         } else {
             for (EVObject ev: waiting) {
                 this.addNotAvailableMessage(ev);
-                messageReceivers.add(ev);
+                //messageReceivers.add(ev);
             }
         }
         rounds++;
@@ -88,7 +90,7 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
 
     @Override
     public boolean hasOffers(int slot) {
-        System.out.println("Min slot: " + minSlot);
+        //System.out.println("Min slot from check: " + minSlot + " result: " + (minSlot == slot));
         return minSlot == slot;
     }
 

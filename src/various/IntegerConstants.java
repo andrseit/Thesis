@@ -14,4 +14,5 @@ public class IntegerConstants {
     public static int EV_EVALUATE_ACCEPT = 0;
     public static int EV_EVALUATE_REJECT = 1;
     public static int EV_EVALUATE_WAIT = 2;
+    public static int EV_EVALUATE_PENDING = 3;
 }

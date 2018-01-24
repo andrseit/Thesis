@@ -30,6 +30,7 @@ public class OfflineExecution extends Execution {
             finished_stations[s] = false;
         }
         evs = parser.readEVsData("evs.json");
+        printEVs();
     }
 
     @Override
@@ -40,7 +41,8 @@ public class OfflineExecution extends Execution {
         this.evsRequestStations();
         // stations sending initial offers
         for (AbstractStation station: stations) {
-            this.sendInitialOffers(station);
+            this.computeInitialOffers(station);
+            this.stationsSendOfferMessages(station);
         }
         /*
         // evs evaluate offers
@@ -56,6 +58,7 @@ public class OfflineExecution extends Execution {
             // negotiations
             for (int s = 0; s < stations.size(); s++) {
                 this.stationCheckInWhile(stations.get(s), s);
+                this.stationsSendOfferMessages(stations.get(s));
             }
         }
     }

@@ -1,12 +1,17 @@
 package main;
 
 
+import io.DataGenerator;
+
 /**
  * Created by Darling on 28/8/2017.
  */
 public class Main {
 
     public static void main(String[] args) {
+
+        //DataGenerator dt = new DataGenerator();
+        //dt.generateEVsFile(10, 10, 10, 10);
 
         /*
         Execution exe = new OnlineExecution();

@@ -1,80 +1,81 @@
 package io;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 /**
- * Created by Darling on 29/7/2017.
+ * Created by Thesis on 20/12/2017.
  */
-class DataGenerator {
+public class DataGenerator {
 
-    public void generateEVsData(int num_evs, int slots_num) {
 
-        ArrayList<JSONObject> evs = new ArrayList<JSONObject>();
-        Random rand = new Random();
-        for(int ev = 0; ev < num_evs; ev++) {
 
-            JSONObject ev_object = new JSONObject();
+    public void generateEVsFile(int evsNumber, int slotsNumber, int bidBound, int gridSize) {
 
-            int id = ev;
-            int energy = 1 + rand.nextInt(4);
-            ev_object.put("id", id);
-            ev_object.put("energy", energy);
-            // generate random number of bids
-            JSONArray bids = new JSONArray();
-            int bids_num = 2 + rand.nextInt(5);
-            System.out.println("Bids number: " + bids_num + " energy: " + energy);
-            int last_end_slot = -1;
-            for (int b = 0; b < bids_num; b++) {
-                JSONObject bid_object = new JSONObject();
-
-                int min_start_slot = last_end_slot + 1;
-                int max_start_slot = slots_num - energy - 1;
-
-                System.out.println("last: " + last_end_slot + " final: " + (max_start_slot - last_end_slot + 1));
-                if (last_end_slot + energy >= slots_num || max_start_slot - min_start_slot <= 0)
-                    break;
-
-                int start_slot = min_start_slot + rand.nextInt(max_start_slot - min_start_slot + 1);
-                System.out.println("start slot: " + start_slot);
-                if (start_slot + energy >= slots_num)
-                    break;
-
-                int gap = 5;
-                int min_end_slot = start_slot + energy - 1;
-                int max_end_slot = slots_num - energy;
-                if (min_end_slot + gap >= slots_num)
-                    max_end_slot = slots_num - 1;
-
-                int end_slot = min_end_slot + rand.nextInt( max_end_slot - min_end_slot + 1);
-                System.out.println("bid: " + b + ": start = " + start_slot + ", end = " + end_slot);
-                last_end_slot = end_slot;
-                int bid = 1 + rand.nextInt(10);
-                bid_object.put("start", start_slot);
-                bid_object.put("end", end_slot);
-                bid_object.put("bid", bid);
-                bids.add(bid_object);
-            }
-            System.out.println("/////////////////////////");
-            ev_object.put("bids", bids);
-
-            evs.add(ev_object);
-        }
-        writeToFile(evs);
-    }
-
-    private void writeToFile(ArrayList<JSONObject> evs){
-        String path = "data.json";
         try {
-            FileWriter writer = new FileWriter(path);
+            FileWriter writer = new FileWriter("evs.json");
+            Random random = new Random();
 
-            for (JSONObject ev: evs) {
-                writer.write(ev.toJSONString());
-                writer.write("\n");
+            for (int i = 0; i < evsNumber; i++) {
+                JSONObject ev = new JSONObject();
+                JSONObject pref = new JSONObject();
+                JSONObject strategy = new JSONObject();
+
+                // location
+                int x = random.nextInt(gridSize);
+                int y = random.nextInt(gridSize);
+                ev.put("x", x);
+                ev.put("y", y);
+
+                // final destination
+                int f_x = random.nextInt(gridSize);;
+                int f_y = random.nextInt(gridSize);;
+                while ((f_x == x) && (f_y == y)) {
+                    f_x = random.nextInt(gridSize);
+                    f_y = random.nextInt(gridSize);
+                }
+                ev.put("f_x", f_x);
+                ev.put("f_y", f_y);
+
+
+                // preferences
+                int start = random.nextInt(slotsNumber);
+                int end = random.nextInt(slotsNumber - start) + start;
+                int energy = random.nextInt(end - start + 1) + 1;
+                int inform = 0;
+                if (start != 0)
+                    inform = random.nextInt(start);
+                int distance = random.nextInt(gridSize);
+                int bid = random.nextInt(bidBound) + 1;
+
+                pref.put("inform", inform);
+                pref.put("start", start);
+                pref.put("end", end);
+                pref.put("energy", energy);
+                pref.put("bid", bid);
+                pref.put("distance", distance);
+
+
+                int s_start = 0;
+                if (start !=0)
+                    s_start = random.nextInt(start);
+                int s_end = random.nextInt(slotsNumber - end) + end;
+                int s_energy = random.nextInt(energy) + 1;
+                int probability = random.nextInt(100) + 1;
+                int rounds = random.nextInt(5);
+                strategy.put("start", s_start);
+                strategy.put("end", s_end);
+                strategy.put("energy", s_energy);
+                strategy.put("probability", probability);
+                strategy.put("rounds", rounds);
+
+                ev.put("preferences", pref);
+                ev.put("strategy", strategy);
+
+                writer.write(ev.toJSONString()+"\n");
             }
             writer.flush();
             writer.close();
@@ -84,4 +85,20 @@ class DataGenerator {
         }
     }
 
+    public void generateStationFile (int slots_num, int chargers_num) {
+
+        try {
+            FileWriter writer = new FileWriter("station.json");
+
+            JSONObject station = new JSONObject();
+            station.put("slots", slots_num);
+            station.put("chargers", chargers_num);
+            writer.write(station.toJSONString());
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

@@ -24,7 +24,6 @@ public class EV {
         this.strategy = strategy;
     }
 
-
     public void addSuggestion (SuggestionMessage suggestion) {
         strategy.addSuggestion(suggestion);
     }
@@ -34,8 +33,6 @@ public class EV {
     }
 
     public boolean hasSuggestions() { return !strategy.isEmpty(); }
-
-    public EVInfo getInfo () { return info; }
 
     public void requestStation (ArrayList<StationInfo> stations) {
 
@@ -62,4 +59,9 @@ public class EV {
     public int getInformSlot() {
         return informSlot;
     }
+
+    public String toString () {
+        return info.toString() + "\n\t*" + strategy.toString();
+    }
+
 }

@@ -93,6 +93,7 @@ public abstract class AbstractStation {
         ev.setStationId(id_counter);
         id_counter++;
         evBidders.add(ev);
+        messageReceivers.add(ev);
         waiting.add(ev);
     }
 
@@ -127,7 +128,7 @@ public abstract class AbstractStation {
             if (whoCharged[e] == 1 && waiting.contains(ev)) {
                 this.computeOffer(ev, scheduleMap[e]);
                 waiting.remove(ev);
-                messageReceivers.add(ev);
+                //messageReceivers.add(ev);
             }
         }
     }
@@ -165,60 +166,45 @@ public abstract class AbstractStation {
      * @param state
      */
     public void markEVBidder (int id, int state) {
-        for (EVObject ev: evBidders) {
-            if (ev.getId() == id && (state != IntegerConstants.EV_EVALUATE_REJECT)) {
-                ev.setAcceptedAndWaiting(true, state);
-            } else if (ev.getId() == id && state == IntegerConstants.EV_EVALUATE_REJECT)
-                ev.setAccepted(false);
+        for (int e = 0; e < evBidders.size(); e++) {
+            EVObject ev = evBidders.get(e);
+            if (ev.getId() == id) {
+                if (state == IntegerConstants.EV_EVALUATE_ACCEPT) {
+                    System.out.println("ev_" + id + " accepted offer!");
+                    ev.setFinalPreferences();
+                    break;
+                } else if (state == IntegerConstants.EV_EVALUATE_WAIT) {
+                    System.out.println("ev_" + id + " waits for new offer!");
+                    waiting.add(ev);
+                    messageReceivers.add(ev);
+                    break;
+                } else if (state == IntegerConstants.EV_EVALUATE_REJECT) {
+                    System.out.println("ev_" + id + " rejected offer!");
+                    evBidders.remove(e);
+                    break;
+                }
+            }
         }
-        if (state == IntegerConstants.EV_EVALUATE_ACCEPT)
-            System.out.println("ev_" + id + " accepted offer!");
-        else if (state == IntegerConstants.EV_EVALUATE_WAIT)
-            System.out.println("ev_" + id + " waits for new offer!");
-        else
-            System.out.println("ev_" + id + " rejected offer!");
     }
 
     public void updateBiddersLists () {
-        int[] who_charged = cp.getWhoCharges();
-        ArrayList<EVObject> removed = new ArrayList<>();
-        int id = 0;
         for (int e = 0; e < evBidders.size(); e++) {
             EVObject ev = evBidders.get(e);
-            if (!ev.isAccepted()) {
-                System.out.println("Station_" + info.getId() + " removes ev_" + ev.getId());
-                removed.add(ev);
-                if (waiting.contains(ev)) {
-                    waiting.remove(ev);
-                    System.out.println(", also from the waiting list...");
-                }
-            }
-            else {
-                ev.setStationId(id);
-                if (ev.isWaiting() && !waiting.contains(ev))
-                    waiting.add(ev);
-                else if (waiting.contains(ev) && !ev.isWaiting()) {
-                    waiting.remove(ev);
-                }
-                id++;
-            }
+            ev.setStationId(e);
         }
-        for (EVObject ev: removed) {
-            evBidders.remove(ev);
-        }
-        if (waiting.isEmpty())
-            finished = true;
+
+        if (evBidders.isEmpty())
+            id_counter = 0;
+
         update = false;
         this.resetChargers();
     }
-
-    public boolean isWaitingEmpty () { return waiting.isEmpty(); }
 
     public String printEVBidders () {
         StringBuilder str = new StringBuilder();
         for (int e = 0; e < evBidders.size(); e++) {
             EVObject ev = evBidders.get(e);
-            str.append(e + ")" + ev.printEV());
+            str.append(e).append(")").append(ev.printEV());
         }
         return str.toString();
     }
@@ -261,5 +247,11 @@ public abstract class AbstractStation {
         return info;
     }
 
-    public boolean isFinished () { return finished; }
+    public boolean isFinished () {
+        if (messageReceivers.isEmpty() || evBidders.isEmpty()) {
+            System.out.println("Station_" + info.getId() + " is finished");
+            return true;
+        }
+        return false;
+    }
 }

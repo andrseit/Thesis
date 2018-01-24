@@ -1,7 +1,5 @@
 package station.pricing;
 
-import java.util.PriorityQueue;
-
 /**
  * Created by Thesis on 23/1/2018.
  */

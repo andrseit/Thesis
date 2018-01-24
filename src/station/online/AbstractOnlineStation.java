@@ -1,5 +1,6 @@
 package station.online;
 
+import station.negotiation.Suggestion;
 import station.offline.AbstractStation;
 import station.EVObject;
 import station.StationInfo;
@@ -33,6 +34,7 @@ public abstract class AbstractOnlineStation extends AbstractStation {
 
         fullScheduleMap = new int[0][slotsNumber];
         chargersState = Arrays.copyOf(schedule.getRemainingChargers(), schedule.getRemainingChargers().length);
+        finished = true;
     }
 
     /**
@@ -60,7 +62,9 @@ public abstract class AbstractOnlineStation extends AbstractStation {
         if (lastSlot < minSlot)
             minSlot = lastSlot;
         id_counter++;
+        addHasNoOffersMessage(ev);
         evBidders.add(ev);
+        messageReceivers.add(ev);
         waiting.add(ev);
     }
 
@@ -98,6 +102,7 @@ public abstract class AbstractOnlineStation extends AbstractStation {
     }
 
     public void updateStationData () {
+
         chargersState = Arrays.copyOf(schedule.getRemainingChargers(), schedule.getRemainingChargers().length);
         this.updateBiddersLists();
         this.updateEVBiddersIDs();
@@ -107,6 +112,20 @@ public abstract class AbstractOnlineStation extends AbstractStation {
         minSlot = Integer.MAX_VALUE;
         rounds = 0;
         System.out.println(schedule.printScheduleMap(fullScheduleMap, price));
+    }
+
+    /**
+     * Sometimes a station may send a not available slots message,
+     * but without computing the schedule, because based on its strategy it
+     * may have not computed the offers yet, so you have to update only the
+     * rejections.
+     */
+    public void updateStationDataNoSchedule () {
+        this.updateBiddersLists();
+        finished = false;
+        if (evBidders.isEmpty())
+            minSlot = Integer.MAX_VALUE;
+        rounds = 0;
     }
 
     private void updateFullScheduleMap() {
@@ -122,10 +141,31 @@ public abstract class AbstractOnlineStation extends AbstractStation {
         }
     }
 
+    public void addHasNoOffersMessage (EVObject ev) {
+        Suggestion suggestion = new Suggestion();
+        suggestion.setStartEndSlots(-1, -1);
+        suggestion.setEnergy(0);
+        suggestion.setCost(0);
+        ev.setSuggestion(suggestion);
+        ev.setFinalSuggestion();
+    }
+
+    /**
+     * Transfers bidders from evBidders to message receivers
+     * because previous bidders are gone when the message was sent
+     */
+    public void transferBidders () {
+        for (EVObject ev: evBidders) {
+            if (!messageReceivers.contains(ev)) {
+                messageReceivers.add(ev);
+                waiting.add(ev);
+            }
+        }
+    }
+
     public void resetChargers () {
         schedule.resetChargers(chargersState);
     }
-
 
     public boolean isUpdate () {
         return update;

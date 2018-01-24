@@ -97,44 +97,12 @@ public class EVObject {
         return preferences.getEnergy();
     }
 
-    public int getStartSlot(int index) {
-        return preferences.getStart();
-    }
-
-    public int getEndSlot(int index) {
-        return preferences.getEnd();
-    }
-
-    public int getPays() {
-        return initial_pays;
-    }
-
-    public void setPays(int pays) {
-        this.initial_pays = pays;
-    }
-
     public void setFinalPayment(int pays) {
         this.final_pays = pays;
     }
 
     public int getFinalPayment() {
         return final_pays;
-    }
-
-    public void setCharged(boolean v) {
-        this.charged = v;
-    }
-
-    public boolean getCharged() {
-        return charged;
-    }
-
-    public void setScheduleRow(int row) {
-        this.schedule_row = row;
-    }
-
-    public int getScheduleRow() {
-        return schedule_row;
     }
 
     public void setEnergy(int energy) {
@@ -144,20 +112,6 @@ public class EVObject {
     public void setID(int id) {
         this.id = id;
     }
-
-    public int getInformTime() {
-        return inform_slot;
-    }
-
-    public void setInformTime(int inform_time) {
-        this.inform_slot = inform_time;
-    }
-
-    /*
-    public String toString () {
-        return "energy: " + preferences.getEnergy() + " bid: " + bid + " start: " + preferences.getStart() + " end: " + preferences.getEnd();
-    }
-    */
 
     public int getStartSlot () {
         return preferences.getStart();
@@ -290,19 +244,10 @@ public class EVObject {
         }
     }
 
-    public boolean isAccepted() {
-        return accepted;
+    public void setFinalPreferences () {
+        preferences.setStartEndSlots(final_suggestion.getStart(), final_suggestion.getEnd());
+        preferences.setEnergy(final_suggestion.getEnergy());
     }
-
-    public boolean isWaiting() {
-        return waiting;
-    }
-
-    public void setWaiting(boolean waiting) {
-        this.waiting = waiting;
-    }
-
-    public void setAccepted (boolean accepted) { this.accepted = accepted; }
 
     public int getSlotsNeeded() {
         return slotsNeeded;

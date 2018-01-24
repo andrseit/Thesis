@@ -28,26 +28,28 @@ class StrategyComputer {
         ArrayList<ComparableSuggestion> comparable_suggestions = new ArrayList<>();
 
         for (SuggestionMessage message: messages) {
-            int preferences_distance = 0;
-            if (!hasSuggestion(message)) {
-                preferences_distance = Integer.MAX_VALUE;
-                comparable_suggestions.add(new ComparableSuggestion(0, 0, preferences_distance, message.getStationAddress()));
-            }
-            else
-            {
-                boolean withingRange = true;
-                if (!this.isWithinInitial(message, initial_prefs)) {
-                    withingRange = this.checkWithinRange(message);
-                    if (withingRange)
-                        preferences_distance = this.computePreferencesDistance(message, initial_prefs);
-                    else
-                       comparable_suggestions.add(new ComparableSuggestion(0,0, -1, message.getStationAddress()));
+            if (!(message.getStart() == -1)) {
+                int preferences_distance = 0;
+                if (!hasSuggestion(message)) {
+                    preferences_distance = Integer.MAX_VALUE;
+                    comparable_suggestions.add(new ComparableSuggestion(0, 0, preferences_distance, message.getStationAddress()));
+                } else {
+                    boolean withingRange = true;
+                    if (!this.isWithinInitial(message, initial_prefs)) {
+                        withingRange = this.checkWithinRange(message);
+                        if (withingRange)
+                            preferences_distance = this.computePreferencesDistance(message, initial_prefs);
+                        else
+                            comparable_suggestions.add(new ComparableSuggestion(0, 0, -1, message.getStationAddress()));
+                    }
+                    if (withingRange) {
+                        int price = message.getCost();
+                        int total_distance = this.computeTotalDistance(message);
+                        comparable_suggestions.add(new ComparableSuggestion(total_distance, price, preferences_distance, message.getStationAddress()));
+                    }
                 }
-                if (withingRange) {
-                    int price = message.getCost();
-                    int total_distance = this.computeTotalDistance(message);
-                    comparable_suggestions.add(new ComparableSuggestion(total_distance, price, preferences_distance, message.getStationAddress()));
-                }
+            } else {
+                comparable_suggestions.add(new ComparableSuggestion(0, 0, -2, message.getStationAddress()));
             }
         }
         System.out.println(comparable_suggestions.size());

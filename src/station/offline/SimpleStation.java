@@ -31,6 +31,7 @@ public class SimpleStation extends AbstractStation {
     @Override
     public int[][] compute() {
         System.out.println("Starting -- Computing initial optimal schedule");
+        System.out.println(printEVBidders());
         cp = new CPLEX();
         OptimalSchedule optimal = new OptimalSchedule(evBidders, slotsNumber, price, schedule.getRemainingChargers(), cp);
         return optimal.computeOptimalSchedule();
@@ -74,16 +75,15 @@ public class SimpleStation extends AbstractStation {
                         ev.setSuggestion(suggestion);
                         ev.setFinalSuggestion();
                     }
-                    messageReceivers.add(ev);
+                    //messageReceivers.add(ev);
                 }
             } else if (neg.getFilteredSuggestionList().isEmpty() && waiting.isEmpty()) {
-                System.out.println("I am doing it right here");
                 finished = true;
             }
         } else {
             for (EVObject ev: waiting) {
                 this.addNotAvailableMessage(ev);
-                messageReceivers.add(ev);
+                //messageReceivers.add(ev);
             }
         }
         rounds++;

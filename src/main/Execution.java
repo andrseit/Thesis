@@ -16,19 +16,20 @@ public abstract class Execution {
     protected ArrayList<StationInfo> s_infos;
     protected boolean[] finished_stations; // the stations that have no duties
 
-    protected abstract void initialize ();
-    public abstract void execute ();
+    protected abstract void initialize();
+
+    public abstract void execute();
 
 
-    protected void evsRequestStations () {
-        for (EV ev: evs) {
+    protected void evsRequestStations() {
+        for (EV ev : evs) {
             ev.requestStation(s_infos);
             //System.out.println();
         }
     }
 
-    protected void evsEvaluateOffers () {
-        for (EV ev: evs) {
+    protected void evsEvaluateOffers() {
+        for (EV ev : evs) {
             if (ev.hasSuggestions()) {
                 ev.printSuggestionsList();
                 ev.evaluateSuggestions();
@@ -37,27 +38,35 @@ public abstract class Execution {
         }
     }
 
-    protected void sendInitialOffers (AbstractStation station) {
+    protected void computeInitialOffers(AbstractStation station) {
         System.out.println(" ==================  Station " + station.getInfo().getId() +
                 "  =================");
         System.out.println(station.printEVBidders());
         station.computeSchedule();
-        station.sendOfferMessages();
+        //station.sendOfferMessages();
         System.out.println();
         //break;
     }
 
-    protected void stationCheckInWhile (AbstractStation station, int stationID) {
+    public void stationsSendOfferMessages(AbstractStation station) {
+        System.out.println("Sending messages");
+        station.sendOfferMessages();
+    }
+
+    protected void stationCheckInWhile(AbstractStation station, int stationID) {
 
         System.out.println(" ======= Station_" + station.getInfo().getId() + " =======");
+        //if (station.isFinished())
+        //finished_stations[stationID] = true;
+
         if (!finished_stations[stationID]) {
             station.updateBiddersLists();
             station.computeSchedule();
             System.out.println(station.printEVBidders());
             //if (!station.isWaitingEmpty()) {
-                System.out.println("Waiting...");
-                System.out.println(station.printEVWaiting());
-                station.sendOfferMessages();
+            System.out.println("Waiting...");
+            System.out.println(station.printEVWaiting());
+            //station.sendOfferMessages();
             //}
             station.printEVWaiting();
             if (station.isFinished()) {
@@ -68,11 +77,21 @@ public abstract class Execution {
             System.out.println("Station has no more duties!");
     }
 
-    protected boolean checkFinished () {
+    protected boolean checkFinished() {
         for (int s = 0; s < finished_stations.length; s++) {
+            System.out.println("Station_" + s + ": " + finished_stations[s]);
             if (!finished_stations[s])
                 return false;
         }
         return true;
+    }
+
+    protected void printEVs() {
+        int counter = 0;
+        for (EV ev : evs) {
+            System.out.print("ev_" + counter + ": ");
+            System.out.println(ev.toString() + "\n");
+            counter++;
+        }
     }
 }
