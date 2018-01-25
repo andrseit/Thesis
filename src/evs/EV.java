@@ -37,14 +37,26 @@ public class EV {
     public void requestStation (ArrayList<StationInfo> stations) {
 
         boolean requested = false;
-        for (StationInfo s_info : stations) {
-            int distance = this.computeDistance(info.getLocationX(), info.getLocationY(),
-                    s_info.getLocationX(), s_info.getLocationY());
+        int maxDistance = info.getPreferences().getMaxDistance();
+        int minDistance = info.getPreferences().getStart() - informSlot; // it is the distance between inform and start - how soon it must charger - e.g. if
+        // the distance is 3 but the minDistance is 2, the station won't be selected
+        // how many slots i need to start charging at the start time
+        while (requested == false) {
+            for (StationInfo s_info : stations) {
+                int distance = this.computeDistance(info.getLocationX(), info.getLocationY(),
+                        s_info.getLocationX(), s_info.getLocationY());
 
-            if (distance <= info.getPreferences().getMaxDistance()) {
-                s_info.request(info);
-                System.out.println("ev_" + info.getId() + " requests from station_" + s_info.getId());
-                requested = true;
+
+                if (distance <= Math.min(minDistance, maxDistance)) {
+                    s_info.request(info);
+                    System.out.println("ev_" + info.getId() + " requests from station_" + s_info.getId());
+                    requested = true;
+                }
+            }
+            if (!requested) {
+                maxDistance++;
+                if (maxDistance > minDistance)
+                    break;
             }
         }
         if (requested)
@@ -66,6 +78,10 @@ public class EV {
 
     public String toString () {
         return info.toString() + "\n\t*" + strategy.toString();
+    }
+
+    public void resetRounds () {
+        strategy.resetRounds();
     }
 
 }

@@ -69,10 +69,28 @@ class StrategyComputer {
     }
 
     private int computePreferencesDistance (SuggestionMessage message, Preferences initial) {
-        int start_dif = Math.abs(message.getStart() - initial.getStart());
-        int end_dif = Math.abs(message.getEnd() - initial.getEnd());
-        int energy_dif = Math.abs(message.getEnergy() - initial.getEnergy());
+        int start = initial.getStart();
+        int end = initial.getEnd();
+        int sStart = message.getStart();
+        int sEnd = message.getEnd();
+        int start_dif = 0, end_dif = 0, energy_dif;
+        if (!isInRange(start, end, sStart))
+            start_dif = Math.abs(message.getStart() - initial.getStart());
+        if (!isInRange(start, end, sEnd))
+            end_dif = Math.abs(message.getEnd() - initial.getEnd());
+        energy_dif = Math.abs(message.getEnergy() - initial.getEnergy());
         return start_dif + end_dif + energy_dif;
+    }
+
+    /**
+     * Checks if the new value is within the initial slot range
+     * then the difference is 0
+     * @return
+     */
+    private boolean isInRange (int start, int end, int suggested) {
+        if (suggested >= start && suggested <= end)
+            return true;
+        return false;
     }
 
     private boolean isWithinInitial (SuggestionMessage message, Preferences initial) {

@@ -4,6 +4,7 @@ package main;
 import io.DataGenerator;
 
 import java.util.HashSet;
+import java.util.Random;
 
 /**
  * Created by Darling on 28/8/2017.
@@ -12,8 +13,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //DataGenerator dt = new DataGenerator();
-        //dt.generateEVsFile(10, 10, 10, 10);
+        DataGenerator dt = new DataGenerator(3, 20, 10, 3);
+        //dt.generateStationFile();
+        //dt.readStationFile();
+        //dt.generateEVsFile();
 
         /*
         Execution exe = new OnlineExecution();
@@ -25,10 +28,10 @@ public class Main {
         */
 
         Execution exe = new OfflineExecution();
-        //exe.execute();
+        exe.execute();
 
         exe = new OnlineExecution();
-        exe.execute();
+        //exe.execute();
 
     }
 

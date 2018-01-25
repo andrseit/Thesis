@@ -67,7 +67,7 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
                         Suggestion suggestion = new Suggestion();
                         suggestion.setStartEndSlots(Integer.MAX_VALUE, Integer.MAX_VALUE);
                         suggestion.setEnergy(0);
-                        //suggestion.findSlotsAffected(schedule.getRemainingChargers());
+                        suggestion.findSlotsAffected(schedule.getRemainingChargers());
                         ev.setSuggestion(suggestion);
                         ev.setFinalSuggestion();
                     }

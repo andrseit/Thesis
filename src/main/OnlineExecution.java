@@ -110,7 +110,7 @@ public class OnlineExecution extends Execution {
 
             }
             System.out.println("\n\n\n\n");
-
+            resetEVsRounds();
         }
 
         System.out.println("------------\n\nExecution is over!");
@@ -125,6 +125,12 @@ public class OnlineExecution extends Execution {
         finished_stations = new boolean[stations.size()];
         for (int st = 0; st < finished_stations.length; st++) {
             finished_stations[st] = false;
+        }
+    }
+
+    private void resetEVsRounds () {
+        for (EV ev: evs) {
+            ev.resetRounds();
         }
     }
 

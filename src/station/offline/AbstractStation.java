@@ -143,6 +143,7 @@ public abstract class AbstractStation {
         suggestion.setStartEndSlots(Integer.MAX_VALUE, Integer.MAX_VALUE);
         suggestion.setEnergy(0);
         suggestion.setCost(0);
+        suggestion.findSlotsAffected(schedule.getRemainingChargers());
         ev.setSuggestion(suggestion);
         ev.setFinalSuggestion();
     }
@@ -200,6 +201,7 @@ public abstract class AbstractStation {
     }
 
     public void updateBiddersLists () {
+        id_counter = evBidders.size();
         for (int e = 0; e < evBidders.size(); e++) {
             EVObject ev = evBidders.get(e);
             ev.setStationId(e);

@@ -117,10 +117,10 @@ public class SuggestionComputer {
         }
 
         // clear zero slots
-        while (chargers[left] == 0 && (left < chargers.length && left >= lowerBound)) {
+        while ((left < chargers.length && left >= lowerBound) && chargers[left] == 0) {
             left += step;
         }
-        while (chargers[right] == 0 && (right < chargers.length && right >= lowerBound)) {
+        while ((right < chargers.length && right >= lowerBound) && chargers[right] == 0) {
             right -= step;
         }
 
@@ -179,12 +179,25 @@ public class SuggestionComputer {
      */
     private void evaluateSuggestion (Preferences initial, Suggestion suggestion) {
 
-        int start_dif = Math.abs(initial.getStart() - suggestion.getStart());
-        int end_diff = Math.abs(initial.getEnd() - suggestion.getEnd());
-        int energy_diff = initial.getEnergy() - suggestion.getEnergy();
+        int start = initial.getStart();
+        int end = initial.getEnd();
+        int sStart = suggestion.getStart();
+        int sEnd = suggestion.getEnd();
+        int start_dif = 0, end_dif = 0, energy_dif;
+        if (!isInRange(start, end, sStart))
+            start_dif = Math.abs(suggestion.getStart() - initial.getStart());
+        if (!isInRange(start, end, sEnd))
+            end_dif = Math.abs(suggestion.getEnd() - initial.getEnd());
+        energy_dif = Math.abs(suggestion.getEnergy() - initial.getEnergy());
 
-        suggestion.setRating(start_dif + end_diff + energy_diff);
+        suggestion.setRating(start_dif + end_dif + energy_dif);
         //System.out.println("\nDifferences: " + start_dif + ", " + end_diff + ", " + energy_diff);
+    }
+
+    private boolean isInRange (int start, int end, int suggested) {
+        if (suggested >= start && suggested <= end)
+            return true;
+        return false;
     }
 
     private void computeProfit (EVObject ev) {

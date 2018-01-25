@@ -48,8 +48,10 @@ public class Strategy {
                     if (pendingStations.contains(station))
                         pendingStations.remove(station);
                     station.checkIn(info, states[s]);
-                } else
-                    pendingStations.add(station);
+                } else {
+                    if (!pendingStations.contains(station))
+                        pendingStations.add(station);
+                }
             }
             suggestions.clear();
             if (rejectPendingStations) {
@@ -103,6 +105,10 @@ public class Strategy {
             System.out.println("    " + p.toString());
         }
         System.out.println();
+    }
+
+    public void resetRounds () {
+        s_rounds = 0;
     }
 
     public String toString () {
