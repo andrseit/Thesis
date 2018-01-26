@@ -41,8 +41,8 @@ public class SuggestionsOptimizer {
     /**
      * Computes the final suggestions for the given evs
      */
-    public void optimizeSuggestions () {
-        for (EVObject ev: evs) {
+    public void optimizeSuggestions() {
+        for (EVObject ev : evs) {
             computer.computeAlternative(ev);
             if (ev.hasSuggestion())
                 suggestions_queue.offer(ev);
@@ -60,7 +60,7 @@ public class SuggestionsOptimizer {
         }
     }
 
-    private void updateChargers () {
+    private void updateChargers() {
         //System.out.println("Updating Chargers after first computation of Suggestions");
         boolean alt = false;
 
@@ -96,13 +96,12 @@ public class SuggestionsOptimizer {
 
             if (alt) {
                 //System.out.println("    Not available chargers found." +
-                        //"Must compute alternative suggestion.\n");
+                //"Must compute alternative suggestion.\n");
                 ev.resetBestsUpdatingChargers();
                 computer.computeAlternative(ev);
                 if (ev.hasSuggestion())
                     suggestions_queue.offer(ev);
-            }
-            else {
+            } else {
                 //System.out.println("    Chargers updated successfully!\n");
                 //ev.setHasSuggestion(true);
                 ev.getSuggestion().setSlotsAffected(slots_changed);
@@ -120,31 +119,31 @@ public class SuggestionsOptimizer {
      * Maybe it can add them directly and not to parse the whole list
      * for better optimization - but not a major problem
      */
-    private void filterSuggestions () {
+    private void filterSuggestions() {
 
         ArrayList<EVObject> removed = new ArrayList<>();
-        for (EVObject ev: evs) {
+        for (EVObject ev : evs) {
             if (!ev.hasSuggestion()) removed.add(ev);
         }
 
-        for (EVObject ev: removed) {
+        for (EVObject ev : removed) {
             System.out.println("EV in removed: " + ev.getId());
             if (!ev.hasSuggestion()) evs.remove(ev);
         }
 
     }
 
-    private void computeUtility () {
+    private void computeUtility() {
 
         int util = 0;
 
-        for (EVObject ev: evs) {
+        for (EVObject ev : evs) {
             util += ev.getSuggestion().getProfit();
         }
         utility = util;
     }
 
-    private void printOrderedSuggestions () {
+    private void printOrderedSuggestions() {
         System.out.println("Ordered Suggestions");
         int count = 0;
         EVObject ev;
@@ -171,14 +170,14 @@ public class SuggestionsOptimizer {
         }
     }
 
-    private void printFinalOrderedSuggestions () {
+    private void printFinalOrderedSuggestions() {
         System.out.println("Ordered Suggestions Final");
         Collections.sort(evs, comparator);
         int count = 0;
         EVObject ev;
         while (count != evs.size()) {
             ev = evs.get(count);
-            System.out.println("    " + (count+1) + ". " + ev.getSuggestion().toString() +
+            System.out.println("    " + (count + 1) + ". " + ev.getSuggestion().toString() +
                     "(ev:" + ev.getId() + ")");
             count++;
         }
@@ -189,7 +188,7 @@ public class SuggestionsOptimizer {
         return utility;
     }
 
-    public boolean isEmpty () {
+    public boolean isEmpty() {
         return empty;
     }
 }

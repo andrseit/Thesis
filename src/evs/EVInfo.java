@@ -40,9 +40,9 @@ public class EVInfo {
         return preferences;
     }
 
-    public String toString () {
+    public String toString() {
         return "Initial Location: <" + locationX + ", " + locationY + ">"
-                +" Destination: <" + final_locationX + ", " + final_locationY + ">"
+                + " Destination: <" + final_locationX + ", " + final_locationY + ">"
                 + "\n\t*Preferences:\n\t\t" + "Start: " + preferences.getStart() + " End: " + preferences.getEnd()
                 + " Energy: " + preferences.getEnergy() + " Distance: " + preferences.getMaxDistance();
     }

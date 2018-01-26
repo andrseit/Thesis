@@ -22,12 +22,12 @@ class StrategyComputer {
     }
 
 
-    public ArrayList<ComparableSuggestion> produceComparableSuggestions (ArrayList<SuggestionMessage> messages) {
+    public ArrayList<ComparableSuggestion> produceComparableSuggestions(ArrayList<SuggestionMessage> messages) {
 
         Preferences initial_prefs = info.getPreferences();
         ArrayList<ComparableSuggestion> comparable_suggestions = new ArrayList<>();
 
-        for (SuggestionMessage message: messages) {
+        for (SuggestionMessage message : messages) {
             if (!(message.getStart() == -1)) {
                 int preferences_distance = 0;
                 if (!hasSuggestion(message)) {
@@ -60,15 +60,16 @@ class StrategyComputer {
     /**
      * Checks if there is a suggestion or the values are max int so it will ask
      * for a new one
+     *
      * @param message
      * @return
      */
-    private boolean hasSuggestion (SuggestionMessage message) {
+    private boolean hasSuggestion(SuggestionMessage message) {
         return !(message.getStart() == Integer.MAX_VALUE && message.getEnd() == Integer.MAX_VALUE
                 && message.getEnergy() == 0);
     }
 
-    private int computePreferencesDistance (SuggestionMessage message, Preferences initial) {
+    private int computePreferencesDistance(SuggestionMessage message, Preferences initial) {
         int start = initial.getStart();
         int end = initial.getEnd();
         int sStart = message.getStart();
@@ -85,48 +86,48 @@ class StrategyComputer {
     /**
      * Checks if the new value is within the initial slot range
      * then the difference is 0
+     *
      * @return
      */
-    private boolean isInRange (int start, int end, int suggested) {
-        if (suggested >= start && suggested <= end)
-            return true;
-        return false;
+    private boolean isInRange(int start, int end, int suggested) {
+        return suggested >= start && suggested <= end;
     }
 
-    private boolean isWithinInitial (SuggestionMessage message, Preferences initial) {
+    private boolean isWithinInitial(SuggestionMessage message, Preferences initial) {
         return message.getStart() >= initial.getStart() && message.getEnd() <= initial.getEnd() && message.getEnergy() == initial.getEnergy();
     }
 
     /**
      * Sorts the messages of the stations based on the priority of the ev (price or distance)
+     *
      * @param messages
      * @param priority
      */
-    private void orderMessages (ArrayList<ComparableSuggestion> messages, String priority) {
-        if (priority.equals("price"))
-        {
-            Collections.sort(messages, Comparator.comparing((ComparableSuggestion s)->s.getPreferencesDistance())
-                    .thenComparing(p->p.getPrice())
-                    .thenComparingInt(p->p.getTotalDistance()));
+    private void orderMessages(ArrayList<ComparableSuggestion> messages, String priority) {
+        if (priority.equals("price")) {
+            Collections.sort(messages, Comparator.comparing((ComparableSuggestion s) -> s.getPreferencesDistance())
+                    .thenComparing(p -> p.getPrice())
+                    .thenComparingInt(p -> p.getTotalDistance()));
         } else {
-            Collections.sort(messages, Comparator.comparing((ComparableSuggestion s)->s.getPreferencesDistance())
-                    .thenComparing(p->p.getTotalDistance())
-                    .thenComparingInt(p->p.getPrice()));
+            Collections.sort(messages, Comparator.comparing((ComparableSuggestion s) -> s.getPreferencesDistance())
+                    .thenComparing(p -> p.getTotalDistance())
+                    .thenComparingInt(p -> p.getPrice()));
         }
     }
 
     /**
      * Checks if a suggestion message is in the given bounds of the strategy,
      * if it is of, reject it immediately
+     *
      * @return
      */
-    private boolean checkWithinRange (SuggestionMessage message) {
+    private boolean checkWithinRange(SuggestionMessage message) {
         return message.getStart() >= strategy_preferences.getStart()
                 && message.getEnd() <= strategy_preferences.getEnd()
                 && message.getEnergy() >= strategy_preferences.getEnergy();
     }
 
-    private int computeTotalDistance (SuggestionMessage message) {
+    private int computeTotalDistance(SuggestionMessage message) {
         int startX = info.getLocationX();
         int startY = info.getLocationY();
         int endX = info.getFinalLocationX();

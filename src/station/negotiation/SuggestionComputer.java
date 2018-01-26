@@ -13,13 +13,11 @@ public class SuggestionComputer {
 
 
     private int[] chargers;
-    private int[] price;
     private Pricing pricing;
 
-    public SuggestionComputer (int[] chargers, Pricing pricing) {
+    public SuggestionComputer(int[] chargers, Pricing pricing) {
         this.chargers = chargers;
         this.pricing = pricing;
-        this.price = pricing.getPrice();
     }
 
     /**
@@ -40,11 +38,12 @@ public class SuggestionComputer {
 
     /**
      * Finds the available energy between two time points.
+     *
      * @param start: start slot
-     * @param end: end slot
+     * @param end:   end slot
      * @return
      */
-    private int energyInSlots (int start, int end, Suggestion suggestion) {
+    private int energyInSlots(int start, int end, Suggestion suggestion) {
         int available_energy = 0;
         int[] affected_slots = new int[chargers.length];
         for (int slot = start; slot <= end; slot++) {
@@ -74,7 +73,7 @@ public class SuggestionComputer {
         return suggestion;
     }
 
-    private void searchSlots (int step, Preferences p, int available_energy, Suggestion suggestion, int lowerBound) {
+    private void searchSlots(int step, Preferences p, int available_energy, Suggestion suggestion, int lowerBound) {
 
         //lowerBound = 0;
         //ArrayTransformations t = new ArrayTransformations();
@@ -92,7 +91,7 @@ public class SuggestionComputer {
         }
         while (available_energy < p.getEnergy()) {
             right += step;
-            if(right == chargers.length || right < lowerBound) {
+            if (right == chargers.length || right < lowerBound) {
                 right -= step;
                 break;
             }
@@ -106,7 +105,7 @@ public class SuggestionComputer {
         // search to the right
         while (available_energy < p.getEnergy()) {
             left -= step;
-            if(left == chargers.length || left < lowerBound) {
+            if (left == chargers.length || left < lowerBound) {
                 left += step;
                 break;
             }
@@ -150,7 +149,7 @@ public class SuggestionComputer {
      * an alternative suggestion
      * WARNING: na chekarw na min einai idia me tin proigoumeni - return false na nai
      */
-    public void computeAlternative (EVObject ev) {
+    public void computeAlternative(EVObject ev) {
 
         //System.out.println("--Computing alternative for ev: " + ev.getId());
 
@@ -164,8 +163,7 @@ public class SuggestionComputer {
         this.checkSuggestion(ev);
         if (ev.hasSuggestion()) {
             this.computeProfit(ev);
-        }
-        else {
+        } else {
             //System.out.println("No suitable suggestion found!");
         }
 
@@ -177,7 +175,7 @@ public class SuggestionComputer {
      * Take as input a suggestion (new preferences) and the initial preferences of an EVObject.
      * Based on some metric check if the suggestion is legitimate.
      */
-    private void evaluateSuggestion (Preferences initial, Suggestion suggestion) {
+    private void evaluateSuggestion(Preferences initial, Suggestion suggestion) {
 
         int start = initial.getStart();
         int end = initial.getEnd();
@@ -194,13 +192,11 @@ public class SuggestionComputer {
         //System.out.println("\nDifferences: " + start_dif + ", " + end_diff + ", " + energy_diff);
     }
 
-    private boolean isInRange (int start, int end, int suggested) {
-        if (suggested >= start && suggested <= end)
-            return true;
-        return false;
+    private boolean isInRange(int start, int end, int suggested) {
+        return suggested >= start && suggested <= end;
     }
 
-    private void computeProfit (EVObject ev) {
+    private void computeProfit(EVObject ev) {
 
         Suggestion suggestion = ev.getSuggestion();
         /*
@@ -220,9 +216,10 @@ public class SuggestionComputer {
 
     /**
      * Sets max Integers which is translated by the evs as No Suggestion
+     *
      * @param ev
      */
-    private void setNoSuggestion (EVObject ev) {
+    private void setNoSuggestion(EVObject ev) {
         Suggestion suggestion = new Suggestion();
         suggestion.setStartEndSlots(Integer.MAX_VALUE, Integer.MAX_VALUE);
         suggestion.setEnergy(0);
@@ -232,13 +229,14 @@ public class SuggestionComputer {
     /**
      * Checks if the suggestion is legit, sets if the ev has suggestion
      * also checks if is better than previous
+     *
      * @param ev
      */
-    private void checkSuggestion (EVObject ev) {
-     Suggestion suggestion = ev.getSuggestion();
-     if (suggestion.getStart() == Integer.MAX_VALUE || suggestion.getEnd() == Integer.MAX_VALUE || suggestion.getEnergy() == 0) {
-         ev.setHasSuggestion(false);
-     }
+    private void checkSuggestion(EVObject ev) {
+        Suggestion suggestion = ev.getSuggestion();
+        if (suggestion.getStart() == Integer.MAX_VALUE || suggestion.getEnd() == Integer.MAX_VALUE || suggestion.getEnergy() == 0) {
+            ev.setHasSuggestion(false);
+        }
 
      /*
      if (ev.getSuggestion().getType() == IntegerConstants.LESS_ENERGY_TYPE) {
@@ -261,37 +259,37 @@ public class SuggestionComputer {
     /**
      * WARNING: prosoxi na min enallasontai oi protaseis, dld proteinei mia l.e. = 3
      * meta a.w.=4-7 to arneitai meta gyrizei pali sto l.e. = 3
+     *
      * @param ev
      * @param s1
      * @param s2
      * @return
      */
-    private void compareSuggestions (EVObject ev, Suggestion s1, Suggestion s2) {
+    private void compareSuggestions(EVObject ev, Suggestion s1, Suggestion s2) {
         int difference = s1.getRating() - s2.getRating();
         Suggestion best, alt;
         if (difference < 0) {
             best = s1;
             alt = s2;
             //ev.setSuggestion(s1);
-        }
-        else {
+        } else {
             best = s2;
             alt = s1;
             //ev.setSuggestion(s2);
         }
 
         //if (state == IntegerConstants.SUGGESTION_COMPUTER_CONVERSATION) {
-            if (isBetter(ev, best)) {
-                ev.setSuggestion(best);
-                ev.setBestRating(best.getType(), best.getRating());
-                ev.setHasSuggestion(true);
-            } else if (isBetter(ev, alt)) {
-                ev.setSuggestion(alt);
-                ev.setBestRating(alt.getType(), alt.getRating());
-                ev.setHasSuggestion(true);
-            } else {
-                ev.setHasSuggestion(false);
-            }
+        if (isBetter(ev, best)) {
+            ev.setSuggestion(best);
+            ev.setBestRating(best.getType(), best.getRating());
+            ev.setHasSuggestion(true);
+        } else if (isBetter(ev, alt)) {
+            ev.setSuggestion(alt);
+            ev.setBestRating(alt.getType(), alt.getRating());
+            ev.setHasSuggestion(true);
+        } else {
+            ev.setHasSuggestion(false);
+        }
         //}
 
         /*
@@ -318,11 +316,12 @@ public class SuggestionComputer {
 
     /**
      * WARNING: min ksexasw na kanw set to bestRating sto EVObject, otan einai initial
+     *
      * @param ev
      * @param suggestion
      * @return
      */
-    private boolean isBetter (EVObject ev, Suggestion suggestion) {
+    private boolean isBetter(EVObject ev, Suggestion suggestion) {
 
         if (suggestion.getType() == IntegerConstants.LESS_ENERGY_TYPE) {
             if (suggestion.getRating() < ev.getBestLessEnergy()) {

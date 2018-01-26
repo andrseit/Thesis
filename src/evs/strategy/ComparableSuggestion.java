@@ -36,7 +36,7 @@ class ComparableSuggestion {
         return station;
     }
 
-    public String toString () {
+    public String toString() {
         return "Station_" + station.getId() + ": Price: " + price + "  Distance: " + total_distance +
                 "  Preferences distance: " + preferences_distance;
     }

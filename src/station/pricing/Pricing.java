@@ -11,7 +11,7 @@ public abstract class Pricing {
         this.price = price;
     }
 
-    public abstract int computeCost (int[] slotsAffected);
+    public abstract int computeCost(int[] slotsAffected);
 
     public int[] getPrice() {
         return price;

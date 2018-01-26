@@ -19,7 +19,10 @@ public class Preferences {
         this.start = start;
     }
 
-    public void setStartEndSlots (int start, int end) { this.start = start; this.end = end; }
+    public void setStartEndSlots(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
 
     public int getEnd() {
         return end;
@@ -37,7 +40,7 @@ public class Preferences {
         this.energy = energy;
     }
 
-    public String toString () {
+    public String toString() {
         return "Slots: " + start + " - " + end + " / Energy: " + energy;
     }
 

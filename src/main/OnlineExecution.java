@@ -2,7 +2,8 @@ package main;
 
 import evs.EV;
 import io.JSONFileParser;
-import station.*;
+import station.StationInfo;
+import station.offline.AbstractStation;
 import station.online.AbstractOnlineStation;
 import station.online.SimpleOnlineStation;
 
@@ -17,18 +18,26 @@ public class OnlineExecution extends Execution {
 
     private ArrayList<AbstractOnlineStation> stations;
     private PriorityQueue<EV> orderedEVs;
+    private int currentSlot;
+
+    public OnlineExecution () {
+        online = true;
+    }
 
     @Override
     protected void initialize() {
         JSONFileParser parser = new JSONFileParser();
         stations = new ArrayList<>();
-        s_infos = parser.readStationData("station.json");
-        this.slotsNumber = parser.getSlotsNumber();
-        for (StationInfo s : s_infos) {
-            SimpleOnlineStation station = new SimpleOnlineStation(s, slotsNumber);
-            s.setStation(station);
+        for (AbstractOnlineStation station: parser.readOnlineStations("station.json")) {
             stations.add(station);
         }
+
+        s_infos = new ArrayList<>();
+        for (AbstractStation station: stations) {
+            s_infos.add(station.getInfo());
+        }
+        this.slotsNumber = parser.getSlotsNumber();
+
         evs = parser.readEVsData("evs.json");
         orderedEVs = this.orderEVs();
         printEVs();
@@ -49,7 +58,7 @@ public class OnlineExecution extends Execution {
             // if there are no evs
             while ((ev = orderedEVs.peek()) != null && ev.getInformSlot() == slot) {
                 orderedEVs.poll();
-                ev.requestStation(s_infos);
+                ev.requestStation(s_infos, online);
             }
 
 
@@ -57,6 +66,7 @@ public class OnlineExecution extends Execution {
             int countOffers = 0; // if offers == 0 do not send messages
             for (int st = 0; st < stations.size(); st++) {
                 AbstractOnlineStation station = stations.get(st);
+                station.setCurrentSlot(slot);
                 System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
                 station.transferBidders();
                 if (station.hasOffers(slot)) {
@@ -128,8 +138,8 @@ public class OnlineExecution extends Execution {
         }
     }
 
-    private void resetEVsRounds () {
-        for (EV ev: evs) {
+    private void resetEVsRounds() {
+        for (EV ev : evs) {
             ev.resetRounds();
         }
     }

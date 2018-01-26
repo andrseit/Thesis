@@ -2,7 +2,6 @@ package io;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import station.StationInfo;
 
 import java.io.*;
 import java.util.Random;
@@ -29,7 +28,7 @@ public class DataGenerator {
         stationLocation = new int[stationsNumber][2];
     }
 
-    public void generateEVsFile () {
+    public void generateEVsFile() {
         if (!stationsGenerated)
             System.err.println("Please generate or read station file first!");
         else {
@@ -66,8 +65,8 @@ public class DataGenerator {
                 System.out.println("min: " + minDistance + ", max: " + maxDistance);
 
                 // final destination
-                int f_x = random.nextInt(gridSize);;
-                int f_y = random.nextInt(gridSize);;
+                int f_x = random.nextInt(gridSize);
+                int f_y = random.nextInt(gridSize);
                 while ((f_x == x) && (f_y == y)) {
                     f_x = random.nextInt(gridSize);
                     f_y = random.nextInt(gridSize);
@@ -95,7 +94,7 @@ public class DataGenerator {
 
 
                 int s_start = 0;
-                if (start !=0)
+                if (start != 0)
                     s_start = random.nextInt(start);
                 int s_end = random.nextInt(slotsNumber - end) + end;
                 int s_energy = random.nextInt(energy) + 1;
@@ -110,7 +109,7 @@ public class DataGenerator {
                 ev.put("preferences", pref);
                 ev.put("strategy", strategy);
 
-                writer.write(ev.toJSONString()+"\n");
+                writer.write(ev.toJSONString() + "\n");
             }
             writer.flush();
             writer.close();
@@ -120,7 +119,7 @@ public class DataGenerator {
         }
     }
 
-    public void generateStationFile (int slots_num, int chargers_num) {
+    public void generateStationFile(int slots_num, int chargers_num) {
 
         try {
             FileWriter writer = new FileWriter("station.json");
@@ -137,10 +136,10 @@ public class DataGenerator {
 
     }
 
-    public void generateStationFile () {
+    public void generateStationFile() {
         try {
             FileWriter writer = new FileWriter("station.json");
-            writer.write(slotsNumber+"\n");
+            writer.write(slotsNumber + "\n");
 
             JSONObject station = new JSONObject();
             JSONObject location = new JSONObject();
@@ -150,7 +149,7 @@ public class DataGenerator {
             station.put("location", location);
             stationLocation[0][0] = 0;
             stationLocation[0][1] = 0;
-            writer.write(station.toJSONString()+"\n");
+            writer.write(station.toJSONString() + "\n");
 
             station = new JSONObject();
             location = new JSONObject();
@@ -160,7 +159,7 @@ public class DataGenerator {
             stationLocation[1][0] = 1;
             stationLocation[1][1] = 0;
             station.put("location", location);
-            writer.write(station.toJSONString()+"\n");
+            writer.write(station.toJSONString() + "\n");
 
             station = new JSONObject();
             location = new JSONObject();
@@ -170,7 +169,7 @@ public class DataGenerator {
             stationLocation[2][0] = 1;
             stationLocation[2][1] = 1;
             station.put("location", location);
-            writer.write(station.toJSONString()+"\n");
+            writer.write(station.toJSONString() + "\n");
 
             writer.flush();
             writer.close();
@@ -187,7 +186,7 @@ public class DataGenerator {
         }
     }
 
-    public void readStationFile () {
+    public void readStationFile() {
         stationsGenerated = true;
         Reader reader;
         JSONParser parser = new JSONParser();

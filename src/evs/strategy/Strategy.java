@@ -6,7 +6,7 @@ import station.StationInfo;
 import station.SuggestionMessage;
 import various.IntegerConstants;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Created by Thesis on 18/12/2017.
@@ -27,16 +27,16 @@ public class Strategy {
         s_rounds = 0;
     }
 
-    public void addSuggestion (SuggestionMessage suggestion) {
+    public void addSuggestion(SuggestionMessage suggestion) {
         suggestions.add(suggestion);
     }
 
-    public void evaluate (EVInfo info) {
+    public void evaluate(EVInfo info) {
         StrategyComputer computer = new StrategyComputer(info, strategyPreferences);
         ArrayList<ComparableSuggestion> comparable_suggestions = computer.produceComparableSuggestions(suggestions);
 
         System.out.println("\tComparable suggestions");
-        for (ComparableSuggestion s: comparable_suggestions) {
+        for (ComparableSuggestion s : comparable_suggestions) {
             System.out.println("\t\t" + s.toString());
         }
 
@@ -55,7 +55,7 @@ public class Strategy {
             }
             suggestions.clear();
             if (rejectPendingStations) {
-                for (StationInfo station: pendingStations)
+                for (StationInfo station : pendingStations)
                     station.checkIn(info, IntegerConstants.EV_EVALUATE_REJECT);
                 rejectPendingStations = false;
             }
@@ -63,7 +63,7 @@ public class Strategy {
         }
     }
 
-    private int[] compareSuggestions (ArrayList<ComparableSuggestion> comparableSuggestions) {
+    private int[] compareSuggestions(ArrayList<ComparableSuggestion> comparableSuggestions) {
         // in which station it accpeted/rejected/asked for better suggestion
         int[] states = new int[comparableSuggestions.size()];
         for (int s = 0; s < states.length; s++) {
@@ -83,8 +83,7 @@ public class Strategy {
                 states[s] = IntegerConstants.EV_EVALUATE_PENDING;
             } else if (suggestion.getPreferencesDistance() == -1) {
                 states[s] = IntegerConstants.EV_EVALUATE_REJECT;
-            }
-            else if (suggestion.getPreferencesDistance() < Integer.MAX_VALUE ) { //&& suggestion.getPreferencesDistance() > 0) {
+            } else if (suggestion.getPreferencesDistance() < Integer.MAX_VALUE) { //&& suggestion.getPreferencesDistance() > 0) {
                 states[s] = IntegerConstants.EV_EVALUATE_ACCEPT;
                 rejectPendingStations = true;
                 for (int i = 0; i < states.length; i++) {
@@ -98,25 +97,26 @@ public class Strategy {
         return states;
     }
 
-    public boolean isEmpty () { return suggestions.isEmpty(); }
+    public boolean isEmpty() {
+        return suggestions.isEmpty();
+    }
 
-    public void printSuggestionsList () {
-        for (Preferences p: suggestions) {
+    public void printSuggestionsList() {
+        for (Preferences p : suggestions) {
             System.out.println("    " + p.toString());
         }
         System.out.println();
     }
 
-    public void resetRounds () {
+    public void resetRounds() {
         s_rounds = 0;
     }
 
-    public String toString () {
-        String str = "Strategy: \n" +
+    public String toString() {
+        return "Strategy: \n" +
                 "\t\tStart: " + strategyPreferences.getStart() +
                 " End: " + strategyPreferences.getEnd() +
                 " Rounds: " + strategyPreferences.getRounds() +
                 " Probability: " + strategyPreferences.getPriority();
-        return str;
     }
 }

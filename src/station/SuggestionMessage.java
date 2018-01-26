@@ -33,7 +33,7 @@ public class SuggestionMessage extends Preferences {
         return station;
     }
 
-    public String toString () {
+    public String toString() {
         return "Station_" + station.getId() + ": " +
                 start + "-" + end + "/" + energy + " -cost: " + cost;
     }

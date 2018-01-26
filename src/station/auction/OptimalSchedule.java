@@ -1,7 +1,7 @@
 package station.auction;
 
+import optimize.AbstractCPLEX;
 import station.EVObject;
-import optimize.CPLEX;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,10 +17,10 @@ public class OptimalSchedule {
     private int[] price;
     private int[] remaining_chargers;
 
-    private CPLEX cp;
+    private AbstractCPLEX cp;
 
 
-    public OptimalSchedule(ArrayList<EVObject> bidders_list, int slots_number, int[] price, int[] remaining_chargers, CPLEX cp) {
+    public OptimalSchedule(ArrayList<EVObject> bidders_list, int slots_number, int[] price, int[] remaining_chargers, AbstractCPLEX cp) {
         this.bidders_list = bidders_list;
         this.slots_number = slots_number;
         this.price = price;
@@ -28,7 +28,7 @@ public class OptimalSchedule {
         this.cp = cp;
     }
 
-    public int[][] computeOptimalSchedule () {
+    public int[][] computeOptimalSchedule() {
 
         int min_slot = getMinSlot();
         int max_slot = getMaxSlot();
@@ -41,7 +41,7 @@ public class OptimalSchedule {
         return cp.getScheduleMap();
     }
 
-    private int getMinSlot () {
+    private int getMinSlot() {
         PriorityQueue<EVObject> queue = new PriorityQueue<EVObject>(10, new Comparator<EVObject>() {
             @Override
             public int compare(EVObject ev1, EVObject ev2) {
@@ -49,13 +49,13 @@ public class OptimalSchedule {
             }
         });
 
-        for (EVObject ev: bidders_list) {
+        for (EVObject ev : bidders_list) {
             queue.offer(ev);
         }
         return queue.peek().getMinSlot();
     }
 
-    private int getMaxSlot () {
+    private int getMaxSlot() {
         PriorityQueue<EVObject> queue = new PriorityQueue<EVObject>(10, new Comparator<EVObject>() {
             @Override
             public int compare(EVObject ev1, EVObject ev2) {
@@ -63,11 +63,11 @@ public class OptimalSchedule {
             }
         });
 
-        for (EVObject ev: bidders_list) {
+        for (EVObject ev : bidders_list) {
             queue.offer(ev);
         }
 
-       return queue.peek().getMaxSlot();
+        return queue.peek().getMaxSlot();
     }
 
 }

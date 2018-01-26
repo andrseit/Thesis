@@ -17,7 +17,7 @@ public class Suggestion extends Preferences {
     // me to suggestion opote na pas kai na ta kaneis +1
     private int[] slots_afected;
 
-    public Suggestion () {
+    public Suggestion() {
         start = -1;
         end = -1;
         energy = -1;
@@ -33,7 +33,7 @@ public class Suggestion extends Preferences {
         this.rating = rating;
     }
 
-    public String toString () {
+    public String toString() {
         StringBuilder str = new StringBuilder();
         if (type == IntegerConstants.LESS_ENERGY_TYPE)
             str.append("Less Energy -> ");
@@ -57,7 +57,7 @@ public class Suggestion extends Preferences {
         this.slots_afected = slots_affected;
     }
 
-    public void findSlotsAffected (int[] chargers) {
+    public void findSlotsAffected(int[] chargers) {
 
         if (start == Integer.MAX_VALUE && end == Integer.MAX_VALUE && energy == 0) {
             slots_afected = new int[0];
@@ -71,7 +71,7 @@ public class Suggestion extends Preferences {
         }
     }
 
-    public void findSlotsAffected (int[][] schedule, int row) {
+    public void findSlotsAffected(int[][] schedule, int row) {
         slots_afected = new int[schedule[row].length];
         for (int s = start; s <= end; s++) {
             if (schedule[row][s] == 1) {
@@ -79,6 +79,7 @@ public class Suggestion extends Preferences {
             }
         }
     }
+
 
     public int getCost() {
         return cost;
@@ -92,11 +93,11 @@ public class Suggestion extends Preferences {
         return slots_afected;
     }
 
-    public void setType (int type) {
+    public void setType(int type) {
         this.type = type;
     }
 
-    public int getType () {
+    public int getType() {
         return type;
     }
 

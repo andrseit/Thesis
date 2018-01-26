@@ -19,7 +19,7 @@ public class EVObject {
     private int bid;
     private int id;
     private int station_id;
-   //private int energy;
+    //private int energy;
     private int inform_slot;
     private int slotsNeeded; // slots the ev needs to reach the station - so that it makes the offer in the right time
     private int lastSlot; // the slot that at maximum the station can make the offer
@@ -57,11 +57,11 @@ public class EVObject {
         lastSlot = 0;
     }
 
-    public void setEVAddress (EV evAddress) {
-        this.object_address= evAddress;
+    public void setEVAddress(EV evAddress) {
+        this.object_address = evAddress;
     }
 
-    public void addEVPreferences (int start, int end, int bid, int energy) {
+    public void addEVPreferences(int start, int end, int bid, int energy) {
         preferences.setStart(start);
         preferences.setEnd(end);
         preferences.setEnergy(energy);
@@ -70,22 +70,21 @@ public class EVObject {
 
 
     public String printEV() {
-        String str = ("EVs id: " + id + "(" + station_id + ")" + " -> ") +
-                getStartSlot() + "-" + getEndSlot() + "/" + getEnergy() +
-                "\n";
         //str.append(" informed at slot " + getInformSlot() + "\n");
         //str.append("EVs id: " + id + "(" + station_id + ")" + " -> energy needed: " + preferences.getEnergy() + "   informed at slot: " + inform_slot + ".\n");
         // str.append("\nSchedule row: " + schedule_row + "\n");
         //if (charged)
-            //str.append(" will charge!");
-        return str;
+        //str.append(" will charge!");
+        return ("EVs id: " + id + "(" + station_id + ")" + " -> ") +
+                getStartSlot() + "-" + getEndSlot() + "/" + getEnergy() +
+                "\n";
     }
 
-    public int getMinSlot () {
+    public int getMinSlot() {
         return preferences.getStart();
     }
 
-    public int getMaxSlot () {
+    public int getMaxSlot() {
         return preferences.getEnd();
     }
 
@@ -113,21 +112,25 @@ public class EVObject {
         this.id = id;
     }
 
-    public int getStartSlot () {
+    public int getStartSlot() {
         return preferences.getStart();
     }
 
-    public int getEndSlot () {
+    public int getEndSlot() {
         return preferences.getEnd();
     }
 
-    public int getBid () {
+    public int getBid() {
         return bid;
     }
 
-    public Preferences getPreferences () { return preferences; }
+    public Preferences getPreferences() {
+        return preferences;
+    }
 
-    public EV getObjectAddress () { return object_address; }
+    public EV getObjectAddress() {
+        return object_address;
+    }
 
     public Suggestion getSuggestion() {
         return suggestion;
@@ -145,11 +148,10 @@ public class EVObject {
         this.has_suggestion = has_suggestion;
     }
 
-    public String toString () {
-        String str = ("ev_" + schedule_row + ": ") +
+    public String toString() {
+        return ("ev_" + schedule_row + ": ") +
                 preferences.getStart() + " - " + preferences.getEnd() + " / " + preferences.getEnergy() +
                 " -- " + bid;
-        return str;
     }
 
     public int getBestLessEnergy() {
@@ -170,12 +172,11 @@ public class EVObject {
         this.best_altered_window = best_altered_window;
     }
 
-    public void setBestRating (int type, int rating) {
+    public void setBestRating(int type, int rating) {
         if (type == IntegerConstants.LESS_ENERGY_TYPE) {
             //previous_best_le = best_less_energy;
             best_less_energy = rating;
-        }
-        else {
+        } else {
             //previous_best_aw = best_altered_window;
             best_altered_window = rating;
         }
@@ -201,7 +202,7 @@ public class EVObject {
         final_suggestion.setEnergy(suggestion.getEnergy());
     }
 
-    public void saveBests () {
+    public void saveBests() {
         final_best_le = best_less_energy;
         final_best_aw = best_altered_window;
         best_less_energy = Integer.MAX_VALUE;
@@ -216,7 +217,7 @@ public class EVObject {
     /**
      * If there are no chargers for the initial
      */
-    public void resetBestsUpdatingChargers () {
+    public void resetBestsUpdatingChargers() {
         if (suggestion.getType() == IntegerConstants.LESS_ENERGY_TYPE) {
             best_less_energy = previous_best_le;
         } else {
@@ -243,7 +244,7 @@ public class EVObject {
         }
     }
 
-    public void setFinalPreferences () {
+    public void setFinalPreferences() {
         preferences.setStartEndSlots(final_suggestion.getStart(), final_suggestion.getEnd());
         preferences.setEnergy(final_suggestion.getEnergy());
     }
@@ -276,5 +277,13 @@ public class EVObject {
 
     public void setLastSlot(int lastSlot) {
         this.lastSlot = lastSlot;
+    }
+
+    public int getInformSlot() {
+        return inform_slot;
+    }
+
+    public void setInformSlot(int inform_slot) {
+        this.inform_slot = inform_slot;
     }
 }

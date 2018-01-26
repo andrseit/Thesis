@@ -24,12 +24,12 @@ public class Schedule {
         }
     }
 
-    public void setFullScheduleMap (int[][] map) {
+    public void setFullScheduleMap(int[][] map) {
         this.scheduleMap = map;
         this.updateChargers(map);
     }
 
-    private void updateChargers (int[][] map) {
+    private void updateChargers(int[][] map) {
         ArrayTransformations t = new ArrayTransformations();
         int[] occupancy = t.getColumnsCount(map);
         for (int s = 0; s < remaining_chargers.length; s++) {
@@ -37,19 +37,19 @@ public class Schedule {
         }
     }
 
-    public void resetChargers () {
+    public void resetChargers() {
         remaining_chargers = new int[slots_number];
         for (int s = 0; s < slots_number; s++) {
             remaining_chargers[s] = chargers_number;
         }
     }
 
-    public void resetChargers (int[] chargers) {
+    public void resetChargers(int[] chargers) {
         remaining_chargers = new int[slots_number];
         System.arraycopy(chargers, 0, remaining_chargers, 0, slots_number);
     }
 
-    private void computeRemainingChargers () {
+    private void computeRemainingChargers() {
 
     }
 
@@ -124,8 +124,8 @@ public class Schedule {
     }
 
 
-    public void updateNegotiationChargers (ArrayList<EVObject> negotiation_evs) {
-        for (EVObject ev: negotiation_evs) {
+    public void updateNegotiationChargers(ArrayList<EVObject> negotiation_evs) {
+        for (EVObject ev : negotiation_evs) {
             Suggestion suggestion = ev.getSuggestion();
             int start = suggestion.getStart();
             int end = suggestion.getEnd();

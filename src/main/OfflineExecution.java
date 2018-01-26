@@ -1,9 +1,9 @@
 package main;
 
 import io.JSONFileParser;
+import station.StationInfo;
 import station.offline.AbstractStation;
 import station.offline.SimpleStation;
-import station.StationInfo;
 
 import java.util.ArrayList;
 
@@ -18,13 +18,15 @@ public class OfflineExecution extends Execution {
     public void initialize() {
         JSONFileParser parser = new JSONFileParser();
         stations = new ArrayList<>();
-        s_infos = parser.readStationData("station.json");
-        this.slotsNumber = parser.getSlotsNumber();
-        for (StationInfo s: s_infos) {
-            SimpleStation station = new SimpleStation(s, slotsNumber);
-            s.setStation(station);
+        for (AbstractStation station: parser.readOfflineStations("station.json")) {
             stations.add(station);
         }
+        s_infos = new ArrayList<>();
+        for (AbstractStation station: stations) {
+            s_infos.add(station.getInfo());
+        }
+        this.slotsNumber = parser.getSlotsNumber();
+
         finished_stations = new boolean[stations.size()];
         for (int s = 0; s < finished_stations.length; s++) {
             finished_stations[s] = false;
@@ -43,7 +45,7 @@ public class OfflineExecution extends Execution {
         this.evsRequestStations();
         // stations sending initial offers
         System.out.println("Stations computing and sending initial offers...");
-        for (AbstractStation station: stations) {
+        for (AbstractStation station : stations) {
             System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
             System.out.println("Ev Bidders:");
             System.out.println(station.printEVBidders());

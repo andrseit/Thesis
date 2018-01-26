@@ -1,8 +1,8 @@
 package main;
 
 import evs.EV;
-import station.offline.AbstractStation;
 import station.StationInfo;
+import station.offline.AbstractStation;
 
 import java.util.ArrayList;
 
@@ -15,6 +15,7 @@ public abstract class Execution {
     protected ArrayList<EV> evs;
     protected ArrayList<StationInfo> s_infos;
     protected boolean[] finished_stations; // the stations that have no duties
+    protected boolean online;
 
     protected abstract void initialize();
 
@@ -23,7 +24,7 @@ public abstract class Execution {
 
     protected void evsRequestStations() {
         for (EV ev : evs) {
-            ev.requestStation(s_infos);
+            ev.requestStation(s_infos, online);
         }
     }
 

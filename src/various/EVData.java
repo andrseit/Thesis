@@ -27,7 +27,7 @@ class EVData {
 
     private String json_sting;
 
-    public EVData (int energy, int bid, int start, int end, int inform_slot) {
+    public EVData(int energy, int bid, int start, int end, int inform_slot) {
 
         bids = new ArrayList<Integer[]>();
 
@@ -39,7 +39,7 @@ class EVData {
 
     }
 
-    public void addBid (int start, int end, int bid) {
+    public void addBid(int start, int end, int bid) {
         Integer[] bid_array = new Integer[3];
         bid_array[0] = start;
         bid_array[1] = end;
@@ -47,7 +47,7 @@ class EVData {
         bids.add(bid_array);
     }
 
-    public void setStrategy (int start, int end, int energy, int probability, int rounds) {
+    public void setStrategy(int start, int end, int energy, int probability, int rounds) {
         s_start = start;
         s_end = end;
         s_energy = energy;
@@ -55,53 +55,72 @@ class EVData {
         s_rounds = rounds;
     }
 
-    public Strategy getStrategy () {
+    public Strategy getStrategy() {
         return new Strategy(s_energy, s_start, s_end, s_prob, s_rounds);
     }
 
-    public void setJSONString (String str) {
+    public void setJSONString(String str) {
         this.json_sting = str;
     }
-    public void setEnergy (int energy) {
+
+    public void setEnergy(int energy) {
         this.energy = energy;
     }
 
-    public int getStartAtIndex (int index) {
+    public int getStartAtIndex(int index) {
         return bids.get(index)[0];
     }
 
-    public int getEndAtIndex (int index) {
+    public int getEndAtIndex(int index) {
         return bids.get(index)[1];
     }
 
-    public int getBidAtIndex (int index) {
+    public int getBidAtIndex(int index) {
         return bids.get(index)[2];
     }
 
-    public int getEnergy () {
+    public int getEnergy() {
         return energy;
     }
 
-    public ArrayList<Integer[]> getBids () { return bids; }
+    public ArrayList<Integer[]> getBids() {
+        return bids;
+    }
 
-    public void setInformSlot (int inform_slot) { this.inform_slot = inform_slot; }
+    public void setInformSlot(int inform_slot) {
+        this.inform_slot = inform_slot;
+    }
 
-    public int getInformSlot () { return  inform_slot; }
+    public int getInformSlot() {
+        return inform_slot;
+    }
 
-    public int getBid() { return bid; }
+    public int getBid() {
+        return bid;
+    }
 
-    public void setBid(int bid) { this.bid = bid; }
+    public void setBid(int bid) {
+        this.bid = bid;
+    }
 
-    public int getStart() { return start; }
+    public int getStart() {
+        return start;
+    }
 
-    public void setStart(int start) { this.start = start; }
+    public void setStart(int start) {
+        this.start = start;
+    }
 
-    public int getEnd() { return end; }
+    public int getEnd() {
+        return end;
+    }
 
-    public void setEnd(int end) { this.end = end; }
+    public void setEnd(int end) {
+        this.end = end;
+    }
 
     @Override
-    public String toString () {
+    public String toString() {
         return json_sting;
     }
 

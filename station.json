@@ -1,4 +1,2 @@
 10
-{"location":{"x":0,"y":0},"chargers":2}
-{"location":{"x":1,"y":0},"chargers":2}
-{"location":{"x":1,"y":1},"chargers":2}
+{"location":{"x":0,"y":0},"chargers":1, "flags":{"window":1,"suggestion":0,"cplex":0,"instant":1}}

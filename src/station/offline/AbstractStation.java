@@ -1,12 +1,16 @@
 package station.offline;
 
-import optimize.CPLEX;
-import station.*;
+import optimize.AbstractCPLEX;
+import station.EVObject;
+import station.Schedule;
+import station.StationInfo;
+import station.SuggestionMessage;
 import station.negotiation.Suggestion;
 import station.pricing.Pricing;
 import various.IntegerConstants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Thesis on 19/1/2018.
@@ -29,52 +33,57 @@ public abstract class AbstractStation {
     protected boolean finished;
     protected boolean update;
 
-    protected CPLEX cp;
+    protected HashMap<String, Integer> strategyFlags;
+
+    protected AbstractCPLEX cp;
 
     /**
-     *
      * @return the schedule computed
      */
-    public abstract int[][] compute ();
+    public abstract int[][] compute();
 
     /**
      * This is used when a bidder is able to charge in the optimal schedule
      * If so choose the slots that the station will offer
      * e.g. his start-end slot
      * or only the actual slots he used (start:0 - end: 10/e=2, but used only 0-2, so offer 0-2)
+     *
      * @param ev
      */
-    public abstract void computeOffer (EVObject ev, int[] evRow);
+    public abstract void computeOffer(EVObject ev, int[] evRow);
 
     /**
      * For the evs that did not charged compute suggestions
      * add the suggestion to the ev
      */
-    public abstract void findSuggestion ();
+    public abstract void findSuggestion();
 
     /**
      * As parei ti lista (waiting) o allos kai as tous kanei oti thelei
      * px na tous valei oti de tha tous kanei prosfora
      * h' na vrei suggestions
      */
-    public abstract void offersNotCharged (Pricing pricing);
+    public abstract void offersNotCharged(Pricing pricing);
 
     /**
      * Constructor
+     *
      * @param info
      * @param slotsNumber
      */
-    public AbstractStation(StationInfo info, int slotsNumber) {
+    public AbstractStation(StationInfo info, int slotsNumber, HashMap<String, Integer> strategyFlags) {
         this.info = info;
         this.slotsNumber = slotsNumber;
         price = new int[slotsNumber];
-        for (int s = 0; s < slotsNumber/2; s++) {
+        for (int s = 0; s < slotsNumber / 2; s++) {
             price[s] = 1;
         }
-        for (int s = slotsNumber/2; s < slotsNumber; s++) {
+        for (int s = slotsNumber / 2; s < slotsNumber; s++) {
             price[s] = 1;
         }
         //price[4] = 2;
+
+        this.strategyFlags = strategyFlags;
 
         evBidders = new ArrayList<>();
         waiting = new ArrayList<>();
@@ -85,10 +94,9 @@ public abstract class AbstractStation {
         update = false;
 
         schedule = new Schedule(slotsNumber, info.getChargerNumber());
-        cp = new CPLEX();
     }
 
-    public void addEVBidder (EVObject ev) {
+    public void addEVBidder(EVObject ev) {
         ev.setStationId(id_counter);
         id_counter++;
         evBidders.add(ev);
@@ -96,7 +104,7 @@ public abstract class AbstractStation {
         waiting.add(ev);
     }
 
-    public boolean computeSchedule () {
+    public boolean computeSchedule() {
         if (evBidders.size() > 0) {
             schedule.setFullScheduleMap(this.compute());
             schedule.printScheduleMap(price);
@@ -111,15 +119,15 @@ public abstract class AbstractStation {
         }
     }
 
-    public void computeOffers () {
+    public void computeOffers() {
         this.offersCharged();
         if (!waiting.isEmpty())
             this.offersNotCharged(this.pricing);
         //else
-            //System.out.println("There are no pending vehicles!");
+        //System.out.println("There are no pending vehicles!");
     }
 
-    public void offersCharged () {
+    public void offersCharged() {
         int[] whoCharged = cp.getWhoCharges();
         int[][] scheduleMap = cp.getScheduleMap();
         for (int e = 0; e < whoCharged.length; e++) {
@@ -133,12 +141,11 @@ public abstract class AbstractStation {
     }
 
 
-
     /**
      * When the station cannot charge an ev then create the suitable offer
      * Integer.MAX
      */
-    public void addNotAvailableMessage (EVObject ev) {
+    public void addNotAvailableMessage(EVObject ev) {
         Suggestion suggestion = new Suggestion();
         suggestion.setStartEndSlots(Integer.MAX_VALUE, Integer.MAX_VALUE);
         suggestion.setEnergy(0);
@@ -148,7 +155,7 @@ public abstract class AbstractStation {
         ev.setFinalSuggestion();
     }
 
-    public void sendOfferMessages () {
+    public void sendOfferMessages() {
 
         if (!messageReceivers.isEmpty()) {
             System.out.print("Sending messages to: ");
@@ -160,9 +167,9 @@ public abstract class AbstractStation {
                 ev.getObjectAddress().addSuggestion(message);
 
                 if (e == messageReceivers.size() - 1)
-                    receivers.append("ev_" + ev.getId() + "\n");
+                    receivers.append("ev_").append(ev.getId()).append("\n");
                 else
-                    receivers.append("ev_" + ev.getId() + ", ");
+                    receivers.append("ev_").append(ev.getId()).append(", ");
             }
             System.out.println(receivers);
         } else {
@@ -174,10 +181,11 @@ public abstract class AbstractStation {
 
     /**
      * sets flags: accepted and waiting
+     *
      * @param id
      * @param state
      */
-    public void markEVBidder (int id, int state) {
+    public void markEVBidder(int id, int state) {
         System.out.print("\t\t\tStation_" + info.getId() + ": ");
         for (int e = 0; e < evBidders.size(); e++) {
             EVObject ev = evBidders.get(e);
@@ -200,7 +208,7 @@ public abstract class AbstractStation {
         }
     }
 
-    public void updateBiddersLists () {
+    public void updateBiddersLists() {
         id_counter = evBidders.size();
         for (int e = 0; e < evBidders.size(); e++) {
             EVObject ev = evBidders.get(e);
@@ -214,7 +222,7 @@ public abstract class AbstractStation {
         this.resetChargers();
     }
 
-    public String printEVBidders () {
+    public String printEVBidders() {
         StringBuilder str = new StringBuilder();
         for (int e = 0; e < evBidders.size(); e++) {
             EVObject ev = evBidders.get(e);
@@ -223,19 +231,19 @@ public abstract class AbstractStation {
         return str.toString();
     }
 
-    public String printEVWaiting () {
+    public String printEVWaiting() {
         StringBuilder str = new StringBuilder();
-        for (EVObject ev: waiting) {
+        for (EVObject ev : waiting) {
             str.append(ev.printEV());
         }
         return str.toString();
     }
 
-    protected void resetChargers () {
+    protected void resetChargers() {
         schedule.resetChargers();
     }
 
-    protected int computePrice (Suggestion suggestion) {
+    protected int computePrice(Suggestion suggestion) {
         if (suggestion.getSlotsAfected() == null) {
             return 0;
         } else
@@ -261,14 +269,11 @@ public abstract class AbstractStation {
         return info;
     }
 
-    public boolean isFinished () {
-        if (messageReceivers.isEmpty() || evBidders.isEmpty()) {
-            return true;
-        }
-        return false;
+    public boolean isFinished() {
+        return messageReceivers.isEmpty() || evBidders.isEmpty();
     }
 
-    public void printScheduleMap () {
+    public void printScheduleMap() {
         schedule.printScheduleMap(price);
     }
 }

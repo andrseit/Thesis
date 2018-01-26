@@ -12,13 +12,13 @@ import java.util.ArrayList;
 class PrintOuch {
 
 
-    public void printEVs (ArrayList<EVObject> evs) {
-        for (EVObject ev: evs) {
+    public void printEVs(ArrayList<EVObject> evs) {
+        for (EVObject ev : evs) {
             System.out.println(ev.toString());
         }
     }
 
-    public void comparePreferences (Preferences initial, Suggestion suggestion) {
+    public void comparePreferences(Preferences initial, Suggestion suggestion) {
         System.out.println();
         System.out.println("Comparing Suggestion with Preferences:");
         System.out.println("Start: " + initial.getStart() + "/" + suggestion.getStart());

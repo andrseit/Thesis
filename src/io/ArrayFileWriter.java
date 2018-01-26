@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
  */
 public class ArrayFileWriter {
 
-    public void writeSchedule (int[][] full_schedule_map, int[] remaining_chargers) {
+    public void writeSchedule(int[][] full_schedule_map, int[] remaining_chargers) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("schedule"))) {
             out.writeObject(full_schedule_map);
         } catch (FileNotFoundException e) {
@@ -28,7 +28,7 @@ public class ArrayFileWriter {
         }
     }
 
-    public void writeSuggestions (int[][] suggestions) {
+    public void writeSuggestions(int[][] suggestions) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("suggestions"))) {
             out.writeObject(suggestions);
         } catch (FileNotFoundException e) {

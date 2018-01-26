@@ -1,14 +1,17 @@
 package station.online;
 
-import optimize.CPLEX;
+import optimize.AbstractCPLEX;
+import optimize.ProfitCPLEX;
 import station.EVObject;
 import station.StationInfo;
 import station.auction.OptimalSchedule;
 import station.negotiation.Negotiations;
 import station.negotiation.Suggestion;
-import station.online.AbstractOnlineStation;
 import station.pricing.Pricing;
 import station.pricing.SimplePricing;
+import various.IntegerConstants;
+
+import java.util.HashMap;
 
 /**
  * Created by Thesis on 22/1/2018.
@@ -21,14 +24,15 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
      * @param info
      * @param slotsNumber
      */
-    public SimpleOnlineStation(StationInfo info, int slotsNumber) {
-        super(info, slotsNumber);
+    public SimpleOnlineStation(StationInfo info, int slotsNumber, HashMap<String, Integer> strategyFlags) {
+        super(info, slotsNumber, strategyFlags);
+        this.info.setStation(this);
         pricing = new SimplePricing(price);
     }
 
     @Override
     public int[][] compute() {
-        cp = new CPLEX();
+        cp = new ProfitCPLEX();
         OptimalSchedule optimal = new OptimalSchedule(evBidders, slotsNumber, price, schedule.getRemainingChargers(), cp);
         return optimal.computeOptimalSchedule();
     }
@@ -54,7 +58,7 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
 
     @Override
     public void offersNotCharged(Pricing pricing) {
-        if (rounds != 0){
+        if (rounds != 0) {
             Negotiations neg = new Negotiations(waiting, schedule.getRemainingChargers(),
                     pricing);
             neg.computeSuggestions();
@@ -77,7 +81,7 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
                 finished = true;
             }
         } else {
-            for (EVObject ev: waiting) {
+            for (EVObject ev : waiting) {
                 this.addNotAvailableMessage(ev);
                 //messageReceivers.add(ev);
             }
@@ -93,10 +97,13 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
 
     @Override
     public int setLastSlot(EVObject ev) {
-        int distance = ev.getSlotsNeeded();
-        int start = ev.getStartSlot();
-        int lastSlot = start - distance;
-        ev.setLastSlot(lastSlot);
+        int lastSlot = currentSlot;
+        if (strategyFlags.get("instant").equals(IntegerConstants.INSTANT_OFFER_NO)) {
+            int distance = ev.getSlotsNeeded();
+            int start = ev.getStartSlot();
+            lastSlot = start - distance;
+            ev.setLastSlot(lastSlot);
+        }
         return lastSlot;
     }
 }

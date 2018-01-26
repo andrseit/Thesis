@@ -1,6 +1,5 @@
 package station.negotiation;
 
-import io.ArrayFileWriter;
 import optimize.SuggestionsOptimizer;
 import station.EVObject;
 import station.pricing.Pricing;
@@ -16,21 +15,17 @@ public class Negotiations {
 
     private ArrayList<EVObject> evs;
     private int[] chargers;
-    private int[] initial_chargers;
     private Pricing pricing;
-    private int initial_utility;
 
     private boolean finish;
 
     private Comparator<EVObject> comparator;
 
     private PriorityQueue<EVObject> suggestions_queue; // instead of ArrayList<> - smaller to bigger
-    private SuggestionsOptimizer optimizer;
 
     public Negotiations(ArrayList<EVObject> evs, int[] chargers, Pricing pricing) {
         this.evs = evs;
         this.chargers = Arrays.copyOf(chargers, chargers.length);
-        this.initial_chargers = chargers;
         this.pricing = pricing;
         comparator = new Comparator<EVObject>() {
             @Override
@@ -51,12 +46,11 @@ public class Negotiations {
     /**
      * For each EVObject not charged compute some suggestions
      */
-    public int computeSuggestions () {
+    public int computeSuggestions() {
 
         // compute suggestions
-        optimizer = new SuggestionsOptimizer(evs, chargers, pricing);
+        SuggestionsOptimizer optimizer = new SuggestionsOptimizer(evs, chargers, pricing);
         optimizer.optimizeSuggestions();
-        initial_utility = optimizer.getUtility();
 
 //        int util;
 //        for (EVObject ev: evs) {
@@ -89,17 +83,17 @@ public class Negotiations {
     }
 
 
-    private int computeUtility () {
+    private int computeUtility() {
 
         int utility = 0;
 
-        for (EVObject ev: evs) {
+        for (EVObject ev : evs) {
             utility += ev.getSuggestion().getProfit();
         }
         return utility;
     }
 
-    private void printOrderedSuggestions () {
+    private void printOrderedSuggestions() {
         System.out.println("Ordered Suggestions");
         int count = 0;
         EVObject ev;
@@ -124,18 +118,18 @@ public class Negotiations {
         }
     }
 
-    public boolean hasFinished () {
+    public boolean hasFinished() {
         return finish;
     }
 
-    private void printFinalOrderedSuggestions () {
+    private void printFinalOrderedSuggestions() {
         System.out.println("Ordered Suggestions");
         Collections.sort(evs, comparator);
         int count = 0;
         EVObject ev;
         while (count != evs.size()) {
             ev = evs.get(count);
-            System.out.println("    " + (count+1) + ". " + ev.getSuggestion().toString() +
+            System.out.println("    " + (count + 1) + ". " + ev.getSuggestion().toString() +
                     "(ev:" + ev.getId() + ")");
             count++;
         }
@@ -216,20 +210,20 @@ public class Negotiations {
      * Maybe it can add them directly and not to parse the whole list
      * for better optimization - but not a major problem
      */
-    private void filterSuggestions () {
+    private void filterSuggestions() {
 
         ArrayList<EVObject> removed = new ArrayList<>();
-        for (EVObject ev: evs) {
+        for (EVObject ev : evs) {
             if (!ev.hasSuggestion()) removed.add(ev);
         }
 
-        for (EVObject ev: removed) {
+        for (EVObject ev : removed) {
             if (!ev.hasSuggestion()) evs.remove(ev);
         }
 
     }
 
-    public ArrayList<EVObject> getFilteredSuggestionList () {
+    public ArrayList<EVObject> getFilteredSuggestionList() {
         return evs;
     }
 

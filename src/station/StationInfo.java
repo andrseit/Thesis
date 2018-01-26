@@ -25,7 +25,7 @@ public class StationInfo {
         this.charger_number = charger_number;
     }
 
-    public void setId (int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -37,11 +37,10 @@ public class StationInfo {
         return location_y;
     }
 
-    public String toString () {
-        String str = ("Station_" + id) +
+    public String toString() {
+        return ("Station_" + id) +
                 " (" + location_x + ", " + location_y + ") : " +
                 charger_number + " chargers.";
-        return str;
     }
 
     public void setStation(AbstractStation station) {
@@ -52,7 +51,7 @@ public class StationInfo {
         return id;
     }
 
-    public void request (EVInfo info) {
+    public void request(EVInfo info) {
         Preferences p = info.getPreferences();
         EVObject ev = new EVObject();
         ev.addEVPreferences(p.getStart(), p.getEnd(), info.getBid(), p.getEnergy());
@@ -65,9 +64,11 @@ public class StationInfo {
     /**
      * This is used to receive a message, if an ev accepted the offer or not
      */
-    public void checkIn (EVInfo ev, int state) {
+    public void checkIn(EVInfo ev, int state) {
         station.markEVBidder(ev.getId(), state);
     }
 
-    public int getChargerNumber () { return charger_number; }
+    public int getChargerNumber() {
+        return charger_number;
+    }
 }

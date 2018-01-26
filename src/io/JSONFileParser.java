@@ -2,14 +2,17 @@ package io;
 
 import evs.EV;
 import evs.strategy.Strategy;
-import station.EVObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import station.EVObject;
 import station.StationInfo;
+import station.offline.SimpleStation;
+import station.online.SimpleOnlineStation;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static java.lang.Math.toIntExact;
 
@@ -21,6 +24,104 @@ public class JSONFileParser {
 
 
     private int num_slots;
+
+
+    public ArrayList<SimpleStation> readOfflineStations (String path) {
+        ArrayList<SimpleStation> stations = new ArrayList<>();
+        int num_chargers;
+        int x, y;
+        int id = 0;
+        JSONParser parser = new JSONParser();
+        Reader reader;
+        try {
+            reader = new FileReader(path);
+            BufferedReader in = new BufferedReader(reader);
+
+            String line;
+
+            line = in.readLine();
+            num_slots = Integer.parseInt(line);
+
+            while ((line = in.readLine()) != null) {
+                Object object = parser.parse(line);
+
+                JSONObject station_json = (JSONObject) object;
+
+                num_chargers = toIntExact((long) station_json.get("chargers"));
+
+                JSONObject location = (JSONObject) station_json.get("location");
+                x = toIntExact((long) location.get("x"));
+                y = toIntExact((long) location.get("y"));
+
+                JSONObject flagsObject = (JSONObject) station_json.get("flags");
+                HashMap<String, Integer> flags = new HashMap<>();
+                flags.put("window", toIntExact((long) flagsObject.get("window")));
+                flags.put("suggestion", toIntExact((long) flagsObject.get("suggestion")));
+                flags.put("cplex", toIntExact((long) flagsObject.get("cplex")));
+
+                stations.add(new SimpleStation(new StationInfo(id, x, y, num_chargers), num_slots, flags));
+                id++;
+            }
+            reader.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stations;
+    }
+
+    public ArrayList<SimpleOnlineStation> readOnlineStations (String path) {
+        ArrayList<SimpleOnlineStation> stations = new ArrayList<>();
+        int num_chargers;
+        int x, y;
+        int id = 0;
+        JSONParser parser = new JSONParser();
+        Reader reader;
+        try {
+            reader = new FileReader(path);
+            BufferedReader in = new BufferedReader(reader);
+
+            String line;
+
+            line = in.readLine();
+            num_slots = Integer.parseInt(line);
+
+            while ((line = in.readLine()) != null) {
+                Object object = parser.parse(line);
+
+                JSONObject station_json = (JSONObject) object;
+
+                num_chargers = toIntExact((long) station_json.get("chargers"));
+
+                JSONObject location = (JSONObject) station_json.get("location");
+                x = toIntExact((long) location.get("x"));
+                y = toIntExact((long) location.get("y"));
+
+                JSONObject flagsObject = (JSONObject) station_json.get("flags");
+                HashMap<String, Integer> flags = new HashMap<>();
+                flags.put("window", toIntExact((long) flagsObject.get("window")));
+                flags.put("suggestion", toIntExact((long) flagsObject.get("suggestion")));
+                flags.put("cplex", toIntExact((long) flagsObject.get("cplex")));
+                flags.put("instant", toIntExact((long) flagsObject.get("instant")));
+
+                stations.add(new SimpleOnlineStation(new StationInfo(id, x, y, num_chargers), num_slots, flags));
+                id++;
+            }
+            reader.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stations;
+    }
 
     public ArrayList<StationInfo> readStationData(String path) {
 
@@ -68,8 +169,7 @@ public class JSONFileParser {
     }
 
 
-
-    public void writeToFile () {
+    public void writeToFile() {
         JSONObject obj = new JSONObject();
 
         obj.put("id", 0);
@@ -101,7 +201,7 @@ public class JSONFileParser {
         System.out.println(obj.toJSONString());
     }
 
-    public String getJSONStringEV (int bid, int start, int end, int energy) {
+    public String getJSONStringEV(int bid, int start, int end, int energy) {
 
         JSONObject obj = new JSONObject();
         obj.put("energy", energy);
@@ -149,16 +249,16 @@ public class JSONFileParser {
                 //data.setInformSlot(inform_slot);
 
                 int start_slot = toIntExact((long) preferences.get("start"));
-                int end_slot = toIntExact((long)(preferences.get("end")));
+                int end_slot = toIntExact((long) (preferences.get("end")));
                 int max_distance = toIntExact((long) (preferences.get("distance")));
 
                 JSONObject strategy = (JSONObject) json_ev.get("strategy");
 
                 int s_energy = toIntExact((long) strategy.get("energy"));
                 int s_start = toIntExact((long) strategy.get("start"));
-                int s_end = toIntExact((long)(strategy.get("end")));
-                int s_prob = toIntExact((long)(strategy.get("probability")));
-                int s_rounds = toIntExact((long)(strategy.get("rounds")));
+                int s_end = toIntExact((long) (strategy.get("end")));
+                int s_prob = toIntExact((long) (strategy.get("probability")));
+                int s_rounds = toIntExact((long) (strategy.get("rounds")));
 
                 EV ev = new EV(id, inform_slot, x, y, f_x, f_y, start_slot, end_slot, energy, bid, max_distance,
                         new Strategy(s_energy, s_start, s_end, s_prob, s_rounds));
@@ -177,7 +277,7 @@ public class JSONFileParser {
         return evs;
     }
 
-    public EVObject parseBidsString (String bids) {
+    public EVObject parseBidsString(String bids) {
         EVObject ev = new EVObject();
         try {
             JSONParser parser = new JSONParser();
@@ -188,7 +288,7 @@ public class JSONFileParser {
             int energy = toIntExact((long) json_ev.get("energy"));
             ev.setEnergy(energy);
 
-            int start  = toIntExact((long) json_ev.get("start"));
+            int start = toIntExact((long) json_ev.get("start"));
             int end = toIntExact((long) json_ev.get("end"));
             int bid = toIntExact((long) json_ev.get("bid"));
 
