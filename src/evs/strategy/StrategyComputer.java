@@ -36,7 +36,7 @@ class StrategyComputer {
                 } else {
                     boolean withingRange = true;
                     if (!this.isWithinInitial(message, initial_prefs)) {
-                        withingRange = this.checkWithinRange(message);
+                        withingRange = this.checkWithinRange(initial_prefs, message);
                         if (withingRange)
                             preferences_distance = this.computePreferencesDistance(message, initial_prefs);
                         else
@@ -121,10 +121,23 @@ class StrategyComputer {
      *
      * @return
      */
-    private boolean checkWithinRange(SuggestionMessage message) {
+    private boolean checkWithinRange(Preferences initial, SuggestionMessage message) {
         return message.getStart() >= strategy_preferences.getStart()
                 && message.getEnd() <= strategy_preferences.getEnd()
-                && message.getEnergy() >= strategy_preferences.getEnergy();
+                && message.getEnergy() >= strategy_preferences.getEnergy() && !tooWide(initial, message);
+    }
+
+    /**
+     * if the window is a lot wider than desired
+     * @return
+     */
+    private boolean tooWide (Preferences initial, SuggestionMessage message) {
+        double initialRange = initial.getEnd() - initial.getStart();
+        double messageRange = message.getEnd() - message.getStart();
+        double sRange = strategy_preferences.getRange();
+        if ((messageRange/initialRange) < sRange)
+            return false;
+        return true;
     }
 
     private int computeTotalDistance(SuggestionMessage message) {

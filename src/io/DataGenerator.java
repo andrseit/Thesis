@@ -100,12 +100,19 @@ public class DataGenerator {
                 int s_energy = random.nextInt(energy) + 1;
                 int probability = random.nextInt(100) + 1;
                 int rounds = random.nextInt(5);
+                int temp = random.nextInt(81) + 120;
+                double s_range = ((double)temp) / 100;
                 strategy.put("start", s_start);
                 strategy.put("end", s_end);
                 strategy.put("energy", s_energy);
                 strategy.put("probability", probability);
                 strategy.put("rounds", rounds);
-
+                strategy.put("range", s_range);
+                int priority = random.nextInt(1);
+                if (priority == 0)
+                    strategy.put("priority", "price");
+                else
+                    strategy.put("priority", "distance");
                 ev.put("preferences", pref);
                 ev.put("strategy", strategy);
 

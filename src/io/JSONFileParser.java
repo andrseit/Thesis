@@ -7,7 +7,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import station.EVObject;
 import station.StationInfo;
-import station.offline.AbstractStation;
 import station.offline.SimpleStation;
 import station.online.SimpleOnlineStation;
 
@@ -285,9 +284,11 @@ public class JSONFileParser {
                 int s_end = toIntExact((long) (strategy.get("end")));
                 int s_prob = toIntExact((long) (strategy.get("probability")));
                 int s_rounds = toIntExact((long) (strategy.get("rounds")));
+                double s_range = Double.parseDouble(strategy.get("range").toString());
+                String s_priority = strategy.get("priority").toString();
 
                 EV ev = new EV(id, inform_slot, x, y, f_x, f_y, start_slot, end_slot, energy, bid, max_distance,
-                        new Strategy(s_energy, s_start, s_end, s_prob, s_rounds));
+                        new Strategy(s_energy, s_start, s_end, s_range, s_prob, s_rounds, s_priority));
                 evs.add(ev);
                 id++;
             }

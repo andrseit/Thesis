@@ -3,7 +3,6 @@ package evs;
 import evs.strategy.Strategy;
 import station.StationInfo;
 import station.SuggestionMessage;
-import various.IntegerConstants;
 
 import java.util.ArrayList;
 

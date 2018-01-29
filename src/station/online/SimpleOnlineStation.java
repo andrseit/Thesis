@@ -1,6 +1,5 @@
 package station.online;
 
-import optimize.AbstractCPLEX;
 import optimize.ProfitCPLEX;
 import optimize.ServiceCPLEX;
 import station.EVObject;

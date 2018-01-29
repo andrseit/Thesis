@@ -20,10 +20,10 @@ public class Strategy {
     private StrategyPreferences strategyPreferences;
     private int s_rounds;
 
-    public Strategy(int energy, int start, int end, int probability, int rounds) {
+    public Strategy(int energy, int start, int end, double range, int probability, int rounds, String priority) {
         suggestions = new ArrayList<>();
         pendingStations = new ArrayList<>();
-        strategyPreferences = new StrategyPreferences(energy, start, end, 0, rounds, probability, "price");
+        strategyPreferences = new StrategyPreferences(energy, start, end, range, 0, rounds, probability, priority);
         s_rounds = 0;
     }
 
