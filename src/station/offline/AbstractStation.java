@@ -7,8 +7,9 @@ import station.StationInfo;
 import station.SuggestionMessage;
 import station.negotiation.Suggestion;
 import station.pricing.Pricing;
+import various.ArrayTransformations;
 import various.IntegerConstants;
-
+import exceptions.NoPricingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,6 +23,7 @@ public abstract class AbstractStation {
 
     protected Schedule schedule;
     protected int[] price;
+    protected int[] renewables;
     protected int slotsNumber;
 
     protected ArrayList<EVObject> evBidders;
@@ -32,6 +34,8 @@ public abstract class AbstractStation {
     protected int id_counter;
     protected boolean finished;
     protected boolean update;
+    protected boolean demandComputed;
+    protected boolean renewablesUpdated;
 
     protected HashMap<String, Integer> strategyFlags;
 
@@ -66,23 +70,24 @@ public abstract class AbstractStation {
     public abstract void offersNotCharged(Pricing pricing);
 
     /**
+     * This is for the programmer not to forget to set the pricing method
+     */
+    protected abstract void setStationPricing();
+
+    /**
+     * Computes the demand of each slot
+     */
+    protected abstract int[] computeDemand ();
+
+    /**
      * Constructor
      *
      * @param info
      * @param slotsNumber
      */
-    public AbstractStation(StationInfo info, int slotsNumber, HashMap<String, Integer> strategyFlags) {
+    public AbstractStation(StationInfo info, int slotsNumber, int[] price, int[] renewables, HashMap<String, Integer> strategyFlags) {
         this.info = info;
         this.slotsNumber = slotsNumber;
-        price = new int[slotsNumber];
-        for (int s = 0; s < slotsNumber / 2; s++) {
-            price[s] = 1;
-        }
-        for (int s = slotsNumber / 2; s < slotsNumber; s++) {
-            price[s] = 1;
-        }
-        //price[4] = 2;
-
         this.strategyFlags = strategyFlags;
 
         evBidders = new ArrayList<>();
@@ -94,6 +99,15 @@ public abstract class AbstractStation {
         update = false;
 
         schedule = new Schedule(slotsNumber, info.getChargerNumber());
+        this.price = price;
+        this.renewables = renewables;
+
+        try {
+            setPricing();
+        } catch (NoPricingException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 
     public void addEVBidder(EVObject ev) {
@@ -106,8 +120,12 @@ public abstract class AbstractStation {
 
     public boolean computeSchedule() {
         if (evBidders.size() > 0) {
+            if (!demandComputed) {
+                schedule.setDemand(computeDemand());
+                demandComputed = true;
+            }
             schedule.setFullScheduleMap(this.compute());
-            schedule.printScheduleMap(price);
+            schedule.printScheduleMap(price, renewables);
             this.computeOffers();
             evBidders.contains(new EVObject());
             update = true;
@@ -220,6 +238,8 @@ public abstract class AbstractStation {
 
         update = false;
         this.resetChargers();
+        if (isFinished() && !renewablesUpdated && update)
+            this.updateRenewables();
     }
 
     public String printEVBidders() {
@@ -274,6 +294,33 @@ public abstract class AbstractStation {
     }
 
     public void printScheduleMap() {
-        schedule.printScheduleMap(price);
+        schedule.printScheduleMap(price, renewables);
+    }
+
+    public int[] getPrice() {
+        return price;
+    }
+
+    public void setPrice(int[] price) {
+        this.price = price;
+    }
+
+    public void updateRenewables() {
+        int[][] scheduleMap = schedule.getScheduleMap();
+        ArrayTransformations t = new ArrayTransformations();
+        int[] columnCount = t.getColumnsCount(scheduleMap);
+        for (int s = 0; s < slotsNumber; s++) {
+            renewables[s] -= columnCount[s];
+            if (renewables[s] < 0)
+                renewables[s] = 0;
+        }
+        renewablesUpdated = true;
+    }
+
+    private void setPricing () throws NoPricingException {
+        setStationPricing();
+        if (pricing == null) {
+            throw new NoPricingException();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package station.offline;
 
+import exceptions.NoPricingException;
 import optimize.AbstractCPLEX;
 import optimize.ProfitCPLEX;
 import optimize.ServiceCPLEX;
@@ -28,16 +29,15 @@ public class SimpleStation extends AbstractStation {
      * @param info
      * @param slotsNumber
      */
-    public SimpleStation(StationInfo info, int slotsNumber, HashMap<String, Integer> strategyFlags) {
-        super(info, slotsNumber, strategyFlags);
+    public SimpleStation(StationInfo info, int slotsNumber, int[] price, int[] renewables, HashMap<String, Integer> strategyFlags) {
+        super(info, slotsNumber, price, renewables, strategyFlags);
         this.info.setStation(this);
         rounds = 0;
-        pricing = new SimplePricing(price);
+        //pricing = new SimplePricing(price);
     }
 
     @Override
     public int[][] compute() {
-
         if (strategyFlags.get("cplex").equals(IntegerConstants.CPLEX_PROFIT))
             cp = new ProfitCPLEX();
         else if (strategyFlags.get("cplex").equals(IntegerConstants.CPLEX_SERVICE))
@@ -95,7 +95,7 @@ public class SimpleStation extends AbstractStation {
                         Suggestion suggestion = new Suggestion();
                         suggestion.setStartEndSlots(Integer.MAX_VALUE, Integer.MAX_VALUE);
                         suggestion.setEnergy(0);
-                        //suggestion.findSlotsAffected(schedule.getRemainingChargers());
+                        suggestion.findSlotsAffected(schedule.getRemainingChargers());
                         ev.setSuggestion(suggestion);
                         ev.setFinalSuggestion();
                     }
@@ -106,5 +106,21 @@ public class SimpleStation extends AbstractStation {
             }
         }
         rounds++;
+    }
+
+    @Override
+    protected void setStationPricing() {
+        pricing = new SimplePricing(price, schedule.getDemand(), renewables);
+    }
+
+    @Override
+    protected int[] computeDemand() {
+        int[] demand = schedule.getDemand();
+        for (EVObject ev: evBidders) {
+            for (int s = ev.getStartSlot(); s <= ev.getEndSlot(); s++) {
+                demand[s]++;
+            }
+        }
+        return demand;
     }
 }

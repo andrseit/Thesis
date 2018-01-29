@@ -1,5 +1,6 @@
 package station.online;
 
+import exceptions.NoPricingException;
 import station.EVObject;
 import station.StationInfo;
 import station.negotiation.Suggestion;
@@ -29,8 +30,8 @@ public abstract class AbstractOnlineStation extends AbstractStation {
      * @param info
      * @param slotsNumber
      */
-    public AbstractOnlineStation(StationInfo info, int slotsNumber, HashMap<String, Integer> strategyFlags) {
-        super(info, slotsNumber, strategyFlags);
+    public AbstractOnlineStation(StationInfo info, int slotsNumber, int[] price, int[] renewables, HashMap<String, Integer> strategyFlags) {
+        super(info, slotsNumber, price, renewables, strategyFlags);
         minSlot = Integer.MAX_VALUE;
         lockedBidders = new ArrayList<>();
 
@@ -38,16 +39,6 @@ public abstract class AbstractOnlineStation extends AbstractStation {
         chargersState = Arrays.copyOf(schedule.getRemainingChargers(), schedule.getRemainingChargers().length);
         finished = true;
     }
-
-    /**
-     * Checks if the stations is ready to make offers
-     * Some stations may wait till the last available slot,
-     * some other make offers immediately...
-     *
-     * @param slot
-     * @return
-     */
-    public abstract boolean hasOffers(int slot);
 
     /**
      * Checks when is the last slot, the one that the station will
@@ -109,6 +100,7 @@ public abstract class AbstractOnlineStation extends AbstractStation {
         this.lockEVBidders();
         this.updateFullScheduleMap();
         finished = false;
+        demandComputed = false;
         minSlot = Integer.MAX_VALUE;
         rounds = 0;
         //System.out.println(schedule.printScheduleMap(fullScheduleMap, price));
@@ -123,6 +115,7 @@ public abstract class AbstractOnlineStation extends AbstractStation {
     public void updateStationDataNoSchedule() {
         this.updateBiddersLists();
         finished = false;
+        demandComputed = false;
         if (evBidders.isEmpty())
             minSlot = Integer.MAX_VALUE;
         rounds = 0;
@@ -163,6 +156,18 @@ public abstract class AbstractOnlineStation extends AbstractStation {
         }
     }
 
+    /**
+     * Checks if the stations is ready to make offers
+     * Some stations may wait till the last available slot,
+     * some other make offers immediately...
+     *
+     * @param slot
+     * @return
+     */
+    public boolean hasOffers(int slot) {
+        return minSlot == slot;
+    }
+
     public void resetChargers() {
         schedule.resetChargers(chargersState);
     }
@@ -176,6 +181,8 @@ public abstract class AbstractOnlineStation extends AbstractStation {
     }
 
     public void setCurrentSlot(int currentSlot) {
+        System.out.println("Setting current slot: " + currentSlot);
+        renewablesUpdated = false;
         this.currentSlot = currentSlot;
     }
 }

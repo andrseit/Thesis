@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import station.EVObject;
 import station.StationInfo;
+import station.offline.AbstractStation;
 import station.offline.SimpleStation;
 import station.online.SimpleOnlineStation;
 
@@ -23,7 +24,7 @@ import static java.lang.Math.toIntExact;
 public class JSONFileParser {
 
 
-    private int num_slots;
+    private int slotsNumber;
 
 
     public ArrayList<SimpleStation> readOfflineStations (String path) {
@@ -34,13 +35,13 @@ public class JSONFileParser {
         JSONParser parser = new JSONParser();
         Reader reader;
         try {
-            reader = new FileReader(path);
+            reader = new FileReader("files/" + path);
             BufferedReader in = new BufferedReader(reader);
 
             String line;
 
             line = in.readLine();
-            num_slots = Integer.parseInt(line);
+            slotsNumber = Integer.parseInt(line);
 
             while ((line = in.readLine()) != null) {
                 Object object = parser.parse(line);
@@ -52,6 +53,7 @@ public class JSONFileParser {
                 JSONObject location = (JSONObject) station_json.get("location");
                 x = toIntExact((long) location.get("x"));
                 y = toIntExact((long) location.get("y"));
+                String pricePath = station_json.get("price_file").toString();
 
                 JSONObject flagsObject = (JSONObject) station_json.get("flags");
                 HashMap<String, Integer> flags = new HashMap<>();
@@ -59,7 +61,8 @@ public class JSONFileParser {
                 flags.put("suggestion", toIntExact((long) flagsObject.get("suggestion")));
                 flags.put("cplex", toIntExact((long) flagsObject.get("cplex")));
 
-                stations.add(new SimpleStation(new StationInfo(id, x, y, num_chargers), num_slots, flags));
+                StationPricing pr = setPrice(pricePath);
+                stations.add(new SimpleStation(new StationInfo(id, x, y, num_chargers), slotsNumber, pr.getPrice(), pr.getRenewables(), flags));
                 id++;
             }
             reader.close();
@@ -82,13 +85,13 @@ public class JSONFileParser {
         JSONParser parser = new JSONParser();
         Reader reader;
         try {
-            reader = new FileReader(path);
+            reader = new FileReader("files/" + path);
             BufferedReader in = new BufferedReader(reader);
 
             String line;
 
             line = in.readLine();
-            num_slots = Integer.parseInt(line);
+            slotsNumber = Integer.parseInt(line);
 
             while ((line = in.readLine()) != null) {
                 Object object = parser.parse(line);
@@ -100,6 +103,7 @@ public class JSONFileParser {
                 JSONObject location = (JSONObject) station_json.get("location");
                 x = toIntExact((long) location.get("x"));
                 y = toIntExact((long) location.get("y"));
+                String pricePath = station_json.get("price_file").toString();
 
                 JSONObject flagsObject = (JSONObject) station_json.get("flags");
                 HashMap<String, Integer> flags = new HashMap<>();
@@ -108,7 +112,10 @@ public class JSONFileParser {
                 flags.put("cplex", toIntExact((long) flagsObject.get("cplex")));
                 flags.put("instant", toIntExact((long) flagsObject.get("instant")));
 
-                stations.add(new SimpleOnlineStation(new StationInfo(id, x, y, num_chargers), num_slots, flags));
+
+
+                StationPricing pr = setPrice(pricePath);
+                stations.add(new SimpleOnlineStation(new StationInfo(id, x, y, num_chargers), slotsNumber, pr.getPrice(), pr.getRenewables(), flags));
                 id++;
             }
             reader.close();
@@ -138,7 +145,7 @@ public class JSONFileParser {
             String line;
 
             line = in.readLine();
-            num_slots = Integer.parseInt(line);
+            slotsNumber = Integer.parseInt(line);
 
             while ((line = in.readLine()) != null) {
                 Object object = parser.parse(line);
@@ -168,6 +175,25 @@ public class JSONFileParser {
         return stations;
     }
 
+    private StationPricing setPrice (String path) {
+        int[] price = new int[slotsNumber];
+        int[] renewables = new int[slotsNumber];
+        try {
+            BufferedReader in = new BufferedReader(new FileReader("files/price/" + path + ".txt"));
+            String line;
+            for (int s = 0; s < slotsNumber; s++) {
+                line = in.readLine();
+                String[] tokens = line.split(",");
+                price[s] = Integer.parseInt(tokens[0]);
+                renewables[s] = Integer.parseInt(tokens[1]);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new StationPricing(price, renewables);
+    }
 
     public void writeToFile() {
         JSONObject obj = new JSONObject();
@@ -221,7 +247,7 @@ public class JSONFileParser {
         JSONParser parser = new JSONParser();
         Reader reader;
         try {
-            reader = new FileReader(path);
+            reader = new FileReader("files/" + path);
             BufferedReader in = new BufferedReader(reader);
 
             String line;
@@ -302,6 +328,24 @@ public class JSONFileParser {
     }
 
     public int getSlotsNumber() {
-        return num_slots;
+        return slotsNumber;
+    }
+
+    private class StationPricing {
+        private int[] price;
+        private int[] renewables;
+
+        public StationPricing(int[] price, int[] renewables) {
+            this.price = price;
+            this.renewables = renewables;
+        }
+
+        public int[] getPrice() {
+            return price;
+        }
+
+        public int[] getRenewables() {
+            return renewables;
+        }
     }
 }

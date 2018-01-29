@@ -52,6 +52,10 @@ public class OnlineExecution extends Execution {
         for (int slot = 0; slot < slotsNumber; slot++) {
             System.out.println("------> Slot: " + slot);
             this.resetFinishedStations();
+            for (int st = 0; st < stations.size(); st++) {
+                AbstractOnlineStation station = stations.get(st);
+                station.setCurrentSlot(slot);
+            }
 
             System.out.println("EVs request from the stations:\n");
             EV ev;
@@ -66,7 +70,6 @@ public class OnlineExecution extends Execution {
             int countOffers = 0; // if offers == 0 do not send messages
             for (int st = 0; st < stations.size(); st++) {
                 AbstractOnlineStation station = stations.get(st);
-                station.setCurrentSlot(slot);
                 System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
                 station.transferBidders();
                 if (station.hasOffers(slot)) {

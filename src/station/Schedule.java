@@ -12,16 +12,18 @@ public class Schedule {
 
     private int[][] scheduleMap;
     private int[] remaining_chargers;
-    private int slots_number;
-    private int chargers_number;
+    private int[] demand;
+    private int slotsNumber;
+    private int chargersNumber;
 
-    public Schedule(int slots_number, int chargers_number) {
-        this.slots_number = slots_number;
-        this.chargers_number = chargers_number;
-        remaining_chargers = new int[slots_number];
-        for (int s = 0; s < slots_number; s++) {
-            remaining_chargers[s] = chargers_number;
+    public Schedule(int slotsNumber, int chargersNumber) {
+        this.slotsNumber = slotsNumber;
+        this.chargersNumber = chargersNumber;
+        remaining_chargers = new int[slotsNumber];
+        for (int s = 0; s < slotsNumber; s++) {
+            remaining_chargers[s] = chargersNumber;
         }
+        demand = new int[slotsNumber];
     }
 
     public void setFullScheduleMap(int[][] map) {
@@ -38,19 +40,15 @@ public class Schedule {
     }
 
     public void resetChargers() {
-        remaining_chargers = new int[slots_number];
-        for (int s = 0; s < slots_number; s++) {
-            remaining_chargers[s] = chargers_number;
+        remaining_chargers = new int[slotsNumber];
+        for (int s = 0; s < slotsNumber; s++) {
+            remaining_chargers[s] = chargersNumber;
         }
     }
 
     public void resetChargers(int[] chargers) {
-        remaining_chargers = new int[slots_number];
-        System.arraycopy(chargers, 0, remaining_chargers, 0, slots_number);
-    }
-
-    private void computeRemainingChargers() {
-
+        remaining_chargers = new int[slotsNumber];
+        System.arraycopy(chargers, 0, remaining_chargers, 0, slotsNumber);
     }
 
     public int[][] getScheduleMap() {
@@ -61,24 +59,44 @@ public class Schedule {
         return remaining_chargers;
     }
 
-    public void printScheduleMap(int[] price) {
+    public int[] getDemand() {
+        return demand;
+    }
+
+    public void setDemand(int[] demand) {
+        this.demand = demand;
+    }
+
+    public void printScheduleMap(int[] price, int[] renewables) {
 
         StringBuilder str = new StringBuilder();
         str.append("       ");
-        for (int s = 0; s < slots_number; s++) {
+        for (int s = 0; s < slotsNumber; s++) {
             str.append(s).append(" ");
         }
         str.append("\n");
 
         str.append("price: ");
-        for (int s = 0; s < slots_number; s++) {
+        for (int s = 0; s < slotsNumber; s++) {
             str.append(price[s]).append(" ");
         }
         str.append("\n\n");
 
+        str.append("renew: ");
+        for (int s = 0; s < slotsNumber; s++) {
+            str.append(renewables[s]).append(" ");
+        }
+        str.append("\n\n");
+
         str.append("charg: ");
-        for (int s = 0; s < slots_number; s++) {
+        for (int s = 0; s < slotsNumber; s++) {
             str.append(remaining_chargers[s]).append(" ");
+        }
+        str.append("\n\n");
+
+        str.append("deman: ");
+        for (int s = 0; s < slotsNumber; s++) {
+            str.append(demand[s]).append(" ");
         }
         str.append("\n\n");
 
@@ -96,20 +114,26 @@ public class Schedule {
 
         StringBuilder str = new StringBuilder();
         str.append("       ");
-        for (int s = 0; s < slots_number; s++) {
+        for (int s = 0; s < slotsNumber; s++) {
             str.append(s).append(" ");
         }
         str.append("\n");
 
         str.append("price: ");
-        for (int s = 0; s < slots_number; s++) {
+        for (int s = 0; s < slotsNumber; s++) {
             str.append(price[s]).append(" ");
         }
         str.append("\n\n");
 
         str.append("charg: ");
-        for (int s = 0; s < slots_number; s++) {
+        for (int s = 0; s < slotsNumber; s++) {
             str.append(remaining_chargers[s]).append(" ");
+        }
+        str.append("\n\n");
+
+        str.append("deman: ");
+        for (int s = 0; s < slotsNumber; s++) {
+            str.append(demand[s]).append(" ");
         }
         str.append("\n\n");
 

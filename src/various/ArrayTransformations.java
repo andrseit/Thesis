@@ -121,4 +121,33 @@ public class ArrayTransformations {
         }
         return first;
     }
+
+    public int findMin (int[] array) {
+        int min = array[0];
+        for (int s = 1; s < array.length; s++) {
+            if (array[s] < min)
+                min = array[s];
+        }
+        return min;
+    }
+
+    public int findMax (int[] array) {
+        int max = array[0];
+        for (int s = 1; s < array.length; s++) {
+            if (array[s] > max)
+                max = array[s];
+        }
+        return max;
+    }
+
+    public double[] normalizeArrayValues (int[] array) {
+        int min = findMin(array);
+        int max = findMax(array);
+        double[] normalizedArray = new double[array.length];
+        for (int s = 0; s < array.length; s++) {
+            normalizedArray[s] = ((double)array[s] - min) / (max - min);
+
+        }
+        return normalizedArray;
+    }
 }
