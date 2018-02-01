@@ -2,6 +2,7 @@ package main;
 
 
 import io.DataGenerator;
+import statistics.Statistics;
 
 import java.util.Random;
 
@@ -32,6 +33,10 @@ public class Main {
         exe = new OnlineExecution();
         exe.execute();
 
+        Statistics stats = new Statistics(exe.getStationData(), exe.getEVsNumber());
+        stats.computeStats();
+        stats.printOverallStats();
+        stats.printStationStats();
     }
 
 }

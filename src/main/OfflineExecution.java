@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class OfflineExecution extends Execution {
 
-    private ArrayList<AbstractStation> stations;
+    //private ArrayList<AbstractStation> stations;
 
     @Override
     public void initialize() {

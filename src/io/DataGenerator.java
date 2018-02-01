@@ -40,7 +40,7 @@ public class DataGenerator {
 
     private void generateEVs(int bidBound) {
         try {
-            FileWriter writer = new FileWriter("evs.json");
+            FileWriter writer = new FileWriter("files/evs.json");
             Random random = new Random();
 
             for (int i = 0; i < evsNumber; i++) {
@@ -129,7 +129,7 @@ public class DataGenerator {
     public void generateStationFile(int slots_num, int chargers_num) {
 
         try {
-            FileWriter writer = new FileWriter("station.json");
+            FileWriter writer = new FileWriter("files/station.json");
 
             JSONObject station = new JSONObject();
             station.put("slots", slots_num);
@@ -145,7 +145,7 @@ public class DataGenerator {
 
     public void generateStationFile() {
         try {
-            FileWriter writer = new FileWriter("station.json");
+            FileWriter writer = new FileWriter("files/station.json");
             writer.write(slotsNumber + "\n");
 
             JSONObject station = new JSONObject();
@@ -198,7 +198,7 @@ public class DataGenerator {
         Reader reader;
         JSONParser parser = new JSONParser();
         try {
-            reader = new FileReader("station.json");
+            reader = new FileReader("files/station.json");
             BufferedReader in = new BufferedReader(reader);
             String line;
             // read slots

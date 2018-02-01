@@ -14,7 +14,7 @@ import java.util.PriorityQueue;
  */
 public class OnlineExecution extends Execution {
 
-    private ArrayList<AbstractOnlineStation> stations;
+    //private ArrayList<AbstractOnlineStation> stations;
     private PriorityQueue<EV> orderedEVs;
     private int currentSlot;
 
@@ -51,7 +51,7 @@ public class OnlineExecution extends Execution {
             System.out.println("------> Slot: " + slot);
             this.resetFinishedStations();
             for (int st = 0; st < stations.size(); st++) {
-                AbstractOnlineStation station = stations.get(st);
+                AbstractOnlineStation station = (AbstractOnlineStation) stations.get(st);
                 station.setCurrentSlot(slot);
             }
 
@@ -67,7 +67,7 @@ public class OnlineExecution extends Execution {
             System.out.println("Stations computing and sending initial offers...\n");
             int countOffers = 0; // if offers == 0 do not send messages
             for (int st = 0; st < stations.size(); st++) {
-                AbstractOnlineStation station = stations.get(st);
+                AbstractOnlineStation station = (AbstractOnlineStation) stations.get(st);
                 System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
                 station.transferBidders();
                 if (station.hasOffers(slot)) {
@@ -97,7 +97,7 @@ public class OnlineExecution extends Execution {
                 System.out.println("\n\n2.2 Stations compute new offers or update schedule");
                 for (int s = 0; s < stations.size(); s++) {
                     System.out.println("----------------- Station_" + stations.get(s).getInfo().getId() + " ---------------------");
-                    AbstractOnlineStation station = stations.get(s);
+                    AbstractOnlineStation station = (AbstractOnlineStation) stations.get(s);
                     //if (station.hasOffers(slot)) {
                     this.stationCheckInWhile(station, s);
                     //}
@@ -109,7 +109,7 @@ public class OnlineExecution extends Execution {
 
             System.out.println("\n\nStations updating their data...");
             for (int st = 0; st < stations.size(); st++) {
-                AbstractOnlineStation station = stations.get(st);
+                AbstractOnlineStation station = (AbstractOnlineStation) stations.get(st);
                 System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
                 if (station.isUpdate()) {
                     System.out.println("Full update");

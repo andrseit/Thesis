@@ -116,8 +116,6 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
             int start = ev.getStartSlot();
             lastSlot = start - distance;
         }
-        System.out.println("Last slot: " + lastSlot);
-        System.out.println("Last slot for ev: " + (currentSlot + distance));
         ev.setLastSlot(currentSlot + distance);
         return lastSlot;
     }

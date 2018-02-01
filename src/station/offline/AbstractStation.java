@@ -25,6 +25,7 @@ public abstract class AbstractStation {
     protected int[] price;
     protected int[] renewables;
     protected int slotsNumber;
+    protected int rejections;
 
     protected ArrayList<EVObject> evBidders;
     protected ArrayList<EVObject> waiting;
@@ -210,7 +211,9 @@ public abstract class AbstractStation {
             if (ev.getId() == id) {
                 if (state == IntegerConstants.EV_EVALUATE_ACCEPT) {
                     System.out.println("ev_" + id + " accepted offer!");
+                    ev.setCharged(true);
                     ev.setFinalPreferences();
+                    ev.setTotalLoss();
                     break;
                 } else if (state == IntegerConstants.EV_EVALUATE_WAIT) {
                     System.out.println("ev_" + id + " waits for new offer!");
@@ -220,6 +223,7 @@ public abstract class AbstractStation {
                 } else if (state == IntegerConstants.EV_EVALUATE_REJECT) {
                     System.out.println("ev_" + id + " rejected offer!");
                     evBidders.remove(e);
+                    rejections++;
                     break;
                 }
             }
@@ -322,5 +326,17 @@ public abstract class AbstractStation {
         if (pricing == null) {
             throw new NoPricingException();
         }
+    }
+
+    public int[][] getScheduleMap () {
+        return schedule.getScheduleMap();
+    }
+
+    public ArrayList<EVObject> getChargedEVs () {
+        return evBidders;
+    }
+
+    public int getRejections() {
+        return rejections;
     }
 }

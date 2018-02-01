@@ -82,7 +82,7 @@ public class Strategy {
             if (suggestion.getPreferencesDistance() == -2) {
                 states[s] = IntegerConstants.EV_EVALUATE_PENDING;
             } else if (suggestion.getPreferencesDistance() == -1) {
-                states[s] = IntegerConstants.EV_EVALUATE_REJECT;
+                states[s] = IntegerConstants.EV_EVALUATE_WAIT;
             } else if (suggestion.getPreferencesDistance() < Integer.MAX_VALUE) { //&& suggestion.getPreferencesDistance() > 0) {
                 states[s] = IntegerConstants.EV_EVALUATE_ACCEPT;
                 rejectPendingStations = true;

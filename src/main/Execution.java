@@ -1,8 +1,10 @@
 package main;
 
 import evs.EV;
+import station.EVObject;
 import station.StationInfo;
 import station.offline.AbstractStation;
+import statistics.StationData;
 
 import java.util.ArrayList;
 
@@ -11,6 +13,7 @@ import java.util.ArrayList;
  */
 public abstract class Execution {
 
+    protected ArrayList<AbstractStation> stations;
     protected int slotsNumber;
     protected ArrayList<EV> evs;
     protected ArrayList<StationInfo> s_infos;
@@ -50,6 +53,10 @@ public abstract class Execution {
 
         if (!finished_stations[stationID]) {
             station.updateBiddersLists();
+            System.out.println("Ev Bidders:");
+            System.out.println(station.printEVBidders());
+            System.out.println("Waiting:");
+            System.out.println(station.printEVWaiting());
             station.computeSchedule();
             if (station.isFinished()) {
                 finished_stations[stationID] = true;
@@ -74,5 +81,17 @@ public abstract class Execution {
             counter++;
         }
         System.out.println("---------------------------------------------------------------");
+    }
+
+    public ArrayList<StationData> getStationData () {
+        ArrayList<StationData> stationData = new ArrayList<>();
+        for (AbstractStation station: stations) {
+            stationData.add(new StationData(station.getInfo().getId(), station.getRejections(), station.getScheduleMap(), station.getInfo().getChargerNumber(), station.getChargedEVs()));
+        }
+        return stationData;
+    }
+
+    public int getEVsNumber () {
+        return evs.size();
     }
 }

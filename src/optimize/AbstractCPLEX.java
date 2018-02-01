@@ -72,22 +72,18 @@ public abstract class AbstractCPLEX {
         }
     }
 
-    private void lockPreviousBidders(int[][] previous_schedule, int previous_bidders_number) {
+    private void lockPreviousBidders (ArrayList<EVObject> evs) {
 
         try {
-            for (int ev = 0; ev < previous_bidders_number; ev++) {
-                for (int slot = 0; slot < previous_schedule[0].length; slot++) {
-                    if (previous_schedule[ev][slot] == 1) {
-                        cp.addEq(var[ev][slot], 1);
-                    }
-                }
-                cp.addEq(charges[ev], 1);
+            for (int e = 0; e < evs.size(); e++) {
+                if (evs.get(e).isCharged())
+                    cp.addEq(charges[e], 1);
             }
-        } catch (IloException e) {
-            e.printStackTrace();
+        } catch (IloException e1) {
+            e1.printStackTrace();
         }
-
     }
+
 
     private void addChargersConstraint(int[] chargers, int min_slot) {
 
@@ -184,6 +180,7 @@ public abstract class AbstractCPLEX {
         //this.lockPreviousBidders(previous_schedule, previous_bidders_number);
         this.addEnergyConstraints(evs, min_slot);
         this.addChargersConstraint(chargers, min_slot);
+        this.lockPreviousBidders(evs);
         this.addObjectiveFunction(evs, price, min_slot);
         this.solveLinearProblem(evs, slots_number, min_slot, max_slot);
         this.clearModel();

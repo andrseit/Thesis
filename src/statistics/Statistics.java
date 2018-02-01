@@ -1,42 +1,118 @@
 package statistics;
 
+import station.EVObject;
 import various.ArrayTransformations;
+
+import javax.lang.model.util.SimpleElementVisitor6;
+import java.util.ArrayList;
 
 /**
  * Created by Thesis on 4/1/2018.
  */
-class Statistics {
+public class Statistics {
 
-    public void occupancyPercentage(int[][] map, int chargers) {
-        ArrayTransformations at = new ArrayTransformations();
-        int[][] occupancy_map = at.shrinkArray(map, chargers);
+    private ArrayList<StationData> stationData;
+    int overallChargedEVs;
+    int overallNotChargedEVs;
+    int overallRejections;
+    int overallRequests;
+    int overallChargersUsed;
+    int overallChargersNumber;
+    int overallProfit;
+    int overallLoss;
 
-        at.printIntArray(occupancy_map);
-        double occupancy = 0;
-        double all = occupancy_map.length * occupancy_map[0].length;
+    double overallChargedEVsPercentage;
+    double overallRejectionsPercentage;
+    double overallChargersUsedPercentage;
+    double overallNotChargedPercentage;
 
-        for (int c = 0; c < occupancy_map.length; c++) {
-            for (int s = 0; s < occupancy_map[c].length; s++) {
-                occupancy += occupancy_map[c][s];
-            }
-        }
-
-        System.out.println(occupancy / all);
+    public Statistics(ArrayList<StationData> stationData, int overallEVsNumber) {
+        this.overallRequests = overallEVsNumber;
+        this.stationData = stationData;
     }
 
-    public void evsChargedPercentage(int[][] schedule) {
-
-        double count = 0;
-        for (int ev = 0; ev < schedule.length; ev++) {
-            for (int s = 0; s < schedule[ev].length; s++) {
-                if (schedule[ev][s] == 1) {
-                    count++;
-                    break;
-                }
-            }
+    public void computeStats () {
+        for (StationData station: stationData) {
+            computeChargedRejection(station);
+            computeOccupancy(station);
+            computeProfit(station);
+            computePreferencesLoss(station);
         }
-        System.out.println(count / schedule.length);
+        computeOverallStats();
     }
 
+    public void printOverallStats () {
+        System.out.println(this.toString());
+    }
 
+    public void printStationStats() {
+        for (StationData station: stationData) {
+            System.out.println(station.toString());
+        }
+    }
+
+    private void computeOverallStats() {
+        overallNotChargedEVs = overallRequests - overallChargedEVs;
+        overallChargedEVsPercentage = SimpleMath.getPercentage(overallChargedEVs, overallRequests);
+        overallNotChargedPercentage = SimpleMath.getPercentage(overallNotChargedEVs, overallRequests);
+        overallRejectionsPercentage = SimpleMath.getPercentage(overallRejections, overallRequests);
+        overallChargersUsedPercentage = SimpleMath.getPercentage(overallChargersUsed, overallChargersNumber);
+    }
+
+    private void computeChargedRejection (StationData station) {
+        int evsCharged = station.getEvsChargedNumber();
+        int requests = station.getRequests();
+        int rejections = station.getRejections();
+        station.setChargedPercentage(SimpleMath.getPercentage(evsCharged, requests));
+        station.setRejectedPercentage(SimpleMath.getPercentage(rejections, requests));
+
+        overallChargedEVs += evsCharged;
+    }
+
+    private void computeOccupancy (StationData station) {
+        int[][] map = station.getScheduleMap();
+        ArrayTransformations t = new ArrayTransformations();
+        t.printIntArray(map);
+        int[] occupancy = t.getColumnsCount(map);
+        int chargersUsed = 0;
+        for (int s = 0; s < occupancy.length; s++) {
+            chargersUsed += occupancy[s];
+        }
+
+        int allChargers = station.getChargersNumber() * occupancy.length;
+        station.setChargersUsed(chargersUsed);
+        station.setChargersUsedPercentage(SimpleMath.getPercentage(chargersUsed, allChargers));
+        overallChargersUsed += chargersUsed;
+        overallChargersNumber += station.getChargersNumber() * occupancy.length;
+    }
+
+    private void computeProfit (StationData station) {
+        int profit = 0;
+        for (EVObject ev: station.getEvsCharged()) {
+            profit += ev.getFinalPayment();
+        }
+        station.setProfit(profit);
+        overallProfit += profit;
+    }
+
+    private void computePreferencesLoss (StationData station) {
+        int totalLoss = 0;
+        for (EVObject ev: station.getEvsCharged()) {
+            System.out.println("get loss  " + ev.getPreferencesLoss());
+            totalLoss += ev.getPreferencesLoss();
+        }
+        station.setPreferencesLoss(totalLoss);
+        overallLoss += totalLoss;
+    }
+
+    @Override
+    public String toString() {
+        return "Overall Stats: " +
+                "\n\t*Requests: " + overallRequests +
+                "\n\t*EVs charged: " + overallChargedEVs + "(" + overallChargedEVsPercentage + "%)" +
+                "\n\t*EVs not charged: " + overallNotChargedEVs + "(" + overallNotChargedPercentage + "%)" +
+                "\n\t*Chargers Used: " + " " + overallChargersUsedPercentage + "%" +
+                "\n\t*Profit: " + overallProfit+
+                "\n\t*Total loss: " + overallLoss;
+    }
 }

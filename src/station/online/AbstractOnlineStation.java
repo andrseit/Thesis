@@ -180,8 +180,17 @@ public abstract class AbstractOnlineStation extends AbstractStation {
     }
 
     public void setCurrentSlot(int currentSlot) {
-        System.out.println("Setting current slot: " + currentSlot);
         renewablesUpdated = false;
         this.currentSlot = currentSlot;
+    }
+
+    @Override
+    public ArrayList<EVObject> getChargedEVs() {
+        return lockedBidders;
+    }
+
+    @Override
+    public int[][] getScheduleMap() {
+        return fullScheduleMap;
     }
 }

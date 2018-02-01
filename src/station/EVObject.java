@@ -16,9 +16,11 @@ public class EVObject {
     // like a connection so that the message is delivered immediately
     private EV object_address;
     private Preferences preferences;
+    private Preferences oldPreferences;
     private int bid;
     private int id;
     private int station_id;
+    private int totalLoss;
     //private int energy;
     private int inform_slot;
     private int slotsNeeded; // slots the ev needs to reach the station - so that it makes the offer in the right time
@@ -245,6 +247,10 @@ public class EVObject {
     }
 
     public void setFinalPreferences() {
+        oldPreferences = new Preferences();
+        oldPreferences.setStart(preferences.getStart());
+        oldPreferences.setEnd(preferences.getEnd());
+        oldPreferences.setEnergy(preferences.getEnergy());
         preferences.setStartEndSlots(final_suggestion.getStart(), final_suggestion.getEnd());
         preferences.setEnergy(final_suggestion.getEnergy());
     }
@@ -285,5 +291,32 @@ public class EVObject {
 
     public void setInformSlot(int inform_slot) {
         this.inform_slot = inform_slot;
+    }
+
+    public boolean isCharged() {
+        return charged;
+    }
+
+    public void setCharged(boolean charged) {
+        this.charged = charged;
+    }
+
+    public void setTotalLoss () {
+        int start = oldPreferences.getStart();
+        int end = oldPreferences.getEnd();
+        int energy = oldPreferences.getEnergy();
+        int fStart = final_suggestion.getStart();
+        int fEnd = final_suggestion.getEnd();
+        int fEnergy = final_suggestion.getEnergy();
+
+        if (fStart < start || fStart > end)
+            totalLoss += Math.abs(start - fStart);
+        if (fEnd < start || fEnd > end)
+            totalLoss += Math.abs(end - fEnd);
+        totalLoss += Math.abs(energy - fEnergy);
+    }
+
+    public int getPreferencesLoss () {
+        return totalLoss;
     }
 }
