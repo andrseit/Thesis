@@ -7,9 +7,11 @@ import station.StationInfo;
 import station.SuggestionMessage;
 import station.negotiation.Suggestion;
 import station.pricing.Pricing;
+import statistics.TimeStats;
 import various.ArrayTransformations;
 import various.IntegerConstants;
 import exceptions.NoPricingException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,6 +28,7 @@ public abstract class AbstractStation {
     protected int[] renewables;
     protected int slotsNumber;
     protected int rejections;
+    protected int negotiators; // negotiators per slot
 
     protected ArrayList<EVObject> evBidders;
     protected ArrayList<EVObject> waiting;
@@ -37,11 +40,12 @@ public abstract class AbstractStation {
     protected boolean update;
     protected boolean demandComputed;
     protected boolean renewablesUpdated;
-    protected boolean firstRound;
+    protected int roundsCount;
 
     protected HashMap<String, Integer> strategyFlags;
 
     protected AbstractCPLEX cp;
+    protected TimeStats timer;
 
     /**
      * @return the schedule computed
@@ -97,13 +101,15 @@ public abstract class AbstractStation {
         messageReceivers = new ArrayList<>();
 
         id_counter = 0;
+        negotiators = -1;
         finished = false;
         update = false;
-        firstRound = true;
+        roundsCount = 0;
 
         schedule = new Schedule(slotsNumber, info.getChargerNumber());
         this.price = price;
         this.renewables = renewables;
+        timer = new TimeStats();
 
         try {
             setPricing();
@@ -127,25 +133,30 @@ public abstract class AbstractStation {
                 schedule.setDemand(computeDemand());
                 demandComputed = true;
             }
-            schedule.setFullScheduleMap(this.compute());
+            timer.startTimer();
+            int[][] scheduleMap = this.compute();
+            timer.stopTimer();
+            schedule.setFullScheduleMap(scheduleMap);
             schedule.printScheduleMap(price, renewables);
             this.computeOffers();
             evBidders.contains(new EVObject());
             update = true;
-            firstRound = false;
+            roundsCount++;
             return true;
         } else {
             //System.out.println("No incoming vehicles!");
             finished = true;
-            firstRound = true;
             return false;
         }
     }
 
     public void computeOffers() {
         this.offersCharged();
-        if (!waiting.isEmpty())
+        if (!waiting.isEmpty()) {
+            if (roundsCount == 1)
+                negotiators = waiting.size();
             this.offersNotCharged(this.pricing);
+        }
         //else
         //System.out.println("There are no pending vehicles!");
     }
@@ -357,5 +368,13 @@ public abstract class AbstractStation {
 
     public int getRejections() {
         return rejections;
+    }
+
+    public int getNegotiators () { return negotiators; }
+
+    public int getRoundsCount () { return roundsCount - 2; }
+
+    public void updateBeforeNextSlot () {
+        roundsCount = 0;
     }
 }

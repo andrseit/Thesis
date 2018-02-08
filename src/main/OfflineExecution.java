@@ -2,6 +2,7 @@ package main;
 
 import io.JSONFileParser;
 import station.offline.AbstractStation;
+import sun.awt.image.OffScreenImage;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class OfflineExecution extends Execution {
             finished_stations[s] = false;
         }
         evs = parser.readEVsData("evs.json");
+        times = new double[stations.size()][4][1];
         printEVs();
     }
 
@@ -43,14 +45,19 @@ public class OfflineExecution extends Execution {
         this.evsRequestStations();
         // stations sending initial offers
         System.out.println("Stations computing and sending initial offers...");
-        for (AbstractStation station : stations) {
+
+        for (int s = 0; s < stations.size(); s++) {
+            AbstractStation station = stations.get(s);
             System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
             System.out.println("Ev Bidders:");
             System.out.println(station.printEVBidders());
             System.out.println("Waiting:");
             System.out.println(station.printEVWaiting());
+            timer.startTimer();
             this.computeInitialOffers(station);
+            timer.stopTimer();
             this.stationsSendOfferMessages(station);
+            times[s][0][0] = timer.getMillis();
         }
 
         System.out.println("\nConversation between evs and stations starting...");
@@ -59,9 +66,15 @@ public class OfflineExecution extends Execution {
             this.evsEvaluateOffers();
             // negotiations
             for (int s = 0; s < stations.size(); s++) {
-                System.out.println("----------------- Station_" + stations.get(s).getInfo().getId() + " ---------------------");
-                this.stationCheckInWhile(stations.get(s), s);
-                this.stationsSendOfferMessages(stations.get(s));
+                AbstractStation station = stations.get(s);
+                System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
+                timer.startTimer();
+                this.stationCheckInWhile(station, s);
+                timer.stopTimer();
+                this.stationsSendOfferMessages(station);
+                times[s][1][0] = timer.getMillis();
+                times[s][2][0] = station.getNegotiators();
+                times[s][3][0] = station.getRoundsCount();
             }
         }
         System.out.println("------------\n\nExecution is over!");

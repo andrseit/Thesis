@@ -3,7 +3,9 @@ package main;
 import evs.EV;
 import station.StationInfo;
 import station.offline.AbstractStation;
+import station.online.AbstractOnlineStation;
 import statistics.StationData;
+import statistics.TimeStats;
 
 import java.util.ArrayList;
 
@@ -18,11 +20,16 @@ public abstract class Execution {
     protected ArrayList<StationInfo> s_infos;
     protected boolean[] finished_stations; // the stations that have no duties
     protected boolean online;
+    protected double[][][] times; // 1- initial, 2- negotiation, 3- #negotiators
+    protected TimeStats timer;
 
     protected abstract void initialize();
 
     public abstract void execute();
 
+    public Execution () {
+        timer = new TimeStats();
+    }
 
     protected void evsRequestStations() {
         for (EV ev : evs) {
@@ -84,8 +91,12 @@ public abstract class Execution {
 
     public ArrayList<StationData> getStationData () {
         ArrayList<StationData> stationData = new ArrayList<>();
-        for (AbstractStation station: stations) {
-            stationData.add(new StationData(station.getInfo().getId(), station.getRejections(), station.getScheduleMap(), station.getInfo().getChargerNumber(), station.getChargedEVs()));
+        for (int s = 0; s < stations.size(); s++) {
+            AbstractStation station = stations.get(s);
+            StationData data = new StationData(station.getInfo().getId(), station.getRejections(), station.getScheduleMap(),
+                    station.getInfo().getChargerNumber(), station.getChargedEVs());
+            data.setTimeStats(times[s][0], times[s][1], times[s][2], times[s][3]);
+            stationData.add(data);
         }
         return stationData;
     }

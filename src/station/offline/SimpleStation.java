@@ -83,8 +83,6 @@ public class SimpleStation extends AbstractStation {
             Negotiations neg = new Negotiations(waiting, schedule.getRemainingChargers(),
                     pricing);
             boolean hasSuggestions = neg.computeSuggestions();
-            System.out.println("Wating: " + waiting.isEmpty() + ", suggestions: " + neg.getFilteredSuggestionList().isEmpty() + ", first round: " + firstRound);
-            System.out.println("neg: " + neg.getFilteredSuggestionList().size());
             if (hasSuggestions) {
                 for (EVObject ev : waiting) {
                     if (neg.getFilteredSuggestionList().contains(ev) && ev.hasSuggestion()) {
@@ -102,7 +100,7 @@ public class SimpleStation extends AbstractStation {
                 }
             } else if (!hasSuggestions && waiting.isEmpty()) {
                 finished = true;
-            } else if (!hasSuggestions && !waiting.isEmpty() && !firstRound) {
+            } else if (!hasSuggestions && !waiting.isEmpty() && !(roundsCount == 0)) {
                 for (EVObject ev : waiting) {
                     addRejectionMessage(ev);
                 }

@@ -48,6 +48,40 @@ public class Statistics {
         for (StationData station: stationData) {
             System.out.println(station.toString());
         }
+        StationData s = stationData.get(0);
+        for (EVObject ev: s.getEvsCharged()) {
+            if (ev.hasSuggestion())
+                System.out.println(ev.getSuggestion().getTime());
+        }
+    }
+
+    public void printTimeStats () {
+        for (StationData station: stationData) {
+            double[] time = station.getInitialScheduleTime();
+            System.out.println("Initial schedule times: ");
+            for (int s = 0; s < time.length; s++) {
+                System.out.print(time[s] + " ");
+            }
+            System.out.println();
+            time = station.getNegotiationsTime();
+            System.out.println("Negotiation schedule times: ");
+            for (int s = 0; s < time.length; s++) {
+                System.out.print(time[s] + " ");
+            }
+            System.out.println();
+            time = station.getNegotiators();
+            System.out.println("Negotiators: ");
+            for (int s = 0; s < time.length; s++) {
+                System.out.print((int) time[s] + " ");
+            }
+            System.out.println();
+            time = station.getRoundsCount();
+            System.out.println("Rounds count: ");
+            for (int s = 0; s < time.length; s++) {
+                System.out.print((int)time[s] + " ");
+            }
+            System.out.println();
+        }
     }
 
     private void computeOverallStats() {

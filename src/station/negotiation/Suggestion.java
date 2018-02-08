@@ -1,6 +1,7 @@
 package station.negotiation;
 
 import evs.Preferences;
+import statistics.TimeStats;
 import various.IntegerConstants;
 
 /**
@@ -16,6 +17,8 @@ public class Suggestion extends Preferences {
     // epeidi otan thes na epanafereis tous fortistes prepei na ksereis poia eixan allaksei
     // me to suggestion opote na pas kai na ta kaneis +1
     private int[] slots_afected;
+
+    private double time;
 
     public Suggestion() {
         start = -1;
@@ -50,6 +53,7 @@ public class Suggestion extends Preferences {
             if (slots_afected[s] == 1)
                 str.append(s).append(",");
         }
+        str.append(" time: " + time);
         return str.toString();
     }
 
@@ -107,5 +111,13 @@ public class Suggestion extends Preferences {
 
     public void setProfit(int profit) {
         this.profit = profit;
+    }
+
+    public double getTime() {
+        return time;
+    }
+
+    public void setTime(double time) {
+        this.time = time;
     }
 }

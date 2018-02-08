@@ -98,7 +98,7 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
                 }
             } else if (neg.getFilteredSuggestionList().isEmpty() && waiting.isEmpty()) {
                 finished = true;
-            } else if (neg.getFilteredSuggestionList().isEmpty() && !waiting.isEmpty() && !firstRound) {
+            } else if (neg.getFilteredSuggestionList().isEmpty() && !waiting.isEmpty() && !(roundsCount == 0)) {
                 for (EVObject ev : waiting) {
                     addRejectionMessage(ev);
                 }

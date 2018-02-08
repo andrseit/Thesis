@@ -37,6 +37,7 @@ public class OnlineExecution extends Execution {
 
         evs = parser.readEVsData("evs.json");
         orderedEVs = this.orderEVs();
+        times = new double[stations.size()][4][slotsNumber];
         printEVs();
     }
 
@@ -74,12 +75,15 @@ public class OnlineExecution extends Execution {
                     System.out.println(station.printEVBidders());
                     System.out.println("Waiting:");
                     System.out.println(station.printEVWaiting());
+                    timer.startTimer();
                     this.computeInitialOffers(station);
+                    timer.stopTimer();
                     countOffers++;
                 } else {
                     System.out.println("Station has NO offers\n");
                     finished_stations[st] = true;
                 }
+                times[st][0][slot] = timer.getMillis();
             }
             for (int st = 0; st < stations.size(); st++) {
                 System.out.println("----------------- Station_" + stations.get(st).getInfo().getId() + " ---------------------");
@@ -98,7 +102,12 @@ public class OnlineExecution extends Execution {
                     System.out.println("----------------- Station_" + stations.get(s).getInfo().getId() + " ---------------------");
                     AbstractOnlineStation station = (AbstractOnlineStation) stations.get(s);
                     //if (station.hasOffers(slot)) {
+                    timer.startTimer();
                     this.stationCheckInWhile(station, s);
+                    timer.stopTimer();
+                    times[s][1][slot] = timer.getMillis();
+                    times[s][2][slot] = station.getNegotiators();
+                    times[s][3][slot] = station.getRoundsCount();
                     //}
                     if (!finished_stations[s])
                         this.stationsSendOfferMessages(station);
@@ -117,7 +126,7 @@ public class OnlineExecution extends Execution {
                     System.out.println("Simple Update");
                     station.updateStationDataNoSchedule();
                 }
-
+                station.updateBeforeNextSlot();
             }
             System.out.println("\n\n\n\n");
             resetEVsRounds();

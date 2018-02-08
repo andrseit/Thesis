@@ -4,6 +4,7 @@ import station.EVObject;
 import station.negotiation.Suggestion;
 import station.negotiation.SuggestionComputer;
 import station.pricing.Pricing;
+import statistics.TimeStats;
 
 import java.util.*;
 
@@ -20,6 +21,7 @@ public class SuggestionsOptimizer {
     private Comparator<EVObject> comparator;
     private PriorityQueue<EVObject> suggestions_queue; // instead of ArrayList<> - smaller to bigger
     private boolean empty;
+    private TimeStats timer;
 
     public SuggestionsOptimizer(ArrayList<EVObject> evs, int[] remaining_chargers, Pricing pricing) {
         this.evs = evs;
@@ -36,6 +38,7 @@ public class SuggestionsOptimizer {
         };
         suggestions_queue = new PriorityQueue<>(5, comparator);
         empty = false;
+        timer = new TimeStats();
     }
 
     /**
@@ -43,7 +46,10 @@ public class SuggestionsOptimizer {
      */
     public void optimizeSuggestions() {
         for (EVObject ev : evs) {
+            timer.startTimer();
             computer.computeAlternative(ev);
+            timer.stopTimer();
+            ev.getSuggestion().setTime(timer.getMillis());
             if (ev.hasSuggestion())
                 suggestions_queue.offer(ev);
         }
@@ -98,7 +104,10 @@ public class SuggestionsOptimizer {
                 //System.out.println("    Not available chargers found." +
                 //"Must compute alternative suggestion.\n");
                 ev.resetBestsUpdatingChargers();
+                timer.startTimer();
                 computer.computeAlternative(ev);
+                timer.stopTimer();
+                ev.getSuggestion().setTime(timer.getMillis());
                 if (ev.hasSuggestion())
                     suggestions_queue.offer(ev);
             } else {

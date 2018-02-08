@@ -26,6 +26,11 @@ public class StationData {
     private double rejectedPercentage;
     private double chargersUsedPercentage;
 
+    private double[] initialScheduleTime;
+    private double[] negotiationsTime;
+    private double[] negotiators;
+    private double[] roundsCount;
+
     public StationData(int station_id, int rejections, int[][] schedule, int chargersNumber, ArrayList<EVObject> evsCharged) {
         this.station_id = station_id;
         this.rejections = rejections;
@@ -86,6 +91,29 @@ public class StationData {
 
     public void setPreferencesLoss(int preferencesLoss) {
         this.preferencesLoss = preferencesLoss;
+    }
+
+    public void setTimeStats (double[] initialScheduleTime, double[] negotiationsTime, double[] negotiators, double[] roundsCount) {
+        this.initialScheduleTime = initialScheduleTime;
+        this.negotiationsTime = negotiationsTime;
+        this.negotiators = negotiators;
+        this.roundsCount = roundsCount;
+    }
+
+    public double[] getInitialScheduleTime() {
+        return initialScheduleTime;
+    }
+
+    public double[] getNegotiationsTime() {
+        return negotiationsTime;
+    }
+
+    public double[] getNegotiators() {
+        return negotiators;
+    }
+
+    public double[] getRoundsCount() {
+        return roundsCount;
     }
 
     public String toString () {

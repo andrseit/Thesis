@@ -78,7 +78,6 @@ public class SuggestionComputer {
         //lowerBound = 0;
         //ArrayTransformations t = new ArrayTransformations();
         //t.printOneDimensionArray("Search Slots Chargers: ", chargers);
-        System.out.println("Lower bound: " + lowerBound);
         int left;
         int right;
         int[] affected_slots = new int[chargers.length];

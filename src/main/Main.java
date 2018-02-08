@@ -26,7 +26,7 @@ public class Main {
         */
 
         Execution exe = new OfflineExecution();
-        //exe.execute();
+        exe.execute();
 
         exe = new OnlineExecution();
         exe.execute();
@@ -35,6 +35,7 @@ public class Main {
         stats.computeStats();
         stats.printOverallStats();
         stats.printStationStats();
+        stats.printTimeStats();
     }
 
 }
