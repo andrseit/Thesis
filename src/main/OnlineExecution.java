@@ -6,7 +6,6 @@ import station.offline.AbstractStation;
 import station.online.AbstractOnlineStation;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -146,12 +145,7 @@ public class OnlineExecution extends Execution {
     }
 
     private PriorityQueue<EV> orderEVs() {
-        PriorityQueue<EV> orderedEVs = new PriorityQueue<>(10, new Comparator<EV>() {
-            @Override
-            public int compare(EV ev1, EV ev2) {
-                return ev1.getInformSlot() - ev2.getInformSlot();
-            }
-        });
+        PriorityQueue<EV> orderedEVs = new PriorityQueue<>(10, (ev1, ev2) -> ev1.getInformSlot() - ev2.getInformSlot());
         for (EV ev : evs) {
             orderedEVs.offer(ev);
         }

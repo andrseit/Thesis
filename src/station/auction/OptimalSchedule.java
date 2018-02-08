@@ -4,7 +4,6 @@ import optimize.AbstractCPLEX;
 import station.EVObject;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -42,12 +41,7 @@ public class OptimalSchedule {
     }
 
     private int getMinSlot() {
-        PriorityQueue<EVObject> queue = new PriorityQueue<EVObject>(10, new Comparator<EVObject>() {
-            @Override
-            public int compare(EVObject ev1, EVObject ev2) {
-                return ev1.getMinSlot() - ev2.getMinSlot();
-            }
-        });
+        PriorityQueue<EVObject> queue = new PriorityQueue<>(10, (ev1, ev2) -> ev1.getMinSlot() - ev2.getMinSlot());
 
         for (EVObject ev : bidders_list) {
             queue.offer(ev);
@@ -56,12 +50,7 @@ public class OptimalSchedule {
     }
 
     private int getMaxSlot() {
-        PriorityQueue<EVObject> queue = new PriorityQueue<EVObject>(10, new Comparator<EVObject>() {
-            @Override
-            public int compare(EVObject ev1, EVObject ev2) {
-                return ev2.getMaxSlot() - ev1.getMaxSlot();
-            }
-        });
+        PriorityQueue<EVObject> queue = new PriorityQueue<>(10, (ev1, ev2) -> ev2.getMaxSlot() - ev1.getMaxSlot());
 
         for (EVObject ev : bidders_list) {
             queue.offer(ev);

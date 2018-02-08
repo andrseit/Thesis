@@ -74,7 +74,6 @@ public class SimpleStation extends AbstractStation {
 
     @Override
     public void offersNotCharged(Pricing pricing) {
-
         if (rounds == 0 && strategyFlags.get("suggestion").equals(IntegerConstants.SUGGESTION_SECOND_ROUND)) {
             for (EVObject ev : waiting) {
                 this.addNotAvailableMessage(ev);
@@ -83,8 +82,10 @@ public class SimpleStation extends AbstractStation {
         } else {
             Negotiations neg = new Negotiations(waiting, schedule.getRemainingChargers(),
                     pricing);
-            neg.computeSuggestions();
-            if (!neg.getFilteredSuggestionList().isEmpty()) {
+            boolean hasSuggestions = neg.computeSuggestions();
+            System.out.println("Wating: " + waiting.isEmpty() + ", suggestions: " + neg.getFilteredSuggestionList().isEmpty() + ", first round: " + firstRound);
+            System.out.println("neg: " + neg.getFilteredSuggestionList().size());
+            if (hasSuggestions) {
                 for (EVObject ev : waiting) {
                     if (neg.getFilteredSuggestionList().contains(ev) && ev.hasSuggestion()) {
                         ev.setFinalPayment(this.computePrice(ev.getSuggestion()));
@@ -99,8 +100,12 @@ public class SimpleStation extends AbstractStation {
                     }
                     //messageReceivers.add(ev);
                 }
-            } else if (neg.getFilteredSuggestionList().isEmpty() && waiting.isEmpty()) {
+            } else if (!hasSuggestions && waiting.isEmpty()) {
                 finished = true;
+            } else if (!hasSuggestions && !waiting.isEmpty() && !firstRound) {
+                for (EVObject ev : waiting) {
+                    addRejectionMessage(ev);
+                }
             }
         }
         rounds++;

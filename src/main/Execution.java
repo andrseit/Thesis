@@ -1,7 +1,6 @@
 package main;
 
 import evs.EV;
-import station.EVObject;
 import station.StationInfo;
 import station.offline.AbstractStation;
 import statistics.StationData;
@@ -66,8 +65,8 @@ public abstract class Execution {
     }
 
     protected boolean checkFinished() {
-        for (int s = 0; s < finished_stations.length; s++) {
-            if (!finished_stations[s])
+        for (boolean finished_station : finished_stations) {
+            if (!finished_station)
                 return false;
         }
         return true;

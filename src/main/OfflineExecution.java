@@ -66,9 +66,9 @@ public class OfflineExecution extends Execution {
         }
         System.out.println("------------\n\nExecution is over!");
         System.out.println("These are the final schedules:");
-        for (int s = 0; s < stations.size(); s++) {
-            System.out.println("----------------- Station_" + stations.get(s).getInfo().getId() + " ---------------------");
-            stations.get(s).printScheduleMap();
+        for (AbstractStation station : stations) {
+            System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
+            station.printScheduleMap();
         }
     }
 }

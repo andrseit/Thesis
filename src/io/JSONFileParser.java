@@ -66,11 +66,7 @@ public class JSONFileParser {
             }
             reader.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (org.json.simple.parser.ParseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (org.json.simple.parser.ParseException | IOException e) {
             e.printStackTrace();
         }
         return stations;
@@ -119,11 +115,7 @@ public class JSONFileParser {
             }
             reader.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (org.json.simple.parser.ParseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (org.json.simple.parser.ParseException | IOException e) {
             e.printStackTrace();
         }
         return stations;
@@ -164,11 +156,7 @@ public class JSONFileParser {
 
             reader.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (org.json.simple.parser.ParseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (org.json.simple.parser.ParseException | IOException e) {
             e.printStackTrace();
         }
         return stations;
@@ -186,8 +174,6 @@ public class JSONFileParser {
                 price[s] = Integer.parseInt(tokens[0]);
                 renewables[s] = Integer.parseInt(tokens[1]);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -293,11 +279,7 @@ public class JSONFileParser {
                 id++;
             }
             reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (org.json.simple.parser.ParseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (org.json.simple.parser.ParseException | IOException e) {
             e.printStackTrace();
         }
 

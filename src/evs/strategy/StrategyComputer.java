@@ -5,7 +5,6 @@ import evs.Preferences;
 import station.SuggestionMessage;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -32,7 +31,7 @@ class StrategyComputer {
                 int preferences_distance = 0;
                 if (!hasSuggestion(message)) {
                     preferences_distance = Integer.MAX_VALUE;
-                    comparable_suggestions.add(new ComparableSuggestion(0, 0, preferences_distance, message.getStationAddress()));
+                    comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, preferences_distance, message.getStationAddress()));
                 } else {
                     boolean withingRange = true;
                     if (!this.isWithinInitial(message, initial_prefs)) {
@@ -40,16 +39,17 @@ class StrategyComputer {
                         if (withingRange)
                             preferences_distance = this.computePreferencesDistance(message, initial_prefs);
                         else
-                            comparable_suggestions.add(new ComparableSuggestion(0, 0, -1, message.getStationAddress()));
+                            comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -1, message.getStationAddress()));
                     }
                     if (withingRange) {
                         int price = message.getCost();
                         int total_distance = this.computeTotalDistance(message);
-                        comparable_suggestions.add(new ComparableSuggestion(total_distance, price, preferences_distance, message.getStationAddress()));
+                        int windowRange = this.computeWindowRange(message);
+                        comparable_suggestions.add(new ComparableSuggestion(total_distance, price, windowRange, preferences_distance, message.getStationAddress()));
                     }
                 }
             } else {
-                comparable_suggestions.add(new ComparableSuggestion(0, 0, -2, message.getStationAddress()));
+                comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -2, message.getStationAddress()));
             }
         }
         orderMessages(comparable_suggestions, strategy_preferences.getPriority());
@@ -74,13 +74,27 @@ class StrategyComputer {
         int end = initial.getEnd();
         int sStart = message.getStart();
         int sEnd = message.getEnd();
-        int start_dif = 0, end_dif = 0, energy_dif;
+        int window_diff = 0, energy_dif;
+        int start_dif = 0, end_dif = 0;
+
+        if (sEnd < end) {
+            window_diff += end - sEnd;
+        } else if (sStart > start) {
+            window_diff += sStart - start;
+        }
+        int oldRange = end - start + 1;
+        int newRange = sEnd - sStart + 1;
+        if (newRange > oldRange)
+            window_diff += newRange - oldRange;
+
+        /*
         if (!isInRange(start, end, sStart))
             start_dif = Math.abs(message.getStart() - initial.getStart());
         if (!isInRange(start, end, sEnd))
             end_dif = Math.abs(message.getEnd() - initial.getEnd());
+        */
         energy_dif = Math.abs(message.getEnergy() - initial.getEnergy());
-        return start_dif + end_dif + energy_dif;
+        return window_diff + energy_dif;
     }
 
     /**
@@ -105,13 +119,15 @@ class StrategyComputer {
      */
     private void orderMessages(ArrayList<ComparableSuggestion> messages, String priority) {
         if (priority.equals("price")) {
-            Collections.sort(messages, Comparator.comparing((ComparableSuggestion s) -> s.getPreferencesDistance())
+            messages.sort(Comparator.comparing((ComparableSuggestion s) -> s.getPreferencesDistance())
                     .thenComparing(p -> p.getPrice())
-                    .thenComparingInt(p -> p.getTotalDistance()));
+                    .thenComparingInt(p -> p.getTotalDistance())
+                    .thenComparing(p -> p.getWindowRange()));
         } else {
-            Collections.sort(messages, Comparator.comparing((ComparableSuggestion s) -> s.getPreferencesDistance())
+            messages.sort(Comparator.comparing((ComparableSuggestion s) -> s.getPreferencesDistance())
                     .thenComparing(p -> p.getTotalDistance())
-                    .thenComparingInt(p -> p.getPrice()));
+                    .thenComparingInt(p -> p.getPrice())
+                    .thenComparing(p -> p.getWindowRange()));
         }
     }
 
@@ -132,12 +148,10 @@ class StrategyComputer {
      * @return
      */
     private boolean tooWide (Preferences initial, SuggestionMessage message) {
-        double initialRange = initial.getEnd() - initial.getStart();
-        double messageRange = message.getEnd() - message.getStart();
+        double initialRange = initial.getEnd() - initial.getStart() + 1;
+        double messageRange = message.getEnd() - message.getStart() + 1;
         double sRange = strategy_preferences.getRange();
-        if ((messageRange/initialRange) < sRange)
-            return false;
-        return true;
+        return !((messageRange / initialRange) < sRange);
     }
 
     private int computeTotalDistance(SuggestionMessage message) {
@@ -152,5 +166,11 @@ class StrategyComputer {
         int to_destination_distance = Math.abs(stationX - endX) + Math.abs(stationY - endY);
 
         return to_station_distance + to_destination_distance;
+    }
+
+    private int computeWindowRange (SuggestionMessage message) {
+        int start = message.getStart();
+        int end = message.getEnd();
+        return end - start;
     }
 }

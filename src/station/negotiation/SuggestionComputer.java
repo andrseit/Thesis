@@ -182,15 +182,30 @@ public class SuggestionComputer {
         int end = initial.getEnd();
         int sStart = suggestion.getStart();
         int sEnd = suggestion.getEnd();
-        int start_dif = 0, end_dif = 0, energy_dif;
+        int energy_dif, window_diff = 0;
+
+        /*
+        int start_dif = 0, end_dif = 0;
         if (!isInRange(start, end, sStart))
             start_dif = Math.abs(suggestion.getStart() - initial.getStart());
         if (!isInRange(start, end, sEnd))
             end_dif = Math.abs(suggestion.getEnd() - initial.getEnd());
+        */
+
+        if (sEnd < end) {
+            window_diff += end - sEnd;
+        } else if (sStart > start) {
+            window_diff += sStart - start;
+        }
+        int oldRange = end - start + 1;
+        int newRange = sEnd - sStart + 1;
+        if (newRange > oldRange)
+            window_diff += newRange - oldRange;
         energy_dif = Math.abs(suggestion.getEnergy() - initial.getEnergy());
 
-        suggestion.setRating(start_dif + end_dif + energy_dif);
-        //System.out.println("\nDifferences: " + start_dif + ", " + end_diff + ", " + energy_diff);
+        suggestion.setRating(window_diff + energy_dif);
+        //System.out.println("Differences: " + window_diff + ", " + energy_dif);
+        //System.out.println("Differences: " + start_dif + ", " + end_dif + ", " + energy_dif);
     }
 
     private boolean isInRange(int start, int end, int suggested) {
@@ -258,9 +273,6 @@ public class SuggestionComputer {
 
 
     /**
-     * WARNING: prosoxi na min enallasontai oi protaseis, dld proteinei mia l.e. = 3
-     * meta a.w.=4-7 to arneitai meta gyrizei pali sto l.e. = 3
-     *
      * @param ev
      * @param s1
      * @param s2

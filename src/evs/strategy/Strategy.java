@@ -80,7 +80,7 @@ public class Strategy {
         for (int s = 0; s < comparableSuggestions.size(); s++) {
             ComparableSuggestion suggestion = comparableSuggestions.get(s);
             if (suggestion.getPreferencesDistance() == -2) {
-                states[s] = IntegerConstants.EV_EVALUATE_PENDING;
+                states[s] = IntegerConstants.EV_EVALUATE_REJECT;
             } else if (suggestion.getPreferencesDistance() == -1) {
                 states[s] = IntegerConstants.EV_EVALUATE_WAIT;
             } else if (suggestion.getPreferencesDistance() < Integer.MAX_VALUE) { //&& suggestion.getPreferencesDistance() > 0) {

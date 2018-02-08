@@ -27,15 +27,12 @@ public class Negotiations {
         this.evs = evs;
         this.chargers = Arrays.copyOf(chargers, chargers.length);
         this.pricing = pricing;
-        comparator = new Comparator<EVObject>() {
-            @Override
-            public int compare(EVObject o1, EVObject o2) {
-                int comp = o1.getSuggestion().getRating() - o2.getSuggestion().getRating();
-                if (comp != 0)
-                    return comp;
-                else {
-                    return o2.getSuggestion().getProfit() - o1.getSuggestion().getProfit();
-                }
+        comparator = (o1, o2) -> {
+            int comp = o1.getSuggestion().getRating() - o2.getSuggestion().getRating();
+            if (comp != 0)
+                return comp;
+            else {
+                return o2.getSuggestion().getProfit() - o1.getSuggestion().getProfit();
             }
         };
 
@@ -46,7 +43,7 @@ public class Negotiations {
     /**
      * For each EVObject not charged compute some suggestions
      */
-    public int computeSuggestions() {
+    public boolean computeSuggestions() {
 
         // compute suggestions
         SuggestionsOptimizer optimizer = new SuggestionsOptimizer(evs, chargers, pricing);
@@ -79,7 +76,7 @@ public class Negotiations {
 //        } else {
 //            return -1;
 //        }
-        return -1;
+        return !optimizer.isEmpty();
     }
 
 
@@ -124,7 +121,7 @@ public class Negotiations {
 
     private void printFinalOrderedSuggestions() {
         System.out.println("Ordered Suggestions");
-        Collections.sort(evs, comparator);
+        evs.sort(comparator);
         int count = 0;
         EVObject ev;
         while (count != evs.size()) {
@@ -230,6 +227,5 @@ public class Negotiations {
     public int[] getChargers() {
         return chargers;
     }
-
 
 }

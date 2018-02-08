@@ -37,6 +37,7 @@ public abstract class AbstractStation {
     protected boolean update;
     protected boolean demandComputed;
     protected boolean renewablesUpdated;
+    protected boolean firstRound;
 
     protected HashMap<String, Integer> strategyFlags;
 
@@ -98,6 +99,7 @@ public abstract class AbstractStation {
         id_counter = 0;
         finished = false;
         update = false;
+        firstRound = true;
 
         schedule = new Schedule(slotsNumber, info.getChargerNumber());
         this.price = price;
@@ -130,10 +132,12 @@ public abstract class AbstractStation {
             this.computeOffers();
             evBidders.contains(new EVObject());
             update = true;
+            firstRound = false;
             return true;
         } else {
             //System.out.println("No incoming vehicles!");
             finished = true;
+            firstRound = true;
             return false;
         }
     }
@@ -167,6 +171,21 @@ public abstract class AbstractStation {
     public void addNotAvailableMessage(EVObject ev) {
         Suggestion suggestion = new Suggestion();
         suggestion.setStartEndSlots(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        suggestion.setEnergy(0);
+        suggestion.setCost(0);
+        suggestion.findSlotsAffected(schedule.getRemainingChargers());
+        ev.setSuggestion(suggestion);
+        ev.setFinalSuggestion();
+    }
+
+    /**
+     * When the station cannot charge the evs even with suggestions
+     * so it informs the ev that there is not a single chance to charge it
+     * @param ev
+     */
+    public void addRejectionMessage(EVObject ev) {
+        Suggestion suggestion = new Suggestion();
+        suggestion.setStartEndSlots(-1, -1);
         suggestion.setEnergy(0);
         suggestion.setCost(0);
         suggestion.findSlotsAffected(schedule.getRemainingChargers());

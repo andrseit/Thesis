@@ -12,8 +12,8 @@ public class ArrayTransformations {
         int[] final_array = new int[columns];
 
         for (int c = 0; c < columns; c++) {
-            for (int r = 0; r < rows; r++) {
-                final_array[c] += array[r][c];
+            for (int[] anArray : array) {
+                final_array[c] += anArray[c];
             }
         }
 
@@ -29,9 +29,9 @@ public class ArrayTransformations {
         int rows = array.length;
         int columns = array[0].length;
 
-        for (int r = 0; r < rows; r++) {
+        for (int[] anArray : array) {
             for (int c = 0; c < columns; c++) {
-                System.out.print(array[r][c] + " ");
+                System.out.print(anArray[c] + " ");
             }
             System.out.println();
         }
@@ -41,8 +41,8 @@ public class ArrayTransformations {
     public void printOneDimensionArray(String name, int[] array) {
         int columns = array.length;
         System.out.println(name);
-        for (int c = 0; c < columns; c++) {
-            System.out.print(array[c] + " ");
+        for (int anArray : array) {
+            System.out.print(anArray + " ");
         }
         System.out.println();
     }

@@ -59,7 +59,7 @@ public class Suggestion extends Preferences {
 
     public void findSlotsAffected(int[] chargers) {
 
-        if (start == Integer.MAX_VALUE && end == Integer.MAX_VALUE && energy == 0) {
+        if ((start == Integer.MAX_VALUE && end == Integer.MAX_VALUE) || (start == -1 && end == -1)) {
             slots_afected = new int[0];
         } else {
             slots_afected = new int[chargers.length];

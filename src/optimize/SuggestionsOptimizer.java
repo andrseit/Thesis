@@ -172,14 +172,16 @@ public class SuggestionsOptimizer {
 
     private void printFinalOrderedSuggestions() {
         System.out.println("Ordered Suggestions Final");
-        Collections.sort(evs, comparator);
+        evs.sort(comparator);
         int count = 0;
-        EVObject ev;
-        while (count != evs.size()) {
+        for (EVObject ev: evs) {
             ev = evs.get(count);
-            System.out.println("    " + (count + 1) + ". " + ev.getSuggestion().toString() +
-                    "(ev:" + ev.getId() + ")");
-            count++;
+            if (ev.hasSuggestion()) {
+                System.out.println("    " + (count + 1) + ". " + ev.getSuggestion().toString() +
+                        "(ev:" + ev.getId() + ")");
+                count++;
+            }
+
         }
         System.out.println();
     }

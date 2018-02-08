@@ -71,6 +71,7 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
     @Override
     public void offersNotCharged(Pricing pricing) {
 
+
         if (rounds == 0 && strategyFlags.get("suggestion").equals(IntegerConstants.SUGGESTION_SECOND_ROUND)) {
             for (EVObject ev : waiting) {
                 this.addNotAvailableMessage(ev);
@@ -97,6 +98,10 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
                 }
             } else if (neg.getFilteredSuggestionList().isEmpty() && waiting.isEmpty()) {
                 finished = true;
+            } else if (neg.getFilteredSuggestionList().isEmpty() && !waiting.isEmpty() && !firstRound) {
+                for (EVObject ev : waiting) {
+                    addRejectionMessage(ev);
+                }
             }
         }
         rounds++;

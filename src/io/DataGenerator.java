@@ -55,8 +55,8 @@ public class DataGenerator {
                 ev.put("y", y);
                 int maxDistance = -1;
                 int minDistance = Integer.MAX_VALUE; // distances from the closest and the farthest station
-                for (int st = 0; st < stationLocation.length; st++) {
-                    int stationDistance = Math.abs(x - stationLocation[st][0]) + Math.abs(y - stationLocation[st][1]);
+                for (int[] aStationLocation : stationLocation) {
+                    int stationDistance = Math.abs(x - aStationLocation[0]) + Math.abs(y - aStationLocation[1]);
                     if (stationDistance < minDistance)
                         minDistance = stationDistance;
                     if (stationDistance > maxDistance)
@@ -213,11 +213,7 @@ public class DataGenerator {
                 id++;
             }
             reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (org.json.simple.parser.ParseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (org.json.simple.parser.ParseException | IOException e) {
             e.printStackTrace();
         }
 

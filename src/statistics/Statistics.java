@@ -3,7 +3,6 @@ package statistics;
 import station.EVObject;
 import various.ArrayTransformations;
 
-import javax.lang.model.util.SimpleElementVisitor6;
 import java.util.ArrayList;
 
 /**
@@ -75,8 +74,8 @@ public class Statistics {
         t.printIntArray(map);
         int[] occupancy = t.getColumnsCount(map);
         int chargersUsed = 0;
-        for (int s = 0; s < occupancy.length; s++) {
-            chargersUsed += occupancy[s];
+        for (int anOccupancy : occupancy) {
+            chargersUsed += anOccupancy;
         }
 
         int allChargers = station.getChargersNumber() * occupancy.length;

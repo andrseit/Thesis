@@ -4,8 +4,6 @@ package main;
 import io.DataGenerator;
 import statistics.Statistics;
 
-import java.util.Random;
-
 /**
  * Created by Darling on 28/8/2017.
  */
