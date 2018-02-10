@@ -2,6 +2,7 @@ package optimize;
 
 import ilog.concert.IloException;
 import ilog.concert.IloLinearNumExpr;
+import ilog.concert.IloNumExpr;
 import ilog.concert.IloNumVar;
 import ilog.cplex.IloCplex;
 import station.EVObject;
@@ -76,8 +77,10 @@ public abstract class AbstractCPLEX {
 
         try {
             for (int e = 0; e < evs.size(); e++) {
-                if (evs.get(e).isCharged())
+                if (evs.get(e).isCharged()) {
                     cp.addEq(charges[e], 1);
+                    System.out.println(evs.get(e).toString());
+                }
             }
         } catch (IloException e1) {
             e1.printStackTrace();
@@ -160,7 +163,7 @@ public abstract class AbstractCPLEX {
                 //System.out.println(objective);
                 //System.out.println("Utility: " + cp.getValue(objective));
             } else {
-                System.out.println("Problem could not be solved!");
+                System.out.println("Problem could not be solved: ");
             }
         } catch (IloException e) {
             e.printStackTrace();

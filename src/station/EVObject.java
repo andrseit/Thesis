@@ -77,8 +77,9 @@ public class EVObject {
         // str.append("\nSchedule row: " + schedule_row + "\n");
         //if (charged)
         //str.append(" will charge!");
+        int dif = getEndSlot() - getStartSlot() + 1;
         return ("EVs id: " + id + "(" + station_id + ")" + " -> ") +
-                getStartSlot() + "-" + getEndSlot() + "/" + getEnergy() +
+                getStartSlot() + "-" + getEndSlot() + "/" + getEnergy() + "(" + dif + ")" +
                 "\n";
     }
 
@@ -151,9 +152,8 @@ public class EVObject {
     }
 
     public String toString() {
-        return ("ev_" + schedule_row + ": ") +
-                preferences.getStart() + " - " + preferences.getEnd() + " / " + preferences.getEnergy() +
-                " -- " + bid;
+        return ("ev_" + id + ": ") +
+                preferences.getStart() + " - " + preferences.getEnd() + " / " + preferences.getEnergy();
     }
 
     public int getBestLessEnergy() {

@@ -38,8 +38,9 @@ class StrategyComputer {
                         withingRange = this.checkWithinRange(initial_prefs, message);
                         if (withingRange)
                             preferences_distance = this.computePreferencesDistance(message, initial_prefs);
-                        else
+                        else {
                             comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -1, message.getStationAddress()));
+                        }
                     }
                     if (withingRange) {
                         int price = message.getCost();

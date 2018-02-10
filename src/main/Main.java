@@ -11,10 +11,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        DataGenerator dt = new DataGenerator(3, 5, 10, 3);
+        DataGenerator dt = new DataGenerator(3, 2, 10, 3);
         //dt.generateStationFile();
         //dt.readStationFile();
-        //dt.generateEVsFile();
+        //dt.generateEVsFile(2, 5, 0.6, 1.7);
+        //dt.generatePriceFile();
 
         /*
         Execution exe = new OnlineExecution();
@@ -25,10 +26,12 @@ public class Main {
         exe.execute();
         */
 
+
         Execution exe = new OfflineExecution();
         exe.execute();
 
-        exe = new OnlineExecution();
+        //exe = new OnlineExecution();
+        /*
         exe.execute();
 
         Statistics stats = new Statistics(exe.getStationData(), exe.getEVsNumber());
@@ -36,6 +39,7 @@ public class Main {
         stats.printOverallStats();
         stats.printStationStats();
         stats.printTimeStats();
+        */
     }
 
 }

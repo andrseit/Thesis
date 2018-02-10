@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import java.io.*;
 import java.util.Random;
 
+import static java.lang.Math.min;
 import static java.lang.Math.toIntExact;
 
 /**
@@ -28,17 +29,17 @@ public class DataGenerator {
         stationLocation = new int[stationsNumber][2];
     }
 
-    public void generateEVsFile() {
+    public void generateEVsFile(int minEnergy, int maxEnergy, double sEnergy, double windowLength) {
         if (!stationsGenerated)
             System.err.println("Please generate or read station file first!");
         else {
             stationsGenerated = false;
-            this.generateEVs(5);
+            this.generateEVs(5, minEnergy, maxEnergy, sEnergy, windowLength);
         }
     }
 
 
-    private void generateEVs(int bidBound) {
+    private void generateEVs(int bidBound, int minEnergy, int maxEnergy, double sEnergy, double windowLength) {
         try {
             FileWriter writer = new FileWriter("files/evs.json");
             Random random = new Random();
@@ -62,7 +63,7 @@ public class DataGenerator {
                     if (stationDistance > maxDistance)
                         maxDistance = stationDistance;
                 }
-                System.out.println("min: " + minDistance + ", max: " + maxDistance);
+                //System.out.println("min: " + minDistance + ", max: " + maxDistance);
 
                 // final destination
                 int f_x = random.nextInt(gridSize);
@@ -74,11 +75,16 @@ public class DataGenerator {
                 ev.put("f_x", f_x);
                 ev.put("f_y", f_y);
 
-
                 // preferences
-                int start = random.nextInt(slotsNumber - minDistance) + minDistance;
-                int end = random.nextInt(slotsNumber - start) + start;
-                int energy = random.nextInt(end - start + 1) + 1;
+                int energy = random.nextInt(maxEnergy - minEnergy + 1) + minEnergy;
+                int start = random.nextInt(slotsNumber - energy - minDistance) + minDistance;
+                int minEnd = start + energy - 1;
+                int maxEnd = start + (int)(energy * windowLength) + 1;
+                int end = random.nextInt(Math.min(slotsNumber, maxEnd) - minEnd) + minEnd;
+
+                //int start = random.nextInt(slotsNumber - minDistance) + minDistance;
+                //int end = random.nextInt(slotsNumber - start) + start;
+                //int energy = random.nextInt(end - start + 1) + 1;
                 int inform = 0;
                 if (start != 0)
                     inform = random.nextInt(start - minDistance + 1);
@@ -150,32 +156,53 @@ public class DataGenerator {
 
             JSONObject station = new JSONObject();
             JSONObject location = new JSONObject();
+            JSONObject flags = new JSONObject();
             station.put("chargers", 1);
             location.put("x", 0);
             location.put("y", 0);
             station.put("location", location);
             stationLocation[0][0] = 0;
             stationLocation[0][1] = 0;
+            station.put("price_file", "station_0");
+            flags.put("window", 0);
+            flags.put("cplex", 0);
+            flags.put("suggestion", 0);
+            flags.put("instant", 1);
+            station.put("flags", flags);
             writer.write(station.toJSONString() + "\n");
 
             station = new JSONObject();
             location = new JSONObject();
+            flags = new JSONObject();
             station.put("chargers", 1);
             location.put("x", 1);
             location.put("y", 0);
             stationLocation[1][0] = 1;
             stationLocation[1][1] = 0;
             station.put("location", location);
+            station.put("price_file", "station_1");
+            flags.put("window", 0);
+            flags.put("cplex", 0);
+            flags.put("suggestion", 0);
+            flags.put("instant", 1);
+            station.put("flags", flags);
             writer.write(station.toJSONString() + "\n");
 
             station = new JSONObject();
             location = new JSONObject();
+            flags = new JSONObject();
             station.put("chargers", 1);
             location.put("x", 1);
             location.put("y", 1);
             stationLocation[2][0] = 1;
             stationLocation[2][1] = 1;
             station.put("location", location);
+            station.put("price_file", "station_0");
+            flags.put("window", 0);
+            flags.put("cplex", 0);
+            flags.put("suggestion", 0);
+            flags.put("instant", 1);
+            station.put("flags", flags);
             writer.write(station.toJSONString() + "\n");
 
             writer.flush();
@@ -190,6 +217,24 @@ public class DataGenerator {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void generatePriceFile () {
+
+        Random random = new Random();
+        for (int s = 0; s < stationsNumber; s++) {
+            try {
+                FileWriter writer = new FileWriter("files/price/station_" + s + ".txt");
+                for (int i = 0; i < slotsNumber; i++) {
+                    writer.write("2," + String.valueOf(random.nextInt(5) + 1) + "\n");
+                }
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

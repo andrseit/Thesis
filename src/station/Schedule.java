@@ -70,6 +70,7 @@ public class Schedule {
     public void printScheduleMap(int[] price, int[] renewables) {
 
         StringBuilder str = new StringBuilder();
+
         str.append("       ");
         for (int s = 0; s < slotsNumber; s++) {
             str.append(s).append(" ");
@@ -94,6 +95,7 @@ public class Schedule {
         }
         str.append("\n\n");
 
+
         str.append("deman: ");
         for (int s = 0; s < slotsNumber; s++) {
             str.append(demand[s]).append(" ");
@@ -107,6 +109,7 @@ public class Schedule {
             }
             str.append("\n");
         }
+
         System.out.println(str.toString());
     }
 

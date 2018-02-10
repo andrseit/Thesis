@@ -67,7 +67,7 @@ public class SuggestionComputer {
 
         int available_energy = energyInSlots(initial.getStart(), initial.getEnd(), suggestion);
         this.searchSlots(1, initial, available_energy, suggestion, lowerBound);
-
+        this.searchSlots(-1, initial, available_energy, suggestion, lowerBound);
         //System.out.println(new_preferences.toString());
         //System.out.println("        Slots found: " + suggestion.getStart() + "-" + suggestion.getEnd() + "/" + suggestion.getEnergy());
         return suggestion;
@@ -139,9 +139,18 @@ public class SuggestionComputer {
             new_slots[0] = left;
             new_slots[1] = right;
         }
+        int oldLength = Math.abs(suggestion.getStart() - suggestion.getEnd());
+        int newLength = Math.abs(new_slots[0] - new_slots[1]);
+        if (suggestion.getStart() == -1) {
+            suggestion.setSlotsAffected(affected_slots);
+            suggestion.setStartEndSlots(new_slots[0], new_slots[1]);
+        } else {
+            if (newLength < oldLength) {
+                suggestion.setSlotsAffected(affected_slots);
+                suggestion.setStartEndSlots(new_slots[0], new_slots[1]);
+            }
+        }
 
-        suggestion.setSlotsAffected(affected_slots);
-        suggestion.setStartEndSlots(new_slots[0], new_slots[1]);
     }
 
     /**

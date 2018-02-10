@@ -76,7 +76,7 @@ public class SuggestionsOptimizer {
             //System.out.println("-Updating chargers for ev: " + ev.getId());
             Suggestion suggestion = ev.getSuggestion();
 
-            if (suggestion.getRating() > 15)
+            if (suggestion.getRating() > 500)
                 break;
 
             int count = 0;

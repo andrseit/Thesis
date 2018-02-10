@@ -57,28 +57,29 @@ public class Statistics {
 
     public void printTimeStats () {
         for (StationData station: stationData) {
+            System.out.println("Station_" + station.getStation_id());
             double[] time = station.getInitialScheduleTime();
-            System.out.println("Initial schedule times: ");
+            System.out.println("\tInitial schedule times: ");
             for (int s = 0; s < time.length; s++) {
-                System.out.print(time[s] + " ");
+                System.out.print("\t\t" + time[s] + " ");
             }
             System.out.println();
             time = station.getNegotiationsTime();
-            System.out.println("Negotiation schedule times: ");
+            System.out.println("\tNegotiation schedule times: ");
             for (int s = 0; s < time.length; s++) {
-                System.out.print(time[s] + " ");
+                System.out.print("\t\t" + time[s] + " ");
             }
             System.out.println();
             time = station.getNegotiators();
-            System.out.println("Negotiators: ");
+            System.out.println("\tNegotiators: ");
             for (int s = 0; s < time.length; s++) {
-                System.out.print((int) time[s] + " ");
+                System.out.print("\t\t" + (int) time[s] + " ");
             }
             System.out.println();
             time = station.getRoundsCount();
-            System.out.println("Rounds count: ");
+            System.out.println("\tRounds count: ");
             for (int s = 0; s < time.length; s++) {
-                System.out.print((int)time[s] + " ");
+                System.out.print("\t\t" + (int)time[s] + " ");
             }
             System.out.println();
         }
@@ -131,7 +132,6 @@ public class Statistics {
     private void computePreferencesLoss (StationData station) {
         int totalLoss = 0;
         for (EVObject ev: station.getEvsCharged()) {
-            System.out.println("get loss  " + ev.getPreferencesLoss());
             totalLoss += ev.getPreferencesLoss();
         }
         station.setPreferencesLoss(totalLoss);

@@ -1,0 +1,4 @@
+288
+{"price_file":"station_0","flags":{"cplex":1,"suggestion":0,"window":0,"instant":1},"location":{"x":0,"y":0},"chargers":1}
+{"price_file":"station_1","flags":{"cplex":1,"suggestion":0,"window":0,"instant":1},"location":{"x":1,"y":0},"chargers":1}
+{"price_file":"station_0","flags":{"cplex":1,"suggestion":0,"window":0,"instant":1},"location":{"x":1,"y":1},"chargers":1}
