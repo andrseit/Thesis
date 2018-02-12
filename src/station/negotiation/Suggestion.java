@@ -13,6 +13,7 @@ public class Suggestion extends Preferences {
     private int type;
     private int profit;
     private int cost;
+    private boolean isInitial;
 
     // epeidi otan thes na epanafereis tous fortistes prepei na ksereis poia eixan allaksei
     // me to suggestion opote na pas kai na ta kaneis +1
@@ -24,6 +25,7 @@ public class Suggestion extends Preferences {
         start = -1;
         end = -1;
         energy = -1;
+        isInitial = true;
     }
 
     public int getRating() {
@@ -119,5 +121,13 @@ public class Suggestion extends Preferences {
 
     public void setTime(double time) {
         this.time = time;
+    }
+
+    public boolean isInitial() {
+        return isInitial;
+    }
+
+    public void setInitial(boolean initial) {
+        isInitial = initial;
     }
 }

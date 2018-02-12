@@ -31,15 +31,15 @@ public class Main {
         exe.execute();
 
         //exe = new OnlineExecution();
-        /*
-        exe.execute();
+
+        //exe.execute();
 
         Statistics stats = new Statistics(exe.getStationData(), exe.getEVsNumber());
         stats.computeStats();
         stats.printOverallStats();
         stats.printStationStats();
         stats.printTimeStats();
-        */
+
     }
 
 }

@@ -15,7 +15,7 @@ public class SimplePricing extends Pricing {
     }
 
     @Override
-    public int computeCost(int[] slotsAffected) {
+    public int computeCost(int[] slotsAffected, boolean isSuggestion) {
         int cost = 0;
         ArrayTransformations t = new ArrayTransformations();
         double[] normalizedDemand = t.normalizeArrayValues(demand);
@@ -23,11 +23,15 @@ public class SimplePricing extends Pricing {
         for (int s = 0; s < price.length; s++) {
             if (slotsAffected[s] == 1) {
                 if (normalizedDemand[s] >= 0.5 && renewables[s] > 0) {
-                    cost += (price[s] + 1);
-                    renewablesCopy[s]--;
+                    if (!isSuggestion) {
+                        cost += (price[s] + 1);
+                        renewablesCopy[s]--;
+                    }
                 }
-                else if (normalizedDemand[s] >= 0.5)
-                    cost += (price[s] + 2);
+                else if (normalizedDemand[s] >= 0.5) {
+                    if (!isSuggestion)
+                        cost += (price[s] + 2);
+                }
                 else if (renewables[s] > 0) {
                     cost += (price[s] - 1);
                     renewablesCopy[s]--;

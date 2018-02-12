@@ -156,9 +156,20 @@ public abstract class AbstractStation {
             if (roundsCount == 1)
                 negotiators = waiting.size();
             this.offersNotCharged(this.pricing);
+            //this.rejectNotCharged();
         }
         //else
         //System.out.println("There are no pending vehicles!");
+    }
+
+    /**
+     * This is used to test if the suggestions make any difference
+     * on-off
+     */
+    private void rejectNotCharged () {
+        for (EVObject ev: waiting) {
+            addRejectionMessage(ev);
+        }
     }
 
     public void offersCharged() {
@@ -301,7 +312,7 @@ public abstract class AbstractStation {
         if (suggestion.getSlotsAfected() == null) {
             return 0;
         } else
-            return pricing.computeCost(suggestion.getSlotsAfected());
+            return pricing.computeCost(suggestion.getSlotsAfected(), suggestion.isInitial());
 
         /*
         int cost = 0;

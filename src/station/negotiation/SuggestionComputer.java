@@ -172,6 +172,7 @@ public class SuggestionComputer {
         this.checkSuggestion(ev);
         if (ev.hasSuggestion()) {
             this.computeProfit(ev);
+            ev.getSuggestion().setInitial(false);
         } else {
             //System.out.println("No suitable suggestion found!");
         }
@@ -235,7 +236,7 @@ public class SuggestionComputer {
             }
         }
         */
-        suggestion.setProfit(pricing.computeCost(suggestion.getSlotsAfected()));
+        suggestion.setProfit(pricing.computeCost(suggestion.getSlotsAfected(), suggestion.isInitial()));
     }
 
     /**

@@ -15,7 +15,7 @@ public abstract class Pricing {
         this.renewables = renewables;
     }
 
-    public abstract int computeCost(int[] slotsAffected);
+    public abstract int computeCost(int[] slotsAffected, boolean isSuggestion);
 
     public int[] getPrice() {
         return price;
