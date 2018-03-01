@@ -8,19 +8,17 @@ class StrategyPreferences {
     private int energy;
     private int start;
     private int end;
-    private int movement; // orio metakinisis, na proste8ei argotera
     private int rounds;
     private int probability;
     private double range;
-    private String priority; // order messages by price, distance
+    private String priority;
 
 
-    public StrategyPreferences(int energy, int start, int end, double range, int movement, int rounds, int probability, String priority) {
+    public StrategyPreferences(int energy, int start, int end, double range, int rounds, int probability, String priority) {
         this.energy = energy;
         this.start = start;
         this.end = end;
         this.range = range;
-        this.movement = movement;
         this.rounds = rounds;
         this.probability = probability;
         this.priority = priority;
@@ -39,10 +37,6 @@ class StrategyPreferences {
     }
 
     public double getRange() { return range; }
-
-    public int getMovement() {
-        return movement;
-    }
 
     public int getRounds() {
         return rounds;

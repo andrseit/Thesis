@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-/**
- * Created by Thesis on 22/1/2018.
- */
 public abstract class AbstractOnlineStation extends AbstractStation {
 
     protected int minSlot; // the earlier slot that the station needs to make an offer to an ev
@@ -80,7 +77,10 @@ public abstract class AbstractOnlineStation extends AbstractStation {
     private void lockEVBidders() {
         int[] whoCharged = cp.getWhoCharges();
         ArrayList<EVObject> removed = new ArrayList<>();
-        for (int s = 0; s < whoCharged.length; s++) {
+        if (whoCharged.length != evBidders.size())
+            System.out.println("evbidders size: " + evBidders.size() + " who charges length: " + whoCharged.length
+            + " map length: " + cp.getScheduleMap().length);
+        for (int s = 0; s < evBidders.size(); s++) {
             if (whoCharged[s] == 1) {
                 lockedBidders.add(evBidders.get(s));
                 removed.add(evBidders.get(s));
@@ -123,7 +123,7 @@ public abstract class AbstractOnlineStation extends AbstractStation {
     private void updateFullScheduleMap() {
         ArrayTransformations t = new ArrayTransformations();
         fullScheduleMap = t.concatMaps(fullScheduleMap, schedule.getScheduleMap(), slotsNumber);
-        t.printIntArray(fullScheduleMap);
+        //t.printIntArray(fullScheduleMap);
     }
 
     private void updateEVBiddersIDs() {
@@ -135,7 +135,7 @@ public abstract class AbstractOnlineStation extends AbstractStation {
 
     public void addHasNoOffersMessage(EVObject ev) {
         Suggestion suggestion = new Suggestion();
-        suggestion.setStartEndSlots(-1, -1);
+        suggestion.setStartEndSlots(-3, -3);  // NEO 18/2/2018 - itan -1
         suggestion.setEnergy(0);
         suggestion.setCost(0);
         ev.setSuggestion(suggestion);
@@ -176,7 +176,7 @@ public abstract class AbstractOnlineStation extends AbstractStation {
     }
 
     public void printScheduleMap() {
-        schedule.printScheduleMap(fullScheduleMap, price);
+        //schedule.printScheduleMap(fullScheduleMap, price);
     }
 
     public void setCurrentSlot(int currentSlot) {

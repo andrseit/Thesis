@@ -1,8 +1,5 @@
 package evs;
 
-/**
- * Created by Thesis on 5/12/2017.
- */
 public class Preferences {
 
     protected int start;

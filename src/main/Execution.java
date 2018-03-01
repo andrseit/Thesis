@@ -3,15 +3,11 @@ package main;
 import evs.EV;
 import station.StationInfo;
 import station.offline.AbstractStation;
-import station.online.AbstractOnlineStation;
 import statistics.StationData;
 import statistics.TimeStats;
 
 import java.util.ArrayList;
 
-/**
- * Created by Thesis on 19/1/2018.
- */
 public abstract class Execution {
 
     protected ArrayList<AbstractStation> stations;
@@ -22,14 +18,17 @@ public abstract class Execution {
     protected boolean online;
     protected double[][][] times; // 1- initial, 2- negotiation, 3- #negotiators
     protected TimeStats timer;
+    private boolean makeSuggestions;
+
+    public Execution (boolean makeSuggestions) {
+        this.makeSuggestions = makeSuggestions;
+        timer = new TimeStats();
+    }
 
     protected abstract void initialize();
 
     public abstract void execute();
 
-    public Execution () {
-        timer = new TimeStats();
-    }
 
     protected void evsRequestStations() {
         for (EV ev : evs) {
@@ -40,7 +39,7 @@ public abstract class Execution {
     protected void evsEvaluateOffers() {
         for (EV ev : evs) {
             if (ev.hasSuggestions()) {
-                ev.printSuggestionsList();
+                //ev.printSuggestionsList();
                 ev.evaluateSuggestions();
             }
 
@@ -48,7 +47,7 @@ public abstract class Execution {
     }
 
     protected void computeInitialOffers(AbstractStation station) {
-        station.computeSchedule();
+        station.computeSchedule(makeSuggestions);
     }
 
     public void stationsSendOfferMessages(AbstractStation station) {
@@ -59,16 +58,16 @@ public abstract class Execution {
 
         if (!finished_stations[stationID]) {
             station.updateBiddersLists();
-            System.out.println("Ev Bidders:");
-            System.out.println(station.printEVBidders());
-            System.out.println("Waiting:");
-            System.out.println(station.printEVWaiting());
-            station.computeSchedule();
+            //System.out.println("Ev Bidders:");
+            //System.out.println(station.printEVBidders());
+            //System.out.println("Waiting:");
+            //System.out.println(station.printEVWaiting());
+            station.computeSchedule(makeSuggestions);
             if (station.isFinished()) {
                 finished_stations[stationID] = true;
             }
-        } else
-            System.out.println("Station has no more duties!");
+        } //else
+            //System.out.println("Station has no more duties!");
     }
 
     protected boolean checkFinished() {

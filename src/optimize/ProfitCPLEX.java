@@ -5,13 +5,10 @@ import station.EVObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by Thesis on 26/1/2018.
- */
 public class ProfitCPLEX extends AbstractCPLEX {
     @Override
     protected void addObjectiveFunction(ArrayList<EVObject> evs, int[] price, int min_slot) {
-        System.out.println("Profit CPLEX");
+        //System.out.println("Profit CPLEX");
         try {
             for (int ev = 0; ev < evs.size(); ev++) {
                 EVObject current = evs.get(ev);

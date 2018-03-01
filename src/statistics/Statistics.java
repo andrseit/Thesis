@@ -5,9 +5,6 @@ import various.ArrayTransformations;
 
 import java.util.ArrayList;
 
-/**
- * Created by Thesis on 4/1/2018.
- */
 public class Statistics {
 
     private ArrayList<StationData> stationData;
@@ -49,10 +46,12 @@ public class Statistics {
             System.out.println(station.toString());
         }
         StationData s = stationData.get(0);
+        /*
         for (EVObject ev: s.getEvsCharged()) {
             if (ev.hasSuggestion())
                 System.out.println(ev.getSuggestion().getTime());
         }
+        */
     }
 
     public void printTimeStats () {
@@ -105,19 +104,21 @@ public class Statistics {
 
     private void computeOccupancy (StationData station) {
         int[][] map = station.getScheduleMap();
-        ArrayTransformations t = new ArrayTransformations();
-        t.printIntArray(map);
-        int[] occupancy = t.getColumnsCount(map);
-        int chargersUsed = 0;
-        for (int anOccupancy : occupancy) {
-            chargersUsed += anOccupancy;
-        }
+        if (map.length > 0) {
+            ArrayTransformations t = new ArrayTransformations();
+            //t.printIntArray(map);
+            int[] occupancy = t.getColumnsCount(map);
+            int chargersUsed = 0;
+            for (int anOccupancy : occupancy) {
+                chargersUsed += anOccupancy;
+            }
 
-        int allChargers = station.getChargersNumber() * occupancy.length;
-        station.setChargersUsed(chargersUsed);
-        station.setChargersUsedPercentage(SimpleMath.getPercentage(chargersUsed, allChargers));
-        overallChargersUsed += chargersUsed;
-        overallChargersNumber += station.getChargersNumber() * occupancy.length;
+            int allChargers = station.getChargersNumber() * occupancy.length;
+            station.setChargersUsed(chargersUsed);
+            station.setChargersUsedPercentage(SimpleMath.getPercentage(chargersUsed, allChargers));
+            overallChargersUsed += chargersUsed;
+            overallChargersNumber += station.getChargersNumber() * occupancy.length;
+        }
     }
 
     private void computeProfit (StationData station) {
@@ -131,10 +132,16 @@ public class Statistics {
 
     private void computePreferencesLoss (StationData station) {
         int totalLoss = 0;
+        int acceptedSuggestion = 0;
         for (EVObject ev: station.getEvsCharged()) {
-            totalLoss += ev.getPreferencesLoss();
+            int currentPreferencesLoss = ev.getPreferencesLoss();
+            if (currentPreferencesLoss != 0) {
+                totalLoss += currentPreferencesLoss;
+                acceptedSuggestion += 1;
+            }
         }
         station.setPreferencesLoss(totalLoss);
+        station.setAcceptedSuggestion(acceptedSuggestion);
         overallLoss += totalLoss;
     }
 
@@ -148,4 +155,28 @@ public class Statistics {
                 "\n\t*Profit: " + overallProfit+
                 "\n\t*Total loss: " + overallLoss;
     }
+
+    public String fileStationsString () {
+        StringBuilder str = new StringBuilder();
+        for (StationData station: stationData) {
+            str.append(station.fileString()).append("\n");
+        }
+        return str.toString();
+    }
+
+    public String timesString () {
+        double allInitial = 0.0;
+        double allNegotiation  = 0.0;
+        for (StationData station: stationData) {
+            allInitial += station.getTotalInitialTime();
+            allNegotiation += station.getTotalNegotiationTime();
+        }
+        allInitial = allInitial/4;
+        allNegotiation = allNegotiation/4;
+
+        String initial = String.valueOf(allInitial).replace('.', ',');
+        String negotiation = String.valueOf(allNegotiation).replace('.', ',');
+        return initial + ", " + negotiation;
+    }
+
 }

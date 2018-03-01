@@ -1,7 +1,6 @@
 package station.negotiation;
 
 import evs.Preferences;
-import statistics.TimeStats;
 import various.IntegerConstants;
 
 /**
@@ -15,8 +14,9 @@ public class Suggestion extends Preferences {
     private int cost;
     private boolean isInitial;
 
-    // epeidi otan thes na epanafereis tous fortistes prepei na ksereis poia eixan allaksei
-    // me to suggestion opote na pas kai na ta kaneis +1
+    // when the chargers must be reset ic case the suggestion was rejected or there are not available sources
+    // the program should know which slots where changed
+    // so then go at those slots and increase them by 1
     private int[] slots_afected;
 
     private double time;
@@ -55,7 +55,7 @@ public class Suggestion extends Preferences {
             if (slots_afected[s] == 1)
                 str.append(s).append(",");
         }
-        str.append(" time: " + time);
+        str.append(" time: ").append(time);
         return str.toString();
     }
 

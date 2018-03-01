@@ -15,9 +15,6 @@ import exceptions.NoPricingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Thesis on 19/1/2018.
- */
 public abstract class AbstractStation {
 
     protected StationInfo info;
@@ -69,9 +66,8 @@ public abstract class AbstractStation {
     public abstract void findSuggestion();
 
     /**
-     * As parei ti lista (waiting) o allos kai as tous kanei oti thelei
-     * px na tous valei oti de tha tous kanei prosfora
-     * h' na vrei suggestions
+     * Computes offers for the evs not charged
+     * must be implemented in child class
      */
     public abstract void offersNotCharged(Pricing pricing);
 
@@ -127,7 +123,7 @@ public abstract class AbstractStation {
         waiting.add(ev);
     }
 
-    public boolean computeSchedule() {
+    public boolean computeSchedule(boolean makeSuggestions) {
         if (evBidders.size() > 0) {
             if (!demandComputed) {
                 schedule.setDemand(computeDemand());
@@ -137,8 +133,8 @@ public abstract class AbstractStation {
             int[][] scheduleMap = this.compute();
             timer.stopTimer();
             schedule.setFullScheduleMap(scheduleMap);
-            schedule.printScheduleMap(price, renewables);
-            this.computeOffers();
+            //schedule.printScheduleMap(price, renewables);
+            this.computeOffers(makeSuggestions);
             evBidders.contains(new EVObject());
             update = true;
             roundsCount++;
@@ -150,13 +146,15 @@ public abstract class AbstractStation {
         }
     }
 
-    public void computeOffers() {
+    public void computeOffers(boolean makeSuggestions) {
+        if (roundsCount == 1)
+            negotiators = waiting.size();
         this.offersCharged();
         if (!waiting.isEmpty()) {
-            if (roundsCount == 1)
-                negotiators = waiting.size();
-            this.offersNotCharged(this.pricing);
-            //this.rejectNotCharged();
+            if (makeSuggestions)
+                this.offersNotCharged(this.pricing);
+            else
+                this.rejectNotCharged();
         }
         //else
         //System.out.println("There are no pending vehicles!");
@@ -218,7 +216,7 @@ public abstract class AbstractStation {
     public void sendOfferMessages() {
 
         if (!messageReceivers.isEmpty()) {
-            System.out.print("Sending messages to: ");
+            //System.out.print("Sending messages to: ");
             StringBuilder receivers = new StringBuilder();
             for (int e = 0; e < messageReceivers.size(); e++) {
                 EVObject ev = messageReceivers.get(e);
@@ -231,10 +229,10 @@ public abstract class AbstractStation {
                 else
                     receivers.append("ev_").append(ev.getId()).append(", ");
             }
-            System.out.println(receivers);
-        } else {
-            System.out.println("There are no messages to send!");
-        }
+            //System.out.println(receivers);
+        } //else {
+            //System.out.println("There are no messages to send!");
+        //}
         messageReceivers.clear();
         waiting.clear();
     }
@@ -246,23 +244,23 @@ public abstract class AbstractStation {
      * @param state
      */
     public void markEVBidder(int id, int state) {
-        System.out.print("\t\t\tStation_" + info.getId() + ": ");
+        //System.out.print("\t\t\tStation_" + info.getId() + ": ");
         for (int e = 0; e < evBidders.size(); e++) {
             EVObject ev = evBidders.get(e);
             if (ev.getId() == id) {
                 if (state == IntegerConstants.EV_EVALUATE_ACCEPT) {
-                    System.out.println("ev_" + id + " accepted offer!");
+                    //System.out.println("ev_" + id + " accepted offer!");
                     ev.setCharged(true);
                     ev.setFinalPreferences();
                     ev.setTotalLoss();
                     break;
                 } else if (state == IntegerConstants.EV_EVALUATE_WAIT) {
-                    System.out.println("ev_" + id + " waits for new offer!");
+                    //System.out.println("ev_" + id + " waits for new offer!");
                     waiting.add(ev);
                     messageReceivers.add(ev);
                     break;
                 } else if (state == IntegerConstants.EV_EVALUATE_REJECT) {
-                    System.out.println("ev_" + id + " rejected offer!");
+                    //System.out.println("ev_" + id + " rejected offer!");
                     evBidders.remove(e);
                     rejections++;
                     break;
@@ -313,20 +311,6 @@ public abstract class AbstractStation {
             return 0;
         } else
             return pricing.computeCost(suggestion.getSlotsAfected(), suggestion.isInitial());
-
-        /*
-        int cost = 0;
-        if (suggestion.getSlotsAfected() == null)
-            return cost;
-        else {
-            int[] slots_affected = suggestion.getSlotsAfected();
-            for (int s = 0; s < price.length; s++) {
-                if (slots_affected[s] == 1) {
-                    cost += price[s];
-                }
-            }
-            return cost;
-        */
     }
 
 

@@ -8,9 +8,6 @@ import statistics.TimeStats;
 
 import java.util.*;
 
-/**
- * Created by Thesis on 8/1/2018.
- */
 public class SuggestionsOptimizer {
 
     private ArrayList<EVObject> evs;
@@ -54,6 +51,18 @@ public class SuggestionsOptimizer {
                 suggestions_queue.offer(ev);
         }
 
+        // for some reason not valid suggestions where passing into the queue
+        // so I remove them manually
+        ArrayList<EVObject> remove = new ArrayList<>();
+        for (EVObject ev: suggestions_queue) {
+            Suggestion suggestion = ev.getSuggestion();
+            if (suggestion.getStart() == Integer.MAX_VALUE || suggestion.getEnd() == Integer.MAX_VALUE)
+                remove.add(ev);
+        }
+        for (EVObject ev: remove) {
+            suggestions_queue.remove(ev);
+        }
+
         if (suggestions_queue.size() > 0) {
             //this.printOrderedSuggestions();
             this.updateChargers();
@@ -73,11 +82,10 @@ public class SuggestionsOptimizer {
         EVObject ev;
 
         while ((ev = suggestions_queue.poll()) != null) {
-            //System.out.println("-Updating chargers for ev: " + ev.getId());
             Suggestion suggestion = ev.getSuggestion();
 
-            if (suggestion.getRating() > 500)
-                break;
+            //if (suggestion.getRating() > 500)
+                //break;
 
             int count = 0;
             int[] slots_changed = new int[remaining_chargers.length];
@@ -136,7 +144,7 @@ public class SuggestionsOptimizer {
         }
 
         for (EVObject ev : removed) {
-            System.out.println("EV in removed: " + ev.getId());
+            //System.out.println("EV in removed: " + ev.getId());
             if (!ev.hasSuggestion()) evs.remove(ev);
         }
 
@@ -180,19 +188,19 @@ public class SuggestionsOptimizer {
     }
 
     private void printFinalOrderedSuggestions() {
-        System.out.println("Ordered Suggestions Final");
+        //System.out.println("Ordered Suggestions Final");
         evs.sort(comparator);
         int count = 0;
         for (EVObject ev: evs) {
             ev = evs.get(count);
             if (ev.hasSuggestion()) {
-                System.out.println("    " + (count + 1) + ". " + ev.getSuggestion().toString() +
-                        "(ev:" + ev.getId() + ")");
+                //System.out.println("    " + (count + 1) + ". " + ev.getSuggestion().toString() +
+                        //"(ev:" + ev.getId() + ")");
                 count++;
             }
 
         }
-        System.out.println();
+        //System.out.println();
     }
 
     public int getUtility() {

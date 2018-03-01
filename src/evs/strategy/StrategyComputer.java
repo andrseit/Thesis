@@ -5,6 +5,7 @@ import evs.Preferences;
 import station.SuggestionMessage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -27,7 +28,7 @@ class StrategyComputer {
         ArrayList<ComparableSuggestion> comparable_suggestions = new ArrayList<>();
 
         for (SuggestionMessage message : messages) {
-            if (!(message.getStart() == -1)) {
+            if (!(message.getStart() == -1) && !(message.getStart() == -3)) {
                 int preferences_distance = 0;
                 if (!hasSuggestion(message)) {
                     preferences_distance = Integer.MAX_VALUE;
@@ -49,8 +50,11 @@ class StrategyComputer {
                         comparable_suggestions.add(new ComparableSuggestion(total_distance, price, windowRange, preferences_distance, message.getStationAddress()));
                     }
                 }
-            } else {
+            } else if (message.getStart() == -1){
                 comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -2, message.getStationAddress()));
+            } else if (message.getStart() == -3) {
+                // means no offer yet - NEO 18/2/2018
+                comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -3, message.getStationAddress()));
             }
         }
         orderMessages(comparable_suggestions, strategy_preferences.getPriority());
@@ -130,6 +134,28 @@ class StrategyComputer {
                     .thenComparingInt(p -> p.getPrice())
                     .thenComparing(p -> p.getWindowRange()));
         }
+
+        // check if some offers are exactly the same to put them in random order
+        // so that the first station won't have advantage
+        ArrayList<ComparableSuggestion> randomComparableSuggestions = new ArrayList<>();
+        randomComparableSuggestions.add(messages.get(0));
+        for (int i = 1; i < messages.size(); i++) {
+            if (sameOffer(messages.get(i), randomComparableSuggestions.get(0)))
+                randomComparableSuggestions.add(messages.get(i));
+        }
+
+        Collections.shuffle(randomComparableSuggestions);
+        for (int i = 0; i < randomComparableSuggestions.size(); i++) {
+            messages.remove(i);
+            messages.add(i, randomComparableSuggestions.get(i));
+        }
+    }
+
+    private boolean sameOffer (ComparableSuggestion s1, ComparableSuggestion s2) {
+        if (s1.getPreferencesDistance() == s1.getPreferencesDistance() && s1.getTotalDistance() == s2.getTotalDistance()
+                && s1.getPrice() == s2.getPrice() && s1.getWindowRange() == s2.getWindowRange())
+            return true;
+        return false;
     }
 
     /**

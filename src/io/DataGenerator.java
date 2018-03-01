@@ -6,7 +6,6 @@ import org.json.simple.parser.JSONParser;
 import java.io.*;
 import java.util.Random;
 
-import static java.lang.Math.min;
 import static java.lang.Math.toIntExact;
 
 /**
@@ -82,9 +81,6 @@ public class DataGenerator {
                 int maxEnd = start + (int)(energy * windowLength) + 1;
                 int end = random.nextInt(Math.min(slotsNumber, maxEnd) - minEnd) + minEnd;
 
-                //int start = random.nextInt(slotsNumber - minDistance) + minDistance;
-                //int end = random.nextInt(slotsNumber - start) + start;
-                //int energy = random.nextInt(end - start + 1) + 1;
                 int inform = 0;
                 if (start != 0)
                     inform = random.nextInt(start - minDistance + 1);
@@ -209,9 +205,11 @@ public class DataGenerator {
             writer.close();
 
 
+            /*
             for (int s = 0; s < stationsNumber; s++) {
                 System.out.println("station_" + s + " <" + stationLocation[s][0] + ", " + stationLocation[s][1] + ">");
             }
+            */
 
             stationsGenerated = true;
 
@@ -227,7 +225,8 @@ public class DataGenerator {
             try {
                 FileWriter writer = new FileWriter("files/price/station_" + s + ".txt");
                 for (int i = 0; i < slotsNumber; i++) {
-                    writer.write("2," + String.valueOf(random.nextInt(5) + 1) + "\n");
+                    //writer.write("2," + String.valueOf(random.nextInt(5) + 1) + "\n");
+                    writer.write("2," + "0\n");
                 }
                 writer.flush();
                 writer.close();

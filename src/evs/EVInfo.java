@@ -1,8 +1,5 @@
 package evs;
 
-/**
- * Created by Thesis on 8/1/2018.
- */
 public class EVInfo {
 
     private int id, bid;

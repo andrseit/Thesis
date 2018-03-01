@@ -1,12 +1,8 @@
 package various;
 
-/**
- * Created by Darling on 31/7/2017.
- */
 public class ArrayTransformations {
 
     public int[] getColumnsCount(int[][] array) {
-        int rows = array.length;
         int columns = array[0].length;
 
         int[] final_array = new int[columns];
@@ -47,14 +43,6 @@ public class ArrayTransformations {
         System.out.println();
     }
 
-    /**
-     * Tou dineis ena map evs-slots, kai sto kanei chargers-slots, dld sou anti na sou leei pote
-     * ginetai ena event, sou leei posoi poroi xrisimopoiountai
-     * mikri xrisimotita afou exeis to column count - pio poly gia optiki xrisi
-     *
-     * @param array
-     * @param rows
-     */
     public int[][] shrinkArray(int[][] array, int rows) {
         /*
         if(rows > array.length)

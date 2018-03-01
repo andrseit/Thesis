@@ -8,16 +8,12 @@ import station.online.AbstractOnlineStation;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-/**
- * Created by Thesis on 19/1/2018.
- */
 public class OnlineExecution extends Execution {
 
-    //private ArrayList<AbstractOnlineStation> stations;
     private PriorityQueue<EV> orderedEVs;
-    private int currentSlot;
 
-    public OnlineExecution () {
+    public OnlineExecution (boolean makeSuggestions) {
+        super(makeSuggestions);
         online = true;
     }
 
@@ -38,24 +34,24 @@ public class OnlineExecution extends Execution {
         evs = parser.readEVsData("evs.json");
         orderedEVs = this.orderEVs();
         times = new double[stations.size()][4][slotsNumber];
-        printEVs();
+        //printEVs();
     }
 
     @Override
     public void execute() {
 
-        System.out.println("Online Execution is starting. Initializing...");
+        //System.out.println("Online Execution is starting. Initializing...");
         this.initialize();
 
         for (int slot = 0; slot < slotsNumber; slot++) {
-            System.out.println("------> Slot: " + slot);
+            //System.out.println("------> Slot: " + slot);
             this.resetFinishedStations();
             for (int st = 0; st < stations.size(); st++) {
                 AbstractOnlineStation station = (AbstractOnlineStation) stations.get(st);
                 station.setCurrentSlot(slot);
             }
 
-            System.out.println("EVs request from the stations:\n");
+            //System.out.println("EVs request from the stations:\n");
             EV ev;
             // if there are no evs
             while ((ev = orderedEVs.peek()) != null && ev.getInformSlot() == slot) {
@@ -64,42 +60,42 @@ public class OnlineExecution extends Execution {
             }
 
 
-            System.out.println("Stations computing and sending initial offers...\n");
+            //System.out.println("Stations computing and sending initial offers...\n");
             int countOffers = 0; // if offers == 0 do not send messages
             for (int st = 0; st < stations.size(); st++) {
                 AbstractOnlineStation station = (AbstractOnlineStation) stations.get(st);
-                System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
+                //System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
                 station.transferBidders();
                 if (station.hasOffers(slot)) {
-                    System.out.println("Ev Bidders:");
-                    System.out.println(station.printEVBidders());
-                    System.out.println("Waiting:");
-                    System.out.println(station.printEVWaiting());
+                    //System.out.println("Ev Bidders:");
+                    //System.out.println(station.printEVBidders());
+                    //System.out.println("Waiting:");
+                    //System.out.println(station.printEVWaiting());
                     timer.startTimer();
                     this.computeInitialOffers(station);
                     timer.stopTimer();
                     countOffers++;
                 } else {
-                    System.out.println("Station has NO offers\n");
+                    //System.out.println("Station has NO offers\n");
                     finished_stations[st] = true;
                 }
                 times[st][0][slot] = timer.getMillis();
             }
             for (int st = 0; st < stations.size(); st++) {
-                System.out.println("----------------- Station_" + stations.get(st).getInfo().getId() + " ---------------------");
+                //System.out.println("----------------- Station_" + stations.get(st).getInfo().getId() + " ---------------------");
                 if (countOffers > 0)
                     this.stationsSendOfferMessages(stations.get(st));
             }
 
 
             while (!checkFinished()) {
-                System.out.println("\n\n2.1 Evs evaluate the offers");
+                //System.out.println("\n\n2.1 Evs evaluate the offers");
                 this.evsEvaluateOffers();
                 // negotiations
 
-                System.out.println("\n\n2.2 Stations compute new offers or update schedule");
+               //System.out.println("\n\n2.2 Stations compute new offers or update schedule");
                 for (int s = 0; s < stations.size(); s++) {
-                    System.out.println("----------------- Station_" + stations.get(s).getInfo().getId() + " ---------------------");
+                    //System.out.println("----------------- Station_" + stations.get(s).getInfo().getId() + " ---------------------");
                     AbstractOnlineStation station = (AbstractOnlineStation) stations.get(s);
                     //if (station.hasOffers(slot)) {
                     timer.startTimer();
@@ -115,29 +111,31 @@ public class OnlineExecution extends Execution {
             }
 
 
-            System.out.println("\n\nStations updating their data...");
+            //System.out.println("\n\nStations updating their data...");
             for (int st = 0; st < stations.size(); st++) {
                 AbstractOnlineStation station = (AbstractOnlineStation) stations.get(st);
-                System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
+                //System.out.println("----------------- Station_" + station.getInfo().getId() + " ---------------------");
                 if (station.isUpdate()) {
-                    System.out.println("Full update");
+                    //System.out.println("Full update");
                     station.updateStationData();
                 } else {
-                    System.out.println("Simple Update");
+                    //System.out.println("Simple Update");
                     station.updateStationDataNoSchedule();
                 }
                 station.updateBeforeNextSlot();
             }
-            System.out.println("\n\n\n\n");
+            //System.out.println("\n\n\n\n");
             resetEVsRounds();
         }
 
+        /*
         System.out.println("------------\n\nExecution is over!");
         System.out.println("These are the final schedules:");
         for (int s = 0; s < stations.size(); s++) {
             System.out.println("----------------- Station_" + stations.get(s).getInfo().getId() + " ---------------------");
             stations.get(s).printScheduleMap();
         }
+        */
     }
 
     private void resetFinishedStations() {

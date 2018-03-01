@@ -2,9 +2,6 @@ package evs.strategy;
 
 import station.StationInfo;
 
-/**
- * Created by Thesis on 11/1/2018.
- */
 class ComparableSuggestion {
 
     private int total_distance;

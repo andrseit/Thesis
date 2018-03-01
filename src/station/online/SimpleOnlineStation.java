@@ -14,9 +14,6 @@ import various.IntegerConstants;
 
 import java.util.HashMap;
 
-/**
- * Created by Thesis on 22/1/2018.
- */
 public class SimpleOnlineStation extends AbstractOnlineStation {
 
     /**
@@ -28,7 +25,6 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
     public SimpleOnlineStation(StationInfo info, int slotsNumber, int[] price, int[] renewables, HashMap<String, Integer> strategyFlags) {
         super(info, slotsNumber, price, renewables, strategyFlags);
         this.info.setStation(this);
-        //pricing = new SimplePricing(price);
     }
 
     @Override
@@ -43,12 +39,6 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
 
     @Override
     public void computeOffer(EVObject ev, int[] evRow) {
-//        Suggestion suggestion = new Suggestion();
-//        int start = ev.getStartSlot();
-//        int end = ev.getEndSlot();
-//        int energy = ev.getEnergy();
-//        suggestion.setStartEndSlots(start, end);
-//        suggestion.setEnergy(energy);
 
         Suggestion suggestion = null;
         StationStrategies strategies = new StationStrategies();
@@ -70,7 +60,6 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
 
     @Override
     public void offersNotCharged(Pricing pricing) {
-
 
         if (rounds == 0 && strategyFlags.get("suggestion").equals(IntegerConstants.SUGGESTION_SECOND_ROUND)) {
             for (EVObject ev : waiting) {

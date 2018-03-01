@@ -11,34 +11,74 @@ public class Main {
 
     public static void main(String[] args) {
 
-        DataGenerator dt = new DataGenerator(3, 2, 10, 3);
-        //dt.generateStationFile();
-        //dt.readStationFile();
-        //dt.generateEVsFile(2, 5, 0.6, 1.7);
-        //dt.generatePriceFile();
-
-        /*
-        Execution exe = new OnlineExecution();
-        System.out.println("Online");
-        //exe.execute();
-        exe = new OfflineExecution();
-        System.out.println("\n\nOffline");
-        exe.execute();
-        */
 
 
-        Execution exe = new OfflineExecution();
-        exe.execute();
+        int iterations = 1;
+        for (int i = 0; i < iterations; i++) {
+            DataGenerator dt = new DataGenerator(4, 200, 288, 4);
+            //dt.generateStationFile();
+            dt.readStationFile();
+            dt.generateEVsFile(25, 75, 0.4, 1.4);
+            //dt.generatePriceFile();
+            Execution exe;
+            Statistics stats;
 
-        //exe = new OnlineExecution();
 
-        //exe.execute();
 
-        Statistics stats = new Statistics(exe.getStationData(), exe.getEVsNumber());
-        stats.computeStats();
-        stats.printOverallStats();
-        stats.printStationStats();
-        stats.printTimeStats();
+            // Offline with no suggestions
+            exe = new OfflineExecution(false);
+            exe.execute();
+            stats = new Statistics(exe.getStationData(), exe.getEVsNumber());
+            stats.computeStats();
+            //stats.printOverallStats();
+            //stats.printStationStats();
+            //stats.printTimeStats();
+            //System.out.println(stats.fileStationsString());
+            System.out.println(stats.timesString());
+            System.out.println("----------------------------------------------");
+
+
+            // Offline with suggestions
+            exe = new OfflineExecution(true);
+            exe.execute();
+            stats = new Statistics(exe.getStationData(), exe.getEVsNumber());
+            stats.computeStats();
+            //stats.printOverallStats();
+            //stats.printStationStats();
+            //stats.printTimeStats();
+            //System.out.println(stats.fileStationsString());
+            System.out.println(stats.timesString());
+            System.out.println("----------------------------------------------");
+
+
+            // Online without suggestions
+            exe = new OnlineExecution(false);
+            exe.execute();
+            stats = new Statistics(exe.getStationData(), exe.getEVsNumber());
+            stats.computeStats();
+            //stats.printOverallStats();
+            //stats.printStationStats();
+            //stats.printTimeStats();
+            //System.out.println(stats.fileStationsString());
+            System.out.println(stats.timesString());
+            System.out.println("----------------------------------------------");
+
+
+            // Online with suggestions
+            exe = new OnlineExecution(true);
+            exe.execute();
+            stats = new Statistics(exe.getStationData(), exe.getEVsNumber());
+            stats.computeStats();
+            //stats.printOverallStats();
+            //stats.printStationStats();
+            //stats.printTimeStats();
+            //System.out.println(stats.fileStationsString());
+            System.out.println(stats.timesString());
+
+            System.out.println("------------------------------");
+
+
+        }
 
     }
 

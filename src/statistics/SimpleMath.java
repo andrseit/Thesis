@@ -1,8 +1,5 @@
 package statistics;
 
-/**
- * Created by Thesis on 1/2/2018.
- */
 public class SimpleMath {
 
     public static double getPercentage (int part, int all) {

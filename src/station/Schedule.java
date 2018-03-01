@@ -5,9 +5,6 @@ import various.ArrayTransformations;
 
 import java.util.ArrayList;
 
-/**
- * Created by Thesis on 9/1/2018.
- */
 public class Schedule {
 
     private int[][] scheduleMap;
@@ -112,6 +109,7 @@ public class Schedule {
 
         System.out.println(str.toString());
     }
+
 
     public void printScheduleMap(int[][] map, int[] price) {
 

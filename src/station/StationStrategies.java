@@ -2,9 +2,6 @@ package station;
 
 import station.negotiation.Suggestion;
 
-/**
- * Created by Thesis on 26/1/2018.
- */
 public class StationStrategies {
 
     /**

@@ -1,3 +1,0 @@
-{"f_y":1,"preferences":{"inform":4,"distance":1,"start":1,"end":3,"bid":4,"energy":3},"x":1,"y":0,"strategy":{"probability":51,"start":1,"range":1.34,"end":5,"priority":"price","rounds":1,"energy":1},"f_x":0}
-{"f_y":0,"preferences":{"inform":0,"distance":0,"start":4,"end":6,"bid":4,"energy":3},"x":1,"y":0,"strategy":{"probability":38,"start":0,"range":1.57,"end":9,"priority":"price","rounds":4,"energy":5},"f_x":2}
-{"f_y":1,"preferences":{"inform":3,"distance":2,"start":1,"end":4,"bid":1,"energy":4},"x":0,"y":0,"strategy":{"probability":34,"start":2,"range":1.78,"end":9,"priority":"price","rounds":3,"energy":1},"f_x":0}

@@ -16,15 +16,9 @@ import java.util.HashMap;
 
 import static java.lang.Math.toIntExact;
 
-/**
- * Created by Darling on 2/8/2017.
- */
-
 public class JSONFileParser {
 
-
     private int slotsNumber;
-
 
     public ArrayList<SimpleStation> readOfflineStations (String path) {
         ArrayList<SimpleStation> stations = new ArrayList<>();
@@ -174,6 +168,7 @@ public class JSONFileParser {
                 price[s] = Integer.parseInt(tokens[0]);
                 renewables[s] = Integer.parseInt(tokens[1]);
             }
+            in.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -209,7 +204,7 @@ public class JSONFileParser {
             e.printStackTrace();
         }
 
-        System.out.println(obj.toJSONString());
+        //System.out.println(obj.toJSONString());
     }
 
     public String getJSONStringEV(int bid, int start, int end, int energy) {

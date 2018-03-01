@@ -1,8 +1,5 @@
 package station.pricing;
 
-/**
- * Created by Thesis on 23/1/2018.
- */
 public abstract class Pricing {
 
     protected int[] price;

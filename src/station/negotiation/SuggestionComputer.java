@@ -5,10 +5,6 @@ import station.EVObject;
 import station.pricing.Pricing;
 import various.IntegerConstants;
 
-/**
- * This class contains methods that compute the suggestions for the evs
- * Created by Thesis on 13/12/2017.
- */
 public class SuggestionComputer {
 
 
@@ -22,7 +18,6 @@ public class SuggestionComputer {
 
     /**
      * First type of suggestion: Less energy in the initially given window
-     * WARNING: Add a case where the available energy is zero - return a huge value
      */
     private Suggestion lessEnergy(Preferences initial) {
 
@@ -125,8 +120,7 @@ public class SuggestionComputer {
 
         int[] new_slots = new int[2];
 
-        // gia na epistrefei kati terastio kai etC na exei xalia rating
-        // opote na min epilegetai pote
+        // returns a huge value so that it will have bad rating and never be chosen
         if (available_energy < p.getEnergy()) {
             left = Integer.MAX_VALUE;
             right = Integer.MAX_VALUE;
@@ -156,7 +150,6 @@ public class SuggestionComputer {
     /**
      * This method will take as a parameter a suggestion info an it will compute
      * an alternative suggestion
-     * WARNING: na chekarw na min einai idia me tin proigoumeni - return false na nai
      */
     public void computeAlternative(EVObject ev) {
 
@@ -193,14 +186,6 @@ public class SuggestionComputer {
         int sEnd = suggestion.getEnd();
         int energy_dif, window_diff = 0;
 
-        /*
-        int start_dif = 0, end_dif = 0;
-        if (!isInRange(start, end, sStart))
-            start_dif = Math.abs(suggestion.getStart() - initial.getStart());
-        if (!isInRange(start, end, sEnd))
-            end_dif = Math.abs(suggestion.getEnd() - initial.getEnd());
-        */
-
         if (sEnd < end) {
             window_diff += end - sEnd;
         } else if (sStart > start) {
@@ -224,18 +209,6 @@ public class SuggestionComputer {
     private void computeProfit(EVObject ev) {
 
         Suggestion suggestion = ev.getSuggestion();
-        /*
-        int start = suggestion.getStart();
-        int end = suggestion.getEnd();
-        int energy = suggestion.getEnergy();
-        int bid = ev.getBid();
-        int profit = 0;
-        for (int s = start; s <= end; s++) {
-            if (chargers[s] > 0) {
-                profit += bid - price[s];
-            }
-        }
-        */
         suggestion.setProfit(pricing.computeCost(suggestion.getSlotsAfected(), suggestion.isInitial()));
     }
 
@@ -262,22 +235,6 @@ public class SuggestionComputer {
         if (suggestion.getStart() == Integer.MAX_VALUE || suggestion.getEnd() == Integer.MAX_VALUE || suggestion.getEnergy() == 0) {
             ev.setHasSuggestion(false);
         }
-
-     /*
-     if (ev.getSuggestion().getType() == IntegerConstants.LESS_ENERGY_TYPE) {
-         if (ev.getSuggestion().getRating() >= ev.getBestLessEnergy()) {
-             ev.setHasSuggestion(false);
-         } else {
-             ev.setBestRating(suggestion.getType(), suggestion.getRating());
-         }
-     } else {
-         if (ev.getSuggestion().getRating() >= ev.getBestAlteredWindow()) {
-             ev.setHasSuggestion(false);
-         } else {
-             ev.setBestRating(suggestion.getType(), suggestion.getRating());
-         }
-     }
-     */
     }
 
 
@@ -300,7 +257,6 @@ public class SuggestionComputer {
             //ev.setSuggestion(s2);
         }
 
-        //if (state == IntegerConstants.SUGGESTION_COMPUTER_CONVERSATION) {
         if (isBetter(ev, best)) {
             ev.setSuggestion(best);
             ev.setBestRating(best.getType(), best.getRating());
@@ -312,38 +268,19 @@ public class SuggestionComputer {
         } else {
             ev.setHasSuggestion(false);
         }
-        //}
 
-        /*
-        else {
-            ev.setSuggestion(best);
-            ev.setBestRating(best.getType(), best.getRating());
-            ev.setHasSuggestion(true);
-        }
-        */
-
-
-        /*
-        if (!isSame(ev.getSuggestion(), best)) {
-            ev.setSuggestion(best);
-            System.out.println("    ** Chosen Suggestion: " + ev.getSuggestion().toString() + " **\n");
-            return true;
-        } else {
-            ev.setSuggestion(alt);
-            System.out.println("    ** Chosen Suggestion: " + ev.getSuggestion().toString() + " **\n");
-            return true;
-        }
-        */
     }
 
     /**
-     * WARNING: min ksexasw na kanw set to bestRating sto EVObject, otan einai initial
      *
      * @param ev
      * @param suggestion
      * @return
      */
     private boolean isBetter(EVObject ev, Suggestion suggestion) {
+
+        if (suggestion.getStart() == Integer.MAX_VALUE || suggestion.getEnd() == Integer.MAX_VALUE)
+            return false;
 
         if (suggestion.getType() == IntegerConstants.LESS_ENERGY_TYPE) {
             if (suggestion.getRating() < ev.getBestLessEnergy()) {

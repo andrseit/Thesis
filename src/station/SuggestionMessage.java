@@ -3,7 +3,6 @@ package station;
 import evs.Preferences;
 
 /**
- * Created by Thesis on 9/1/2018.
  * It contains basic information of suggestion - exactly what hte ev should
  * be aware of
  * also it contains the address of the station object so that an

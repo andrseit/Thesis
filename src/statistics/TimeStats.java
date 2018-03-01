@@ -1,8 +1,5 @@
 package statistics;
 
-/**
- * Created by Thesis on 8/2/2018.
- */
 public class TimeStats {
 
     private long start;

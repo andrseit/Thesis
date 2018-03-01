@@ -1,3 +1,0 @@
-10
-{"location":{"x":0,"y":1},"chargers":2, "flags":{"window":1,"suggestion":0,"cplex":0,"instant":0},"price_file":"station_0"}
-{"location":{"x":1,"y":0},"chargers":2, "flags":{"window":0,"suggestion":0,"cplex":1,"instant":0},"price_file":"station_1"}

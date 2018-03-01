@@ -6,9 +6,6 @@ import station.SuggestionMessage;
 
 import java.util.ArrayList;
 
-/**
- * Created by Thesis on 8/12/2017.
- */
 public class EV {
 
     private int informSlot;
@@ -25,7 +22,7 @@ public class EV {
     }
 
     public void addSuggestion(SuggestionMessage suggestion) {
-        strategy.addSuggestion(suggestion);
+            strategy.addSuggestion(suggestion);
     }
 
     public void evaluateSuggestions() {
@@ -53,7 +50,7 @@ public class EV {
 
                 if (distance <= Math.min(minDistance, maxDistance)) {
                     s_info.request(info);
-                    System.out.println("ev_" + info.getId() + " requests from station_" + s_info.getId());
+                    //System.out.println("ev_" + info.getId() + " requests from station_" + s_info.getId());
                     requested = true;
                 }
             }
@@ -63,8 +60,8 @@ public class EV {
                     break;
             }
         }
-        if (requested)
-            System.out.println();
+        //if (requested)
+            //System.out.println();
     }
 
     private int computeDistance(int x1, int y1, int x2, int y2) {
@@ -73,7 +70,7 @@ public class EV {
 
     public void printSuggestionsList() {
         System.out.println("ev_" + info.getId() + "'s list:");
-        strategy.printSuggestionsList();
+        //strategy.printSuggestionsList();
     }
 
     public int getInformSlot() {

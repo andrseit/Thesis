@@ -2,22 +2,12 @@ package optimize;
 
 import ilog.concert.IloException;
 import ilog.concert.IloLinearNumExpr;
-import ilog.concert.IloNumExpr;
 import ilog.concert.IloNumVar;
 import ilog.cplex.IloCplex;
 import station.EVObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by Darling on 28/7/2017.
- * objective -  fortise osa pio polla mporeis
- * fortise autous me tis megalyteres prosfores
- * <p>
- * constraints - (1) kathe oxima fortizei oso prepei - isws mporei na xalarwsei auto
- * (2) na min ksepernietai to orio twn fortistwn
- * (3) na min spataleitai perissoteri energeia apo oso yparxei
- */
 public abstract class AbstractCPLEX {
 
 
@@ -40,6 +30,8 @@ public abstract class AbstractCPLEX {
     public AbstractCPLEX() {
         try {
             cp = new IloCplex();
+            cp.setParam(IloCplex.DoubleParam.TiLim, 2000);
+            cp.setParam(IloCplex.DoubleParam.EpGap, 0.09);
             cp.setOut(null);
         } catch (IloException e) {
             e.printStackTrace();
@@ -79,7 +71,7 @@ public abstract class AbstractCPLEX {
             for (int e = 0; e < evs.size(); e++) {
                 if (evs.get(e).isCharged()) {
                     cp.addEq(charges[e], 1);
-                    System.out.println(evs.get(e).toString());
+                    //System.out.println(evs.get(e).toString());
                 }
             }
         } catch (IloException e1) {
@@ -180,7 +172,6 @@ public abstract class AbstractCPLEX {
      */
     public void model(ArrayList<EVObject> evs, int slots_number, int[] price, int[] chargers, int min_slot, int max_slot) {
         this.initializeVariables(evs.size(), max_slot - min_slot + 1);
-        //this.lockPreviousBidders(previous_schedule, previous_bidders_number);
         this.addEnergyConstraints(evs, min_slot);
         this.addChargersConstraint(chargers, min_slot);
         this.lockPreviousBidders(evs);
@@ -198,16 +189,9 @@ public abstract class AbstractCPLEX {
         }
     }
 
-    public int[][] getCharges() {
-        return charges_int;
-    }
 
     public int[][] getScheduleMap() {
         return schedule;
-    }
-
-    public int getUtility() {
-        return utility;
     }
 
     private void setWhoCharges() {

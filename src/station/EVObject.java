@@ -5,9 +5,6 @@ import evs.Preferences;
 import station.negotiation.Suggestion;
 import various.IntegerConstants;
 
-/**
- * Created by Darling on 29/7/2017.
- */
 public class EVObject {
 
 
@@ -21,32 +18,23 @@ public class EVObject {
     private int id;
     private int station_id;
     private int totalLoss;
-    //private int energy;
     private int inform_slot;
     private int slotsNeeded; // slots the ev needs to reach the station - so that it makes the offer in the right time
     private int lastSlot; // the slot that at maximum the station can make the offer
     private int x, y; // location on map
     private boolean charged = false;
-    private int initial_pays; // what the ev will pay initially
     private int final_pays; // what the ev will finally pay
-    private int schedule_row; // in which row of the schedule the ev is represented, because it migth change when the ordering happens
 
     // new data variables, now there is only one bid, so SlotsStruct is unnecessary
 
     private Suggestion suggestion;
     private Preferences final_suggestion;
-    private int final_best_le;
-    private int final_best_aw;
     private boolean has_suggestion;
-    private int suggestion_payment;
     // so that a new suggestion can be checked if it is worth making
     private int best_less_energy; // the rating of the best less energy suggestion so far
     private int best_altered_window; // the rating of the bes altered window suggestion so far
     private int previous_best_le; // to reset if a suggestion is invalid
     private int previous_best_aw;
-
-    private boolean accepted;
-    private boolean waiting;
 
     public EVObject() {
         preferences = new Preferences();
@@ -54,8 +42,6 @@ public class EVObject {
         suggestion = new Suggestion();
         best_less_energy = Integer.MAX_VALUE;
         best_altered_window = Integer.MAX_VALUE;
-        accepted = false;
-        waiting = false;
         lastSlot = 0;
     }
 
@@ -185,14 +171,6 @@ public class EVObject {
     }
 
 
-    public int getSuggestionPayment() {
-        return suggestion_payment;
-    }
-
-    public void setSuggestionPayment(int suggestion_payment) {
-        this.suggestion_payment = suggestion_payment;
-    }
-
     public Preferences getFinalSuggestion() {
         return final_suggestion;
     }
@@ -202,18 +180,6 @@ public class EVObject {
         final_suggestion.setStart(suggestion.getStart());
         final_suggestion.setEnd(suggestion.getEnd());
         final_suggestion.setEnergy(suggestion.getEnergy());
-    }
-
-    public void saveBests() {
-        final_best_le = best_less_energy;
-        final_best_aw = best_altered_window;
-        best_less_energy = Integer.MAX_VALUE;
-        best_altered_window = Integer.MAX_VALUE;
-    }
-
-    public void resetBestsVCG() {
-        best_less_energy = final_best_le;
-        best_altered_window = final_best_aw;
     }
 
     /**
@@ -233,17 +199,6 @@ public class EVObject {
 
     public void setStationId(int station_id) {
         this.station_id = station_id;
-    }
-
-    public void setAcceptedAndWaiting(boolean accepted, int state) {
-        this.accepted = accepted;
-        waiting = false;
-        if (state == IntegerConstants.EV_EVALUATE_ACCEPT) {
-            preferences.setStartEndSlots(final_suggestion.getStart(), final_suggestion.getEnd());
-            preferences.setEnergy(final_suggestion.getEnergy());
-        } else {
-            waiting = true;
-        }
     }
 
     public void setFinalPreferences() {

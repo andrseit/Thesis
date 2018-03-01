@@ -6,9 +6,6 @@ import station.EVObject;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-/**
- * Created by Thesis on 17/11/2017.
- */
 public class OptimalSchedule {
 
     private ArrayList<EVObject> bidders_list;

@@ -14,9 +14,6 @@ import various.IntegerConstants;
 
 import java.util.HashMap;
 
-/**
- * Created by Thesis on 19/1/2018.
- */
 public class SimpleStation extends AbstractStation {
 
     private int rounds;
@@ -31,7 +28,6 @@ public class SimpleStation extends AbstractStation {
         super(info, slotsNumber, price, renewables, strategyFlags);
         this.info.setStation(this);
         rounds = 0;
-        //pricing = new SimplePricing(price);
     }
 
     @Override
@@ -46,12 +42,6 @@ public class SimpleStation extends AbstractStation {
 
     @Override
     public void computeOffer(EVObject ev, int[] evRow) {
-//        Suggestion suggestion = new Suggestion();
-//        int start = ev.getStartSlot();
-//        int end = ev.getEndSlot();
-//        int energy = ev.getEnergy();
-//        suggestion.setStartEndSlots(start, end);
-//        suggestion.setEnergy(energy);
 
         Suggestion suggestion = null;
         StationStrategies strategies = new StationStrategies();
