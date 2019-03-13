@@ -3,6 +3,8 @@ package station.negotiation;
 import evs.Preferences;
 import various.IntegerConstants;
 
+import java.util.ArrayList;
+
 /**
  * Created by Thesis on 6/12/2017.
  */
@@ -18,6 +20,7 @@ public class Suggestion extends Preferences {
     // the program should know which slots where changed
     // so then go at those slots and increase them by 1
     private int[] slots_afected;
+    private ArrayList<Integer> slotsAllocated;
 
     private double time;
 
@@ -51,15 +54,15 @@ public class Suggestion extends Preferences {
         str.append(", Rating: ").append(rating);
         str.append(", Profit: ").append(profit);
         str.append(", Slots affected: ");
-        for (int s = 0; s < slots_afected.length; s++) {
-            if (slots_afected[s] == 1)
-                str.append(s).append(",");
+        for (int s = 0; s < slotsAllocated.size(); s++) {
+            //if (slots_afected[s] == 1)
+                str.append(slotsAllocated.get(s)).append(",");
         }
         str.append(" time: ").append(time);
         return str.toString();
     }
 
-    public void setSlotsAffected(int[] slots_affected) {
+    public void setSlotsAllocated(int[] slots_affected) {
         this.slots_afected = slots_affected;
     }
 
@@ -129,5 +132,27 @@ public class Suggestion extends Preferences {
 
     public void setInitial(boolean initial) {
         isInitial = initial;
+    }
+
+    public ArrayList<Integer> getSlotsAllocated() {
+        return slotsAllocated;
+    }
+
+    public void setSlotsAllocated(ArrayList<Integer> slotsAffected) {
+        this.slotsAllocated = slotsAffected;
+    }
+
+    public void printSlotsAllocated () {
+        for (int slot = 0; slot < slotsAllocated.size(); slot++) {
+            System.out.print(slotsAllocated.get(slot));
+            if (slot != slotsAllocated.size()-1)
+                System.out.print(", ");
+        }
+        System.out.println();
+    }
+    public Preferences getPreferences () {
+        Preferences preferences = new Preferences();
+        preferences.setPreferences(start, end, energy);
+        return preferences;
     }
 }

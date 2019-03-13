@@ -2,15 +2,17 @@ package evs.strategy;
 
 import evs.EVInfo;
 import evs.Preferences;
+import new_classes.Station;
 import station.StationInfo;
 import station.SuggestionMessage;
 import various.IntegerConstants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Strategy {
 
-    private ArrayList<SuggestionMessage> suggestions;
+    //private ArrayList<SuggestionMessage> suggestions;
     private ArrayList<StationInfo> pendingStations;
     private boolean rejectPendingStations;
     private boolean charged;
@@ -18,18 +20,24 @@ public class Strategy {
     private StrategyPreferences strategyPreferences;
     private int s_rounds;
 
+    private HashMap<StationInfo, Integer> answers;
+
     public Strategy(int energy, int start, int end, double range, int probability, int rounds, String priority) {
-        suggestions = new ArrayList<>();
+        //suggestions = new ArrayList<>();
         pendingStations = new ArrayList<>();
         strategyPreferences = new StrategyPreferences(energy, start, end, range, rounds, probability, priority);
         s_rounds = 0;
     }
 
+    /*
     public void addSuggestion(SuggestionMessage suggestion) {
         suggestions.add(suggestion);
     }
+    */
 
-    public void evaluate(EVInfo info) {
+    public void evaluate(ArrayList<SuggestionMessage> suggestions, EVInfo info) {
+        // this hashmap contains the answers to the stations' suggestions
+        answers = new HashMap<>();
         if (!charged) {
             StrategyComputer computer = new StrategyComputer(info, strategyPreferences);
             ArrayList<ComparableSuggestion> comparable_suggestions = computer.produceComparableSuggestions(suggestions);
@@ -48,7 +56,10 @@ public class Strategy {
                     if (states[s] != IntegerConstants.EV_EVALUATE_PENDING) {
                         if (pendingStations.contains(station))
                             pendingStations.remove(station);
+                        /*
                         station.checkIn(info, states[s]);
+                        */
+                        answers.put(station, states[s]);
                     } else {
                         if (!pendingStations.contains(station))
                             pendingStations.add(station);
@@ -57,7 +68,10 @@ public class Strategy {
                 suggestions.clear();
                 if (rejectPendingStations) {
                     for (StationInfo station : pendingStations)
+                        /*
                         station.checkIn(info, IntegerConstants.EV_EVALUATE_REJECT);
+                        */
+                        answers.put(station, IntegerConstants.EV_EVALUATE_REJECT);
                     rejectPendingStations = false;
                     charged = true;
                 }
@@ -67,18 +81,22 @@ public class Strategy {
             //System.out.println("Already charged! " + suggestions.size());
             for (SuggestionMessage message: suggestions) {
                 //System.out.println("Rejecting");
+                /*
                 message.getStationAddress().checkIn(info, IntegerConstants.EV_EVALUATE_REJECT);
+                */
+                answers.put(message.getStationInfo(), IntegerConstants.EV_EVALUATE_REJECT);
             }
         }
     }
 
     private int[] compareSuggestions(ArrayList<ComparableSuggestion> comparableSuggestions) {
-        // in which station it accpeted/rejected/asked for better suggestion
+        // in which station it accepted/rejected/asked for better suggestion
         int[] states = new int[comparableSuggestions.size()];
         for (int s = 0; s < states.length; s++) {
             states[s] = IntegerConstants.EV_EVALUATE_WAIT;
         }
 
+        // if the ev is in the last round of the conversation based on its strategy
         if (s_rounds == strategyPreferences.getRounds()) {
             for (int s = 0; s < comparableSuggestions.size(); s++) {
                 ComparableSuggestion suggestion = comparableSuggestions.get(s);
@@ -120,30 +138,42 @@ public class Strategy {
                 }
             }
         }
-
+        for (int s = 0; s < states.length; s++) {
+            System.out.print(states[s] + " ");
+        }
+        System.out.println();
         return states;
     }
 
+    /*
     public boolean isEmpty() {
         return suggestions.isEmpty();
     }
+    */
 
+    /*
     public void printSuggestionsList() {
         for (Preferences p : suggestions) {
             System.out.println("    " + p.toString());
         }
         System.out.println();
     }
+    */
 
     public void resetRounds() {
         s_rounds = 0;
     }
 
+    public HashMap<StationInfo, Integer> getAnswers () {
+        return answers;
+    }
+
     public String toString() {
         return "Strategy: \n" +
-                "\t\tStart: " + strategyPreferences.getStart() +
-                " End: " + strategyPreferences.getEnd() +
-                " Rounds: " + strategyPreferences.getRounds() +
-                " Probability: " + strategyPreferences.getPriority();
+                "\t\tStart: " + strategyPreferences.getStart() + ", " +
+                " End: " + strategyPreferences.getEnd() + ", " +
+                " Energy: " + strategyPreferences.getEnergy() + ", " +
+                " Rounds: " + strategyPreferences.getRounds() + ", " +
+                " Priority: " + strategyPreferences.getPriority();
     }
 }

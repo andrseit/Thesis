@@ -1,5 +1,6 @@
 package optimize;
 
+import new_classes.Optimizer;
 import station.EVObject;
 import station.negotiation.Suggestion;
 import station.negotiation.SuggestionComputer;
@@ -8,7 +9,7 @@ import statistics.TimeStats;
 
 import java.util.*;
 
-public class SuggestionsOptimizer {
+public class SuggestionsOptimizer implements Optimizer {
 
     private ArrayList<EVObject> evs;
     private int[] remaining_chargers;
@@ -36,6 +37,11 @@ public class SuggestionsOptimizer {
         suggestions_queue = new PriorityQueue<>(5, comparator);
         empty = false;
         timer = new TimeStats();
+    }
+
+    @Override
+    public int[][] optimize(int slotsNumber, int currentSlot, ArrayList<EVObject> evs, int[] remainingChargers, int[] price) {
+        return new int[0][];
     }
 
     /**
@@ -110,7 +116,7 @@ public class SuggestionsOptimizer {
 
             if (alt) {
                 //System.out.println("    Not available chargers found." +
-                //"Must compute alternative suggestion.\n");
+                //"Must computeSuggestions alternative suggestion.\n");
                 ev.resetBestsUpdatingChargers();
                 timer.startTimer();
                 computer.computeAlternative(ev);
@@ -121,7 +127,7 @@ public class SuggestionsOptimizer {
             } else {
                 //System.out.println("    Chargers updated successfully!\n");
                 //ev.setHasSuggestion(true);
-                ev.getSuggestion().setSlotsAffected(slots_changed);
+                ev.getSuggestion().setSlotsAllocated(slots_changed);
             }
 
             alt = false;

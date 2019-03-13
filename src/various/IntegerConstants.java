@@ -2,6 +2,7 @@ package various;
 
 /**
  * Created by Darling on 15/9/2017.
+ * make more clear messages
  */
 public class IntegerConstants {
     public static int LESS_ENERGY_TYPE = 1;
@@ -23,6 +24,13 @@ public class IntegerConstants {
     public static int INSTANT_OFFER_YES = 1;
     public static int INSTANT_OFFER_NO = 0;
 
+    // new types of messages - maybe change that to 0 and add +1 to the others
+    public static int EV_MESSAGE_REQUEST = 4;
 
-
+    // types of station messages
+    // 0: has suggestion, 1: has no suggestion right now but it may have later, 2: has no suggestion (even after the alternatives computation), 3: will send suggestion in a future time slot
+    public static int STATION_HAS_SUGGESTION = 0;
+    public static int STATION_NEXT_ROUND_SUGGESTION = 1;
+    public static int STATION_HAS_NO_SUGGESTION = 2;
+    public static int STATION_FUTURE_SLOT_SUGGESTION = 3;
 }

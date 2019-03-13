@@ -24,7 +24,7 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
      */
     public SimpleOnlineStation(StationInfo info, int slotsNumber, int[] price, int[] renewables, HashMap<String, Integer> strategyFlags) {
         super(info, slotsNumber, price, renewables, strategyFlags);
-        this.info.setStation(this);
+        //this.info.setStation(this);
     }
 
     @Override
@@ -33,8 +33,8 @@ public class SimpleOnlineStation extends AbstractOnlineStation {
             cp = new ProfitCPLEX();
         else if (strategyFlags.get("cplex").equals(IntegerConstants.CPLEX_SERVICE))
             cp = new ServiceCPLEX();
-        OptimalSchedule optimal = new OptimalSchedule(evBidders, slotsNumber, price, schedule.getRemainingChargers(), cp);
-        return optimal.computeOptimalSchedule();
+        OptimalSchedule optimal = new OptimalSchedule(cp);
+        return optimal.optimize(slotsNumber, 0, evBidders, price, schedule.getRemainingChargers());
     }
 
     @Override

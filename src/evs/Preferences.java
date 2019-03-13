@@ -21,6 +21,12 @@ public class Preferences {
         this.end = end;
     }
 
+    public void setPreferences (int start, int end, int energy) {
+        this.start = start;
+        this.end = end;
+        this.energy = energy;
+    }
+
     public int getEnd() {
         return end;
     }

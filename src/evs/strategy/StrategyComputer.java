@@ -3,6 +3,7 @@ package evs.strategy;
 import evs.EVInfo;
 import evs.Preferences;
 import station.SuggestionMessage;
+import various.IntegerConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,33 +29,42 @@ class StrategyComputer {
         ArrayList<ComparableSuggestion> comparable_suggestions = new ArrayList<>();
 
         for (SuggestionMessage message : messages) {
-            if (!(message.getStart() == -1) && !(message.getStart() == -3)) {
+            //if (!(message.getStart() == -1) && !(message.getStart() == -3)) {
+            if (message.getMessageType() == IntegerConstants.STATION_HAS_SUGGESTION) {
+                System.out.println("\t-I have a suggestion from station No. " + message.getStationInfo().getId());
                 int preferences_distance = 0;
+                /*
                 if (!hasSuggestion(message)) {
                     preferences_distance = Integer.MAX_VALUE;
-                    comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, preferences_distance, message.getStationAddress()));
-                } else {
+                    comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, preferences_distance, message.getStationInfo()));
+                } else { */
                     boolean withingRange = true;
                     if (!this.isWithinInitial(message, initial_prefs)) {
-                        withingRange = this.checkWithinRange(initial_prefs, message);
+                        withingRange = this.checkWithinRange(initial_prefs, message); // strategy range
                         if (withingRange)
                             preferences_distance = this.computePreferencesDistance(message, initial_prefs);
                         else {
-                            comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -1, message.getStationAddress()));
+                            comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -1, message.getStationInfo()));
                         }
                     }
                     if (withingRange) {
                         int price = message.getCost();
                         int total_distance = this.computeTotalDistance(message);
                         int windowRange = this.computeWindowRange(message);
-                        comparable_suggestions.add(new ComparableSuggestion(total_distance, price, windowRange, preferences_distance, message.getStationAddress()));
+                        comparable_suggestions.add(new ComparableSuggestion(total_distance, price, windowRange, preferences_distance, message.getStationInfo()));
                     }
-                }
-            } else if (message.getStart() == -1){
-                comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -2, message.getStationAddress()));
-            } else if (message.getStart() == -3) {
+                //}
+            } else if (message.getMessageType() == IntegerConstants.STATION_NEXT_ROUND_SUGGESTION) {
+                System.out.println("\t-Station No. " + message.getStationInfo().getId() + " will offer me a suggestion in the next round of conversation.");
+                comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, Integer.MAX_VALUE, message.getStationInfo()));
+            }
+            else if (message.getMessageType() == IntegerConstants.STATION_HAS_NO_SUGGESTION){
+                System.out.println("\t-Station No. " + message.getStationInfo().getId() + " has no suggestion.");
+                comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -2, message.getStationInfo()));
+            } else if (message.getMessageType() == IntegerConstants.STATION_FUTURE_SLOT_SUGGESTION) {
                 // means no offer yet - NEO 18/2/2018
-                comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -3, message.getStationAddress()));
+                System.out.println("\t-Station No. " + message.getStationInfo().getId() + " will offer me a suggestion in a future slot.");
+                comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -3, message.getStationInfo()));
             }
         }
         orderMessages(comparable_suggestions, strategy_preferences.getPriority());
@@ -186,8 +196,8 @@ class StrategyComputer {
         int startY = info.getLocationY();
         int endX = info.getFinalLocationX();
         int endY = info.getFinalLocationY();
-        int stationX = message.getStationAddress().getLocationX();
-        int stationY = message.getStationAddress().getLocationY();
+        int stationX = message.getStationInfo().getLocationX();
+        int stationY = message.getStationInfo().getLocationY();
 
         int to_station_distance = Math.abs(startX - stationX) + Math.abs(startY - stationY);
         int to_destination_distance = Math.abs(stationX - endX) + Math.abs(stationY - endY);

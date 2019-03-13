@@ -47,7 +47,7 @@ public class SuggestionComputer {
                 available_energy++;
             }
         }
-        suggestion.setSlotsAffected(affected_slots);
+        suggestion.setSlotsAllocated(affected_slots);
         return available_energy;
     }
 
@@ -136,11 +136,11 @@ public class SuggestionComputer {
         int oldLength = Math.abs(suggestion.getStart() - suggestion.getEnd());
         int newLength = Math.abs(new_slots[0] - new_slots[1]);
         if (suggestion.getStart() == -1) {
-            suggestion.setSlotsAffected(affected_slots);
+            suggestion.setSlotsAllocated(affected_slots);
             suggestion.setStartEndSlots(new_slots[0], new_slots[1]);
         } else {
             if (newLength < oldLength) {
-                suggestion.setSlotsAffected(affected_slots);
+                suggestion.setSlotsAllocated(affected_slots);
                 suggestion.setStartEndSlots(new_slots[0], new_slots[1]);
             }
         }
@@ -148,7 +148,7 @@ public class SuggestionComputer {
     }
 
     /**
-     * This method will take as a parameter a suggestion info an it will compute
+     * This method will take as a parameter a suggestion info an it will computeSuggestions
      * an alternative suggestion
      */
     public void computeAlternative(EVObject ev) {

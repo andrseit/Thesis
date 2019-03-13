@@ -2,6 +2,7 @@ package station;
 
 import evs.EV;
 import evs.Preferences;
+import evs.communication.EVReceiver;
 import station.negotiation.Suggestion;
 import various.IntegerConstants;
 
@@ -12,9 +13,11 @@ public class EVObject {
     // to help with the conversation
     // like a connection so that the message is delivered immediately
     private EV object_address;
+    private EVReceiver evReceiver;
+
     private Preferences preferences;
     private Preferences oldPreferences;
-    private int bid;
+    private int bid; // remove this - it is not needed
     private int id;
     private int station_id;
     private int totalLoss;
@@ -44,6 +47,28 @@ public class EVObject {
         best_altered_window = Integer.MAX_VALUE;
         lastSlot = 0;
     }
+
+
+    /** New Code 11.2.2019 **/
+
+    private Suggestion lastSuggestion;
+    // prepare the message to be sent to the EV
+    private SuggestionMessage message;
+
+    public void setLastSuggestion (Suggestion preferences) {
+        lastSuggestion = preferences;
+    }
+
+    public void setSuggestionMessage (SuggestionMessage message) {
+        this.message = message;
+    }
+
+    public SuggestionMessage getSuggestionMessage () {
+        return message;
+    }
+
+
+    /** New Code 11.2.2019 **/
 
     public void setEVAddress(EV evAddress) {
         this.object_address = evAddress;
@@ -273,5 +298,13 @@ public class EVObject {
 
     public int getPreferencesLoss () {
         return totalLoss;
+    }
+
+    public EVReceiver getEvReceiver() {
+        return evReceiver;
+    }
+
+    public void setEvReceiver(EVReceiver evReceiver) {
+        this.evReceiver = evReceiver;
     }
 }

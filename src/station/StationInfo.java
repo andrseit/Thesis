@@ -2,6 +2,7 @@ package station;
 
 import evs.EVInfo;
 import evs.Preferences;
+import station.communication.StationReceiver;
 import station.offline.AbstractStation;
 
 public class StationInfo {
@@ -12,14 +13,18 @@ public class StationInfo {
     private int location_x;
     private int location_y;
     private int charger_number;
+    private StationReceiver communicationPort;
 
+    /*
     private AbstractStation station;
+    */
 
-    public StationInfo(int id, int location_x, int location_y, int charger_number) {
+    public StationInfo(int id, int location_x, int location_y, int charger_number, StationReceiver communicationPort) {
         this.id = id;
         this.location_x = location_x;
         this.location_y = location_y;
         this.charger_number = charger_number;
+        this.communicationPort = communicationPort;
     }
 
     public void setId(int id) {
@@ -40,14 +45,17 @@ public class StationInfo {
                 charger_number + " chargers.";
     }
 
+    /*
     public void setStation(AbstractStation station) {
         this.station = station;
     }
+    */
 
     public int getId() {
         return id;
     }
 
+    /*
     public void request(EVInfo info) {
         Preferences p = info.getPreferences();
         EVObject ev = new EVObject();
@@ -57,13 +65,18 @@ public class StationInfo {
         ev.setEVAddress(info.getObjectAddress());
         station.addEVBidder(ev);
     }
+    */
 
     /**
      * This is used to receive a message, if an ev accepted the offer or not
      */
+    /*
     public void checkIn(EVInfo ev, int state) {
         station.markEVBidder(ev.getId(), state);
     }
+    */
+
+    public StationReceiver getCommunicationPort () { return communicationPort; }
 
     public int getChargerNumber() {
         return charger_number;

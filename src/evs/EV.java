@@ -1,36 +1,82 @@
 package evs;
 
 import evs.strategy.Strategy;
+import evs.communication.EVPDA;
+import new_classes.Station;
+import station.communication.StationReceiver;
+import evs.communication.EVReceiver;
 import station.StationInfo;
 import station.SuggestionMessage;
+import various.IntegerConstants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EV {
+
+    private EVPDA pda;
+    // maybe this should go to the pda
+    private ArrayList<SuggestionMessage> messages;
 
     private int informSlot;
     private EVInfo info;
     private Strategy strategy;
     private int bid;
 
+
+
     public EV(int id, int informSlot, int x, int y, int finalX, int finalY, int start, int end, int energy, int bid, int max_distance, Strategy strategy) {
+        messages = new ArrayList<>();
+        pda = new EVPDA(messages);
         this.informSlot = informSlot;
         info = new EVInfo(id, x, y, finalX, finalY, start, end, energy, bid, max_distance);
         info.setObjectAddress(this);
+        info.setCommunicationPort(pda.getMessenger().getReceiver());
         this.bid = bid;
         this.strategy = strategy;
     }
 
+    /*
     public void addSuggestion(SuggestionMessage suggestion) {
             strategy.addSuggestion(suggestion);
     }
+    */
+
+    public void printMessagesList () {
+        System.out.println("EV No. " + info.getId() + " will evaluate suggestions: ");
+        for (SuggestionMessage message: messages) {
+            System.out.println("\t*" + message);
+        }
+    }
 
     public void evaluateSuggestions() {
-        strategy.evaluate(info);
+        strategy.evaluate(messages, info);
     }
 
     public boolean hasSuggestions() {
-        return !strategy.isEmpty();
+        return !messages.isEmpty();
+    }
+
+    /**
+     * the name means that this is a new method for the request
+     * ev gets the station list and sends a request
+     * make it more sophisticated like the old one in the future
+     * @param stations
+     */
+    public void newRequest (StationReceiver[] stations) {
+        for (StationReceiver s: stations) {
+            System.out.println("EV No. " + info.getId() + " requests from Station No. " + s.getStationId());
+            pda.sendRequest(info, IntegerConstants.EV_MESSAGE_REQUEST, s);
+        }
+    }
+
+    public void sendAnswers () {
+        HashMap<StationInfo, Integer> answers = strategy.getAnswers();
+        if (!answers.isEmpty()) {
+            for (StationInfo s : answers.keySet()) {
+                pda.sendRequest(info, answers.get(s), s.getCommunicationPort());
+            }
+        }
     }
 
     public void requestStation(ArrayList<StationInfo> stations, boolean online) {
@@ -47,12 +93,8 @@ public class EV {
                 int distance = this.computeDistance(info.getLocationX(), info.getLocationY(),
                         s_info.getLocationX(), s_info.getLocationY());
 
-
-                if (distance <= Math.min(minDistance, maxDistance)) {
-                    s_info.request(info);
-                    //System.out.println("ev_" + info.getId() + " requests from station_" + s_info.getId());
+                if (distance <= Math.min(minDistance, maxDistance))
                     requested = true;
-                }
             }
             if (!requested) {
                 maxDistance++;
@@ -60,8 +102,6 @@ public class EV {
                     break;
             }
         }
-        //if (requested)
-            //System.out.println();
     }
 
     private int computeDistance(int x1, int y1, int x2, int y2) {
@@ -78,11 +118,28 @@ public class EV {
     }
 
     public String toString() {
-        return info.toString() + "\n\t*" + strategy.toString();
+        return "**************" + "\n" + info.toString() + "\n\t*" + strategy.toString() + "\n\t* Informs: " + "\n\t\tSlot: " + informSlot;
     }
 
     public void resetRounds() {
         strategy.resetRounds();
+    }
+
+    public EVReceiver getCommunicationPort () {
+        return pda.getMessenger().getReceiver();
+    }
+
+    public void printMessages () {
+        for (SuggestionMessage m: messages) {
+            System.out.println(m.toString());
+        }
+    }
+
+    public void sendAnswer (ArrayList<StationReceiver> stations) {
+
+        for (StationReceiver s: stations) {
+            pda.sendRequest(info, IntegerConstants.EV_EVALUATE_REJECT, s);
+        }
     }
 
 }

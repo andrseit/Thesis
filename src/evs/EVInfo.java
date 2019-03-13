@@ -1,11 +1,14 @@
 package evs;
 
+import evs.communication.EVReceiver;
+
 public class EVInfo {
 
     private int id, bid;
     private Preferences preferences;
     private int locationX, locationY, final_locationX, final_locationY;
     private EV object_address;
+    private EVReceiver communicationPort;
 
     public EVInfo(int id, int x, int y, int finalX, int finalY, int start, int end, int energy, int bid, int max_distance) {
         this.locationX = x;
@@ -38,10 +41,11 @@ public class EVInfo {
     }
 
     public String toString() {
-        return "Initial Location: <" + locationX + ", " + locationY + ">"
+        return "-------| EV No. " + id + " |--------\n"
+                + "Initial Location: <" + locationX + ", " + locationY + ">"
                 + " Destination: <" + final_locationX + ", " + final_locationY + ">"
-                + "\n\t*Preferences:\n\t\t" + "Start: " + preferences.getStart() + " End: " + preferences.getEnd()
-                + " Energy: " + preferences.getEnergy() + " Distance: " + preferences.getMaxDistance();
+                + "\n\t*Preferences:\n\t\t" + "Start: " + preferences.getStart() + ", " + " End: " + preferences.getEnd()+ ", "
+                + " Energy: " + preferences.getEnergy() + ", " + " Distance: " + preferences.getMaxDistance();
     }
 
     public int getBid() {
@@ -62,5 +66,13 @@ public class EVInfo {
 
     public int getFinalLocationY() {
         return final_locationY;
+    }
+
+    public EVReceiver getCommunicationPort() {
+        return communicationPort;
+    }
+
+    public void setCommunicationPort(EVReceiver communicationPort) {
+        this.communicationPort = communicationPort;
     }
 }

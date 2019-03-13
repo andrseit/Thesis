@@ -38,7 +38,7 @@ public class ArrayTransformations {
         int columns = array.length;
         System.out.println(name);
         for (int anArray : array) {
-            System.out.print(anArray + " ");
+            System.out.print(anArray + "  ");
         }
         System.out.println();
     }
@@ -98,6 +98,8 @@ public class ArrayTransformations {
     public int[][] concatMaps(int[][] first, int[][] second, int columns) {
 
         ArrayTransformations t = new ArrayTransformations();
+        if (first == null)
+            return second;
         if (second.length != 0) {
             //this.scheduleMap = initial;
             int map_length = first.length;

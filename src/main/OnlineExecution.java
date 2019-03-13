@@ -93,7 +93,7 @@ public class OnlineExecution extends Execution {
                 this.evsEvaluateOffers();
                 // negotiations
 
-               //System.out.println("\n\n2.2 Stations compute new offers or update schedule");
+               //System.out.println("\n\n2.2 Stations computeSuggestions new offers or update schedule");
                 for (int s = 0; s < stations.size(); s++) {
                     //System.out.println("----------------- Station_" + stations.get(s).getInfo().getId() + " ---------------------");
                     AbstractOnlineStation station = (AbstractOnlineStation) stations.get(s);

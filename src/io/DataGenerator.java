@@ -101,7 +101,7 @@ public class DataGenerator {
                 int s_end = random.nextInt(slotsNumber - end) + end;
                 int s_energy = random.nextInt(energy) + 1;
                 int probability = random.nextInt(100) + 1;
-                int rounds = random.nextInt(5);
+                int rounds = random.nextInt(4);
                 int temp = random.nextInt(81) + 120;
                 double s_range = ((double)temp) / 100;
                 strategy.put("start", s_start);
@@ -218,6 +218,48 @@ public class DataGenerator {
         }
     }
 
+    public void generateRandomStations (int maxChargers) {
+        try {
+            FileWriter writer = new FileWriter("files/station.json");
+            writer.write(slotsNumber + "\n");
+
+            Random random = new Random();
+
+            for (int s = 0; s < stationsNumber; s++) {
+                JSONObject station = new JSONObject();
+                JSONObject location = new JSONObject();
+                JSONObject flags = new JSONObject();
+                station.put("chargers", random.nextInt(maxChargers) + 1);
+                location.put("x", 0);
+                location.put("y", 0);
+                station.put("location", location);
+                stationLocation[0][0] = 0;
+                stationLocation[0][1] = 0;
+                station.put("price_file", "station_"+s);
+                flags.put("window", 0);
+                flags.put("cplex", 0);
+                flags.put("suggestion", 0);
+                flags.put("instant", 1);
+                station.put("flags", flags);
+                writer.write(station.toJSONString() + "\n");
+            }
+            writer.flush();
+            writer.close();
+
+
+            /*
+            for (int s = 0; s < stationsNumber; s++) {
+                System.out.println("station_" + s + " <" + stationLocation[s][0] + ", " + stationLocation[s][1] + ">");
+            }
+            */
+
+            stationsGenerated = true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void generatePriceFile () {
 
         Random random = new Random();
@@ -262,5 +304,9 @@ public class DataGenerator {
         }
 
 
+    }
+
+    public int getSlotsNumber () {
+        return slotsNumber;
     }
 }

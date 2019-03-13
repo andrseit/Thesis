@@ -1,55 +1,49 @@
 package station.auction;
 
+import new_classes.Optimizer;
 import optimize.AbstractCPLEX;
 import station.EVObject;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
-public class OptimalSchedule {
+public class OptimalSchedule implements Optimizer {
 
-    private ArrayList<EVObject> bidders_list;
-    private int slots_number;
-    private int[] price;
-    private int[] remaining_chargers;
 
     private AbstractCPLEX cp;
 
 
-    public OptimalSchedule(ArrayList<EVObject> bidders_list, int slots_number, int[] price, int[] remaining_chargers, AbstractCPLEX cp) {
-        this.bidders_list = bidders_list;
-        this.slots_number = slots_number;
-        this.price = price;
-        this.remaining_chargers = remaining_chargers;
+    public OptimalSchedule(AbstractCPLEX cp) {
         this.cp = cp;
     }
 
-    public int[][] computeOptimalSchedule() {
+    public int[][] optimize(int slotsNumber, int currentSlot, ArrayList<EVObject> evs, int[] remainingChargers, int[] price) {
 
-        int min_slot = getMinSlot();
-        int max_slot = getMaxSlot();
+        int min_slot = getMinSlot(evs);
+        int max_slot = getMaxSlot(evs);
 
 
-        cp.model(bidders_list, slots_number, price,
-                remaining_chargers, min_slot, max_slot);
+        cp.model(evs, slotsNumber, price,
+                remainingChargers, min_slot, max_slot);
 
 
         return cp.getScheduleMap();
     }
 
-    private int getMinSlot() {
-        PriorityQueue<EVObject> queue = new PriorityQueue<>(10, (ev1, ev2) -> ev1.getMinSlot() - ev2.getMinSlot());
+    private int getMinSlot(ArrayList<EVObject> evs) {
+        PriorityQueue<EVObject> queue = new PriorityQueue<>(10, Comparator.comparingInt(EVObject::getMinSlot));
 
-        for (EVObject ev : bidders_list) {
+        for (EVObject ev : evs) {
             queue.offer(ev);
         }
         return queue.peek().getMinSlot();
     }
 
-    private int getMaxSlot() {
+    private int getMaxSlot(ArrayList<EVObject> evs) {
         PriorityQueue<EVObject> queue = new PriorityQueue<>(10, (ev1, ev2) -> ev2.getMaxSlot() - ev1.getMaxSlot());
 
-        for (EVObject ev : bidders_list) {
+        for (EVObject ev : evs) {
             queue.offer(ev);
         }
 

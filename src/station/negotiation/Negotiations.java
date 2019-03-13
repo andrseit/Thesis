@@ -40,11 +40,11 @@ public class Negotiations {
     }
 
     /**
-     * For each EVObject not charged compute some suggestions
+     * For each EVObject not charged computeSuggestions some suggestions
      */
     public boolean computeSuggestions() {
 
-        // compute suggestions
+        // computeSuggestions suggestions
         SuggestionsOptimizer optimizer = new SuggestionsOptimizer(evs, chargers, pricing);
         optimizer.optimizeSuggestions();
 

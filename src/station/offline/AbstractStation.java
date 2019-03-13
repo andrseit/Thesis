@@ -60,7 +60,7 @@ public abstract class AbstractStation {
     public abstract void computeOffer(EVObject ev, int[] evRow);
 
     /**
-     * For the evs that did not charged compute suggestions
+     * For the evs that did not charged computeSuggestions suggestions
      * add the suggestion to the ev
      */
     public abstract void findSuggestion();
@@ -220,9 +220,9 @@ public abstract class AbstractStation {
             StringBuilder receivers = new StringBuilder();
             for (int e = 0; e < messageReceivers.size(); e++) {
                 EVObject ev = messageReceivers.get(e);
-                SuggestionMessage message = new SuggestionMessage(info, ev.getFinalSuggestion());
+                SuggestionMessage message = new SuggestionMessage(info, ev.getFinalSuggestion(), 0, 0);
                 message.setCost(ev.getFinalPayment());
-                ev.getObjectAddress().addSuggestion(message);
+                //ev.getObjectAddress().addSuggestion(message);
 
                 if (e == messageReceivers.size() - 1)
                     receivers.append("ev_").append(ev.getId()).append("\n");
