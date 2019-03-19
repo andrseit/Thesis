@@ -10,10 +10,12 @@ public class IntegerConstants {
     public static int SUGGESTION_COMPUTER_INITIAL = 1;
     public static int SUGGESTION_COMPUTER_CONVERSATION = 2;
 
-    public static int EV_EVALUATE_ACCEPT = 0;
-    public static int EV_EVALUATE_REJECT = 1;
-    public static int EV_EVALUATE_WAIT = 2;
-    public static int EV_EVALUATE_PENDING = 3;
+    public static int EV_EVALUATE_ACCEPT = 1;
+    public static int EV_EVALUATE_REJECT = 2;
+    public static int EV_EVALUATE_WAIT = 3;
+    public static int EV_EVALUATE_PENDING = 4;
+    public static int EV_UPDATE_DELAY = 5;
+    public static int EV_UPDATE_CANCEL = 6;
 
     public static int CPLEX_PROFIT = 0;
     public static int CPLEX_SERVICE = 1;
@@ -25,7 +27,7 @@ public class IntegerConstants {
     public static int INSTANT_OFFER_NO = 0;
 
     // new types of messages - maybe change that to 0 and add +1 to the others
-    public static int EV_MESSAGE_REQUEST = 4;
+    public static int EV_MESSAGE_REQUEST = 0;
 
     // types of station messages
     // 0: has suggestion, 1: has no suggestion right now but it may have later, 2: has no suggestion (even after the alternatives computation), 3: will send suggestion in a future time slot

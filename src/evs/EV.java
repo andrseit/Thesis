@@ -11,12 +11,21 @@ import various.IntegerConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class EV {
 
     private EVPDA pda;
     // maybe this should go to the pda
     private ArrayList<SuggestionMessage> messages;
+
+    private StationReceiver acceptedStation; // the station with which the EV came to an agreement
+    private boolean toBeServiced; // the EV is to be charged, but the time has not yet arrived
+    private boolean serviced;// the ev has been successfully serviced
+    private boolean delayed; // shows if the ev has made a deferral - we assume that an EV can only do that once, however it can be easily changed
+                            // so that this can happen more than one time
+                            // rename it to something that represents both deferral and cancellation
+
 
     private int informSlot;
     private EVInfo info;
@@ -70,13 +79,98 @@ public class EV {
         }
     }
 
+
+    /**
+     * This method is used by the execution flow to determine if an EV is able to make a deferral
+     * This is determined by a probability and the boolean variable: delayed
+     * If the current time slot is equal to the EVs arrival time, then the EV is serviced
+     * @param currentSlot
+     * @param slotsNumber
+     * @return
+     */
+    public Integer checkDelay(int currentSlot, int slotsNumber) {
+        System.out.println("EV No " + info.getId() + "( " + currentSlot + ", " + info.getPreferences().getStart() + " )");
+        Preferences preferences = info.getPreferences();
+        System.out.println("Initial: " + preferences.toString());
+        Random random = new Random();
+        if (toBeServiced && random.nextInt(100) < 80 && !delayed) {
+            System.out.println("I will delay or cancel!");
+            if (random.nextInt() < 30) {
+                // cancel
+                System.out.println("I shall CANCEL my reservation!");
+                delayed = true;
+                toBeServiced = false;
+                return IntegerConstants.EV_UPDATE_CANCEL;
+            } else {
+                System.out.println("I shall DELAY my reservation!");
+                // delay
+                if (!(slotsNumber - currentSlot <= 0)) {
+                    delayed = true;
+                    return IntegerConstants.EV_UPDATE_DELAY;
+                }
+            }
+        } else {
+            System.out.println("I'll check in normally!");
+            if (currentSlot == preferences.getStart()) {
+                serviced = true;
+                toBeServiced = false;
+            }
+        }
+        System.out.println("Serviced: " + serviced);
+        return -1;
+    }
+
+    public boolean isServiced () {
+        return serviced;
+    }
+
+    public boolean isToBeServiced () {
+        return toBeServiced;
+    }
+
+    /**
+     * When an ev informs for a delay the new preferences should be within the accepted bounds
+     * @param currentSlot: the time slot in which the execution is at the moment
+     * @return preferences with delay
+     */
+    public void computeDelay (int currentSlot, int slotsNumber) {
+
+        Preferences initial = info.getPreferences();
+        int upperStartBound = Math.max((slotsNumber - initial.getEnergy()), (initial.getStart() + 1));
+        int lowerStartBound = initial.getStart() + 1;
+
+        System.out.println("Lower start: " + lowerStartBound + ", Max start: " + upperStartBound);
+        Random random = new Random();
+        int newStart = random.nextInt(upperStartBound - lowerStartBound + 1) + lowerStartBound;
+        int energy = Math.min(initial.getEnergy(), (slotsNumber - newStart));
+        int newEnd = newStart + Math.min(energy, slotsNumber - newStart) - 1;
+
+        initial.setPreferences(newStart, newEnd, energy);
+        System.out.println("After: " + initial.toString());
+    }
+
+
     public void sendAnswers () {
         HashMap<StationInfo, Integer> answers = strategy.getAnswers();
         if (!answers.isEmpty()) {
             for (StationInfo s : answers.keySet()) {
                 pda.sendRequest(info, answers.get(s), s.getCommunicationPort());
+
+                // if the EV accepts the suggestion of a station, then save this station's communication port
+                if (answers.get(s) == IntegerConstants.EV_EVALUATE_ACCEPT) {
+                    acceptedStation = s.getCommunicationPort();
+                    toBeServiced = true;
+                }
             }
         }
+    }
+
+    public void sendDeferralMessage () {
+        pda.sendRequest(info, IntegerConstants.EV_UPDATE_DELAY, acceptedStation);
+    }
+
+    public void sendCancellationMessage () {
+        pda.sendRequest(info, IntegerConstants.EV_UPDATE_CANCEL, acceptedStation);
     }
 
     public void requestStation(ArrayList<StationInfo> stations, boolean online) {

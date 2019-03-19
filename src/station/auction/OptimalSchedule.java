@@ -34,9 +34,8 @@ public class OptimalSchedule implements Optimizer {
     private int getMinSlot(ArrayList<EVObject> evs) {
         PriorityQueue<EVObject> queue = new PriorityQueue<>(10, Comparator.comparingInt(EVObject::getMinSlot));
 
-        for (EVObject ev : evs) {
+        for (EVObject ev : evs)
             queue.offer(ev);
-        }
         return queue.peek().getMinSlot();
     }
 

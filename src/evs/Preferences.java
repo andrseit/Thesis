@@ -1,5 +1,8 @@
 package evs;
 
+/**
+ * Add a constructor!!!
+ */
 public class Preferences {
 
     protected int start;

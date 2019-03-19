@@ -4,8 +4,10 @@ import evs.EV;
 import io.DataGenerator;
 import io.JSONFileParser;
 import station.communication.StationReceiver;
+import various.IntegerConstants;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by Thesis on 13/3/2019.
@@ -50,19 +52,31 @@ public class ExecutionFlow {
         // now each ev searches in the table of communication ports and sends requests
         System.out.println("\n----- EVs are searching for available stations -----");
         for (EV ev: evs) {
-            ev.newRequest(communicationPorts);
+            if (!ev.isToBeServiced())
+                ev.newRequest(communicationPorts);
+            // if an ev has already made an agreement with a station then check if it
+            // is up to a delay
+            else {
+                int delayStatus = ev.checkDelay(currentSlot, slotsNumber);
+                if (delayStatus == IntegerConstants.EV_UPDATE_DELAY) {
+                    ev.computeDelay(currentSlot, slotsNumber);
+                    ev.sendDeferralMessage();
+                    // make a function to inform the station
+                } else if (delayStatus == IntegerConstants.EV_UPDATE_CANCEL) {
+                    ev.sendCancellationMessage();
+                }
+            }
         }
         System.out.println("-----------------------------------");
 
-        // the evs have requested, when evs request from a station, the station has to insert them into a list
-        // please make sure that you take care of that
-        stations.forEach(s -> {
-            s.printList();
-        });
 
         // now stations will computeSuggestions the schedule based on their list
         System.out.println("\n----- Stations are computing the schedules and sending suggestions -----");
         for (Station station: stations) {
+            station.handleAnswers();
+            // the evs have requested, when evs request from a station, the station has to insert them into a list
+            // please make sure that you take care of that
+            station.printList();
             station.computeSuggestions();
             System.out.println("-------------------------------------");
             station.printTemporaryScheduleMap();
@@ -156,16 +170,18 @@ public class ExecutionFlow {
         // order the EVs list by inform slot
         evs.sort((o1, o2) -> o1.getInformSlot() - o2.getInformSlot());
         evs.forEach(System.out::println);
+        Scanner scanner = new Scanner(System.in);
         for (int slot = 0; slot < slotsNumber; slot++) {
             System.out.println("::::::::::::::::: Slot No " + slot + " :::::::::::::::::");
             // the list which contains the EVs that inform the stations in the current slot
             ArrayList<EV> currentEVs = new ArrayList<>();
             for (EV ev: evs) {
-                if (ev.getInformSlot() == slot)
+                if (ev.getInformSlot() == slot || (!ev.isServiced() && ev.isToBeServiced())) // ev.isServiced() is redundant but I put it for safety
                     currentEVs.add(ev);
             }
             if (!currentEVs.isEmpty())
                 offline(stations, currentEVs, slot);
+            scanner.nextLine();
         }
     }
 

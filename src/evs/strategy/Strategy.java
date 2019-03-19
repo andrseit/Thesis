@@ -60,6 +60,16 @@ public class Strategy {
                         station.checkIn(info, states[s]);
                         */
                         answers.put(station, states[s]);
+                        if (states[s] == IntegerConstants.EV_EVALUATE_ACCEPT) {
+                            for (int i = 0; i < suggestions.size(); i++) {
+                                if (suggestions.get(i).getStationInfo().getId() == station.getId()) {
+                                    SuggestionMessage suggestion = suggestions.get(i);
+                                    int start = suggestion.getStart(), end = suggestion.getEnd(), energy = suggestion.getEnergy();
+                                    info.getPreferences().setPreferences(start, end, energy);
+                                }
+                            }
+
+                        }
                     } else {
                         if (!pendingStations.contains(station))
                             pendingStations.add(station);

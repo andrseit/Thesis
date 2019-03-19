@@ -37,13 +37,15 @@ public class StationReceiver {
     }
 
     public void receiveRequest (EVInfo evInfo, Integer message) {
-        if (message == IntegerConstants.EV_MESSAGE_REQUEST) {
-            System.out.println("Station No. " + id + " received a REQUEST message from EV No. " + evInfo.getId());
-            incomingRequests.add(createEVObject(evInfo));
-        } else {
-            System.out.println("Station No. " + id + " received a " + message + " message from EV No. " + evInfo.getId());
-            incomingAnswers.put(createEVObject(evInfo), message);
-        }
+//        if (message == IntegerConstants.EV_MESSAGE_REQUEST) {
+//            System.out.println("Station No. " + id + " received a REQUEST message from EV No. " + evInfo.getId());
+//            incomingRequests.add(createEVObject(evInfo));
+//        } else {
+//            System.out.println("Station No. " + id + " received a " + message + " message from EV No. " + evInfo.getId());
+//            incomingAnswers.put(createEVObject(evInfo), message);
+//        }
+        System.out.println("Station No. " + id + " received a " + message + " message from EV No. " + evInfo.getId());
+        incomingAnswers.put(createEVObject(evInfo), message);
     }
 
     /**

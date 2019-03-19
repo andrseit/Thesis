@@ -36,6 +36,10 @@ public class EVInfo {
         return id;
     }
 
+    public void updatePreferences (int start, int end, int energy) {
+        preferences.setPreferences(start, end, energy);
+    }
+
     public Preferences getPreferences() {
         return preferences;
     }

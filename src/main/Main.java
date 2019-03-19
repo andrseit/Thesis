@@ -1,6 +1,8 @@
 package main;
+import evs.Preferences;
 import new_classes.ExecutionFlow;
 import new_classes.Optimizer;
+import new_classes.TestingClass;
 import optimize.AlternativesCPLEX;
 import station.EVObject;
 import various.ArrayTransformations;
@@ -16,7 +18,6 @@ public class Main {
 
         ExecutionFlow exe = new ExecutionFlow();
         exe.runOnline();
-        //testAlternativeCP();
 
     }
 

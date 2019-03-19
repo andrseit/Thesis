@@ -1,5 +1,7 @@
 package new_classes;
 
+import evs.EVInfo;
+import evs.Preferences;
 import station.EVObject;
 import station.StationInfo;
 import station.SuggestionMessage;
@@ -81,14 +83,20 @@ public class Station {
     public void computeSuggestions() {
         System.out.println("\n\n************ Station No " + info.getId() + " computes suggestions! **********");
         notChargedEVs = new ArrayList<>();
-        compute(optimizer);
+        if (!incomingRequests.isEmpty())
+            compute(optimizer);
+        else
+            System.out.println("Station No " + info.getId() + " has no incoming requests.");
     }
 
     // computes alternative suggestions for evs that did not charge with the initial schedule
     // those evs are stored into a list, and they have a new reference id
     public void computeAlternatives () {
         System.out.println("\n\n************ Station No " + info.getId() + " computes alternatives! **********");
-        compute(alternativesOptimizer);
+        if (!incomingRequests.isEmpty())
+            compute(alternativesOptimizer);
+        else
+            System.out.println("Station No " + info.getId() + " has no incoming requests.");
         notChargedEVs.clear();
     }
 
@@ -114,24 +122,42 @@ public class Station {
         ArrayList<EVObject> toBeRemoved = new ArrayList<>();
         for (EVObject ev: incomingAnswers.keySet()) {
             Integer answer = incomingAnswers.get(ev);
-
-            for (int e = 0; e < incomingRequests.size(); e++) {
-                EVObject evRequest = incomingRequests.get(e);
-                if (evRequest.getId() == ev.getId()) {
-                    if (answer == IntegerConstants.EV_EVALUATE_ACCEPT) {
-                        System.out.println("\t* " + ev + " says accepted my offer!");
-                        ev.setCharged(true);
-                        acceptedEVs.add(evRequest);
-                        toBeRemoved.add(evRequest);
-                        schedule.addEVtoScheduleMap(evRequest);
-                        break;
-                    } else if (answer == IntegerConstants.EV_EVALUATE_WAIT) {
-                        System.out.println("\t* " + ev + " says waits for an offer!");
-                        break;
-                    } else if (answer == IntegerConstants.EV_EVALUATE_REJECT) {
-                        System.out.println("\t* " + ev + " says rejected my offer!");
-                        toBeRemoved.add(evRequest);
-                        break;
+            // if it is a request then add it to the incoming requests
+            if (answer == IntegerConstants.EV_MESSAGE_REQUEST) {
+                incomingRequests.add(ev);
+            } else if (answer == IntegerConstants.EV_UPDATE_DELAY || answer == IntegerConstants.EV_UPDATE_CANCEL) {
+                for (int e = 0; e < acceptedEVs.size(); e++) {
+                    EVObject evAnswer = acceptedEVs.get(e);
+                    if (evAnswer.getId() == ev.getId()) {
+                        if (answer == IntegerConstants.EV_UPDATE_DELAY) {
+                            // handle deferral
+                            System.out.println("We have a deferral here! By EV No " + ev.getId());
+                        }
+                        else {
+                            // handle cancellation
+                            System.out.println("We have a cancellation here! By EV No " + ev.getId());
+                        }
+                    }
+                }
+            } else { // else search for the ev to do the according actions
+                for (int e = 0; e < incomingRequests.size(); e++) {
+                    EVObject evRequest = incomingRequests.get(e);
+                    if (evRequest.getId() == ev.getId()) {
+                        if (answer == IntegerConstants.EV_EVALUATE_ACCEPT) {
+                            System.out.println("\t* " + ev + " says accepted my offer!");
+                            ev.setCharged(true);
+                            acceptedEVs.add(evRequest);
+                            toBeRemoved.add(evRequest);
+                            schedule.addEVtoScheduleMap(evRequest);
+                            break;
+                        } else if (answer == IntegerConstants.EV_EVALUATE_WAIT) {
+                            System.out.println("\t* " + ev + " says waits for an offer!");
+                            break;
+                        } else if (answer == IntegerConstants.EV_EVALUATE_REJECT) {
+                            System.out.println("\t* " + ev + " says rejected my offer!");
+                            toBeRemoved.add(evRequest);
+                            break;
+                        }
                     }
                 }
             }
