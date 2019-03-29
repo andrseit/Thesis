@@ -174,6 +174,8 @@ public class Strategy {
         s_rounds = 0;
     }
 
+    public void resetCharged () { charged = false; }
+
     public HashMap<StationInfo, Integer> getAnswers () {
         return answers;
     }

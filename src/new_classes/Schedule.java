@@ -49,6 +49,16 @@ public class Schedule {
         scheduleMap = t.concatMaps(scheduleMap, evRow, slotsNumber);
     }
 
+    public void setScheduleMap (int[][] scheduleMap) {
+        this.scheduleMap = scheduleMap;
+    }
+
+    public void increaseRemainingChargers(EVObject ev) {
+        ArrayList<Integer> slotsAllocated = ev.getSuggestion().getSlotsAllocated();
+        for (int slot = 0; slot < slotsAllocated.size(); slot++)
+            remainingChargers[slotsAllocated.get(slot)]++;
+    }
+
     public int[][] getTemporaryScheduleMap() {
         return temporaryScheduleMap;
     }

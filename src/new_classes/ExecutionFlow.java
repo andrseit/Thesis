@@ -160,6 +160,10 @@ public class ExecutionFlow {
                 }
             }
         }
+
+        for (Station station: stations) {
+            System.out.println(station.getStatistics().toString());
+        }
     }
 
     private void online (ArrayList<Station> stations, ArrayList<EV> evs, int slotsNumber) {

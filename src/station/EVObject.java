@@ -28,6 +28,8 @@ public class EVObject {
     private boolean charged = false;
     private int final_pays; // what the ev will finally pay
 
+    private boolean delayed;
+
     // new data variables, now there is only one bid, so SlotsStruct is unnecessary
 
     private Suggestion suggestion;
@@ -306,5 +308,13 @@ public class EVObject {
 
     public void setEvReceiver(EVReceiver evReceiver) {
         this.evReceiver = evReceiver;
+    }
+
+    public boolean isDelayed() {
+        return delayed;
+    }
+
+    public void setDelayed(boolean delayed) {
+        this.delayed = delayed;
     }
 }

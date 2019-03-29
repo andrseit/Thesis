@@ -93,19 +93,22 @@ public class EV {
         Preferences preferences = info.getPreferences();
         System.out.println("Initial: " + preferences.toString());
         Random random = new Random();
-        if (toBeServiced && random.nextInt(100) < 80 && !delayed) {
+        if (toBeServiced && random.nextInt(100) < 0 && !delayed) {
             System.out.println("I will delay or cancel!");
-            if (random.nextInt() < 30) {
+            if (random.nextInt() < 20) {
                 // cancel
                 System.out.println("I shall CANCEL my reservation!");
                 delayed = true;
                 toBeServiced = false;
+                strategy.resetCharged();
                 return IntegerConstants.EV_UPDATE_CANCEL;
             } else {
                 System.out.println("I shall DELAY my reservation!");
                 // delay
                 if (!(slotsNumber - currentSlot <= 0)) {
                     delayed = true;
+                    strategy.resetRounds();
+                    strategy.resetCharged();
                     return IntegerConstants.EV_UPDATE_DELAY;
                 }
             }

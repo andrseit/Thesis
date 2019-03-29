@@ -1,5 +1,7 @@
 package various;
 
+import java.util.ArrayList;
+
 public class ArrayTransformations {
 
     public int[] getColumnsCount(int[][] array) {
@@ -22,16 +24,19 @@ public class ArrayTransformations {
     }
 
     public void printIntArray(int[][] array) {
-        int rows = array.length;
-        int columns = array[0].length;
-
-        for (int[] anArray : array) {
-            for (int c = 0; c < columns; c++) {
-                System.out.print(anArray[c] + " ");
+        if (array.length == 0)
+            System.out.println("Empty array!");
+        else {
+            int rows = array.length;
+            int columns = array[0].length;
+            for (int[] anArray : array) {
+                for (int c = 0; c < columns; c++) {
+                    System.out.print(anArray[c] + " ");
+                }
+                System.out.println();
             }
             System.out.println();
         }
-        System.out.println();
     }
 
     public void printOneDimensionArray(String name, int[] array) {
@@ -139,5 +144,23 @@ public class ArrayTransformations {
 
         }
         return normalizedArray;
+    }
+
+    public static int[][] removeRowFromArray (int[][] array, int row) {
+        ArrayList<int[]> rowsToKeep = new ArrayList<>();
+        for (int r = 0; r < array.length; r++) {
+            if (!(r == row))
+                rowsToKeep.add(array[r]);
+        }
+        if (rowsToKeep.isEmpty()) {
+            return new int[0][0];
+        }
+        else {
+            int[][] updatedArray = new int[array.length - 1][array[0].length];
+            for (int r = 0; r < rowsToKeep.size(); r++) {
+                updatedArray[r] = rowsToKeep.get(r);
+            }
+            return updatedArray;
+        }
     }
 }

@@ -1,6 +1,5 @@
 package new_classes;
 
-import evs.EVInfo;
 import evs.Preferences;
 import station.EVObject;
 import station.StationInfo;
@@ -8,6 +7,7 @@ import station.SuggestionMessage;
 import station.communication.StationPDA;
 import station.communication.StationReceiver;
 import station.negotiation.Suggestion;
+import various.ArrayTransformations;
 import various.IntegerConstants;
 
 import java.util.ArrayList;
@@ -17,6 +17,8 @@ import java.util.HashMap;
  * Created by Thesis on 21/1/2019.
  */
 public class Station {
+
+    private StationStatistics statistics;
 
     // integrate station info with station pda (maybe add info into the pda)
     private StationPDA pda;
@@ -55,6 +57,8 @@ public class Station {
         pda = new StationPDA(id,0, 0, incomingRequests, incomingAnswers);
         info = new StationInfo(id, x, y, chargersNumber, pda.getMessenger().getAddress());
         currentSlot = 0;
+
+        statistics = new StationStatistics(chargersNumber, slotsNumber);
     }
 
     /**
@@ -125,20 +129,46 @@ public class Station {
             // if it is a request then add it to the incoming requests
             if (answer == IntegerConstants.EV_MESSAGE_REQUEST) {
                 incomingRequests.add(ev);
+                statistics.updateRequests(1);
             } else if (answer == IntegerConstants.EV_UPDATE_DELAY || answer == IntegerConstants.EV_UPDATE_CANCEL) {
+                ArrayList<EVObject> removeAccepted = new ArrayList<>();
                 for (int e = 0; e < acceptedEVs.size(); e++) {
                     EVObject evAnswer = acceptedEVs.get(e);
                     if (evAnswer.getId() == ev.getId()) {
+
+                        // remove the ev's row from schedule and update chargers
+                        ArrayTransformations t = new ArrayTransformations();
+                        schedule.setScheduleMap(t.removeRowFromArray(schedule.getScheduleMap(), e));
+                        removeAccepted.add(evAnswer);
+                        schedule.increaseRemainingChargers(evAnswer);
+
                         if (answer == IntegerConstants.EV_UPDATE_DELAY) {
                             // handle deferral
+                            Preferences updatedPreferences = ev.getPreferences();
+                            evAnswer.getPreferences().setPreferences(updatedPreferences.getStart(), updatedPreferences.getEnd(), updatedPreferences.getEnergy());
+                            evAnswer.setDelayed(true);
+                            incomingRequests.add(evAnswer);
+                            statistics.updateDelays(1);
+                            statistics.updateSlotsUsed(-evAnswer.getSuggestion().getSlotsAllocated().size());
                             System.out.println("We have a deferral here! By EV No " + ev.getId());
                         }
                         else {
-                            // handle cancellation
+                            // handle cancellation - nothing more has to be done
+                            statistics.updateCancellations(1);
+                            statistics.updateSlotsUsed(-evAnswer.getSuggestion().getSlotsAllocated().size());
                             System.out.println("We have a cancellation here! By EV No " + ev.getId());
                         }
                     }
                 }
+                for (EVObject remove: removeAccepted) {
+                    System.out.println("Removing EV No " + remove.getId());
+                    acceptedEVs.remove(remove);
+                }
+                System.out.println("+++++++++++++ Schedule after removal of the cancelled EVs +++++++++++++++++++");
+                printScheduleMap();
+                schedule.printRemainingChargers();
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++");
+
             } else { // else search for the ev to do the according actions
                 for (int e = 0; e < incomingRequests.size(); e++) {
                     EVObject evRequest = incomingRequests.get(e);
@@ -149,6 +179,9 @@ public class Station {
                             acceptedEVs.add(evRequest);
                             toBeRemoved.add(evRequest);
                             schedule.addEVtoScheduleMap(evRequest);
+                            if (!evRequest.isDelayed())
+                                statistics.updateAccepted(1);
+                            statistics.updateSlotsUsed(evRequest.getSuggestion().getSlotsAllocated().size());
                             break;
                         } else if (answer == IntegerConstants.EV_EVALUATE_WAIT) {
                             System.out.println("\t* " + ev + " says waits for an offer!");
@@ -156,6 +189,10 @@ public class Station {
                         } else if (answer == IntegerConstants.EV_EVALUATE_REJECT) {
                             System.out.println("\t* " + ev + " says rejected my offer!");
                             toBeRemoved.add(evRequest);
+                            if (evRequest.isDelayed())
+                                statistics.updateDelayRejected(1);
+                            else
+                                statistics.updateRejected(1);
                             break;
                         }
                     }
@@ -274,6 +311,10 @@ public class Station {
      * A station can receive requests from EVs and save them into a list
      * An EV's request must be accompanied by: arrival-departure time and demanded energy
      */
+
+    public StationStatistics getStatistics () {
+        return statistics;
+    }
 
     public String toString () {
         return info.toString();

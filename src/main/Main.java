@@ -1,8 +1,6 @@
 package main;
 import evs.Preferences;
-import new_classes.ExecutionFlow;
-import new_classes.Optimizer;
-import new_classes.TestingClass;
+import new_classes.*;
 import optimize.AlternativesCPLEX;
 import station.EVObject;
 import various.ArrayTransformations;
@@ -18,7 +16,15 @@ public class Main {
 
         ExecutionFlow exe = new ExecutionFlow();
         exe.runOnline();
-
+//        StationStatistics s = new StationStatistics(10, 10);
+//        s.updateRequests(10);
+//        s.updateAccepted(5);
+//        s.updateRejected(5);
+//        s.updateDelays(1);
+//        s.updateDelays(1);
+//        s.updateDelayRejected(1);
+//        s.updateCancellations(1);
+//        System.out.println(s.toString());
     }
 
     private static void testStrategy () {
