@@ -3,6 +3,7 @@ package evs;
 import evs.strategy.Strategy;
 import evs.communication.EVPDA;
 import new_classes.Station;
+import new_classes.console.EVState;
 import station.communication.StationReceiver;
 import evs.communication.EVReceiver;
 import station.StationInfo;
@@ -14,6 +15,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class EV {
+
+    private EVState state;
 
     private EVPDA pda;
     // maybe this should go to the pda
@@ -43,6 +46,8 @@ public class EV {
         info.setCommunicationPort(pda.getMessenger().getReceiver());
         this.bid = bid;
         this.strategy = strategy;
+
+        state = new EVState(id);
     }
 
     /*
@@ -59,6 +64,8 @@ public class EV {
     }
 
     public void evaluateSuggestions() {
+        for (SuggestionMessage message: messages)
+            state.addSuggestion(message.getStationInfo().getId(), message.preferencesToString());
         strategy.evaluate(messages, info);
     }
 
@@ -74,7 +81,7 @@ public class EV {
      */
     public void newRequest (StationReceiver[] stations) {
         for (StationReceiver s: stations) {
-            System.out.println("EV No. " + info.getId() + " requests from Station No. " + s.getStationId());
+            //System.out.println("EV No. " + info.getId() + " requests from Station No. " + s.getStationId());
             pda.sendRequest(info, IntegerConstants.EV_MESSAGE_REQUEST, s);
         }
     }
@@ -93,7 +100,7 @@ public class EV {
         Preferences preferences = info.getPreferences();
         System.out.println("Initial: " + preferences.toString());
         Random random = new Random();
-        if (toBeServiced && random.nextInt(100) < 0 && !delayed) {
+        if (toBeServiced && random.nextInt(100) < 50 && !delayed) {
             System.out.println("I will delay or cancel!");
             if (random.nextInt() < 20) {
                 // cancel
@@ -101,6 +108,9 @@ public class EV {
                 delayed = true;
                 toBeServiced = false;
                 strategy.resetCharged();
+
+                state.addSuggestion(acceptedStation.getStationId(), "-");
+                state.addAnswer(acceptedStation.getStationId(), IntegerConstants.EV_UPDATE_CANCEL);
                 return IntegerConstants.EV_UPDATE_CANCEL;
             } else {
                 System.out.println("I shall DELAY my reservation!");
@@ -109,6 +119,9 @@ public class EV {
                     delayed = true;
                     strategy.resetRounds();
                     strategy.resetCharged();
+
+                    state.addSuggestion(acceptedStation.getStationId(), "-");
+                    state.addAnswer(acceptedStation.getStationId(), IntegerConstants.EV_UPDATE_DELAY);
                     return IntegerConstants.EV_UPDATE_DELAY;
                 }
             }
@@ -159,6 +172,7 @@ public class EV {
             for (StationInfo s : answers.keySet()) {
                 pda.sendRequest(info, answers.get(s), s.getCommunicationPort());
 
+                state.addAnswer(s.getId(), answers.get(s));
                 // if the EV accepts the suggestion of a station, then save this station's communication port
                 if (answers.get(s) == IntegerConstants.EV_EVALUATE_ACCEPT) {
                     acceptedStation = s.getCommunicationPort();
@@ -237,6 +251,11 @@ public class EV {
         for (StationReceiver s: stations) {
             pda.sendRequest(info, IntegerConstants.EV_EVALUATE_REJECT, s);
         }
+    }
+
+
+    public EVState getState () {
+        return state;
     }
 
 }

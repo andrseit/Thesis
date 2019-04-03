@@ -47,7 +47,7 @@ public class Preferences {
     }
 
     public String toString() {
-        return "Slots: " + start + " - " + end + " / Energy: " + energy;
+        return + start + "-" + end + "/" + energy;
     }
 
     public int getMaxDistance() {

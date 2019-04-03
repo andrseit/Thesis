@@ -41,11 +41,10 @@ public class ArrayTransformations {
 
     public void printOneDimensionArray(String name, int[] array) {
         int columns = array.length;
-        System.out.println(name);
         for (int anArray : array) {
             System.out.print(anArray + "  ");
         }
-        System.out.println();
+        System.out.println(" : " + name);
     }
 
     public int[][] shrinkArray(int[][] array, int rows) {

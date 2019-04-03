@@ -31,7 +31,7 @@ class StrategyComputer {
         for (SuggestionMessage message : messages) {
             //if (!(message.getStart() == -1) && !(message.getStart() == -3)) {
             if (message.getMessageType() == IntegerConstants.STATION_HAS_SUGGESTION) {
-                System.out.println("\t-I have a suggestion from station No. " + message.getStationInfo().getId());
+                //System.out.println("\t-I have a suggestion from station No. " + message.getStationInfo().getId());
                 int preferences_distance = 0;
                 /*
                 if (!hasSuggestion(message)) {

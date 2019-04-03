@@ -54,8 +54,8 @@ public class AlternativesCPLEX implements Optimizer {
                 slotDamage++;
             }
         }
-        System.out.println(damage);
-        System.out.println("Distance damage: " + 100.0/damage);
+        //System.out.println(damage);
+        //System.out.println("Distance damage: " + 100.0/damage);
         return 100.0/damage;
     }
 
@@ -64,7 +64,7 @@ public class AlternativesCPLEX implements Optimizer {
         for (int slot = 0; slot < slotsNumber; slot++) {
             damage += chargers[slot + currentSlot];
         }
-        System.out.println("Occupancy damage: " + 100.0/damage);
+        //System.out.println("Occupancy damage: " + 100.0/damage);
         return 100.0/damage;
     }
 
@@ -147,7 +147,7 @@ public class AlternativesCPLEX implements Optimizer {
 
     private int[][] solveLinearProblem(int evsNumber, int slotsNumber, int currentSlot) {
         int[][] scheduleMap = new int[evsNumber][slotsNumber];
-        System.out.println(currentSlot + " + " + slotsNumber);
+        //System.out.println(currentSlot + " + " + slotsNumber);
         try {
 
             if (cp.solve()) {
@@ -163,7 +163,7 @@ public class AlternativesCPLEX implements Optimizer {
                                 scheduleMap[ev][slot] = 0;
                         }
                     }
-                    System.out.println();
+                    //System.out.println();
                 }
                 //System.out.println(objective);
                 //System.out.println("Utility: " + cp.getValue(objective));

@@ -148,10 +148,12 @@ public class Strategy {
                 }
             }
         }
+        /*
         for (int s = 0; s < states.length; s++) {
             System.out.print(states[s] + " ");
         }
         System.out.println();
+        */
         return states;
     }
 

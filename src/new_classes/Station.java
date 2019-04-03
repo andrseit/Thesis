@@ -1,6 +1,7 @@
 package new_classes;
 
 import evs.Preferences;
+import new_classes.console.StationState;
 import station.EVObject;
 import station.StationInfo;
 import station.SuggestionMessage;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 public class Station {
 
     private StationStatistics statistics;
+    private StationState state;
 
     // integrate station info with station pda (maybe add info into the pda)
     private StationPDA pda;
@@ -59,6 +61,7 @@ public class Station {
         currentSlot = 0;
 
         statistics = new StationStatistics(chargersNumber, slotsNumber);
+        state = new StationState(info.getId(), slotsNumber);
     }
 
     /**
@@ -70,25 +73,43 @@ public class Station {
             // computeSuggestions cost and then set the message - deal with the cost later (simply put 0 now)
 
             // computes a suggestion
+            //System.out.println("EV ID: " + ev.getStationId());
             Suggestion preferences = schedule.getChargingSlots(ev.getStationId());
             int cost = 0;
             Integer messageType;
             if (preferences.getEnergy() > 0) {
                 messageType = IntegerConstants.STATION_HAS_SUGGESTION;
             } else {
-                notChargedEVs.add(ev);
                 messageType = IntegerConstants.STATION_NEXT_ROUND_SUGGESTION;
             }
             ev.setSuggestion(preferences);
             ev.setSuggestionMessage(new SuggestionMessage(info, preferences.getPreferences(), cost, messageType));
         }
+        /*
+        System.out.println("NOT CHARGED!");
+        for (EVObject ev: notChargedEVs) {
+            System.out.println(ev.toString());
+        }
+        */
     }
 
     public void computeSuggestions() {
-        System.out.println("\n\n************ Station No " + info.getId() + " computes suggestions! **********");
+        System.out.println("\nStation No " + info.getId() + " computes suggestions...");
         notChargedEVs = new ArrayList<>();
-        if (!incomingRequests.isEmpty())
+        if (!incomingRequests.isEmpty()) {
             compute(optimizer);
+
+            // find not charged
+            for (EVObject ev: incomingRequests) {
+                // computeSuggestions cost and then set the message - deal with the cost later (simply put 0 now)
+
+                // computes a suggestion
+                Suggestion preferences = schedule.getChargingSlots(ev.getStationId());
+                if (preferences.getEnergy() <= 0) {
+                    notChargedEVs.add(ev);
+                }
+            }
+        }
         else
             System.out.println("Station No " + info.getId() + " has no incoming requests.");
     }
@@ -96,9 +117,13 @@ public class Station {
     // computes alternative suggestions for evs that did not charge with the initial schedule
     // those evs are stored into a list, and they have a new reference id
     public void computeAlternatives () {
-        System.out.println("\n\n************ Station No " + info.getId() + " computes alternatives! **********");
-        if (!incomingRequests.isEmpty())
-            compute(alternativesOptimizer);
+        System.out.println("\nStation No " + info.getId() + " computes alternatives...");
+        if (!notChargedEVs.isEmpty()) {
+            //compute(alternativesOptimizer);
+            schedule.updateTemporaryScheduleMap(alternativesOptimizer.optimize(slotsNumber, currentSlot, notChargedEVs, schedule.getTemporaryChargers(), price), notChargedEVs);
+            addSuggestionMessages(incomingRequests);
+            schedule.updateTemporaryChargers(notChargedEVs);
+        }
         else
             System.out.println("Station No " + info.getId() + " has no incoming requests.");
         notChargedEVs.clear();
@@ -106,8 +131,11 @@ public class Station {
 
     private void compute (Optimizer optimizer) {
         schedule.setTemporaryScheduleMap(optimizer.optimize(slotsNumber, currentSlot, incomingRequests, schedule.getRemainingChargers(), price));
+
+        /*
         schedule.printRemainingChargers();
         printTemporaryScheduleMap();
+        */
         addSuggestionMessages(incomingRequests);
         // computeSuggestions temporary chargers before going into the computation of the alternatives
         schedule.updateTemporaryChargers(incomingRequests);
@@ -116,13 +144,14 @@ public class Station {
 
     public void sendSuggestions () {
         for (EVObject ev: incomingRequests) {
-            System.out.println("Station No. " + info.getId() + " sends a suggestion to EV No. " + ev.getId() + "(station id: " + ev.getStationId() + ")");
+            //System.out.println("Station No. " + info.getId() + " sends a suggestion to EV No. " + ev.getId() + "(station id: " + ev.getStationId() + ")");
             pda.sendMessage(ev.getSuggestionMessage(), ev.getEvReceiver());
         }
     }
 
     public void handleAnswers () {
-        System.out.println("\n****** Station's No. " + info.getId() + " answers *******");
+        //System.out.println("\n****** Station's No. " + info.getId() + " answers *******");
+
         ArrayList<EVObject> toBeRemoved = new ArrayList<>();
         for (EVObject ev: incomingAnswers.keySet()) {
             Integer answer = incomingAnswers.get(ev);
@@ -130,6 +159,7 @@ public class Station {
             if (answer == IntegerConstants.EV_MESSAGE_REQUEST) {
                 incomingRequests.add(ev);
                 statistics.updateRequests(1);
+                state.addStateEV(currentSlot, ev.getId(), "request", ev.getPreferences().toString());
             } else if (answer == IntegerConstants.EV_UPDATE_DELAY || answer == IntegerConstants.EV_UPDATE_CANCEL) {
                 ArrayList<EVObject> removeAccepted = new ArrayList<>();
                 for (int e = 0; e < acceptedEVs.size(); e++) {
@@ -150,12 +180,14 @@ public class Station {
                             incomingRequests.add(evAnswer);
                             statistics.updateDelays(1);
                             statistics.updateSlotsUsed(-evAnswer.getSuggestion().getSlotsAllocated().size());
+                            state.addStateEV(currentSlot, evAnswer.getId(), "delay", evAnswer.getPreferences().toString());
                             System.out.println("We have a deferral here! By EV No " + ev.getId());
                         }
                         else {
                             // handle cancellation - nothing more has to be done
                             statistics.updateCancellations(1);
                             statistics.updateSlotsUsed(-evAnswer.getSuggestion().getSlotsAllocated().size());
+                            state.addStateEV(currentSlot, evAnswer.getId(), "cancel", "X");
                             System.out.println("We have a cancellation here! By EV No " + ev.getId());
                         }
                     }
@@ -164,17 +196,20 @@ public class Station {
                     System.out.println("Removing EV No " + remove.getId());
                     acceptedEVs.remove(remove);
                 }
+
+                /*
                 System.out.println("+++++++++++++ Schedule after removal of the cancelled EVs +++++++++++++++++++");
                 printScheduleMap();
                 schedule.printRemainingChargers();
                 System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++");
+                */
 
             } else { // else search for the ev to do the according actions
                 for (int e = 0; e < incomingRequests.size(); e++) {
                     EVObject evRequest = incomingRequests.get(e);
                     if (evRequest.getId() == ev.getId()) {
                         if (answer == IntegerConstants.EV_EVALUATE_ACCEPT) {
-                            System.out.println("\t* " + ev + " says accepted my offer!");
+                            //System.out.println("\t* " + ev + " says accepted my offer!");
                             ev.setCharged(true);
                             acceptedEVs.add(evRequest);
                             toBeRemoved.add(evRequest);
@@ -182,17 +217,19 @@ public class Station {
                             if (!evRequest.isDelayed())
                                 statistics.updateAccepted(1);
                             statistics.updateSlotsUsed(evRequest.getSuggestion().getSlotsAllocated().size());
+                            state.addStateEV(currentSlot, evRequest.getId(), "accept", evRequest.getSuggestion().getPreferences().toString());
                             break;
                         } else if (answer == IntegerConstants.EV_EVALUATE_WAIT) {
-                            System.out.println("\t* " + ev + " says waits for an offer!");
+                            //System.out.println("\t* " + ev + " says waits for an offer!");
                             break;
                         } else if (answer == IntegerConstants.EV_EVALUATE_REJECT) {
-                            System.out.println("\t* " + ev + " says rejected my offer!");
+                            //System.out.println("\t* " + ev + " says rejected my offer!");
                             toBeRemoved.add(evRequest);
                             if (evRequest.isDelayed())
                                 statistics.updateDelayRejected(1);
                             else
                                 statistics.updateRejected(1);
+                            state.addStateEV(currentSlot, evRequest.getId(), "reject", "X");
                             break;
                         }
                     }
@@ -245,13 +282,20 @@ public class Station {
     }
 
     public void printTemporaryScheduleMap() {
+        /*
         int[][] map = schedule.getTemporaryScheduleMap();
+        for (int s = 0; s < slotsNumber; s++)
+            System.out.print(s + "  ");
+        System.out.println(" : Slots number\n-------------------------------------");
         for (int ev = 0; ev < map.length; ev++) {
             for (int slot = 0; slot < map[ev].length; slot++) {
                 System.out.print(map[ev][slot] + "  ");
             }
+            System.out.print(" : EV No " + incomingRequests.get(ev).getId() + " (" + incomingRequests.get(ev).getStationId() + ")");
             System.out.println();
         }
+        */
+        System.out.println(printAnyMap("Temporary", schedule.getTemporaryScheduleMap(), schedule.getTemporaryChargers(), incomingRequests));
     }
 
     public void printTemporarySchedule () {
@@ -268,19 +312,26 @@ public class Station {
     }
 
     public void printScheduleMap () {
+        /*
+        for (int s = 0; s < slotsNumber; s++)
+            System.out.print(s + "  ");
+        System.out.println(" : Slots number\n-------------------------------------");
         schedule.printRemainingChargers();
+        System.out.println("-------------------------------------");
         int[][] scheduleMap = schedule.getScheduleMap();
         if (scheduleMap != null) {
             for (int ev = 0; ev < scheduleMap.length; ev++) {
-                System.out.print("EV No " + acceptedEVs.get(ev).getId() + " (" + acceptedEVs.get(ev).getStationId() + "): ");
                 for (int slot = 0; slot < scheduleMap[ev].length; slot++) {
                     System.out.print(scheduleMap[ev][slot] + "  ");
                 }
+                System.out.print(" : EV No " + acceptedEVs.get(ev).getId() + " (" + acceptedEVs.get(ev).getStationId() + ")");
                 System.out.println();
             }
         } else {
             System.out.println("No entries in map!");
         }
+        */
+        System.out.println(printAnyMap("Main", schedule.getScheduleMap(), schedule.getRemainingChargers(), acceptedEVs));
     }
 
     public void printAcceptedEVs () {
@@ -297,7 +348,7 @@ public class Station {
         for (int s = 0; s < chargers.length; s++) {
             System.out.print(chargers[s] + "  ");
         }
-        System.out.println("");
+        System.out.println(" : Temporary Remaining Chargers\n--------------------------------");
     }
 
     public void printWhoCharges () {
@@ -312,8 +363,47 @@ public class Station {
      * An EV's request must be accompanied by: arrival-departure time and demanded energy
      */
 
+    private String printAnyMap (String name, int[][] scheduleMap, int[] chargers, ArrayList<EVObject> evs) {
+        //if (evs.isEmpty())
+           // return "----------------\nCannot generate " + name + " map!\n-------------------";
+        StringBuilder str = new StringBuilder();
+        str.append("--------------- " + name + " Schedule Map -------------------\n");
+        for (int s = 0; s < slotsNumber; s++)
+            str.append(s + "  ");
+        str.append(" : Slots number\n-------------------------------------\n");
+
+        if (name.equals("Temporary")){
+            for (int s = 0; s < chargers.length; s++) {
+                str.append(schedule.getRemainingChargers()[s] + "  ");
+            }
+            str.append(" : Main Remaining Chargers\n");
+        }
+
+        for (int s = 0; s < chargers.length; s++) {
+            str.append(chargers[s] + "  ");
+        }
+        str.append(" : " + name + " Remaining Chargers\n--------------------------------\n");
+        if (!evs.isEmpty()) {
+            for (int ev = 0; ev < scheduleMap.length; ev++) {
+                for (int slot = 0; slot < scheduleMap[ev].length; slot++) {
+                    str.append(scheduleMap[ev][slot] + "  ");
+                }
+                str.append(" : EV No " + evs.get(ev).getId() + " (" + evs.get(ev).getStationId() + ")\n");
+            }
+        } else {
+            str.append("No entries in map!\n");
+        }
+        str.append("-----------------------------------\n");
+        return str.toString();
+    }
+
+
     public StationStatistics getStatistics () {
         return statistics;
+    }
+
+    public StationState getState () {
+        return state;
     }
 
     public String toString () {

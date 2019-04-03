@@ -17,7 +17,7 @@ public class EVReceiver {
     }
 
     public void receiveSuggestion (SuggestionMessage message) {
-        System.out.println("EV receives station's suggestion: " + message.toString());
+        //System.out.println("EV receives station's suggestion: " + message.toString());
         messages.add(message);
     }
 }

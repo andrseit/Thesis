@@ -40,7 +40,7 @@ public class StationInfo {
     }
 
     public String toString() {
-        return ("Station_" + id) +
+        return ("-> Station_" + id) +
                 " (" + location_x + ", " + location_y + ") : " +
                 charger_number + " chargers.";
     }

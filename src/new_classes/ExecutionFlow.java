@@ -18,17 +18,22 @@ public class ExecutionFlow {
     ArrayList<EV> evs;
     int slotsNumber;
 
-    public ExecutionFlow () {
-        DataGenerator gen = new DataGenerator(2, 5, 10, 2);
-        //gen.generateRandomStations(2);
-        //gen.generateEVsFile(2, 5, 1.8, 1.8);
-
+    public ExecutionFlow (boolean generateStations, boolean generateEVs) {
         JSONFileParser parser = new JSONFileParser();
+        DataGenerator gen = new DataGenerator(2, 5, 10, 2);
+        if (generateStations)
+            gen.generateRandomStations(1);
+        else
+            gen.readStationFile();
+        if (generateEVs)
+            gen.generateEVsFile(2, 5, 1.8, 1.8);
+
+
         stations = parser.readStations("station.json");
         stations.forEach(System.out::println);
         evs = parser.readEVsData("evs.json");
         slotsNumber = gen.getSlotsNumber();
-        evs.forEach(System.out::println);
+        //evs.forEach(System.out::println);
     }
 
     public void runOffline () {
@@ -50,7 +55,7 @@ public class ExecutionFlow {
         }
 
         // now each ev searches in the table of communication ports and sends requests
-        System.out.println("\n----- EVs are searching for available stations -----");
+        //System.out.println("\n----- EVs are searching for available stations -----");
         for (EV ev: evs) {
             if (!ev.isToBeServiced())
                 ev.newRequest(communicationPorts);
@@ -67,22 +72,27 @@ public class ExecutionFlow {
                 }
             }
         }
-        System.out.println("-----------------------------------");
+        //System.out.println("-----------------------------------");
 
 
         // now stations will computeSuggestions the schedule based on their list
-        System.out.println("\n----- Stations are computing the schedules and sending suggestions -----");
+        //System.out.println("\n----- Stations are computing the schedules and sending suggestions -----");
         for (Station station: stations) {
             station.handleAnswers();
+            System.out.println(station.getState().getStates(currentSlot));
             // the evs have requested, when evs request from a station, the station has to insert them into a list
             // please make sure that you take care of that
+            /*
             station.printList();
+            */
             station.computeSuggestions();
-            System.out.println("-------------------------------------");
+
+
+
             station.printTemporaryScheduleMap();
-            System.out.println("-----------Temporary Chargers---------");
-            station.printTemporaryChargers();
-            System.out.println("-------------------------------------");
+
+
+
             // don't forget to create temporary used charged (allocated but not yet accepted)
 
             // after the stations have computed their schedules they should send their offers to the evs
@@ -93,9 +103,10 @@ public class ExecutionFlow {
         System.out.println("\n----- EVs are evaluating the suggestions -----");
         for (EV ev: evs) {
             if (ev.hasSuggestions()) {
-                ev.printMessagesList();
+                //ev.printMessagesList();
                 ev.evaluateSuggestions();
                 ev.sendAnswers();
+                System.out.println(ev.getState());
             }
         }
 
@@ -103,15 +114,16 @@ public class ExecutionFlow {
         for (int station = 0; station < stations.size(); station++) {
             Station current = stations.get(station);
             current.handleAnswers();
-            System.out.println("----------- Accepted EVs ------------");
-            current.printAcceptedEVs();
+            System.out.println(current.getState().getStates(currentSlot));
+            //System.out.println("----------- Accepted EVs ------------");
+            //current.printAcceptedEVs();
 
-            System.out.println("----------- Waiting EVs ------------");
-            current.printList();
+            //System.out.println("----------- Waiting EVs ------------");
+            //current.printList();
 
-            System.out.println("----------- Main Schedule Map ------------");
+
             current.printScheduleMap();
-            System.out.println("----------- ------------ ------------");
+
             if (current.hasFinished()) {
                 finishedStations[station] = true;
                 System.out.println("Station No " + station + " has no more requests!");
@@ -125,7 +137,11 @@ public class ExecutionFlow {
             for (int station = 0; station < stations.size(); station++) {
                 Station current = stations.get(station);
                 if (!current.hasFinished()) {
+                    current.computeSuggestions();
                     current.computeAlternatives();
+
+                    current.printTemporaryScheduleMap();
+
                     current.sendSuggestions();
                 }
             }
@@ -133,9 +149,10 @@ public class ExecutionFlow {
             System.out.println("\n----- EVs are evaluating the alternatives -----");
             for (EV ev : evs) {
                 if (ev.hasSuggestions()) {
-                    ev.printMessagesList();
+                    //ev.printMessagesList();
                     ev.evaluateSuggestions();
                     ev.sendAnswers();
+                    System.out.println(ev.getState());
                 }
             }
 
@@ -144,15 +161,18 @@ public class ExecutionFlow {
                 Station current = stations.get(station);
                 if (!current.hasFinished()) {
                     current.handleAnswers();
+                    System.out.println(current.getState().getStates(currentSlot));
+                    /*
                     System.out.println("----------- Accepted EVs ------------");
                     current.printAcceptedEVs();
 
                     System.out.println("----------- Waiting EVs ------------");
                     current.printList();
+                    */
 
-                    System.out.println("----------- Main Schedule Map ------------");
                     current.printScheduleMap();
-                    System.out.println("----------- ------------ ------------");
+
+
                     if (current.hasFinished()) {
                         finishedStations[station] = true;
                         System.out.println("Station No " + station + " has no more requests!");
@@ -161,9 +181,13 @@ public class ExecutionFlow {
             }
         }
 
-        for (Station station: stations) {
-            System.out.println(station.getStatistics().toString());
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        for (int s = 0; s < stations.size(); s++) {
+            Station station = stations.get(s);
+            System.out.println("Station " + s);
+            System.out.println(station.getStatistics() + "\n");
         }
+        System.out.println("################################################");
     }
 
     private void online (ArrayList<Station> stations, ArrayList<EV> evs, int slotsNumber) {
@@ -185,7 +209,7 @@ public class ExecutionFlow {
             }
             if (!currentEVs.isEmpty())
                 offline(stations, currentEVs, slot);
-            scanner.nextLine();
+            //scanner.nextLine();
         }
     }
 

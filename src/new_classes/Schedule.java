@@ -76,6 +76,21 @@ public class Schedule {
         }
     }
 
+    // add map entries after alternatives' computation
+    public void updateTemporaryScheduleMap (int[][] alternatives, ArrayList<EVObject> evs) {
+        ArrayTransformations t = new ArrayTransformations();
+        //t.printIntArray(temporaryScheduleMap);
+        for (int e = 0; e < evs.size(); e++) {
+            EVObject ev = evs.get(e);
+            for (int s = 0; s < slotsNumber; s++) {
+                temporaryScheduleMap[ev.getStationId()][s] = alternatives[e][s];
+                if (temporaryScheduleMap[ev.getStationId()][s] == 1)
+                    whoCharges[ev.getStationId()] = 1;
+            }
+        }
+        //t.printIntArray(temporaryScheduleMap);
+    }
+
     public Suggestion getChargingSlots (int ev) {
         Suggestion preferences = new Suggestion();
         ArrayList<Integer> slotsAllocated = new ArrayList<>(); // making this an array list because its size is unknown,

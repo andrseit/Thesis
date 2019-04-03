@@ -62,7 +62,7 @@ public class JSONFileParser {
                 flags.put("suggestion", toIntExact((long) flagsObject.get("suggestion")));
                 flags.put("cplex", toIntExact((long) flagsObject.get("cplex")));
 
-                System.out.println(pricePath);
+                //System.out.println(pricePath);
                 StationPricing pr = setPrice(pricePath);
                 // setting the same optimizer to all stations - change that later
                 stations.add(new Station(id, x, y, chargersNumber, new OptimalSchedule(new ProfitCPLEX()), new AlternativesCPLEX(), pr.getPrice(), slotsNumber));

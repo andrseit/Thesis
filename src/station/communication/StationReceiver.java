@@ -44,7 +44,7 @@ public class StationReceiver {
 //            System.out.println("Station No. " + id + " received a " + message + " message from EV No. " + evInfo.getId());
 //            incomingAnswers.put(createEVObject(evInfo), message);
 //        }
-        System.out.println("Station No. " + id + " received a " + message + " message from EV No. " + evInfo.getId());
+        //System.out.println("Station No. " + id + " received a " + message + " message from EV No. " + evInfo.getId());
         incomingAnswers.put(createEVObject(evInfo), message);
     }
 

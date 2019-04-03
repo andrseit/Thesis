@@ -44,6 +44,10 @@ public class SuggestionMessage extends Preferences {
 
     public StationReceiver getStationAddress () { return station.getCommunicationPort(); }
 
+    public String preferencesToString () {
+        return start + "-" + end + "/" + energy;
+    }
+
     public String toString() {
         return "Station_" + station.getId() + ": " +
                 start + "-" + end + "/" + energy + " -cost: " + cost;
