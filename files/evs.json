@@ -1,5 +1,5 @@
-{"f_y":1,"preferences":{"inform":3,"distance":1,"start":4,"end":6,"bid":1,"energy":3},"x":1,"y":0,"strategy":{"probability":58,"start":1,"range":1.77,"end":8,"priority":"price","rounds":1,"energy":2},"f_x":1}
-{"f_y":0,"preferences":{"inform":0,"distance":0,"start":1,"end":8,"bid":5,"energy":4},"x":0,"y":1,"strategy":{"probability":75,"start":0,"range":1.56,"end":8,"priority":"price","rounds":2,"energy":2},"f_x":1}
-{"f_y":0,"preferences":{"inform":1,"distance":0,"start":1,"end":9,"bid":1,"energy":5},"x":0,"y":0,"strategy":{"probability":89,"start":0,"range":1.77,"end":9,"priority":"price","rounds":1,"energy":1},"f_x":1}
-{"f_y":1,"preferences":{"inform":0,"distance":0,"start":1,"end":8,"bid":2,"energy":5},"x":0,"y":0,"strategy":{"probability":61,"start":0,"range":1.56,"end":9,"priority":"price","rounds":0,"energy":1},"f_x":0}
-{"f_y":0,"preferences":{"inform":0,"distance":0,"start":5,"end":6,"bid":4,"energy":2},"x":0,"y":1,"strategy":{"probability":86,"start":1,"range":1.54,"end":8,"priority":"price","rounds":3,"energy":1},"f_x":0}
+{"f_y":0,"preferences":{"inform":0,"distance":0,"start":3,"end":5,"bid":4,"energy":2},"x":0,"y":1,"strategy":{"probability":16,"start":2,"range":1.31,"end":7,"priority":"price","rounds":1,"energy":1},"f_x":1}
+{"f_y":1,"preferences":{"inform":1,"distance":0,"start":4,"end":9,"bid":2,"energy":4},"x":1,"y":0,"strategy":{"probability":22,"start":1,"range":1.33,"end":9,"priority":"price","rounds":0,"energy":4},"f_x":1}
+{"f_y":1,"preferences":{"inform":0,"distance":1,"start":5,"end":9,"bid":3,"energy":4},"x":0,"y":1,"strategy":{"probability":47,"start":1,"range":1.58,"end":9,"priority":"price","rounds":1,"energy":3},"f_x":1}
+{"f_y":1,"preferences":{"inform":3,"distance":1,"start":6,"end":9,"bid":4,"energy":3},"x":1,"y":0,"strategy":{"probability":41,"start":0,"range":1.73,"end":9,"priority":"price","rounds":2,"energy":1},"f_x":1}
+{"f_y":1,"preferences":{"inform":1,"distance":0,"start":4,"end":7,"bid":1,"energy":4},"x":1,"y":1,"strategy":{"probability":70,"start":3,"range":1.56,"end":7,"priority":"price","rounds":2,"energy":3},"f_x":0}

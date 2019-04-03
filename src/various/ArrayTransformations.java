@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ArrayTransformations {
 
-    public int[] getColumnsCount(int[][] array) {
+    public static int[] getColumnsCount(int[][] array) {
         int columns = array[0].length;
 
         int[] final_array = new int[columns];
@@ -23,7 +23,7 @@ public class ArrayTransformations {
         return final_array;
     }
 
-    public void printIntArray(int[][] array) {
+    public static void printIntArray(int[][] array) {
         if (array.length == 0)
             System.out.println("Empty array!");
         else {
@@ -39,7 +39,7 @@ public class ArrayTransformations {
         }
     }
 
-    public void printOneDimensionArray(String name, int[] array) {
+    public static void printOneDimensionArray(String name, int[] array) {
         int columns = array.length;
         for (int anArray : array) {
             System.out.print(anArray + "  ");
@@ -47,7 +47,7 @@ public class ArrayTransformations {
         System.out.println(" : " + name);
     }
 
-    public int[][] shrinkArray(int[][] array, int rows) {
+    public static int[][] shrinkArray(int[][] array, int rows) {
         /*
         if(rows > array.length)
         {
@@ -57,7 +57,7 @@ public class ArrayTransformations {
         */
 
         int[][] shrinked_map = new int[rows][array[0].length];
-        int[] counts = this.getColumnsCount(array);
+        int[] counts = getColumnsCount(array);
 
         for (int s = 0; s < array[0].length; s++) {
 
@@ -79,7 +79,7 @@ public class ArrayTransformations {
      * @param max
      * @return
      */
-    public int[][] expandArray(int[][] array, int slots_number, int min, int max) {
+    public static int[][] expandArray(int[][] array, int slots_number, int min, int max) {
 
         int[][] map = new int[array.length][slots_number];
 
@@ -91,7 +91,7 @@ public class ArrayTransformations {
     }
 
 
-    public void updateArray(int[][] array, int start, int end, int row) {
+    public static void updateArray(int[][] array, int start, int end, int row) {
         System.out.println("Start: " + start + ", End: " + end + ", Row: " + row);
         for (int i = start; i < end + 1; i++) {
             array[row][i] = 1;
@@ -99,9 +99,7 @@ public class ArrayTransformations {
     }
 
     // concatenates old and new map
-    public int[][] concatMaps(int[][] first, int[][] second, int columns) {
-
-        ArrayTransformations t = new ArrayTransformations();
+    public static int[][] concatMaps(int[][] first, int[][] second, int columns) {
         if (first == null)
             return second;
         if (second.length != 0) {
@@ -116,7 +114,7 @@ public class ArrayTransformations {
         return first;
     }
 
-    public int findMin (int[] array) {
+    public static int findMin (int[] array) {
         int min = array[0];
         for (int s = 1; s < array.length; s++) {
             if (array[s] < min)
@@ -125,7 +123,7 @@ public class ArrayTransformations {
         return min;
     }
 
-    public int findMax (int[] array) {
+    public static int findMax (int[] array) {
         int max = array[0];
         for (int s = 1; s < array.length; s++) {
             if (array[s] > max)
@@ -134,7 +132,7 @@ public class ArrayTransformations {
         return max;
     }
 
-    public double[] normalizeArrayValues (int[] array) {
+    public static double[] normalizeArrayValues (int[] array) {
         int min = findMin(array);
         int max = findMax(array);
         double[] normalizedArray = new double[array.length];

@@ -30,7 +30,7 @@ public class DataGenerator {
 
     public void generateEVsFile(int minEnergy, int maxEnergy, double sEnergy, double windowLength) {
         if (!stationsGenerated)
-            System.err.println("Please generate or read station file first!");
+            System.err.println("Please generate or read agents.station file first!");
         else {
             stationsGenerated = false;
             this.generateEVs(5, minEnergy, maxEnergy, sEnergy, windowLength);
@@ -54,7 +54,7 @@ public class DataGenerator {
                 ev.put("x", x);
                 ev.put("y", y);
                 int maxDistance = -1;
-                int minDistance = Integer.MAX_VALUE; // distances from the closest and the farthest station
+                int minDistance = Integer.MAX_VALUE; // distances from the closest and the farthest agents.station
                 for (int[] aStationLocation : stationLocation) {
                     int stationDistance = Math.abs(x - aStationLocation[0]) + Math.abs(y - aStationLocation[1]);
                     if (stationDistance < minDistance)

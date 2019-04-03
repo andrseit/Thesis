@@ -1,27 +1,20 @@
 package io;
 
-import evs.EV;
-import evs.strategy.Strategy;
-import new_classes.Station;
-import optimize.AlternativesCPLEX;
-import optimize.ProfitCPLEX;
+import agents.evs.EV;
+import agents.evs.strategy.Strategy;
+import agents.station.Station;
+import agents.station.optimize.AlternativesCPLEX;
+import agents.station.optimize.ProfitCPLEX;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import station.EVObject;
-import station.StationInfo;
-import station.auction.OptimalSchedule;
-import station.communication.StationReceiver;
-import station.offline.SimpleStation;
-import station.online.SimpleOnlineStation;
+import agents.station.EVObject;
+import agents.station.StationInfo;
+import agents.station.OptimalSchedule;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Stream;
 
 import static java.lang.Math.toIntExact;
 
@@ -74,103 +67,6 @@ public class JSONFileParser {
             e.printStackTrace();
         }
 
-        return stations;
-    }
-
-
-
-    public ArrayList<SimpleStation> readOfflineStations (String path) {
-        ArrayList<SimpleStation> stations = new ArrayList<>();
-        int num_chargers;
-        int x, y;
-        int id = 0;
-        JSONParser parser = new JSONParser();
-        Reader reader;
-        try {
-            reader = new FileReader("files/" + path);
-            BufferedReader in = new BufferedReader(reader);
-
-            String line;
-
-            line = in.readLine();
-            slotsNumber = Integer.parseInt(line);
-
-            while ((line = in.readLine()) != null) {
-                Object object = parser.parse(line);
-
-                JSONObject station_json = (JSONObject) object;
-
-                num_chargers = toIntExact((long) station_json.get("chargers"));
-
-                JSONObject location = (JSONObject) station_json.get("location");
-                x = toIntExact((long) location.get("x"));
-                y = toIntExact((long) location.get("y"));
-                String pricePath = station_json.get("price_file").toString();
-
-                JSONObject flagsObject = (JSONObject) station_json.get("flags");
-                HashMap<String, Integer> flags = new HashMap<>();
-                flags.put("window", toIntExact((long) flagsObject.get("window")));
-                flags.put("suggestion", toIntExact((long) flagsObject.get("suggestion")));
-                flags.put("cplex", toIntExact((long) flagsObject.get("cplex")));
-
-                StationPricing pr = setPrice(pricePath);
-                //stations.add(new SimpleStation(new StationInfo(id, x, y, num_chargers), slotsNumber, pr.getPrice(), pr.getRenewables(), flags));
-                id++;
-            }
-            reader.close();
-
-        } catch (org.json.simple.parser.ParseException | IOException e) {
-            e.printStackTrace();
-        }
-        return stations;
-    }
-
-    public ArrayList<SimpleOnlineStation> readOnlineStations (String path) {
-        ArrayList<SimpleOnlineStation> stations = new ArrayList<>();
-        int num_chargers;
-        int x, y;
-        int id = 0;
-        JSONParser parser = new JSONParser();
-        Reader reader;
-        try {
-            reader = new FileReader("files/" + path);
-            BufferedReader in = new BufferedReader(reader);
-
-            String line;
-
-            line = in.readLine();
-            slotsNumber = Integer.parseInt(line);
-
-            while ((line = in.readLine()) != null) {
-                Object object = parser.parse(line);
-
-                JSONObject station_json = (JSONObject) object;
-
-                num_chargers = toIntExact((long) station_json.get("chargers"));
-
-                JSONObject location = (JSONObject) station_json.get("location");
-                x = toIntExact((long) location.get("x"));
-                y = toIntExact((long) location.get("y"));
-                String pricePath = station_json.get("price_file").toString();
-
-                JSONObject flagsObject = (JSONObject) station_json.get("flags");
-                HashMap<String, Integer> flags = new HashMap<>();
-                flags.put("window", toIntExact((long) flagsObject.get("window")));
-                flags.put("suggestion", toIntExact((long) flagsObject.get("suggestion")));
-                flags.put("cplex", toIntExact((long) flagsObject.get("cplex")));
-                flags.put("instant", toIntExact((long) flagsObject.get("instant")));
-
-
-
-                StationPricing pr = setPrice(pricePath);
-                //stations.add(new SimpleOnlineStation(new StationInfo(id, x, y, num_chargers), slotsNumber, pr.getPrice(), pr.getRenewables(), flags));
-                id++;
-            }
-            reader.close();
-
-        } catch (org.json.simple.parser.ParseException | IOException e) {
-            e.printStackTrace();
-        }
         return stations;
     }
 

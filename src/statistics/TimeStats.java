@@ -3,7 +3,6 @@ package statistics;
 public class TimeStats {
 
     private long start;
-    private long end;
     private long elapsedTime;
 
     public void startTimer () {
@@ -11,7 +10,7 @@ public class TimeStats {
     }
 
     public void stopTimer () {
-        end = System.nanoTime();
+        long end = System.nanoTime();
         elapsedTime = end - start;
     }
 
