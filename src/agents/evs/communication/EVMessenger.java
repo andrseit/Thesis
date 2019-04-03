@@ -11,6 +11,7 @@ public class EVMessenger {
 
     private EVSender sender;
     private EVReceiver receiver;
+    // new comment
 
     public EVMessenger(ArrayList<SuggestionMessage> messages) {
         sender = new EVSender();
