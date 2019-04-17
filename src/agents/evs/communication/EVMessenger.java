@@ -1,6 +1,8 @@
 package agents.evs.communication;
 
+import agents.evs.EVInfo;
 import agents.station.SuggestionMessage;
+import agents.station.communication.StationReceiver;
 
 import java.util.ArrayList;
 
@@ -11,7 +13,6 @@ public class EVMessenger {
 
     private EVSender sender;
     private EVReceiver receiver;
-    // new comment
 
     public EVMessenger(ArrayList<SuggestionMessage> messages) {
         sender = new EVSender();

@@ -131,10 +131,9 @@ public class EV {
 
     /**
      * When an ev informs for a delay the new preferences should be within the accepted bounds
-     * @param currentSlot: the time slot in which the execution is at the moment
      * @return preferences with delay
      */
-    public void computeDelay (int currentSlot, int slotsNumber) {
+    public void computeDelay (int slotsNumber) {
 
         Preferences initial = info.getPreferences();
         int upperStartBound = Math.max((slotsNumber - initial.getEnergy()), (initial.getStart() + 1));

@@ -3,7 +3,6 @@ package agents.station;
 import agents.evs.EV;
 import agents.evs.Preferences;
 import agents.evs.communication.EVReceiver;
-import various.IntegerConstants;
 
 public class EVObject {
 
@@ -34,18 +33,11 @@ public class EVObject {
     private Suggestion suggestion;
     private Preferences final_suggestion;
     private boolean has_suggestion;
-    // so that a new suggestion can be checked if it is worth making
-    private int best_less_energy; // the rating of the best less energy suggestion so far
-    private int best_altered_window; // the rating of the bes altered window suggestion so far
-    private int previous_best_le; // to reset if a suggestion is invalid
-    private int previous_best_aw;
 
     public EVObject() {
         preferences = new Preferences();
         has_suggestion = false;
         suggestion = new Suggestion();
-        best_less_energy = Integer.MAX_VALUE;
-        best_altered_window = Integer.MAX_VALUE;
         lastSlot = 0;
     }
 
@@ -163,35 +155,6 @@ public class EVObject {
                 preferences.getStart() + " - " + preferences.getEnd() + " / " + preferences.getEnergy();
     }
 
-    public int getBestLessEnergy() {
-        return best_less_energy;
-    }
-
-    public int getBestAlteredWindow() {
-        return best_altered_window;
-    }
-
-    public void setBestLessEnergy(int best_less_energy) {
-        previous_best_le = this.best_less_energy;
-        this.best_less_energy = best_less_energy;
-    }
-
-    public void setBestAlteredWindow(int best_altered_window) {
-        previous_best_aw = this.best_altered_window;
-        this.best_altered_window = best_altered_window;
-    }
-
-    public void setBestRating(int type, int rating) {
-        if (type == IntegerConstants.LESS_ENERGY_TYPE) {
-            //previous_best_le = best_less_energy;
-            best_less_energy = rating;
-        } else {
-            //previous_best_aw = best_altered_window;
-            best_altered_window = rating;
-        }
-    }
-
-
     public Preferences getFinalSuggestion() {
         return final_suggestion;
     }
@@ -203,16 +166,6 @@ public class EVObject {
         final_suggestion.setEnergy(suggestion.getEnergy());
     }
 
-    /**
-     * If there are no chargers for the initial
-     */
-    public void resetBestsUpdatingChargers() {
-        if (suggestion.getType() == IntegerConstants.LESS_ENERGY_TYPE) {
-            best_less_energy = previous_best_le;
-        } else {
-            best_altered_window = previous_best_aw;
-        }
-    }
 
     public int getStationId() {
         return station_id;

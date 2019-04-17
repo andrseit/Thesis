@@ -1,9 +1,15 @@
 package io;
 
+import agents.station.Station;
+import agents.station.optimize.AlternativesCPLEX;
+import agents.station.optimize.ProfitCPLEX;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import static java.lang.Math.toIntExact;
@@ -37,17 +43,20 @@ public class DataGenerator {
         }
     }
 
-
     private void generateEVs(int bidBound, int minEnergy, int maxEnergy, double sEnergy, double windowLength) {
         try {
             FileWriter writer = new FileWriter("files/evs.json");
             Random random = new Random();
+            JSONObject rootObject = new JSONObject();
+            JSONObject evs = new JSONObject();
+
 
             for (int i = 0; i < evsNumber; i++) {
                 JSONObject ev = new JSONObject();
                 JSONObject pref = new JSONObject();
                 JSONObject strategy = new JSONObject();
 
+                ev.put("id", i);
                 // location
                 int x = random.nextInt(gridSize);
                 int y = random.nextInt(gridSize);
@@ -118,100 +127,13 @@ public class DataGenerator {
                 ev.put("preferences", pref);
                 ev.put("strategy", strategy);
 
-                writer.write(ev.toJSONString() + "\n");
+                evs.put("ev" + i, ev);
+
             }
+            rootObject.put("evs", evs);
+            writer.write(rootObject.toJSONString() + "\n");
             writer.flush();
             writer.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void generateStationFile(int slots_num, int chargers_num) {
-
-        try {
-            FileWriter writer = new FileWriter("files/station.json");
-
-            JSONObject station = new JSONObject();
-            station.put("slots", slots_num);
-            station.put("chargers", chargers_num);
-            writer.write(station.toJSONString());
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void generateStationFile() {
-        try {
-            FileWriter writer = new FileWriter("files/station.json");
-            writer.write(slotsNumber + "\n");
-
-            JSONObject station = new JSONObject();
-            JSONObject location = new JSONObject();
-            JSONObject flags = new JSONObject();
-            station.put("chargers", 1);
-            location.put("x", 0);
-            location.put("y", 0);
-            station.put("location", location);
-            stationLocation[0][0] = 0;
-            stationLocation[0][1] = 0;
-            station.put("price_file", "station_0");
-            flags.put("window", 0);
-            flags.put("cplex", 0);
-            flags.put("suggestion", 0);
-            flags.put("instant", 1);
-            station.put("flags", flags);
-            writer.write(station.toJSONString() + "\n");
-
-            station = new JSONObject();
-            location = new JSONObject();
-            flags = new JSONObject();
-            station.put("chargers", 1);
-            location.put("x", 1);
-            location.put("y", 0);
-            stationLocation[1][0] = 1;
-            stationLocation[1][1] = 0;
-            station.put("location", location);
-            station.put("price_file", "station_1");
-            flags.put("window", 0);
-            flags.put("cplex", 0);
-            flags.put("suggestion", 0);
-            flags.put("instant", 1);
-            station.put("flags", flags);
-            writer.write(station.toJSONString() + "\n");
-
-            station = new JSONObject();
-            location = new JSONObject();
-            flags = new JSONObject();
-            station.put("chargers", 1);
-            location.put("x", 1);
-            location.put("y", 1);
-            stationLocation[2][0] = 1;
-            stationLocation[2][1] = 1;
-            station.put("location", location);
-            station.put("price_file", "station_0");
-            flags.put("window", 0);
-            flags.put("cplex", 0);
-            flags.put("suggestion", 0);
-            flags.put("instant", 1);
-            station.put("flags", flags);
-            writer.write(station.toJSONString() + "\n");
-
-            writer.flush();
-            writer.close();
-
-
-            /*
-            for (int s = 0; s < stationsNumber; s++) {
-                System.out.println("station_" + s + " <" + stationLocation[s][0] + ", " + stationLocation[s][1] + ">");
-            }
-            */
-
-            stationsGenerated = true;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -221,7 +143,11 @@ public class DataGenerator {
     public void generateRandomStations (int maxChargers) {
         try {
             FileWriter writer = new FileWriter("files/station.json");
-            writer.write(slotsNumber + "\n");
+
+            JSONObject rootObject = new JSONObject();
+            rootObject.put("slots", slotsNumber);
+
+            JSONObject stationsJSON = new JSONObject();
 
             Random random = new Random();
 
@@ -229,6 +155,7 @@ public class DataGenerator {
                 JSONObject station = new JSONObject();
                 JSONObject location = new JSONObject();
                 JSONObject flags = new JSONObject();
+                station.put("id", s);
                 station.put("chargers", random.nextInt(maxChargers) + 1);
                 location.put("x", 0);
                 location.put("y", 0);
@@ -241,8 +168,10 @@ public class DataGenerator {
                 flags.put("suggestion", 0);
                 flags.put("instant", 1);
                 station.put("flags", flags);
-                writer.write(station.toJSONString() + "\n");
+                stationsJSON.put("station" + s, station);
             }
+            rootObject.put("stations", stationsJSON);
+            writer.write(rootObject.toJSONString());
             writer.flush();
             writer.close();
 
@@ -281,32 +210,36 @@ public class DataGenerator {
 
     public void readStationFile() {
         stationsGenerated = true;
-        Reader reader;
         JSONParser parser = new JSONParser();
         try {
-            reader = new FileReader("files/station.json");
-            BufferedReader in = new BufferedReader(reader);
-            String line;
-            // read slots
-            in.readLine();
-            int id = 0;
-            while ((line = in.readLine()) != null) {
-                Object object = parser.parse(line);
-                JSONObject station_json = (JSONObject) object;
-                JSONObject location = (JSONObject) station_json.get("location");
+
+            Object obj = parser.parse(new FileReader("files/station.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            JSONObject stationsRootJSON = (JSONObject) jsonObject.get("stations");
+
+            ArrayList<JSONObject> stationsJSON = new ArrayList<>();
+            for (Object key : stationsRootJSON.keySet()) {
+                JSONObject stationJSON = (JSONObject) stationsRootJSON.get(key);
+                stationsJSON.add(stationJSON);
+            }
+
+            for (JSONObject stationJSON : stationsJSON) {
+                int id = toIntExact((long) stationJSON.get("id"));
+
+                JSONObject location = (JSONObject) stationJSON.get("location");
                 stationLocation[id][0] = toIntExact((long) location.get("x"));
                 stationLocation[id][1] = toIntExact((long) location.get("y"));
-                id++;
             }
-            reader.close();
+            for (int s = 0; s < stationLocation.length; s++) {
+                System.out.println("id: " + s + " -> x: " + stationLocation[s][0] + ", y: " + stationLocation[s][1]);
+            }
+
         } catch (org.json.simple.parser.ParseException | IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
-    public int getSlotsNumber () {
+        public int getSlotsNumber () {
         return slotsNumber;
     }
 }

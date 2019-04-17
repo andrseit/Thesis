@@ -52,8 +52,7 @@ public class Strategy {
                 for (int s = 0; s < states.length; s++) {
                     StationInfo station = comparable_suggestions.get(s).getStationAddress();
                     if (states[s] != IntegerConstants.EV_EVALUATE_PENDING) {
-                        if (pendingStations.contains(station))
-                            pendingStations.remove(station);
+                        pendingStations.remove(station);
                         /*
                         agents.station.checkIn(info, states[s]);
                         */
@@ -61,8 +60,7 @@ public class Strategy {
                         if (states[s] == IntegerConstants.EV_EVALUATE_ACCEPT) {
                             for (SuggestionMessage sMessage : suggestions) {
                                 if (sMessage.getStationInfo().getId() == station.getId()) {
-                                    SuggestionMessage suggestion = sMessage;
-                                    int start = suggestion.getStart(), end = suggestion.getEnd(), energy = suggestion.getEnergy();
+                                    int start = sMessage.getStart(), end = sMessage.getEnd(), energy = sMessage.getEnergy();
                                     info.getPreferences().setPreferences(start, end, energy);
                                 }
                             }

@@ -7,8 +7,10 @@ import ilog.cplex.IloCplex;
 import agents.station.EVObject;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
-public abstract class AbstractCPLEX {
+public abstract class AbstractCPLEX implements Optimizer{
 
 
     protected IloCplex cp;
@@ -32,6 +34,16 @@ public abstract class AbstractCPLEX {
         } catch (IloException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public int[][] optimize(int slotsNumber, int currentSlot, ArrayList<EVObject> evs, int[] remainingChargers, int[] price) {
+
+        int min_slot = getMinSlot(evs);
+        int max_slot = getMaxSlot(evs);
+        model(evs, slotsNumber, price,
+                remainingChargers, min_slot, max_slot);
+        return getScheduleMap();
     }
 
 
@@ -199,6 +211,24 @@ public abstract class AbstractCPLEX {
             }
 
         }
+    }
+
+    private int getMinSlot(ArrayList<EVObject> evs) {
+        PriorityQueue<EVObject> queue = new PriorityQueue<>(10, Comparator.comparingInt(EVObject::getMinSlot));
+
+        for (EVObject ev : evs)
+            queue.offer(ev);
+        return queue.peek().getMinSlot();
+    }
+
+    private int getMaxSlot(ArrayList<EVObject> evs) {
+        PriorityQueue<EVObject> queue = new PriorityQueue<>(10, (ev1, ev2) -> ev2.getMaxSlot() - ev1.getMaxSlot());
+
+        for (EVObject ev : evs) {
+            queue.offer(ev);
+        }
+
+        return queue.peek().getMaxSlot();
     }
 
     public int[] getWhoCharges() {
