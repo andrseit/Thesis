@@ -4,6 +4,7 @@ import agents.evs.EV;
 import agents.station.Station;
 import io.DataGenerator;
 import io.JSONFileParser;
+import various.ArrayTransformations;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class Main {
         ArrayList<StationReceiver> receivers = new ArrayList<>();
         Station agents.station = new Station(new StationInfo(0, 1, 2, 3));
         receivers.add(agents.station.getCommunicationPort());
-        EV ev = new EV(0, 0, 2, 2, 3, 3, 1, 5, 3, 1, 3, new Strategy(1, 1, 1, 1, 1, 1, "none"));
+        EV ev = new EV(0, 0, 2, 2, 3, 3, 1, 5, 3, 1, 3, new EVStrategy(1, 1, 1, 1, 1, 1, "none"));
         ev.newRequest(receivers);
         agents.station.printList();
         agents.station.sendSuggestions();

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Strategy {
+public class EVStrategy {
 
     private EVState evState;
 
@@ -33,7 +33,7 @@ public class Strategy {
     private StationReceiver acceptedStation;
     private Preferences acceptedPreferences;
 
-    public Strategy(StrategyPreferences strategyPreferences, EVState evState) {
+    public EVStrategy(StrategyPreferences strategyPreferences, EVState evState) {
         pendingStations = new ArrayList<>();
         this.strategyPreferences = strategyPreferences;
         s_rounds = 0;
@@ -260,7 +260,7 @@ public class Strategy {
     }
 
     public String toString() {
-        return "Strategy: \n" +
+        return "EVStrategy: \n" +
                 "\t\tStart: " + strategyPreferences.getStart() + ", " +
                 " End: " + strategyPreferences.getEnd() + ", " +
                 " Energy: " + strategyPreferences.getEnergy() + ", " +

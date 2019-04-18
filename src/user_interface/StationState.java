@@ -1,5 +1,7 @@
 package user_interface;
 
+import agents.station.EVObject;
+
 import java.util.ArrayList;
 
 /**
@@ -13,7 +15,12 @@ public class StationState {
     private String station;
     private ArrayList<EVView>[] evs;
 
-    public StationState (int stationID, int slotsNumber) {
+    private int[][] schedule;
+    private int[] chargers;
+    private int[] remainingChargers;
+    ArrayList<EVObject> chargedEVs;
+
+    public StationState (int stationID, int slotsNumber, int chargersNumber) {
         station = "agents/station" + stationID;
         evs = new ArrayList[slotsNumber];
     }
@@ -30,6 +37,17 @@ public class StationState {
             currentEV.setPreferences(currentEV.getPreferences() + "->" + "(" + preferences + ")");
         } else
             evs[currentSlot].add(new EVView(evIDStr, state, "(" + preferences + ")"));
+    }
+
+    public void addScheduleState (int[][] map, int[] chargers,
+                                  int[] remainingChargers, ArrayList<EVObject> chargedEVs) {
+        if (map == null)
+            this.schedule = new int[0][0];
+        else
+            this.schedule = map.clone();
+        this.chargers = chargers.clone();
+        this.remainingChargers = remainingChargers.clone();
+        this.chargedEVs = (ArrayList<EVObject>) chargedEVs.clone();
     }
 
     public String getState (int currentSlot) {
@@ -61,4 +79,51 @@ public class StationState {
                 return e;
         return -1;
     }
+
+
+    public void printTemporaryScheduleMap() {
+        System.out.println(printAnyMap("Temporary"));
+    }
+
+    public void printScheduleMap() {
+        System.out.println(printAnyMap("Main"));
+    }
+
+    private String printAnyMap (String name) {
+        //if (agents.evs.isEmpty())
+        // return "----------------\nCannot generate " + name + " map!\n-------------------";
+        int slotsNumber = 0;
+        if (schedule.length > 0)
+            slotsNumber = schedule[0].length;
+        StringBuilder str = new StringBuilder();
+        str.append("--------------- ").append(name).append(" Schedule Map -------------------\n");
+        for (int s = 0; s < slotsNumber; s++)
+            str.append(s).append("  ");
+        str.append(" : Slots number\n-------------------------------------\n");
+
+        if (name.equals("Temporary")){
+            for (int s = 0; s < chargers.length; s++) {
+                str.append(remainingChargers[s]).append("  ");
+            }
+            str.append(" : Main Remaining Chargers\n");
+        }
+
+        for (int slot : chargers) {
+            str.append(slot).append("  ");
+        }
+        str.append(" : ").append(name).append(" Remaining Chargers\n--------------------------------\n");
+        if (!chargedEVs.isEmpty()) {
+            for (int ev = 0; ev < schedule.length; ev++) {
+                for (int slot = 0; slot < schedule[ev].length; slot++) {
+                    str.append(schedule[ev][slot]).append("  ");
+                }
+                str.append(" : EV No ").append(chargedEVs.get(ev).getId()).append(" (").append(chargedEVs.get(ev).getStationId()).append(")\n");
+            }
+        } else {
+            str.append("No entries in map!\n");
+        }
+        str.append("-----------------------------------\n");
+        return str.toString();
+    }
+
 }

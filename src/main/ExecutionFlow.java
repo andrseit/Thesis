@@ -17,9 +17,9 @@ import java.util.Scanner;
  */
 public class ExecutionFlow {
 
-    ArrayList<Station> stations;
-    ArrayList<EV> evs;
-    int slotsNumber;
+    private ArrayList<Station> stations;
+    private ArrayList<EV> evs;
+    private int slotsNumber;
 
     public ExecutionFlow (boolean generateStations, boolean generateEVs) {
         JSONFileParser parser = new JSONFileParser();
@@ -54,7 +54,7 @@ public class ExecutionFlow {
         for (int s = 0; s < stations.size(); s++) {
             communicationPorts[s] = stations.get(s).getCommunicationPort();
             finishedStations[s] = false;
-            stations.get(s).setCurrentSlot(currentSlot);
+            stations.get(s).getStrategy().setCurrentSlot(currentSlot);
         }
 
         // now each ev searches in the table of communication ports and sends requests
@@ -83,25 +83,23 @@ public class ExecutionFlow {
         // now stations will computeSuggestions the schedule based on their list
         //System.out.println("\n----- Stations are computing the schedules and sending suggestions -----");
         for (Station station: stations) {
-            station.handleAnswers();
+            station.getStrategy().handleAnswers(station.getMessenger());
             System.out.println(station.getState().getStates(currentSlot));
             // the agents.evs have requested, when agents.evs request from a agents.station, the agents.station has to insert them into a list
             // please make sure that you take care of that
             /*
             agents.station.printList();
             */
-            station.computeSuggestions();
+            station.getStrategy().computeSuggestions(station.getInfo());
 
-
-
-            station.printTemporaryScheduleMap();
+            station.getState().printTemporaryScheduleMap();
 
 
 
             // don't forget to create temporary used charged (allocated but not yet accepted)
 
             // after the stations have computed their schedules they should send their offers to the agents.evs
-            station.sendSuggestions();
+            station.getMessenger().sendSuggestions(station.getStrategy().getSuggestionReceivers());
         }
 
         // agents.evs will evaluate the stations' suggestions
@@ -118,7 +116,7 @@ public class ExecutionFlow {
         // stations will handle the answers
         for (int station = 0; station < stations.size(); station++) {
             Station current = stations.get(station);
-            current.handleAnswers();
+            current.getStrategy().handleAnswers(current.getMessenger());
             System.out.println(current.getState().getStates(currentSlot));
             //System.out.println("----------- Accepted EVs ------------");
             //current.printAcceptedEVs();
@@ -126,10 +124,9 @@ public class ExecutionFlow {
             //System.out.println("----------- Waiting EVs ------------");
             //current.printList();
 
+            current.getState().printScheduleMap();
 
-            current.printScheduleMap();
-
-            if (current.hasFinished()) {
+            if (current.getStrategy().hasFinished()) {
                 finishedStations[station] = true;
                 System.out.println("Station No " + station + " has no more requests!");
             }
@@ -140,13 +137,13 @@ public class ExecutionFlow {
             // stations computeSuggestions alternative suggestions and send to the EVs
             // however some agents.station's may have
             for (Station current : stations) {
-                if (!current.hasFinished()) {
-                    current.computeSuggestions();
-                    current.computeAlternatives();
+                if (!current.getStrategy().hasFinished()) {
+                    current.getStrategy().computeSuggestions(current.getInfo());
+                    current.getStrategy().computeAlternatives(current.getInfo());
 
-                    current.printTemporaryScheduleMap();
+                    current.getState().printTemporaryScheduleMap();
 
-                    current.sendSuggestions();
+                    current.getMessenger().sendSuggestions(current.getStrategy().getSuggestionReceivers());
                 }
             }
 
@@ -163,8 +160,8 @@ public class ExecutionFlow {
             // stations will handle the answers
             for (int station = 0; station < stations.size(); station++) {
                 Station current = stations.get(station);
-                if (!current.hasFinished()) {
-                    current.handleAnswers();
+                if (!current.getStrategy().hasFinished()) {
+                    current.getStrategy().handleAnswers(current.getMessenger());
                     System.out.println(current.getState().getStates(currentSlot));
                     /*
                     System.out.println("----------- Accepted EVs ------------");
@@ -174,10 +171,10 @@ public class ExecutionFlow {
                     current.printList();
                     */
 
-                    current.printScheduleMap();
+                    current.getState().printScheduleMap();
 
 
-                    if (current.hasFinished()) {
+                    if (current.getStrategy().hasFinished()) {
                         finishedStations[station] = true;
                         System.out.println("Station No " + station + " has no more requests!");
                     }

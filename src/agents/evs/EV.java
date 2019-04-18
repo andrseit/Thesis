@@ -1,7 +1,7 @@
 package agents.evs;
 
 import agents.evs.communication.EVMessenger;
-import agents.evs.strategy.Strategy;
+import agents.evs.strategy.EVStrategy;
 import agents.evs.strategy.StrategyPreferences;
 import user_interface.EVState;
 
@@ -10,7 +10,7 @@ public class EV {
     private EVInfo info;
     private EVState state;
     private EVMessenger messenger;
-    private Strategy strategy;
+    private EVStrategy strategy;
 
 
     public EV(EVParameters evParameters, StrategyPreferences strategyPreferences) {
@@ -22,7 +22,7 @@ public class EV {
 
         state = new EVState(evParameters.getId());
 
-        strategy = new Strategy(strategyPreferences, state);
+        strategy = new EVStrategy(strategyPreferences, state);
 
     }
 
@@ -32,7 +32,7 @@ public class EV {
 
     public EVInfo getInfo () { return info; }
 
-    public Strategy getStrategy () { return strategy; }
+    public EVStrategy getStrategy () { return strategy; }
 
     public EVMessenger getMessenger () { return messenger; }
 

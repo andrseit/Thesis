@@ -1,12 +1,9 @@
 package agents.evs.communication;
 
 import agents.evs.EVInfo;
-import agents.evs.strategy.Strategy;
-import agents.station.Station;
 import agents.station.StationInfo;
 import agents.station.SuggestionMessage;
 import agents.station.communication.StationReceiver;
-import various.IntegerConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;

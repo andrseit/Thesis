@@ -1,6 +1,8 @@
 package agents.station.communication;
 
+import agents.evs.communication.EVReceiver;
 import agents.station.EVObject;
+import agents.station.SuggestionMessage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,18 +12,28 @@ import java.util.HashMap;
  */
 public class StationMessenger {
 
-    private StationSender sender;
     private StationReceiver receiver;
 
-    public StationMessenger(int id, ArrayList<EVObject> incomingMessages, HashMap<EVObject, Integer> incomingAnswers) {
-        sender = new StationSender();
+    private ArrayList<EVObject> incomingMessages;
+    private HashMap<EVObject, Integer> incomingAnswers;
+
+    public StationMessenger(int id) {
+        incomingMessages = new ArrayList<>();
+        incomingAnswers = new HashMap<>();
         receiver = new StationReceiver(id, incomingMessages, incomingAnswers);
     }
 
-    public StationReceiver getAddress () {
-        return receiver;
+    public void sendSuggestion (SuggestionMessage message, EVReceiver ev) { ev.receiveSuggestion(message); }
+
+    public void sendSuggestions (ArrayList<EVObject> receivers) {
+        for (EVObject ev: receivers)
+            sendSuggestion(ev.getSuggestionMessage(), ev.getEvReceiver());
     }
 
-    public StationSender getSender () { return sender; }
+    public HashMap<EVObject, Integer> getIncomingAnswers() { return incomingAnswers; }
+
+    public StationReceiver getReceiver() {
+        return receiver;
+    }
 
 }

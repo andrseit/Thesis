@@ -11,7 +11,7 @@ import java.util.Comparator;
 
 /**
  * Created by Thesis on 12/1/2018.
- * Used to mainly to produce a list of comparable suggestions, so then the Strategy class
+ * Used to mainly to produce a list of comparable suggestions, so then the EVStrategy class
  * decides which is the best option
  */
 class StrategyComputer {
@@ -57,15 +57,15 @@ class StrategyComputer {
                     }
                 //}
             } else if (message.getMessageType() == IntegerConstants.STATION_NEXT_ROUND_SUGGESTION) {
-                System.out.println("\t-Station No. " + message.getStationInfo().getId() + " will offer me a suggestion in the next round of conversation.");
+                //System.out.println("\t-Station No. " + message.getStationInfo().getId() + " will offer me a suggestion in the next round of conversation.");
                 comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, Integer.MAX_VALUE, message.getStationInfo()));
             }
             else if (message.getMessageType() == IntegerConstants.STATION_HAS_NO_SUGGESTION){
-                System.out.println("\t-Station No. " + message.getStationInfo().getId() + " has no suggestion.");
+                //System.out.println("\t-Station No. " + message.getStationInfo().getId() + " has no suggestion.");
                 comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -2, message.getStationInfo()));
             } else if (message.getMessageType() == IntegerConstants.STATION_FUTURE_SLOT_SUGGESTION) {
                 // means no offer yet - NEO 18/2/2018
-                System.out.println("\t-Station No. " + message.getStationInfo().getId() + " will offer me a suggestion in a future slot.");
+                //System.out.println("\t-Station No. " + message.getStationInfo().getId() + " will offer me a suggestion in a future slot.");
                 comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -3, message.getStationInfo()));
             }
         }
