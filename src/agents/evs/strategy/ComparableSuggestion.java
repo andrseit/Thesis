@@ -4,12 +4,12 @@ import agents.station.StationInfo;
 
 class ComparableSuggestion {
 
-    private int total_distance;
-    private int price;
-    private int windowRange;
-    private int preferences_distance;
+    private final int total_distance;
+    private final int price;
+    private final int windowRange;
+    private final int preferences_distance;
 
-    private StationInfo station;
+    private final StationInfo station;
 
     public ComparableSuggestion(int total_distance, int price, int windowRange, int preferences_distance, StationInfo station) {
         this.total_distance = total_distance;

@@ -15,7 +15,8 @@ public class Main {
     public static void main(String[] args) {
 
         ExecutionFlow exe = new ExecutionFlow(false, false);
-        exe.runOffline();
+        exe.runOnline();
+
         /*
         JSONFileParser parser = new JSONFileParser();
         DataGenerator gen = new DataGenerator(5, 5, 10, 2);

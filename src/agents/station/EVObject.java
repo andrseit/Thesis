@@ -10,7 +10,6 @@ public class EVObject {
     // this keeps the reference to the original EV object
     // to help with the conversation
     // like a connection so that the message is delivered immediately
-    private EV object_address;
     private EVReceiver evReceiver;
 
     private Preferences preferences;
@@ -54,13 +53,7 @@ public class EVObject {
     public SuggestionMessage getSuggestionMessage () {
         return message;
     }
-
-
-    /** New Code 11.2.2019 **/
-
-    public void setEVAddress(EV evAddress) {
-        this.object_address = evAddress;
-    }
+    
 
     public void addEVPreferences(int start, int end, int bid, int energy) {
         preferences.setStart(start);
@@ -128,10 +121,6 @@ public class EVObject {
 
     public Preferences getPreferences() {
         return preferences;
-    }
-
-    public EV getObjectAddress() {
-        return object_address;
     }
 
     public Suggestion getSuggestion() {

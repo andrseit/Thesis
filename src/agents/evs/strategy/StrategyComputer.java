@@ -11,6 +11,8 @@ import java.util.Comparator;
 
 /**
  * Created by Thesis on 12/1/2018.
+ * Used to mainly to produce a list of comparable suggestions, so then the Strategy class
+ * decides which is the best option
  */
 class StrategyComputer {
 
@@ -72,18 +74,6 @@ class StrategyComputer {
         return comparable_suggestions;
     }
 
-    /**
-     * Checks if there is a suggestion or the values are max int so it will ask
-     * for a new one
-     *
-     * @param message
-     * @return
-     */
-    private boolean hasSuggestion(SuggestionMessage message) {
-        return !(message.getStart() == Integer.MAX_VALUE && message.getEnd() == Integer.MAX_VALUE
-                && message.getEnergy() == 0);
-    }
-
     private int computePreferencesDistance(SuggestionMessage message, Preferences initial) {
         int start = initial.getStart();
         int end = initial.getEnd();
@@ -110,16 +100,6 @@ class StrategyComputer {
         */
         energy_dif = Math.abs(message.getEnergy() - initial.getEnergy());
         return window_diff + energy_dif;
-    }
-
-    /**
-     * Checks if the new value is within the initial slot range
-     * then the difference is 0
-     *
-     * @return
-     */
-    private boolean isInRange(int start, int end, int suggested) {
-        return suggested >= start && suggested <= end;
     }
 
     private boolean isWithinInitial(SuggestionMessage message, Preferences initial) {

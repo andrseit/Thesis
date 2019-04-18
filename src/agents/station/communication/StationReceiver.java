@@ -47,7 +47,6 @@ public class StationReceiver {
         ev.setID(evInfo.getId()); // this is the universal id - like the license plate
         ev.setXY(evInfo.getLocationX(), evInfo.getLocationY());
         ev.setStationId(incomingRequests.size());
-        ev.setEVAddress(evInfo.getObjectAddress()); // this should return the address of the pda - for protection
         ev.setEvReceiver(evInfo.getCommunicationPort());
         return ev;
     }

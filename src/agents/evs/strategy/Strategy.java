@@ -1,39 +1,49 @@
 package agents.evs.strategy;
 
 import agents.evs.EVInfo;
+import agents.evs.Preferences;
 import agents.station.StationInfo;
 import agents.station.SuggestionMessage;
+import agents.station.communication.StationReceiver;
+import user_interface.EVState;
 import various.IntegerConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Strategy {
 
-    //private ArrayList<SuggestionMessage> suggestions;
+    private EVState evState;
+
     private ArrayList<StationInfo> pendingStations;
     private boolean rejectPendingStations;
     private boolean charged;
+    private boolean isToBeServiced; // the EV is to be charged, but the time has not yet arrived
+    private boolean serviced;// the ev has been successfully serviced
+    private boolean delayed; // shows if the ev has made a deferral - we assume that an EV can only do that once, however it can be easily changed
+    // so that this can happen more than one time
+    // rename it to something that represents both deferral and cancellation
 
+    private int informSlot;
     private StrategyPreferences strategyPreferences;
     private int s_rounds;
 
     private HashMap<StationInfo, Integer> answers;
+    private StationReceiver acceptedStation;
+    private Preferences acceptedPreferences;
 
-    public Strategy(int energy, int start, int end, double range, int probability, int rounds, String priority) {
-        //suggestions = new ArrayList<>();
+    public Strategy(StrategyPreferences strategyPreferences, EVState evState) {
         pendingStations = new ArrayList<>();
-        strategyPreferences = new StrategyPreferences(energy, start, end, range, rounds, probability, priority);
+        this.strategyPreferences = strategyPreferences;
         s_rounds = 0;
+        this.evState = evState;
     }
-
-    /*
-    public void addSuggestion(SuggestionMessage suggestion) {
-        suggestions.add(suggestion);
-    }
-    */
 
     public void evaluate(ArrayList<SuggestionMessage> suggestions, EVInfo info) {
+        for (SuggestionMessage message: suggestions)
+            evState.addSuggestion(message.getStationInfo().getId(), message.preferencesToString());
+
         // this hashmap contains the answers to the stations' suggestions
         answers = new HashMap<>();
         if (!charged) {
@@ -61,10 +71,13 @@ public class Strategy {
                             for (SuggestionMessage sMessage : suggestions) {
                                 if (sMessage.getStationInfo().getId() == station.getId()) {
                                     int start = sMessage.getStart(), end = sMessage.getEnd(), energy = sMessage.getEnergy();
-                                    info.getPreferences().setPreferences(start, end, energy);
+                                    //info.getPreferences().setPreferences(start, end, energy);
+                                    acceptedPreferences = new Preferences();
+                                    acceptedPreferences.setPreferences(start, end, energy);
+                                    acceptedStation = station.getCommunicationPort();
                                 }
                             }
-
+                            isToBeServiced = true;
                         }
                     } else {
                         if (!pendingStations.contains(station))
@@ -93,6 +106,9 @@ public class Strategy {
                 answers.put(message.getStationInfo(), IntegerConstants.EV_EVALUATE_REJECT);
             }
         }
+
+        // add answers into state
+        answers.keySet().forEach(stationInfo -> evState.addAnswer(stationInfo.getId(), answers.get(stationInfo)));
     }
 
     private int[] compareSuggestions(ArrayList<ComparableSuggestion> comparableSuggestions) {
@@ -153,29 +169,94 @@ public class Strategy {
         return states;
     }
 
-    /*
-    public boolean isEmpty() {
-        return suggestions.isEmpty();
-    }
-    */
+    /**
+     * This method is used by the execution flow to determine if an EV is able to make a deferral
+     * This is determined by a probability and the boolean variable: delayed
+     * If the current time slot is equal to the EVs arrival time, then the EV is serviced
+     * @param currentSlot
+     * @param slotsNumber
+     * @return
+     */
+    public Integer checkDelay(EVInfo info, int currentSlot, int slotsNumber) {
+        System.out.println("EV No " + info.getId() + "( " + currentSlot + ", " + info.getPreferences().getStart() + " )");
+        System.out.println("Accepted: " + acceptedPreferences.toString());
+        Random random = new Random();
+        if (isToBeServiced && random.nextInt(100) < 50 && !delayed) {
+            System.out.println("I will delay or cancel!");
+            if (random.nextInt() < 20) {
+                // cancel
+                System.out.println("I shall CANCEL my reservation!");
+                delayed = true;
+                isToBeServiced = false;
+                charged = false;
 
-    /*
-    public void printSuggestionsList() {
-        for (Preferences p : suggestions) {
-            System.out.println("    " + p.toString());
+                /*
+                state.addSuggestion(strategy.getAcceptedStation().getStationId(), "-");
+                state.addAnswer(strategy.getAcceptedStation().getStationId(), IntegerConstants.EV_UPDATE_CANCEL);
+                */
+
+                return IntegerConstants.EV_UPDATE_CANCEL;
+            } else {
+                System.out.println("I shall DELAY my reservation!");
+                // delay
+                if (!(slotsNumber - currentSlot <= 0)) {
+                    delayed = true;
+                    s_rounds = 0;
+                    charged = false;
+
+                    /*
+                    state.addSuggestion(strategy.getAcceptedStation().getStationId(), "-");
+                    state.addAnswer(strategy.getAcceptedStation().getStationId(), IntegerConstants.EV_UPDATE_DELAY);
+                    */
+                    return IntegerConstants.EV_UPDATE_DELAY;
+                }
+            }
+        } else {
+            System.out.println("I'll check in normally!");
+            if (currentSlot == acceptedPreferences.getStart()) {
+                serviced = true;
+                isToBeServiced = false;
+            }
         }
-        System.out.println();
-    }
-    */
-
-    public void resetRounds() {
-        s_rounds = 0;
+        System.out.println("Serviced: " + serviced);
+        return -1;
     }
 
-    public void resetCharged () { charged = false; }
+    public void computeDelay (EVInfo info, int slotsNumber) {
+        Preferences initial = info.getPreferences();
+        int upperStartBound = Math.max((slotsNumber - initial.getEnergy()), (initial.getStart() + 1));
+        int lowerStartBound = initial.getStart() + 1;
+
+        System.out.println("Lower start: " + lowerStartBound + ", Max start: " + upperStartBound);
+        Random random = new Random();
+        int newStart = random.nextInt(upperStartBound - lowerStartBound + 1) + lowerStartBound;
+        int energy = Math.min(initial.getEnergy(), (slotsNumber - newStart));
+        int newEnd = newStart + Math.min(energy, slotsNumber - newStart) - 1;
+
+        initial.setPreferences(newStart, newEnd, energy);
+        System.out.println("After: " + initial.toString());
+    }
 
     public HashMap<StationInfo, Integer> getAnswers () {
         return answers;
+    }
+
+    public StationReceiver getAcceptedStation() {
+        return acceptedStation;
+    }
+
+    public StrategyPreferences getStrategyPreferences() { return strategyPreferences; }
+
+    public Preferences getAcceptedPreferences() {
+        return acceptedPreferences;
+    }
+
+    public boolean isToBeServiced() {
+        return isToBeServiced;
+    }
+
+    public boolean isServiced() {
+        return serviced;
     }
 
     public String toString() {

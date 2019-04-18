@@ -8,6 +8,7 @@ import agents.station.communication.StationReceiver;
 import various.IntegerConstants;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -59,18 +60,20 @@ public class ExecutionFlow {
         // now each ev searches in the table of communication ports and sends requests
         //System.out.println("\n----- EVs are searching for available stations -----");
         for (EV ev: evs) {
-            if (!ev.isToBeServiced())
-                ev.newRequest(communicationPorts);
+            if (!ev.getStrategy().isToBeServiced())
+                for (StationReceiver c : communicationPorts)
+                    ev.getMessenger().sendMessage(ev.getInfo(), IntegerConstants.EV_MESSAGE_REQUEST, c);
+
             // if an ev has already made an agreement with a agents.station then check if it
             // is up to a delay
             else {
-                int delayStatus = ev.checkDelay(currentSlot, slotsNumber);
+                int delayStatus = ev.getStrategy().checkDelay(ev.getInfo(), currentSlot, slotsNumber);
                 if (delayStatus == IntegerConstants.EV_UPDATE_DELAY) {
-                    ev.computeDelay(currentSlot, slotsNumber);
-                    ev.sendDeferralMessage();
+                    ev.getStrategy().computeDelay(ev.getInfo(), slotsNumber);
+                    ev.getMessenger().sendMessage(ev.getInfo(), IntegerConstants.EV_UPDATE_DELAY, ev.getStrategy().getAcceptedStation());
                     // make a function to inform the agents.station
                 } else if (delayStatus == IntegerConstants.EV_UPDATE_CANCEL) {
-                    ev.sendCancellationMessage();
+                    ev.getMessenger().sendMessage(ev.getInfo(), IntegerConstants.EV_UPDATE_CANCEL, ev.getStrategy().getAcceptedStation());
                 }
             }
         }
@@ -106,8 +109,8 @@ public class ExecutionFlow {
         for (EV ev: evs) {
             if (ev.hasSuggestions()) {
                 //ev.printMessagesList();
-                ev.evaluateSuggestions();
-                ev.sendAnswers();
+                ev.getStrategy().evaluate(ev.getMessenger().getMessages(), ev.getInfo());
+                ev.getMessenger().sendAnswers(ev.getInfo(), ev.getStrategy().getAnswers());
                 System.out.println(ev.getState());
             }
         }
@@ -151,8 +154,8 @@ public class ExecutionFlow {
             for (EV ev : evs) {
                 if (ev.hasSuggestions()) {
                     //ev.printMessagesList();
-                    ev.evaluateSuggestions();
-                    ev.sendAnswers();
+                    ev.getStrategy().evaluate(ev.getMessenger().getMessages(), ev.getInfo());
+                    ev.getMessenger().sendAnswers(ev.getInfo(), ev.getStrategy().getAnswers());
                     System.out.println(ev.getState());
                 }
             }
@@ -197,7 +200,7 @@ public class ExecutionFlow {
         // don't forget to add a lower bound to the computation of the alternatives
 
         // order the EVs list by inform slot
-        evs.sort(Comparator.comparingInt(o -> o.getInformSlot()));
+        evs.sort(Comparator.comparingInt(o -> o.getStrategy().getStrategyPreferences().getInformSlot()));
         evs.forEach(System.out::println);
         Scanner scanner = new Scanner(System.in);
         for (int slot = 0; slot < slotsNumber; slot++) {
@@ -205,7 +208,7 @@ public class ExecutionFlow {
             // the list which contains the EVs that inform the stations in the current slot
             ArrayList<EV> currentEVs = new ArrayList<>();
             for (EV ev: evs) {
-                if (ev.getInformSlot() == slot || (!ev.isServiced() && ev.isToBeServiced())) // ev.isServiced() is redundant but I put it for safety
+                if (ev.getStrategy().getStrategyPreferences().getInformSlot() == slot || (!ev.getStrategy().isServiced() && ev.getStrategy().isToBeServiced())) // ev.isServiced() is redundant but I put it for safety
                     currentEVs.add(ev);
             }
             if (!currentEVs.isEmpty())

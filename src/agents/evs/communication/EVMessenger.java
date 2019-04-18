@@ -1,29 +1,42 @@
 package agents.evs.communication;
 
 import agents.evs.EVInfo;
+import agents.evs.strategy.Strategy;
+import agents.station.Station;
+import agents.station.StationInfo;
 import agents.station.SuggestionMessage;
 import agents.station.communication.StationReceiver;
+import various.IntegerConstants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Thesis on 25/1/2019.
  */
 public class EVMessenger {
 
-    private EVSender sender;
     private EVReceiver receiver;
+    private ArrayList<SuggestionMessage> messages;
 
-    public EVMessenger(ArrayList<SuggestionMessage> messages) {
-        sender = new EVSender();
+    public EVMessenger() {
+        messages = new ArrayList<>();
         receiver = new EVReceiver(messages);
     }
 
-    public EVReceiver getReceiver () {
-        return receiver;
+    public void sendMessage (EVInfo info, Integer messageType, StationReceiver station) {
+        station.receiveRequest(info, messageType);
     }
 
-    public EVSender getSender() {
-        return sender;
+    public void sendAnswers (EVInfo info, HashMap<StationInfo, Integer> answers) {
+        if (!answers.isEmpty())
+            for (StationInfo s : answers.keySet())
+                sendMessage(info, answers.get(s), s.getCommunicationPort());
+    }
+
+    public ArrayList<SuggestionMessage> getMessages () { return messages; }
+
+    public EVReceiver getReceiver () {
+        return receiver;
     }
 }

@@ -1,7 +1,8 @@
 package io;
 
 import agents.evs.EV;
-import agents.evs.strategy.Strategy;
+import agents.evs.EVParameters;
+import agents.evs.strategy.StrategyPreferences;
 import agents.station.Station;
 import agents.station.optimize.AlternativesCPLEX;
 import agents.station.optimize.ProfitCPLEX;
@@ -111,8 +112,9 @@ public class JSONFileParser {
                 double s_range = Double.parseDouble(strategy.get("range").toString());
                 String s_priority = strategy.get("priority").toString();
 
-                EV ev = new EV(id, inform_slot, x, y, f_x, f_y, start_slot, end_slot, energy, bid, max_distance,
-                        new Strategy(s_energy, s_start, s_end, s_range, s_prob, s_rounds, s_priority));
+                EVParameters evParameters = new EVParameters(id, x, y, f_x, f_y, start_slot, end_slot, energy, bid, max_distance);
+                StrategyPreferences strategyPreferences = new StrategyPreferences(inform_slot, s_energy, s_start, s_end, s_range, s_rounds, s_prob, s_priority);
+                EV ev = new EV(evParameters, strategyPreferences);
                 evs.add(ev);
             }
         } catch (org.json.simple.parser.ParseException | IOException e) {

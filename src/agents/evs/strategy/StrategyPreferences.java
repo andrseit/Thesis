@@ -3,18 +3,27 @@ package agents.evs.strategy;
 /**
  * Created by Thesis on 12/1/2018.
  */
-class StrategyPreferences {
+public class StrategyPreferences {
 
-    private int energy;
-    private int start;
-    private int end;
-    private int rounds;
-    private int probability;
-    private double range;
-    private String priority;
+    private final int informSlot;
+    private final int energy;
+    private final int start;
+    private final int end;
+    private final int rounds;
+    private final int probability;
+    private final double range;
+    private final String priority;
 
 
-    public StrategyPreferences(int energy, int start, int end, double range, int rounds, int probability, String priority) {
+    public StrategyPreferences(int informSlot,
+                               int energy,
+                               int start,
+                               int end,
+                               double range,
+                               int rounds,
+                               int probability,
+                               String priority) {
+        this.informSlot = informSlot;
         this.energy = energy;
         this.start = start;
         this.end = end;
@@ -23,6 +32,8 @@ class StrategyPreferences {
         this.probability = probability;
         this.priority = priority;
     }
+
+    public int getInformSlot() { return informSlot; }
 
     public int getEnergy() {
         return energy;
