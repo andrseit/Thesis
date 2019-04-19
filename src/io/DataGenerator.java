@@ -1,15 +1,10 @@
 package io;
 
-import agents.station.Station;
-import agents.station.optimize.AlternativesCPLEX;
-import agents.station.optimize.ProfitCPLEX;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 import static java.lang.Math.toIntExact;
@@ -191,7 +186,7 @@ public class DataGenerator {
 
     public void generatePriceFile () {
 
-        Random random = new Random();
+        //Random random = new Random();
         for (int s = 0; s < stationsNumber; s++) {
             try {
                 FileWriter writer = new FileWriter("files/price/station_" + s + ".txt");

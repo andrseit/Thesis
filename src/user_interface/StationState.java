@@ -1,5 +1,6 @@
 package user_interface;
 
+import agents.evs.Preferences;
 import agents.station.EVObject;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class StationState {
     private int[] remainingChargers;
     ArrayList<EVObject> chargedEVs;
 
-    public StationState (int stationID, int slotsNumber, int chargersNumber) {
+    public StationState (int stationID, int slotsNumber) {
         station = "agents/station" + stationID;
         evs = new ArrayList[slotsNumber];
     }
@@ -33,10 +34,10 @@ public class StationState {
         int evIndex = getEVIndex(evs[currentSlot], evIDStr);
         if (evIndex != -1){
             EVView currentEV = evs[currentSlot].get(evIndex);
-            currentEV.setState(currentEV.getState() + "->" + state);
-            currentEV.setPreferences(currentEV.getPreferences() + "->" + "(" + preferences + ")");
+            currentEV.getStates().add(state);
+            currentEV.getPreferencesStates().add(preferences);
         } else
-            evs[currentSlot].add(new EVView(evIDStr, state, "(" + preferences + ")"));
+            evs[currentSlot].add(new EVView(evIDStr, state,  preferences));
     }
 
     public void addScheduleState (int[][] map, int[] chargers,
@@ -117,7 +118,16 @@ public class StationState {
                 for (int slot = 0; slot < schedule[ev].length; slot++) {
                     str.append(schedule[ev][slot]).append("  ");
                 }
-                str.append(" : EV No ").append(chargedEVs.get(ev).getId()).append(" (").append(chargedEVs.get(ev).getStationId()).append(")\n");
+                EVObject current = chargedEVs.get(ev);
+                Preferences initialPreferences = current.getPreferences();
+                Preferences preferences = current.getSuggestion().getPreferences();
+                str.append(" : EV No ").append(current.getId()).append(" (").append(chargedEVs.get(ev).getStationId())
+                        .append(") (Initial: ")
+                        .append(initialPreferences.getStart()).append("-").append(initialPreferences.getEnd()).append("/").append(initialPreferences.getEnergy())
+                        .append(") <> ")
+                        .append("(Final: ")
+                        .append(preferences.getStart()).append("-").append(preferences.getEnd()).append("/").append(preferences.getEnergy())
+                        .append(")\n");
             }
         } else {
             str.append("No entries in map!\n");

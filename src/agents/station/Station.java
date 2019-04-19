@@ -25,7 +25,7 @@ public class Station {
         info = new StationInfo(id, x, y, chargersNumber, messenger.getReceiver());
 
         statistics = new StationStatistics(chargersNumber, slotsNumber);
-        state = new StationState(info.getId(), slotsNumber, chargersNumber);
+        state = new StationState(info.getId(), slotsNumber);
         strategy = new StationStrategy(optimizer, alternativesOptimizer, price, slotsNumber,
                 chargersNumber, statistics, state);
     }

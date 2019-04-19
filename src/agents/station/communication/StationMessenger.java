@@ -14,13 +14,11 @@ public class StationMessenger {
 
     private StationReceiver receiver;
 
-    private ArrayList<EVObject> incomingMessages;
     private HashMap<EVObject, Integer> incomingAnswers;
 
     public StationMessenger(int id) {
-        incomingMessages = new ArrayList<>();
         incomingAnswers = new HashMap<>();
-        receiver = new StationReceiver(id, incomingMessages, incomingAnswers);
+        receiver = new StationReceiver(id, incomingAnswers);
     }
 
     public void sendSuggestion (SuggestionMessage message, EVReceiver ev) { ev.receiveSuggestion(message); }

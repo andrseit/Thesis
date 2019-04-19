@@ -27,7 +27,6 @@ public class ArrayTransformations {
         if (array.length == 0)
             System.out.println("Empty array!");
         else {
-            int rows = array.length;
             int columns = array[0].length;
             for (int[] anArray : array) {
                 for (int c = 0; c < columns; c++) {
@@ -40,7 +39,6 @@ public class ArrayTransformations {
     }
 
     public static void printOneDimensionArray(String name, int[] array) {
-        int columns = array.length;
         for (int anArray : array) {
             System.out.print(anArray + "  ");
         }

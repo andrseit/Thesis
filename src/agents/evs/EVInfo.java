@@ -17,10 +17,7 @@ public class EVInfo {
         this.id = id;
         this.bid = bid;
         this.communicationPort = communicationPort;
-        preferences = new Preferences();
-        preferences.setStart(start);
-        preferences.setEnd(end);
-        preferences.setEnergy(energy);
+        preferences = new Preferences(start, end, energy);
         preferences.setMaxDistance(max_distance);
     }
 

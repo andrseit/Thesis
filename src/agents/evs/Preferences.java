@@ -11,6 +11,12 @@ public class Preferences {
     private int max_distance;
 
 
+    public Preferences(int start, int end, int energy) {
+        this.start = start;
+        this.end = end;
+        this.energy = energy;
+    }
+
     public int getStart() {
         return start;
     }

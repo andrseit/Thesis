@@ -6,7 +6,7 @@ import agents.station.StationInfo;
 import agents.station.SuggestionMessage;
 import agents.station.communication.StationReceiver;
 import user_interface.EVState;
-import various.IntegerConstants;
+import various.ConstantVariables;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,6 @@ public class EVStrategy {
     // so that this can happen more than one time
     // rename it to something that represents both deferral and cancellation
 
-    private int informSlot;
     private StrategyPreferences strategyPreferences;
     private int s_rounds;
 
@@ -61,19 +60,18 @@ public class EVStrategy {
                 int[] states = this.compareSuggestions(comparable_suggestions);
                 for (int s = 0; s < states.length; s++) {
                     StationInfo station = comparable_suggestions.get(s).getStationAddress();
-                    if (states[s] != IntegerConstants.EV_EVALUATE_PENDING) {
+                    if (states[s] != ConstantVariables.EV_EVALUATE_PENDING) {
                         pendingStations.remove(station);
                         /*
                         agents.station.checkIn(info, states[s]);
                         */
                         answers.put(station, states[s]);
-                        if (states[s] == IntegerConstants.EV_EVALUATE_ACCEPT) {
+                        if (states[s] == ConstantVariables.EV_EVALUATE_ACCEPT) {
                             for (SuggestionMessage sMessage : suggestions) {
                                 if (sMessage.getStationInfo().getId() == station.getId()) {
                                     int start = sMessage.getStart(), end = sMessage.getEnd(), energy = sMessage.getEnergy();
                                     //info.getPreferences().setPreferences(start, end, energy);
-                                    acceptedPreferences = new Preferences();
-                                    acceptedPreferences.setPreferences(start, end, energy);
+                                    acceptedPreferences = new Preferences(start, end, energy);
                                     acceptedStation = station.getCommunicationPort();
                                 }
                             }
@@ -88,9 +86,9 @@ public class EVStrategy {
                 if (rejectPendingStations) {
                     for (StationInfo station : pendingStations)
                         /*
-                        agents.station.checkIn(info, IntegerConstants.EV_EVALUATE_REJECT);
+                        agents.station.checkIn(info, ConstantVariables.EV_EVALUATE_REJECT);
                         */
-                        answers.put(station, IntegerConstants.EV_EVALUATE_REJECT);
+                        answers.put(station, ConstantVariables.EV_EVALUATE_REJECT);
                     rejectPendingStations = false;
                     charged = true;
                 }
@@ -101,9 +99,9 @@ public class EVStrategy {
             for (SuggestionMessage message: suggestions) {
                 //System.out.println("Rejecting");
                 /*
-                message.getStationAddress().checkIn(info, IntegerConstants.EV_EVALUATE_REJECT);
+                message.getStationAddress().checkIn(info, ConstantVariables.EV_EVALUATE_REJECT);
                 */
-                answers.put(message.getStationInfo(), IntegerConstants.EV_EVALUATE_REJECT);
+                answers.put(message.getStationInfo(), ConstantVariables.EV_EVALUATE_REJECT);
             }
         }
 
@@ -115,7 +113,7 @@ public class EVStrategy {
         // in which agents.station it accepted/rejected/asked for better suggestion
         int[] states = new int[comparableSuggestions.size()];
         for (int s = 0; s < states.length; s++) {
-            states[s] = IntegerConstants.EV_EVALUATE_WAIT;
+            states[s] = ConstantVariables.EV_EVALUATE_WAIT;
         }
 
         // if the ev is in the last round of the conversation based on its strategy
@@ -124,14 +122,14 @@ public class EVStrategy {
                 ComparableSuggestion suggestion = comparableSuggestions.get(s);
                 if (suggestion.getPreferencesDistance() == -2 || suggestion.getPreferencesDistance() == -1
                         || suggestion.getPreferencesDistance() == Integer.MAX_VALUE)
-                    states[s] = IntegerConstants.EV_EVALUATE_REJECT;
+                    states[s] = ConstantVariables.EV_EVALUATE_REJECT;
                 else if (suggestion.getPreferencesDistance() == -3) {
-                    states[s] = IntegerConstants.EV_EVALUATE_PENDING;
+                    states[s] = ConstantVariables.EV_EVALUATE_PENDING;
                 } else {
-                    states[s] = IntegerConstants.EV_EVALUATE_ACCEPT;
+                    states[s] = ConstantVariables.EV_EVALUATE_ACCEPT;
                     rejectPendingStations = true;
                     for (int i = s + 1; i < states.length; i++) {
-                            states[i] = IntegerConstants.EV_EVALUATE_REJECT;
+                            states[i] = ConstantVariables.EV_EVALUATE_REJECT;
                     }
                     break;
                 }
@@ -140,13 +138,13 @@ public class EVStrategy {
             for (int s = 0; s < comparableSuggestions.size(); s++) {
                 ComparableSuggestion suggestion = comparableSuggestions.get(s);
                 if (suggestion.getPreferencesDistance() == -2)
-                    states[s] = IntegerConstants.EV_EVALUATE_REJECT;
+                    states[s] = ConstantVariables.EV_EVALUATE_REJECT;
                 else if (suggestion.getPreferencesDistance() == 0){
-                    states[s] = IntegerConstants.EV_EVALUATE_ACCEPT;
+                    states[s] = ConstantVariables.EV_EVALUATE_ACCEPT;
                     rejectPendingStations = true;
                     for (int i = 0; i < states.length; i++) {
                         if (i != s)
-                            states[i] = IntegerConstants.EV_EVALUATE_REJECT;
+                            states[i] = ConstantVariables.EV_EVALUATE_REJECT;
                     }
                     break;
                 }
@@ -156,7 +154,7 @@ public class EVStrategy {
             for (int s = 0; s < comparableSuggestions.size(); s++) {
                 ComparableSuggestion suggestion = comparableSuggestions.get(s);
                 if (suggestion.getPreferencesDistance() == -3) {
-                    states[s] = IntegerConstants.EV_EVALUATE_PENDING;
+                    states[s] = ConstantVariables.EV_EVALUATE_PENDING;
                 }
             }
         }
@@ -192,10 +190,10 @@ public class EVStrategy {
 
                 /*
                 state.addSuggestion(strategy.getAcceptedStation().getStationId(), "-");
-                state.addAnswer(strategy.getAcceptedStation().getStationId(), IntegerConstants.EV_UPDATE_CANCEL);
+                state.addAnswer(strategy.getAcceptedStation().getStationId(), ConstantVariables.EV_UPDATE_CANCEL);
                 */
 
-                return IntegerConstants.EV_UPDATE_CANCEL;
+                return ConstantVariables.EV_UPDATE_CANCEL;
             } else {
                 System.out.println("I shall DELAY my reservation!");
                 // delay
@@ -206,9 +204,9 @@ public class EVStrategy {
 
                     /*
                     state.addSuggestion(strategy.getAcceptedStation().getStationId(), "-");
-                    state.addAnswer(strategy.getAcceptedStation().getStationId(), IntegerConstants.EV_UPDATE_DELAY);
+                    state.addAnswer(strategy.getAcceptedStation().getStationId(), ConstantVariables.EV_UPDATE_DELAY);
                     */
-                    return IntegerConstants.EV_UPDATE_DELAY;
+                    return ConstantVariables.EV_UPDATE_DELAY;
                 }
             }
         } else {

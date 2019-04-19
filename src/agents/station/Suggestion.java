@@ -1,7 +1,7 @@
 package agents.station;
 
 import agents.evs.Preferences;
-import various.IntegerConstants;
+import various.ConstantVariables;
 
 import java.util.ArrayList;
 
@@ -25,9 +25,7 @@ public class Suggestion extends Preferences {
     private double time;
 
     public Suggestion() {
-        start = -1;
-        end = -1;
-        energy = -1;
+        super(-1, -1, -1);
         isInitial = true;
     }
 
@@ -43,7 +41,7 @@ public class Suggestion extends Preferences {
 
     public String toString() {
         StringBuilder str = new StringBuilder();
-        if (type == IntegerConstants.LESS_ENERGY_TYPE)
+        if (type == ConstantVariables.LESS_ENERGY_TYPE)
             str.append("Less Energy -> ");
         else
             str.append("Alt Window  -> ");
@@ -151,8 +149,6 @@ public class Suggestion extends Preferences {
         System.out.println();
     }
     public Preferences getPreferences () {
-        Preferences preferences = new Preferences();
-        preferences.setPreferences(start, end, energy);
-        return preferences;
+        return new Preferences(start, end, energy);
     }
 }

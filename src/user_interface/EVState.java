@@ -1,6 +1,6 @@
 package user_interface;
 
-import various.IntegerConstants;
+import various.ConstantVariables;
 
 import java.util.HashMap;
 
@@ -36,15 +36,15 @@ public class EVState {
     }
 
     private String answerToString (int answer) {
-        if (answer == IntegerConstants.EV_EVALUATE_ACCEPT)
+        if (answer == ConstantVariables.EV_EVALUATE_ACCEPT)
             return "accept";
-        else if (answer == IntegerConstants.EV_EVALUATE_REJECT)
+        else if (answer == ConstantVariables.EV_EVALUATE_REJECT)
             return "reject";
-        else if (answer == IntegerConstants.EV_EVALUATE_WAIT)
+        else if (answer == ConstantVariables.EV_EVALUATE_WAIT)
             return "wait";
-        else if (answer == IntegerConstants.EV_UPDATE_DELAY)
+        else if (answer == ConstantVariables.EV_UPDATE_DELAY)
             return "delay";
-        else if (answer == IntegerConstants.EV_UPDATE_CANCEL)
+        else if (answer == ConstantVariables.EV_UPDATE_CANCEL)
             return "cancel";
         return "";
     }

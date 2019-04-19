@@ -159,5 +159,7 @@ public class JSONFileParser {
         public int[] getPrice() {
             return price;
         }
+
+        private int[] getRenewables () { return renewables; }
     }
 }

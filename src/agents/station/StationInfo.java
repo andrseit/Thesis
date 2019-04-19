@@ -12,10 +12,6 @@ public class StationInfo {
     private int charger_number;
     private StationReceiver communicationPort;
 
-    /*
-    private AbstractStation agents.station;
-    */
-
     public StationInfo(int id, int location_x, int location_y, int charger_number, StationReceiver communicationPort) {
         this.id = id;
         this.location_x = location_x;
@@ -42,36 +38,9 @@ public class StationInfo {
                 charger_number + " chargers.";
     }
 
-    /*
-    public void setStation(AbstractStation agents.station) {
-        this.agents.station = agents.station;
-    }
-    */
-
     public int getId() {
         return id;
     }
-
-    /*
-    public void request(EVInfo info) {
-        Preferences p = info.getPreferences();
-        EVObject ev = new EVObject();
-        ev.addEVPreferences(p.getStart(), p.getEnd(), info.getBid(), p.getEnergy());
-        ev.setID(info.getId());
-        ev.setXY(info.getLocationX(), info.getLocationY());
-        ev.setEVAddress(info.getObjectAddress());
-        agents.station.addEVBidder(ev);
-    }
-    */
-
-    /**
-     * This is used to receive a message, if an ev accepted the offer or not
-     */
-    /*
-    public void checkIn(EVInfo ev, int state) {
-        agents.station.markEVBidder(ev.getId(), state);
-    }
-    */
 
     public StationReceiver getCommunicationPort () { return communicationPort; }
 

@@ -16,10 +16,8 @@ public class SuggestionMessage extends Preferences {
     private int messageType; // a messageType that accompanies the offer - e.g. STATION_MESSAGE_REJECT
 
     public SuggestionMessage(StationInfo station, Preferences preferences, int cost, Integer messageType) {
+        super(preferences.getStart(), preferences.getEnd(), preferences.getEnergy());
         this.station = station;
-        this.start = preferences.getStart();
-        this.end = preferences.getEnd();
-        this.energy = preferences.getEnergy();
         this.cost = cost;
         this.messageType = messageType;
     }

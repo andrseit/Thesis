@@ -3,7 +3,7 @@ package agents.evs.strategy;
 import agents.evs.EVInfo;
 import agents.evs.Preferences;
 import agents.station.SuggestionMessage;
-import various.IntegerConstants;
+import various.ConstantVariables;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +32,7 @@ class StrategyComputer {
 
         for (SuggestionMessage message : messages) {
             //if (!(message.getStart() == -1) && !(message.getStart() == -3)) {
-            if (message.getMessageType() == IntegerConstants.STATION_HAS_SUGGESTION) {
+            if (message.getMessageType() == ConstantVariables.STATION_HAS_SUGGESTION) {
                 //System.out.println("\t-I have a suggestion from agents.station No. " + message.getStationInfo().getId());
                 int preferences_distance = 0;
                 /*
@@ -56,14 +56,14 @@ class StrategyComputer {
                         comparable_suggestions.add(new ComparableSuggestion(total_distance, price, windowRange, preferences_distance, message.getStationInfo()));
                     }
                 //}
-            } else if (message.getMessageType() == IntegerConstants.STATION_NEXT_ROUND_SUGGESTION) {
+            } else if (message.getMessageType() == ConstantVariables.STATION_NEXT_ROUND_SUGGESTION) {
                 //System.out.println("\t-Station No. " + message.getStationInfo().getId() + " will offer me a suggestion in the next round of conversation.");
                 comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, Integer.MAX_VALUE, message.getStationInfo()));
             }
-            else if (message.getMessageType() == IntegerConstants.STATION_HAS_NO_SUGGESTION){
+            else if (message.getMessageType() == ConstantVariables.STATION_HAS_NO_SUGGESTION){
                 //System.out.println("\t-Station No. " + message.getStationInfo().getId() + " has no suggestion.");
                 comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -2, message.getStationInfo()));
-            } else if (message.getMessageType() == IntegerConstants.STATION_FUTURE_SLOT_SUGGESTION) {
+            } else if (message.getMessageType() == ConstantVariables.STATION_FUTURE_SLOT_SUGGESTION) {
                 // means no offer yet - NEO 18/2/2018
                 //System.out.println("\t-Station No. " + message.getStationInfo().getId() + " will offer me a suggestion in a future slot.");
                 comparable_suggestions.add(new ComparableSuggestion(0, 0, 0, -3, message.getStationInfo()));

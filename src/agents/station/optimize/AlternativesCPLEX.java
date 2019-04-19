@@ -102,8 +102,6 @@ public class AlternativesCPLEX implements Optimizer {
             try {
                 for (int ev = 0; ev < evs.size(); ev++) {
                     EVObject current = evs.get(ev);
-                    int start = current.getStartSlot();
-                    int end = current.getEndSlot();
                     int energy = current.getEnergy();
                     IloLinearNumExpr energy_constraint = cp.linearNumExpr();
                     for (int slot = 0; slot < slotsNumber; slot++) {

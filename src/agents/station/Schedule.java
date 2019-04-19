@@ -135,28 +135,12 @@ public class Schedule {
         return temporaryChargers;
     }
 
-    public void printTemporaryChargers () {
-        System.out.println("-*-*-*-*-*-*-*-*-*-*-");
-        for (int slot : temporaryChargers) {
-            System.out.print(slot + "  ");
-        }
-        System.out.println();
-    }
-
-    public int[] getWhoCharges () {
-        return whoCharges;
-    }
-
     public int[] getRemainingChargers () {
         return remainingChargers;
     }
 
     public int[][] getScheduleMap() {
         return scheduleMap;
-    }
-
-    public void printRemainingChargers () {
-        ArrayTransformations.printOneDimensionArray("Remaining chargers", remainingChargers);
     }
 
     public void updateStationIDs() {

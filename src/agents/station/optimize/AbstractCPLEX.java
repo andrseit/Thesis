@@ -192,7 +192,6 @@ public abstract class AbstractCPLEX implements Optimizer{
         }
     }
 
-
     public int[][] getScheduleMap() {
         return schedule;
     }
@@ -229,11 +228,6 @@ public abstract class AbstractCPLEX implements Optimizer{
         }
 
         return queue.peek().getMaxSlot();
-    }
-
-    public int[] getWhoCharges() {
-
-        return who_charges;
     }
 
 }
