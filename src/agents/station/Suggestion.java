@@ -1,7 +1,6 @@
 package agents.station;
 
 import agents.evs.Preferences;
-import various.ConstantVariables;
 
 import java.util.ArrayList;
 

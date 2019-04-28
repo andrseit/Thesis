@@ -6,7 +6,6 @@ import agents.station.StationInfo;
 import agents.station.SuggestionMessage;
 import agents.station.communication.StationReceiver;
 import user_interface.EVState;
-import various.ConstantVariables;
 import agents.evs.communication.EVMessage;
 
 import java.util.ArrayList;

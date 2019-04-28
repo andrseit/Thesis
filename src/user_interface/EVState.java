@@ -1,6 +1,5 @@
 package user_interface;
 
-import various.ConstantVariables;
 import agents.evs.communication.EVMessage;
 
 import java.util.HashMap;

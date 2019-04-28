@@ -3,8 +3,6 @@ package agents.station;
 import agents.evs.Preferences;
 import agents.evs.communication.EVReceiver;
 
-import java.util.List;
-
 public class EVObject {
 
     // this keeps the reference to the original EV object
@@ -40,10 +38,8 @@ public class EVObject {
     public boolean acceptedAlternative () {
         System.out.println("Initial: " + preferences.toString());
         System.out.println("Final: " + suggestion.getPreferences().toString());
-        if (suggestion.getPreferences().getStart() < preferences.getStart() || suggestion.getPreferences().getEnd() > preferences.getEnd()
-        || suggestion.getPreferences().getEnergy() < preferences.getEnergy())
-            return true;
-        return false;
+        return suggestion.getPreferences().getStart() < preferences.getStart() || suggestion.getPreferences().getEnd() > preferences.getEnd()
+                || suggestion.getPreferences().getEnergy() < preferences.getEnergy();
     }
 
     // prepare the message to be sent to the EV

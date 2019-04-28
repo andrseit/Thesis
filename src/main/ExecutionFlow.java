@@ -5,7 +5,6 @@ import io.DataGenerator;
 import io.JSONFileParser;
 import agents.station.Station;
 import agents.station.communication.StationReceiver;
-import various.ConstantVariables;
 import agents.evs.communication.EVMessage;
 
 import java.util.ArrayList;

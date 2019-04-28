@@ -21,7 +21,6 @@ public abstract class AbstractCPLEX implements Optimizer{
     private int evs_number;
     protected int slots_number;
     private int[][] schedule;
-    private int[] who_charges;
 
     protected abstract void addObjectiveFunction (ArrayList<EVObject> evs, int[] price, int min_slot);
 
@@ -154,7 +153,6 @@ public abstract class AbstractCPLEX implements Optimizer{
                     }
                     //System.out.println();
                 }
-                setWhoCharges();
                 //System.out.println(objective);
                 //System.out.println("Utility: " + cp.getValue(objective));
             } else {
@@ -194,22 +192,6 @@ public abstract class AbstractCPLEX implements Optimizer{
 
     public int[][] getScheduleMap() {
         return schedule;
-    }
-
-    private void setWhoCharges() {
-        who_charges = new int[evs_number];
-
-        for (int ev = 0; ev < evs_number; ev++) {
-            try {
-                if (cp.getValue(charges[ev]) > 0)
-                    who_charges[ev] = 1;
-                else
-                    who_charges[ev] = 0;
-            } catch (IloException e) {
-                e.printStackTrace();
-            }
-
-        }
     }
 
     private int getMinSlot(ArrayList<EVObject> evs) {

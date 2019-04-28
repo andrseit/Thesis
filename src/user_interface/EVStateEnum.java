@@ -1,6 +1,6 @@
-package various;
+package user_interface;
 
-public enum  EVStateEnumeration {
+public enum EVStateEnum {
 
     EV_STATE_REQUESTED ("request"),
     EV_STATE_ACCEPTED ("accepted"),
@@ -11,7 +11,7 @@ public enum  EVStateEnumeration {
     EV_STATE_CANCELLED ("cancel");
 
     private String description;
-    EVStateEnumeration (String description) {
+    EVStateEnum(String description) {
         this.description = description;
     }
 

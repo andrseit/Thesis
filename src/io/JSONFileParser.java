@@ -4,8 +4,7 @@ import agents.evs.EV;
 import agents.evs.EVParameters;
 import agents.evs.strategy.StrategyPreferences;
 import agents.station.Station;
-import agents.station.optimize.AlternativesCPLEX;
-import agents.station.optimize.ProfitCPLEX;
+import agents.station.optimize.OptimizerFactory;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.*;
@@ -57,7 +56,8 @@ public class JSONFileParser {
                 //System.out.println(pricePath);
                 StationPricing pr = setPrice(pricePath);
                 // setting the same optimizer to all stations - change that later
-                stations.add(new Station(id, x, y, chargersNumber, new ProfitCPLEX(), new AlternativesCPLEX(), pr.getPrice(), slotsNumber));
+                stations.add(new Station(id, x, y, chargersNumber, OptimizerFactory.getOptimizer("profit"),
+                        OptimizerFactory.getOptimizer("alternatives"), pr.getPrice(), slotsNumber));
             }
         } catch (org.json.simple.parser.ParseException | IOException e) {
             e.printStackTrace();

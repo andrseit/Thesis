@@ -2,7 +2,6 @@ package user_interface;
 
 import agents.evs.Preferences;
 import agents.station.EVObject;
-import various.EVStateEnumeration;
 
 import java.util.ArrayList;
 
@@ -27,7 +26,7 @@ public class StationState {
         evs = new ArrayList[slotsNumber];
     }
 
-    public void addStateEV (int currentSlot, int evID, EVStateEnumeration state, String preferences) {
+    public void addStateEV (int currentSlot, int evID, EVStateEnum state, String preferences) {
         String evIDStr = "ev" + evID;
         if (evs[currentSlot] == null) {
             evs[currentSlot] = new ArrayList<>();

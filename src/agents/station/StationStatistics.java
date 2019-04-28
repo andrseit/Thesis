@@ -1,8 +1,7 @@
 package agents.station;
 
 import user_interface.EVView;
-import various.ConstantVariables;
-import various.EVStateEnumeration;
+import user_interface.EVStateEnum;
 
 import java.util.HashMap;
 
@@ -46,10 +45,10 @@ public class StationStatistics {
             EVView currentEV = evs.get(evID);
             boolean delayed = false;
             boolean alternative = false;
-            for (EVStateEnumeration state: currentEV.getStates()) {
-                if (state.equals(EVStateEnumeration.EV_STATE_REQUESTED))
+            for (EVStateEnum state: currentEV.getStates()) {
+                if (state.equals(EVStateEnum.EV_STATE_REQUESTED))
                     requests++;
-                else if (state.equals(EVStateEnumeration.EV_STATE_DELAYED)) {
+                else if (state.equals(EVStateEnum.EV_STATE_DELAYED)) {
                     delayed = true;
                     delays++;
                     charged--;
@@ -57,16 +56,16 @@ public class StationStatistics {
                         acceptedAlternative--;
                     alternative = false;
                 }
-                else if (state.equals(EVStateEnumeration.EV_STATE_CANCELLED)) {
+                else if (state.equals(EVStateEnum.EV_STATE_CANCELLED)) {
                     cancellations++;
                     charged--;
                 }
-                else if (state.equals(EVStateEnumeration.EV_STATE_ACCEPTED_INITIAL)) {
+                else if (state.equals(EVStateEnum.EV_STATE_ACCEPTED_INITIAL)) {
                     if (!delayed)
                         accepted++;
                     charged++;
                 }
-                else if (state.equals(EVStateEnumeration.EV_STATE_ACCEPTED_ALTERNATIVE)) {
+                else if (state.equals(EVStateEnum.EV_STATE_ACCEPTED_ALTERNATIVE)) {
                     alternative = true;
                     if (delayed)
                         acceptedAlternativeDelay++;
@@ -76,7 +75,7 @@ public class StationStatistics {
                     }
                     charged++;
                 }
-                else if (state.equals(EVStateEnumeration.EV_STATE_REJECTED)) {
+                else if (state.equals(EVStateEnum.EV_STATE_REJECTED)) {
                     if (delayed)
                         delayRejected++;
                     else
@@ -112,7 +111,7 @@ public class StationStatistics {
         return Math.round(division * 100.0) / 100.0;
     }
 
-    public void addEV (int evID, EVStateEnumeration state, String preferences, int slots) {
+    public void addEV (int evID, EVStateEnum state, String preferences, int slots) {
         if (evs.keySet().contains(evID)) {
             EVView currentView = evs.get(evID);
             currentView.getStates().add(state);
@@ -130,7 +129,7 @@ public class StationStatistics {
     public String toString () {
         StringBuilder str = new StringBuilder();
         for (Integer key: evs.keySet())
-            str.append(evs.get(key) + "\n");
+            str.append(evs.get(key)).append("\n");
         //setCharged();
         resetStatistics();
         calculateStatistics();
