@@ -6,6 +6,7 @@ import io.JSONFileParser;
 import agents.station.Station;
 import agents.station.communication.StationReceiver;
 import various.ConstantVariables;
+import agents.evs.communication.EVMessage;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -35,7 +36,7 @@ public class ExecutionFlow {
         stations.forEach(System.out::println);
         evs = parser.readEVsData("evs.json");
         slotsNumber = gen.getSlotsNumber();
-        //agents.evs.forEach(System.out::println);
+        //evs.forEach(System.out::println);
     }
 
     public void runOffline () {
@@ -61,18 +62,18 @@ public class ExecutionFlow {
         for (EV ev: evs) {
             if (!ev.getStrategy().isToBeServiced())
                 for (StationReceiver c : communicationPorts)
-                    ev.getMessenger().sendMessage(ev.getInfo(), ConstantVariables.EV_MESSAGE_REQUEST, c);
+                    ev.getMessenger().sendMessage(ev.getInfo(), EVMessage.EV_MESSAGE_REQUEST, c);
 
             // if an ev has already made an agreement with a agents.station then check if it
             // is up to a delay
             else {
-                int delayStatus = ev.getStrategy().checkDelay(ev.getInfo(), currentSlot, slotsNumber);
-                if (delayStatus == ConstantVariables.EV_UPDATE_DELAY) {
+                EVMessage delayStatus = ev.getStrategy().checkDelay(ev.getInfo(), currentSlot, slotsNumber);
+                if (delayStatus == EVMessage.EV_UPDATE_DELAY) {
                     ev.getStrategy().computeDelay(ev.getInfo(), slotsNumber);
-                    ev.getMessenger().sendMessage(ev.getInfo(), ConstantVariables.EV_UPDATE_DELAY, ev.getStrategy().getAcceptedStation());
+                    ev.getMessenger().sendMessage(ev.getInfo(), EVMessage.EV_UPDATE_DELAY, ev.getStrategy().getAcceptedStation());
                     // make a function to inform the agents.station
-                } else if (delayStatus == ConstantVariables.EV_UPDATE_CANCEL) {
-                    ev.getMessenger().sendMessage(ev.getInfo(), ConstantVariables.EV_UPDATE_CANCEL, ev.getStrategy().getAcceptedStation());
+                } else if (delayStatus == EVMessage.EV_UPDATE_CANCEL) {
+                    ev.getMessenger().sendMessage(ev.getInfo(), EVMessage.EV_UPDATE_CANCEL, ev.getStrategy().getAcceptedStation());
                 }
             }
         }

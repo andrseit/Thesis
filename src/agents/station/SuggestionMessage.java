@@ -2,6 +2,7 @@ package agents.station;
 
 import agents.evs.Preferences;
 import agents.station.communication.StationReceiver;
+import agents.station.communication.StationMessage;
 
 /**
  * It contains basic information of suggestion - exactly what hte ev should
@@ -13,9 +14,9 @@ public class SuggestionMessage extends Preferences {
 
     private StationInfo station;
     private int cost;
-    private int messageType; // a messageType that accompanies the offer - e.g. STATION_MESSAGE_REJECT
+    private StationMessage messageType; // a messageType that accompanies the offer - e.g. STATION_MESSAGE_REJECT
 
-    public SuggestionMessage(StationInfo station, Preferences preferences, int cost, Integer messageType) {
+    public SuggestionMessage(StationInfo station, Preferences preferences, int cost, StationMessage messageType) {
         super(preferences.getStart(), preferences.getEnd(), preferences.getEnergy());
         this.station = station;
         this.cost = cost;
@@ -30,7 +31,7 @@ public class SuggestionMessage extends Preferences {
         this.cost = cost;
     }
 
-    public void setMessageType(Integer messageType) {
+    public void setMessageType(StationMessage messageType) {
         this.messageType = messageType;
     }
 
@@ -38,7 +39,7 @@ public class SuggestionMessage extends Preferences {
         return station;
     }
 
-    public Integer getMessageType () { return messageType; }
+    public StationMessage getMessageType () { return messageType; }
 
     public StationReceiver getStationAddress () { return station.getCommunicationPort(); }
 

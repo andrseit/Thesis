@@ -21,11 +21,11 @@ public class EVMessenger {
         receiver = new EVReceiver(messages);
     }
 
-    public void sendMessage (EVInfo info, Integer messageType, StationReceiver station) {
+    public void sendMessage (EVInfo info, EVMessage messageType, StationReceiver station) {
         station.receiveRequest(info, messageType);
     }
 
-    public void sendAnswers (EVInfo info, HashMap<StationInfo, Integer> answers) {
+    public void sendAnswers (EVInfo info, HashMap<StationInfo, EVMessage> answers) {
         if (!answers.isEmpty())
             for (StationInfo s : answers.keySet())
                 sendMessage(info, answers.get(s), s.getCommunicationPort());

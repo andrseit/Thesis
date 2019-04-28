@@ -1,5 +1,7 @@
 package user_interface;
 
+import various.EVStateEnumeration;
+
 import java.util.ArrayList;
 
 /**
@@ -8,11 +10,11 @@ import java.util.ArrayList;
 public class EVView {
 
     private String evID;
-    private ArrayList<String> states; // to be combined with String state (remove state, keep states)
+    private ArrayList<EVStateEnumeration> states; // to be combined with String state (remove state, keep states)
     private ArrayList<String> preferencesStates; // parallel with states
     private int slotsUsed;
 
-    public EVView(String evID, String state, String preferences) {
+    public EVView(String evID, EVStateEnumeration state, String preferences) {
         states = new ArrayList<>();
         states.add(state);
         preferencesStates = new ArrayList<>();
@@ -29,7 +31,7 @@ public class EVView {
             System.exit(0);
         }
         for (int i = 0; i < states.size(); i++)
-            str.append(states.get(i) + " [" + preferencesStates.get(i) + "] -> ");
+            str.append(states.get(i).getDescription() + " [" + preferencesStates.get(i) + "] -> ");
         if (!str.toString().contains(" -> "))
             return str.toString();
         return str.substring(0, str.length() - 3) + ", slots: " + slotsUsed;
@@ -41,7 +43,7 @@ public class EVView {
 
     public void setSlotsUsed(int slotsUsed) { this.slotsUsed = slotsUsed; }
 
-    public ArrayList<String> getStates() { return states; }
+    public ArrayList<EVStateEnumeration> getStates() { return states; }
 
     public ArrayList<String> getPreferencesStates() { return preferencesStates; }
 

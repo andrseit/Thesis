@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class Suggestion extends Preferences {
 
     private int rating;
-    private int type;
     private int profit;
     private int cost;
     private boolean isInitial;
@@ -41,11 +40,6 @@ public class Suggestion extends Preferences {
 
     public String toString() {
         StringBuilder str = new StringBuilder();
-        if (type == ConstantVariables.LESS_ENERGY_TYPE)
-            str.append("Less Energy -> ");
-        else
-            str.append("Alt Window  -> ");
-
         str.append("Start: ").append(start);
         str.append(", End: ").append(end);
         str.append(", Energy: ").append(energy);
@@ -98,14 +92,6 @@ public class Suggestion extends Preferences {
 
     public int[] getSlotsAfected() {
         return slots_afected;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getType() {
-        return type;
     }
 
     public int getProfit() {

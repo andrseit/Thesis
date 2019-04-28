@@ -3,6 +3,7 @@ package agents.station.communication;
 import agents.evs.EVInfo;
 import agents.evs.Preferences;
 import agents.station.EVObject;
+import agents.evs.communication.EVMessage;
 
 import java.util.HashMap;
 
@@ -22,14 +23,14 @@ public class StationReceiver {
     // Integer is for the answer
     // Instead of EVObject I could keep only the ID, but I thought that later maybe
     // the agents.evs would be able to change their preferences
-    private HashMap<EVObject, Integer> incomingAnswers;
+    private HashMap<EVObject, EVMessage> incomingAnswers;
 
-    public StationReceiver(int id, HashMap<EVObject, Integer> incomingAnswers) {
+    public StationReceiver(int id, HashMap<EVObject, EVMessage> incomingAnswers) {
         this.id = id;
         this.incomingAnswers = incomingAnswers;
     }
 
-    public void receiveRequest (EVInfo evInfo, Integer message) {
+    public void receiveRequest (EVInfo evInfo, EVMessage message) {
         incomingAnswers.put(createEVObject(evInfo), message);
     }
 

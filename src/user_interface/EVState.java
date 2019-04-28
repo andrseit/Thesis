@@ -1,6 +1,7 @@
 package user_interface;
 
 import various.ConstantVariables;
+import agents.evs.communication.EVMessage;
 
 import java.util.HashMap;
 
@@ -30,23 +31,9 @@ public class EVState {
             suggestions.put(stationStr, new StringBuilder("(" + suggestionStr + ")"));
     }
 
-    public void addAnswer (int stationID, int answer) {
+    public void addAnswer (int stationID, EVMessage answer) {
         String stationStr = stationPrefix + stationID;
-        suggestions.get(stationStr).append(":[").append(answerToString(answer)).append("]");
-    }
-
-    private String answerToString (int answer) {
-        if (answer == ConstantVariables.EV_EVALUATE_ACCEPT)
-            return "accept";
-        else if (answer == ConstantVariables.EV_EVALUATE_REJECT)
-            return "reject";
-        else if (answer == ConstantVariables.EV_EVALUATE_WAIT)
-            return "wait";
-        else if (answer == ConstantVariables.EV_UPDATE_DELAY)
-            return "delay";
-        else if (answer == ConstantVariables.EV_UPDATE_CANCEL)
-            return "cancel";
-        return "";
+        suggestions.get(stationStr).append(":[").append(answer.getDescription()).append("]");
     }
 
     public String toString () {

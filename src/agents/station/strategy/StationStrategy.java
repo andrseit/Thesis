@@ -7,6 +7,9 @@ import agents.station.optimize.Optimizer;
 import user_interface.StationState;
 import various.ArrayTransformations;
 import various.ConstantVariables;
+import agents.evs.communication.EVMessage;
+import agents.station.communication.StationMessage;
+import various.EVStateEnumeration;
 
 import java.util.ArrayList;
 
@@ -55,15 +58,15 @@ public class StationStrategy {
     public void handleAnswers (StationMessenger messenger) {
         ArrayList<EVObject> toBeRemoved = new ArrayList<>();
         for (EVObject ev: messenger.getIncomingAnswers().keySet()) {
-            Integer answer = messenger.getIncomingAnswers().get(ev);
+            EVMessage answer = messenger.getIncomingAnswers().get(ev);
             // if it is a request then add it to the incoming requests
-            if (answer == ConstantVariables.EV_MESSAGE_REQUEST) {
+            if (answer == EVMessage.EV_MESSAGE_REQUEST) {
                 incomingRequests.add(ev);
 
-                statistics.addEV(ev.getId(), ConstantVariables.EV_STATE_REQUESTED, ev.getPreferences().toString(), 0);
-                state.addStateEV(currentSlot, ev.getId(), "request", ev.getPreferences().toString());
+                statistics.addEV(ev.getId(), EVStateEnumeration.EV_STATE_REQUESTED, ev.getPreferences().toString(), 0);
+                state.addStateEV(currentSlot, ev.getId(), EVStateEnumeration.EV_STATE_REQUESTED, ev.getPreferences().toString());
 
-            } else if (answer == ConstantVariables.EV_UPDATE_DELAY || answer == ConstantVariables.EV_UPDATE_CANCEL) {
+            } else if (answer == EVMessage.EV_UPDATE_DELAY || answer == EVMessage.EV_UPDATE_CANCEL) {
                 ArrayList<EVObject> removeAccepted = new ArrayList<>();
                 for (int e = 0; e < acceptedEVs.size(); e++) {
                     EVObject evAnswer = acceptedEVs.get(e);
@@ -74,21 +77,21 @@ public class StationStrategy {
                         removeAccepted.add(evAnswer);
                         schedule.increaseRemainingChargers(evAnswer);
 
-                        if (answer == ConstantVariables.EV_UPDATE_DELAY) {
+                        if (answer == EVMessage.EV_UPDATE_DELAY) {
                             // handle deferral
                             Preferences updatedPreferences = ev.getPreferences();
                             evAnswer.getPreferences().setPreferences(updatedPreferences.getStart(), updatedPreferences.getEnd(), updatedPreferences.getEnergy());
                             evAnswer.setDelayed(true);
                             incomingRequests.add(evAnswer);
 
-                            statistics.addEV(ev.getId(), ConstantVariables.EV_STATE_DELAYED, evAnswer.getPreferences().toString(), 0);
-                            state.addStateEV(currentSlot, evAnswer.getId(), "delay", evAnswer.getPreferences().toString());
+                            statistics.addEV(ev.getId(), EVStateEnumeration.EV_STATE_DELAYED, evAnswer.getPreferences().toString(), 0);
+                            state.addStateEV(currentSlot, evAnswer.getId(), EVStateEnumeration.EV_STATE_DELAYED, evAnswer.getPreferences().toString());
                             System.out.println("We have a deferral here! By EV No " + ev.getId());
                         }
                         else {
                             // handle cancellation - nothing more has to be done
-                            statistics.addEV(ev.getId(), ConstantVariables.EV_STATE_CANCELLED, "X", 0);
-                            state.addStateEV(currentSlot, evAnswer.getId(), "cancel", "X");
+                            statistics.addEV(ev.getId(), EVStateEnumeration.EV_STATE_CANCELLED, "X", 0);
+                            state.addStateEV(currentSlot, evAnswer.getId(), EVStateEnumeration.EV_STATE_CANCELLED, "X");
                             System.out.println("We have a cancellation here! By EV No " + ev.getId());
                         }
                     }
@@ -100,7 +103,7 @@ public class StationStrategy {
             } else { // else search for the ev to do the according actions
                 for (EVObject evRequest : incomingRequests) {
                     if (evRequest.getId() == ev.getId()) {
-                        if (answer == ConstantVariables.EV_EVALUATE_ACCEPT) {
+                        if (answer == EVMessage.EV_EVALUATE_ACCEPT) {
                             //System.out.println("\t* " + ev + " says accepted my offer!");
                             ev.setCharged(true);
                             acceptedEVs.add(evRequest);
@@ -108,22 +111,22 @@ public class StationStrategy {
                             schedule.addEVtoScheduleMap(evRequest);
 
                             if (evRequest.acceptedAlternative())
-                                statistics.addEV(ev.getId(), ConstantVariables.EV_STATE_ACCEPTED_ALTERNATIVE,
+                                statistics.addEV(ev.getId(), EVStateEnumeration.EV_STATE_ACCEPTED_ALTERNATIVE,
                                         evRequest.getSuggestion().getPreferences().toString(), evRequest.getSuggestion().getSlotsAllocated().size());
                             else
-                                statistics.addEV(ev.getId(), ConstantVariables.EV_STATE_ACCEPTED_INITIAL,
+                                statistics.addEV(ev.getId(), EVStateEnumeration.EV_STATE_ACCEPTED_INITIAL,
                                         evRequest.getSuggestion().getPreferences().toString(), evRequest.getSuggestion().getSlotsAllocated().size());
-                            state.addStateEV(currentSlot, evRequest.getId(), "accept", evRequest.getSuggestion().getPreferences().toString());
+                            state.addStateEV(currentSlot, evRequest.getId(), EVStateEnumeration.EV_STATE_ACCEPTED, evRequest.getSuggestion().getPreferences().toString());
                             break;
-                        } else if (answer == ConstantVariables.EV_EVALUATE_WAIT) {
+                        } else if (answer == EVMessage.EV_EVALUATE_WAIT) {
                             //System.out.println("\t* " + ev + " says waits for an offer!");
                             break;
-                        } else if (answer == ConstantVariables.EV_EVALUATE_REJECT) {
+                        } else if (answer == EVMessage.EV_EVALUATE_REJECT) {
                             //System.out.println("\t* " + ev + " says rejected my offer!");
                             toBeRemoved.add(evRequest);
 
-                            statistics.addEV(ev.getId(), ConstantVariables.EV_STATE_REJECTED, "X", 0);
-                            state.addStateEV(currentSlot, evRequest.getId(), "reject", "X");
+                            statistics.addEV(ev.getId(), EVStateEnumeration.EV_STATE_REJECTED, "X", 0);
+                            state.addStateEV(currentSlot, evRequest.getId(), EVStateEnumeration.EV_STATE_REJECTED, "X");
                             break;
                         }
                     }
@@ -156,11 +159,11 @@ public class StationStrategy {
             //System.out.println("EV ID: " + ev.getStationId());
             Suggestion preferences = schedule.getChargingSlots(ev.getStationId());
             int cost = 0;
-            Integer messageType;
+            StationMessage messageType;
             if (preferences.getEnergy() > 0) {
-                messageType = ConstantVariables.STATION_HAS_SUGGESTION;
+                messageType = StationMessage.STATION_HAS_SUGGESTION;
             } else {
-                messageType = ConstantVariables.STATION_NEXT_ROUND_SUGGESTION;
+                messageType = StationMessage.STATION_NEXT_ROUND_SUGGESTION;
             }
             ev.setSuggestion(preferences);
             ev.setSuggestionMessage(new SuggestionMessage(info, preferences.getPreferences(), cost, messageType));
