@@ -2,6 +2,7 @@ package agents.station;
 
 import agents.station.communication.StationMessenger;
 import agents.station.optimize.Optimizer;
+import agents.station.statistics.StationStatistics;
 import agents.station.strategy.StationStrategy;
 import user_interface.StationState;
 import agents.station.communication.StationReceiver;
@@ -24,7 +25,7 @@ public class Station {
         messenger = new StationMessenger(id);
         info = new StationInfo(id, x, y, chargersNumber, messenger.getReceiver());
 
-        statistics = new StationStatistics(chargersNumber, slotsNumber);
+        statistics = new StationStatistics(info.getId(), chargersNumber, slotsNumber);
         state = new StationState(info.getId(), slotsNumber);
         strategy = new StationStrategy(optimizer, alternativesOptimizer, price, slotsNumber,
                 chargersNumber, statistics, state);

@@ -6,7 +6,9 @@ import io.JSONFileParser;
 import agents.station.Station;
 import agents.station.communication.StationReceiver;
 import agents.evs.communication.EVMessage;
+import io.StatisticsWriter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -16,11 +18,13 @@ import java.util.Scanner;
  */
 public class ExecutionFlow {
 
+    private final String statisticsPath = "files/statistics.csv";
+
     private ArrayList<Station> stations;
     private ArrayList<EV> evs;
     private int slotsNumber;
 
-    public ExecutionFlow (boolean generateStations, boolean generateEVs) {
+    public ExecutionFlow(boolean generateStations, boolean generateEVs) {
         JSONFileParser parser = new JSONFileParser();
         DataGenerator gen = new DataGenerator(2, 5, 10, 2);
         if (generateStations)
@@ -36,17 +40,18 @@ public class ExecutionFlow {
         evs = parser.readEVsData("evs.json");
         slotsNumber = gen.getSlotsNumber();
         //evs.forEach(System.out::println);
+        deleteStatisticsFile();
     }
 
-    public void runOffline () {
+    public void runOffline() {
         offline(stations, evs, 0);
     }
 
-    public void runOnline () {
+    public void runOnline() {
         online(stations, evs, slotsNumber);
     }
 
-    private void offline (ArrayList<Station> stations, ArrayList<EV> evs, int currentSlot) {
+    private void offline(ArrayList<Station> stations, ArrayList<EV> evs, int currentSlot) {
         // a simulation should have a board with the stations' communication ports, so that agents.evs are able to send them their requests
         StationReceiver[] communicationPorts = new StationReceiver[stations.size()];
         boolean[] finishedStations = new boolean[stations.size()];
@@ -58,13 +63,13 @@ public class ExecutionFlow {
 
         // now each ev searches in the table of communication ports and sends requests
         //System.out.println("\n----- EVs are searching for available stations -----");
-        for (EV ev: evs) {
+        for (EV ev : evs) {
             if (!ev.getStrategy().isToBeServiced())
                 for (StationReceiver c : communicationPorts)
                     ev.getMessenger().sendMessage(ev.getInfo(), EVMessage.EV_MESSAGE_REQUEST, c);
 
-            // if an ev has already made an agreement with a agents.station then check if it
-            // is up to a delay
+                // if an ev has already made an agreement with a agents.station then check if it
+                // is up to a delay
             else {
                 EVMessage delayStatus = ev.getStrategy().checkDelay(ev.getInfo(), currentSlot, slotsNumber);
                 if (delayStatus == EVMessage.EV_UPDATE_DELAY) {
@@ -81,7 +86,7 @@ public class ExecutionFlow {
 
         // now stations will computeSuggestions the schedule based on their list
         //System.out.println("\n----- Stations are computing the schedules and sending suggestions -----");
-        for (Station station: stations) {
+        for (Station station : stations) {
             station.getStrategy().handleAnswers(station.getMessenger());
             System.out.println(station.getState().getStates(currentSlot));
             // the agents.evs have requested, when agents.evs request from a agents.station, the agents.station has to insert them into a list
@@ -94,7 +99,6 @@ public class ExecutionFlow {
             station.getState().printTemporaryScheduleMap();
 
 
-
             // don't forget to create temporary used charged (allocated but not yet accepted)
 
             // after the stations have computed their schedules they should send their offers to the agents.evs
@@ -103,7 +107,7 @@ public class ExecutionFlow {
 
         // agents.evs will evaluate the stations' suggestions
         System.out.println("\n----- EVs are evaluating the suggestions -----");
-        for (EV ev: evs) {
+        for (EV ev : evs) {
             if (ev.hasSuggestions()) {
                 //ev.printMessagesList();
                 ev.getStrategy().evaluate(ev.getMessenger().getMessages(), ev.getInfo());
@@ -186,11 +190,13 @@ public class ExecutionFlow {
             Station station = stations.get(s);
             System.out.println("Station " + s);
             System.out.println(station.getStatistics() + "\n");
+            System.out.println("Output to file...");
+            StatisticsWriter.addCSVLine(station.getStatistics().getSlotStatistics(currentSlot).toCSV());
         }
         System.out.println("################################################");
     }
 
-    private void online (ArrayList<Station> stations, ArrayList<EV> evs, int slotsNumber) {
+    private void online(ArrayList<Station> stations, ArrayList<EV> evs, int slotsNumber) {
         // for online execution find EVs that their inform slot is equal to the current slot
         // add them in the EVs list and run the offline mode
         // don't forget to add a lower bound to the computation of the alternatives
@@ -203,7 +209,7 @@ public class ExecutionFlow {
             System.out.println("::::::::::::::::: Slot No " + slot + " :::::::::::::::::");
             // the list which contains the EVs that inform the stations in the current slot
             ArrayList<EV> currentEVs = new ArrayList<>();
-            for (EV ev: evs) {
+            for (EV ev : evs) {
                 if (ev.getStrategy().getStrategyPreferences().getInformSlot() == slot || (!ev.getStrategy().isServiced() && ev.getStrategy().isToBeServiced())) // ev.isServiced() is redundant but I put it for safety
                     currentEVs.add(ev);
             }
@@ -213,11 +219,17 @@ public class ExecutionFlow {
         }
     }
 
-    private static boolean checkFinishedStations (boolean[] stationStatus) {
+    private static boolean checkFinishedStations(boolean[] stationStatus) {
         for (boolean status : stationStatus)
             if (!status)
                 return false;
         return true;
+    }
+
+    private boolean deleteStatisticsFile() {
+        File file = new File(statisticsPath);
+        return file.delete();
+
     }
 
 }

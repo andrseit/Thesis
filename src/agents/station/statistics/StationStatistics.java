@@ -1,4 +1,4 @@
-package agents.station;
+package agents.station.statistics;
 
 import user_interface.EVView;
 import user_interface.EVStateEnum;
@@ -9,6 +9,9 @@ import java.util.HashMap;
  * Created by Thesis on 29/3/2019.
  */
 public class StationStatistics {
+
+    private StationSlotStatistics[] slotStatistics;
+    private StationSystemValues systemValues;
 
     private HashMap<Integer, EVView> evs;
 
@@ -26,7 +29,7 @@ public class StationStatistics {
     private int cancellations; // number of cancellations - not added to rejections i
     private int slotsUsed;
 
-    public StationStatistics (int chargersNumber, int slotsNumber) {
+    public StationStatistics (int stationID, int chargersNumber, int slotsNumber) {
         evs = new HashMap<>();
         requests = 0;
         accepted = 0;
@@ -38,6 +41,11 @@ public class StationStatistics {
         slotsUsed = 0;
         this.chargersNumber = chargersNumber;
         this.slotsNumber = slotsNumber;
+
+        systemValues = new StationSystemValues(stationID, chargersNumber, slotsNumber);
+        slotStatistics = new StationSlotStatistics[slotsNumber];
+        for (int i = 0; i < slotStatistics.length; i++)
+            slotStatistics[i] = new StationSlotStatistics(systemValues);
     }
 
     private void calculateStatistics () {
@@ -111,7 +119,7 @@ public class StationStatistics {
         return Math.round(division * 100.0) / 100.0;
     }
 
-    public void addEV (int evID, EVStateEnum state, String preferences, int slots) {
+    public void addEV (int evID, EVStateEnum state, String preferences, int currentSlot, int slots) {
         if (evs.keySet().contains(evID)) {
             EVView currentView = evs.get(evID);
             currentView.getStates().add(state);
@@ -122,6 +130,9 @@ public class StationStatistics {
             view.setSlotsUsed(slots);
             evs.put(evID, view);
         }
+
+        for (int i = slotsNumber - 1; i >= currentSlot; i--)
+            slotStatistics[i].addEV(evID, state, preferences, slots);
     }
 
     public HashMap<Integer, EVView> getEvs() { return evs; }
@@ -144,5 +155,9 @@ public class StationStatistics {
                 "#Charged: " + charged + "(" + getPercentage(charged, requests) + "% of requests)" + "\n" +
                 "Slots used: " + slotsUsedPercentage() + "%" + "\n" +
                 "-------------------\n" + str;
+    }
+
+    public StationSlotStatistics getSlotStatistics (int slot) {
+        return slotStatistics[slot];
     }
 }

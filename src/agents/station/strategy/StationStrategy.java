@@ -4,6 +4,7 @@ import agents.evs.Preferences;
 import agents.station.*;
 import agents.station.communication.StationMessenger;
 import agents.station.optimize.Optimizer;
+import agents.station.statistics.StationStatistics;
 import user_interface.StationState;
 import various.ArrayTransformations;
 import agents.evs.communication.EVMessage;
@@ -62,7 +63,7 @@ public class StationStrategy {
             if (answer == EVMessage.EV_MESSAGE_REQUEST) {
                 incomingRequests.add(ev);
 
-                statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_REQUESTED, ev.getPreferences().toString(), 0);
+                statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_REQUESTED, ev.getPreferences().toString(), currentSlot,0);
                 state.addStateEV(currentSlot, ev.getId(), EVStateEnum.EV_STATE_REQUESTED, ev.getPreferences().toString());
 
             } else if (answer == EVMessage.EV_UPDATE_DELAY || answer == EVMessage.EV_UPDATE_CANCEL) {
@@ -83,13 +84,13 @@ public class StationStrategy {
                             evAnswer.setDelayed(true);
                             incomingRequests.add(evAnswer);
 
-                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_DELAYED, evAnswer.getPreferences().toString(), 0);
+                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_DELAYED, evAnswer.getPreferences().toString(), currentSlot, 0);
                             state.addStateEV(currentSlot, evAnswer.getId(), EVStateEnum.EV_STATE_DELAYED, evAnswer.getPreferences().toString());
                             System.out.println("We have a deferral here! By EV No " + ev.getId());
                         }
                         else {
                             // handle cancellation - nothing more has to be done
-                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_CANCELLED, "X", 0);
+                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_CANCELLED, "X", currentSlot,0);
                             state.addStateEV(currentSlot, evAnswer.getId(), EVStateEnum.EV_STATE_CANCELLED, "X");
                             System.out.println("We have a cancellation here! By EV No " + ev.getId());
                         }
@@ -111,10 +112,10 @@ public class StationStrategy {
 
                             if (evRequest.acceptedAlternative())
                                 statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_ACCEPTED_ALTERNATIVE,
-                                        evRequest.getSuggestion().getPreferences().toString(), evRequest.getSuggestion().getSlotsAllocated().size());
+                                        evRequest.getSuggestion().getPreferences().toString(), currentSlot, evRequest.getSuggestion().getSlotsAllocated().size());
                             else
                                 statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_ACCEPTED_INITIAL,
-                                        evRequest.getSuggestion().getPreferences().toString(), evRequest.getSuggestion().getSlotsAllocated().size());
+                                        evRequest.getSuggestion().getPreferences().toString(), currentSlot, evRequest.getSuggestion().getSlotsAllocated().size());
                             state.addStateEV(currentSlot, evRequest.getId(), EVStateEnum.EV_STATE_ACCEPTED, evRequest.getSuggestion().getPreferences().toString());
                             break;
                         } else if (answer == EVMessage.EV_EVALUATE_WAIT) {
@@ -124,7 +125,7 @@ public class StationStrategy {
                             //System.out.println("\t* " + ev + " says rejected my offer!");
                             toBeRemoved.add(evRequest);
 
-                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_REJECTED, "X", 0);
+                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_REJECTED, "X", currentSlot,0);
                             state.addStateEV(currentSlot, evRequest.getId(), EVStateEnum.EV_STATE_REJECTED, "X");
                             break;
                         }
