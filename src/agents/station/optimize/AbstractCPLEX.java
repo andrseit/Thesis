@@ -88,7 +88,6 @@ public abstract class AbstractCPLEX implements Optimizer{
 
 
     private void addChargersConstraint(int[] chargers, int min_slot) {
-
         try {
             for (int s = 0; s < slots_number; s++) {
                 IloLinearNumExpr chargers_constraint = cp.linearNumExpr();

@@ -1,12 +1,13 @@
 package main;
 
 import agents.evs.EV;
-import io.DataGenerator;
+import agents.station.statistics.StationStatistics;
 import io.JSONFileParser;
 import agents.station.Station;
 import agents.station.communication.StationReceiver;
 import agents.evs.communication.EVMessage;
 import io.StatisticsWriter;
+import main.experiments.parameters.SystemParameters;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,22 +25,15 @@ public class ExecutionFlow {
     private ArrayList<EV> evs;
     private int slotsNumber;
 
-    public ExecutionFlow(boolean generateStations, boolean generateEVs) {
+    // first generate stations, later the evs - because of bad design - gonna fix it
+    public ExecutionFlow(String stationsPath, String evsPath, String systemPath) {
         JSONFileParser parser = new JSONFileParser();
-        DataGenerator gen = new DataGenerator(2, 5, 10, 2);
-        if (generateStations)
-            gen.generateRandomStations(5);
-        else
-            gen.readStationFile();
-        if (generateEVs)
-            gen.generateEVsFile(2, 5, 1.8, 1.8);
-
-
-        stations = parser.readStations("station.json");
+        SystemParameters systemParameters = parser.readSystemParameters(systemPath);
+        stations = parser.readStations(stationsPath);
         stations.forEach(System.out::println);
-        evs = parser.readEVsData("evs.json");
-        slotsNumber = gen.getSlotsNumber();
-        //evs.forEach(System.out::println);
+        evs = parser.readEVsData(evsPath);
+        slotsNumber = systemParameters.getSlotsNumber();
+        evs.forEach(System.out::println);
         deleteStatisticsFile();
     }
 
@@ -190,8 +184,6 @@ public class ExecutionFlow {
             Station station = stations.get(s);
             System.out.println("Station " + s);
             System.out.println(station.getStatistics() + "\n");
-            System.out.println("Output to file...");
-            StatisticsWriter.addCSVLine(station.getStatistics().getSlotStatistics(currentSlot).toCSV());
         }
         System.out.println("################################################");
     }
@@ -230,6 +222,17 @@ public class ExecutionFlow {
         File file = new File(statisticsPath);
         return file.delete();
 
+    }
+
+    /**
+     * Returns a list with the statistics for each station
+     * @return
+     */
+    public ArrayList<StationStatistics> getStationStatistics () {
+        ArrayList<StationStatistics> stationStatistics = new ArrayList<>();
+        for (Station station: stations)
+            stationStatistics.add(station.getStatistics());
+        return stationStatistics;
     }
 
 }

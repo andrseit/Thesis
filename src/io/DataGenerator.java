@@ -14,31 +14,19 @@ import static java.lang.Math.toIntExact;
  */
 public class DataGenerator {
 
-    private int stationsNumber;
     private int[][] stationLocation;
-    private int evsNumber;
-    private int slotsNumber;
-    private int gridSize;
     private boolean stationsGenerated;
 
-    public DataGenerator(int stationsNumber, int evsNumber, int slotsNumber, int gridSize) {
-        this.stationsNumber = stationsNumber;
-        this.evsNumber = evsNumber;
-        this.slotsNumber = slotsNumber;
-        this.gridSize = gridSize;
-        stationLocation = new int[stationsNumber][2];
-    }
-
-    public void generateEVsFile(int minEnergy, int maxEnergy, double sEnergy, double windowLength) {
+    public void generateEVsFile(int evsNumber, int minEnergy, int maxEnergy, double sEnergy, double windowLength, int slotsNumber, int gridSize) {
         if (!stationsGenerated)
             System.err.println("Please generate or read agents.station file first!");
         else {
             stationsGenerated = false;
-            this.generateEVs(5, minEnergy, maxEnergy, sEnergy, windowLength);
+            this.generateEVs(evsNumber,5, minEnergy, maxEnergy, sEnergy, windowLength,slotsNumber, gridSize);
         }
     }
 
-    private void generateEVs(int bidBound, int minEnergy, int maxEnergy, double sEnergy, double windowLength) {
+    private void generateEVs(int evsNumber, int bidBound, int minEnergy, int maxEnergy, double sEnergy, double windowLength, int slotsNumber, int gridSize) {
         try {
             FileWriter writer = new FileWriter("files/evs.json");
             Random random = new Random();
@@ -135,12 +123,27 @@ public class DataGenerator {
         }
     }
 
-    public void generateRandomStations (int maxChargers) {
+    public void generateSystemParameters (int slotsNumber, int gridSize) {
+        try {
+            FileWriter writer = new FileWriter("files/system.json");
+            JSONObject rootObject = new JSONObject();
+            rootObject.put("slots", slotsNumber);
+            rootObject.put("gridSize", gridSize);
+            writer.write(rootObject.toJSONString());
+            writer.flush();
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void generateRandomStations (int stationsNumber, int maxChargers) {
+        stationLocation = new int[stationsNumber][2];
         try {
             FileWriter writer = new FileWriter("files/station.json");
 
             JSONObject rootObject = new JSONObject();
-            rootObject.put("slots", slotsNumber);
 
             JSONObject stationsJSON = new JSONObject();
 
@@ -184,7 +187,7 @@ public class DataGenerator {
         }
     }
 
-    public void generatePriceFile () {
+    public void generatePriceFile (int stationsNumber, int slotsNumber) {
 
         //Random random = new Random();
         for (int s = 0; s < stationsNumber; s++) {
@@ -203,12 +206,12 @@ public class DataGenerator {
         }
     }
 
-    public void readStationFile() {
+    public void readStationFile(String path) {
         stationsGenerated = true;
         JSONParser parser = new JSONParser();
         try {
-
-            Object obj = parser.parse(new FileReader("files/station.json"));
+            System.out.println(path);
+            Object obj = parser.parse(new FileReader("files/" + path));
             JSONObject jsonObject = (JSONObject) obj;
             JSONObject stationsRootJSON = (JSONObject) jsonObject.get("stations");
 
@@ -218,6 +221,7 @@ public class DataGenerator {
                 stationsJSON.add(stationJSON);
             }
 
+            stationLocation = new int[stationsJSON.size()][2];
             for (JSONObject stationJSON : stationsJSON) {
                 int id = toIntExact((long) stationJSON.get("id"));
 
@@ -232,9 +236,5 @@ public class DataGenerator {
         } catch (org.json.simple.parser.ParseException | IOException e) {
             e.printStackTrace();
         }
-    }
-
-        public int getSlotsNumber () {
-        return slotsNumber;
     }
 }

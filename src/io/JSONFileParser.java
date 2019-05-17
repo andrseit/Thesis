@@ -5,6 +5,7 @@ import agents.evs.EVParameters;
 import agents.evs.strategy.StrategyPreferences;
 import agents.station.Station;
 import agents.station.optimize.OptimizerFactory;
+import main.experiments.parameters.SystemParameters;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.*;
@@ -15,6 +16,21 @@ public class JSONFileParser {
 
     private int slotsNumber;
 
+    public SystemParameters readSystemParameters (String path) {
+        JSONParser parser = new JSONParser();
+        try {
+            Object obj = parser.parse(new FileReader("files/" + path));
+            JSONObject jsonObject = (JSONObject) obj;
+            System.out.println(jsonObject);
+            slotsNumber = toIntExact((long) jsonObject.get("slots"));
+            int gridSize = toIntExact((long) jsonObject.get("gridSize"));
+            return new SystemParameters(slotsNumber, gridSize);
+        } catch (org.json.simple.parser.ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public ArrayList<Station> readStations (String path) {
         ArrayList<Station> stations = new ArrayList<>();
         int chargersNumber, x, y;
@@ -24,7 +40,6 @@ public class JSONFileParser {
             Object obj = parser.parse(new FileReader("files/" + path));
             JSONObject jsonObject = (JSONObject) obj;
             System.out.println(jsonObject);
-            slotsNumber = toIntExact((long) jsonObject.get("slots"));
             JSONObject stationsRootJSON = (JSONObject)jsonObject.get("stations");
 
             ArrayList<JSONObject> stationsJSON = new ArrayList<>();
@@ -56,6 +71,7 @@ public class JSONFileParser {
                 //System.out.println(pricePath);
                 StationPricing pr = setPrice(pricePath);
                 // setting the same optimizer to all stations - change that later
+                System.out.println(slotsNumber + "///////////////");
                 stations.add(new Station(id, x, y, chargersNumber, OptimizerFactory.getOptimizer("profit"),
                         OptimizerFactory.getOptimizer("alternatives"), pr.getPrice(), slotsNumber));
             }

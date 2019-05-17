@@ -12,6 +12,7 @@ public class StationSlotStatistics {
 
     private StationSystemValues systemValues;
     private HashMap<Integer, EVView> evs;
+    private int slot;
 
     private int requests; // total requests received (no delay requests) a
     private int accepted; // accepted the initial offer b
@@ -24,7 +25,7 @@ public class StationSlotStatistics {
     private int cancellations; // number of cancellations - not added to rejections i
     private int slotsUsed;
 
-    public StationSlotStatistics (StationSystemValues systemValues) {
+    public StationSlotStatistics (StationSystemValues systemValues, int slot) {
         evs = new HashMap<>();
         requests = 0;
         accepted = 0;
@@ -34,6 +35,7 @@ public class StationSlotStatistics {
         delayRejected = 0;
         cancellations = 0;
         slotsUsed = 0;
+        this.slot = slot;
 
         this.systemValues = systemValues;
     }
@@ -130,6 +132,7 @@ public class StationSlotStatistics {
         String comma = ",";
         StringBuilder builder = new StringBuilder();
         builder.append(systemValues.getStationID())
+                .append(comma).append(slot)
                 .append(comma).append(accepted)
                 .append(comma).append(acceptedAlternative)
                 .append(comma).append(rejected)

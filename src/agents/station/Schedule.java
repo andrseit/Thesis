@@ -19,6 +19,7 @@ public class Schedule {
     private int slotsNumber;
 
     public Schedule (int slotsNumber, int chargersNumber) {
+        System.out.println("Slots in schedule: " + slotsNumber);
         this.slotsNumber = slotsNumber;
 
         remainingChargers = new int[slotsNumber];

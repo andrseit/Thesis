@@ -45,7 +45,7 @@ public class StationStatistics {
         systemValues = new StationSystemValues(stationID, chargersNumber, slotsNumber);
         slotStatistics = new StationSlotStatistics[slotsNumber];
         for (int i = 0; i < slotStatistics.length; i++)
-            slotStatistics[i] = new StationSlotStatistics(systemValues);
+            slotStatistics[i] = new StationSlotStatistics(systemValues, i);
     }
 
     private void calculateStatistics () {
@@ -155,6 +155,14 @@ public class StationStatistics {
                 "#Charged: " + charged + "(" + getPercentage(charged, requests) + "% of requests)" + "\n" +
                 "Slots used: " + slotsUsedPercentage() + "%" + "\n" +
                 "-------------------\n" + str;
+    }
+
+    /**
+     * return the number of the statistics
+     * @return the slots number, actually
+     */
+    public int size() {
+        return slotStatistics.length;
     }
 
     public StationSlotStatistics getSlotStatistics (int slot) {
