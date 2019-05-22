@@ -3,7 +3,6 @@ package main.experiments;
 import agents.station.statistics.StationStatistics;
 import io.StatisticsWriter;
 import main.ExecutionFlow;
-import main.experiments.parameters.StationsParameters;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,6 +19,8 @@ public abstract class Experiment {
     private String evsPath;
     private String systemPath;
     private String statisticsPath;
+
+    private boolean useDelays; // shall the execution use delays and cancellations?
 
     public Experiment(String id, int iterations, String stationsPath, String evsPath, String systemPath, String statisticsPath) {
         this.id = id;
@@ -51,6 +52,7 @@ public abstract class Experiment {
                 System.err.println("Failed to created experiment statistics directory!");
         }
         System.out.println(statisticsPath + "experiment_" + id + "." + currentIteration + ".csv");
+        String csvLine = "";
         for (StationStatistics statistics: stationStatistics) {
             for (int i = 0; i < statistics.size(); i++)
                 StatisticsWriter.addCSVLine(experimentDirectory + "/experiment_" + id + "." + currentIteration + ".csv", statistics.getSlotStatistics(i).toCSV());
@@ -75,5 +77,13 @@ public abstract class Experiment {
 
     public String getSystemPath() {
         return systemPath;
+    }
+
+    public void useDelays(boolean useDelays) {
+        this.useDelays = useDelays;
+    }
+
+    public boolean isUseDelays() {
+        return useDelays;
     }
 }

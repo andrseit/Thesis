@@ -165,6 +165,7 @@ public class DataGenerator {
                 flags.put("cplex", 0);
                 flags.put("suggestion", 0);
                 flags.put("instant", 1);
+                flags.put("alternatives", 1);
                 station.put("flags", flags);
                 stationsJSON.put("station" + s, station);
             }

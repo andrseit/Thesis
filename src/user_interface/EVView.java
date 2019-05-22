@@ -1,5 +1,7 @@
 package user_interface;
 
+import agents.evs.Preferences;
+
 import java.util.ArrayList;
 
 /**
@@ -9,10 +11,10 @@ public class EVView {
 
     private String evID;
     private ArrayList<EVStateEnum> states; // to be combined with String state (remove state, keep states)
-    private ArrayList<String> preferencesStates; // parallel with states
+    private ArrayList<Preferences> preferencesStates; // parallel with states
     private int slotsUsed;
 
-    public EVView(String evID, EVStateEnum state, String preferences) {
+    public EVView(String evID, EVStateEnum state, Preferences preferences) {
         states = new ArrayList<>();
         states.add(state);
         preferencesStates = new ArrayList<>();
@@ -28,8 +30,12 @@ public class EVView {
             System.err.println("Something is wrong with the states");
             System.exit(0);
         }
-        for (int i = 0; i < states.size(); i++)
-            str.append(states.get(i).getDescription() + " [" + preferencesStates.get(i) + "] -> ");
+        for (int i = 0; i < states.size(); i++) {
+            if (preferencesStates.get(i) == null)
+                str.append(states.get(i).getDescription() + " [X] -> ");
+            else
+                str.append(states.get(i).getDescription() + " [" + preferencesStates.get(i) + "] -> ");
+        }
         if (!str.toString().contains(" -> "))
             return str.toString();
         return str.substring(0, str.length() - 3) + ", slots: " + slotsUsed;
@@ -43,6 +49,6 @@ public class EVView {
 
     public ArrayList<EVStateEnum> getStates() { return states; }
 
-    public ArrayList<String> getPreferencesStates() { return preferencesStates; }
+    public ArrayList<Preferences> getPreferencesStates() { return preferencesStates; }
 
 }

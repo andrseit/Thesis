@@ -32,17 +32,18 @@ public class StationStrategy {
     private ArrayList<EVObject> acceptedEVs; // the agents.evs that accepted a agents.station's offer - maybe this could go into schedule
     private ArrayList<EVObject> notChargedEVs; // the EVs that could not charge - to computeSuggestions alternatives - needed only for the strategy
 
-    private Optimizer optimizer; // it computes the optimal schedule, i guess it will be better if you create it out of the class
-    // and then add it, so that each agents.station will have a unique optimizer
+    private Optimizer optimizer; // it computes the optimal schedule
     private Optimizer alternativesOptimizer;
+    private boolean useAlternatives;
 
     public StationStrategy (Optimizer optimizer, Optimizer alternativesOptimizer,
-                            int[] price, int slotsNumber, int chargersNumber,
+                            int[] price, int slotsNumber, int chargersNumber, boolean useAlternatives,
                             StationStatistics statistics, StationState state) {
         this.slotsNumber = slotsNumber;
         this.price = price;
         currentSlot = 0;
 
+        this.useAlternatives = useAlternatives;
         schedule = new Schedule(slotsNumber, chargersNumber);
 
         incomingRequests = new ArrayList<>();
@@ -63,8 +64,8 @@ public class StationStrategy {
             if (answer == EVMessage.EV_MESSAGE_REQUEST) {
                 incomingRequests.add(ev);
 
-                statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_REQUESTED, ev.getPreferences().toString(), currentSlot,0);
-                state.addStateEV(currentSlot, ev.getId(), EVStateEnum.EV_STATE_REQUESTED, ev.getPreferences().toString());
+                statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_REQUESTED, ev.getPreferences(), currentSlot,0);
+                state.addStateEV(currentSlot, ev.getId(), EVStateEnum.EV_STATE_REQUESTED, ev.getPreferences());
 
             } else if (answer == EVMessage.EV_UPDATE_DELAY || answer == EVMessage.EV_UPDATE_CANCEL) {
                 ArrayList<EVObject> removeAccepted = new ArrayList<>();
@@ -84,14 +85,14 @@ public class StationStrategy {
                             evAnswer.setDelayed(true);
                             incomingRequests.add(evAnswer);
 
-                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_DELAYED, evAnswer.getPreferences().toString(), currentSlot, 0);
-                            state.addStateEV(currentSlot, evAnswer.getId(), EVStateEnum.EV_STATE_DELAYED, evAnswer.getPreferences().toString());
+                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_DELAYED, evAnswer.getPreferences(), currentSlot, 0);
+                            state.addStateEV(currentSlot, evAnswer.getId(), EVStateEnum.EV_STATE_DELAYED, evAnswer.getPreferences());
                             System.out.println("We have a deferral here! By EV No " + ev.getId());
                         }
                         else {
                             // handle cancellation - nothing more has to be done
-                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_CANCELLED, "X", currentSlot,0);
-                            state.addStateEV(currentSlot, evAnswer.getId(), EVStateEnum.EV_STATE_CANCELLED, "X");
+                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_CANCELLED, null, currentSlot,0);
+                            state.addStateEV(currentSlot, evAnswer.getId(), EVStateEnum.EV_STATE_CANCELLED, null);
                             System.out.println("We have a cancellation here! By EV No " + ev.getId());
                         }
                     }
@@ -112,21 +113,22 @@ public class StationStrategy {
 
                             if (evRequest.acceptedAlternative())
                                 statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_ACCEPTED_ALTERNATIVE,
-                                        evRequest.getSuggestion().getPreferences().toString(), currentSlot, evRequest.getSuggestion().getSlotsAllocated().size());
+                                        evRequest.getSuggestion().getPreferences(), currentSlot, evRequest.getSuggestion().getSlotsAllocated().size());
                             else
                                 statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_ACCEPTED_INITIAL,
-                                        evRequest.getSuggestion().getPreferences().toString(), currentSlot, evRequest.getSuggestion().getSlotsAllocated().size());
-                            state.addStateEV(currentSlot, evRequest.getId(), EVStateEnum.EV_STATE_ACCEPTED, evRequest.getSuggestion().getPreferences().toString());
+                                        evRequest.getSuggestion().getPreferences(), currentSlot, evRequest.getSuggestion().getSlotsAllocated().size());
+                            state.addStateEV(currentSlot, evRequest.getId(), EVStateEnum.EV_STATE_ACCEPTED, evRequest.getSuggestion().getPreferences());
                             break;
                         } else if (answer == EVMessage.EV_EVALUATE_WAIT) {
                             //System.out.println("\t* " + ev + " says waits for an offer!");
+                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_WAIT, null, currentSlot, 0);
                             break;
                         } else if (answer == EVMessage.EV_EVALUATE_REJECT) {
                             //System.out.println("\t* " + ev + " says rejected my offer!");
                             toBeRemoved.add(evRequest);
 
-                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_REJECTED, "X", currentSlot,0);
-                            state.addStateEV(currentSlot, evRequest.getId(), EVStateEnum.EV_STATE_REJECTED, "X");
+                            statistics.addEV(ev.getId(), EVStateEnum.EV_STATE_REJECTED, null, currentSlot,0);
+                            state.addStateEV(currentSlot, evRequest.getId(), EVStateEnum.EV_STATE_REJECTED, null);
                             break;
                         }
                     }
@@ -226,6 +228,8 @@ public class StationStrategy {
     public void setCurrentSlot(int currentSlot) {
         this.currentSlot = currentSlot;
     }
+
+    public boolean isUseAlternatives() { return useAlternatives; }
 
     public ArrayList<EVObject> getSuggestionReceivers () { return incomingRequests; }
 

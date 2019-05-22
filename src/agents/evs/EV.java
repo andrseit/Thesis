@@ -7,6 +7,7 @@ import user_interface.EVState;
 
 public class EV {
 
+
     private EVInfo info;
     private EVState state;
     private EVMessenger messenger;

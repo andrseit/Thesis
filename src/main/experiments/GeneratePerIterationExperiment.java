@@ -13,6 +13,7 @@ public class GeneratePerIterationExperiment extends GenerateOnceExperiment {
         for (int i = 0; i < getIterations(); i++) {
             generateData();
             ExecutionFlow exe = new ExecutionFlow(getStationsPath(), getEvsPath(), getSystemPath());
+            exe.useDelays(isUseDelays());
             selectMode(mode, exe);
         }
     }

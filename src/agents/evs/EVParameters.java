@@ -2,6 +2,7 @@ package agents.evs;
 
 public class EVParameters {
 
+    private final int slotsNumber;
     private final int id;
     private final int x;
     private final int y;
@@ -16,7 +17,7 @@ public class EVParameters {
     public EVParameters(int id, int x, int y, int finalX,
                         int finalY, int start,
                         int end, int energy, int bid,
-                        int max_distance) {
+                        int max_distance, int slotsNumber) {
         this.id = id;
         this.x = x;
         this.y = y;
@@ -27,6 +28,7 @@ public class EVParameters {
         this.energy = energy;
         this.bid = bid;
         this.max_distance = max_distance;
+        this.slotsNumber = slotsNumber;
     }
 
     public int getId() {
@@ -74,4 +76,5 @@ public class EVParameters {
         return max_distance;
     }
 
+    public int getSlotsNumber() { return slotsNumber; }
 }

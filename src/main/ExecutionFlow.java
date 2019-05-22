@@ -25,6 +25,8 @@ public class ExecutionFlow {
     private ArrayList<EV> evs;
     private int slotsNumber;
 
+    private boolean useDelays;
+
     // first generate stations, later the evs - because of bad design - gonna fix it
     public ExecutionFlow(String stationsPath, String evsPath, String systemPath) {
         JSONFileParser parser = new JSONFileParser();
@@ -33,6 +35,7 @@ public class ExecutionFlow {
         stations.forEach(System.out::println);
         evs = parser.readEVsData(evsPath);
         slotsNumber = systemParameters.getSlotsNumber();
+        useDelays = true;
         evs.forEach(System.out::println);
         deleteStatisticsFile();
     }
@@ -65,13 +68,15 @@ public class ExecutionFlow {
                 // if an ev has already made an agreement with a agents.station then check if it
                 // is up to a delay
             else {
-                EVMessage delayStatus = ev.getStrategy().checkDelay(ev.getInfo(), currentSlot, slotsNumber);
-                if (delayStatus == EVMessage.EV_UPDATE_DELAY) {
-                    ev.getStrategy().computeDelay(ev.getInfo(), slotsNumber);
-                    ev.getMessenger().sendMessage(ev.getInfo(), EVMessage.EV_UPDATE_DELAY, ev.getStrategy().getAcceptedStation());
-                    // make a function to inform the agents.station
-                } else if (delayStatus == EVMessage.EV_UPDATE_CANCEL) {
-                    ev.getMessenger().sendMessage(ev.getInfo(), EVMessage.EV_UPDATE_CANCEL, ev.getStrategy().getAcceptedStation());
+                if (useDelays) {
+                    EVMessage delayStatus = ev.getStrategy().checkDelay(ev.getInfo(), currentSlot, slotsNumber);
+                    if (delayStatus == EVMessage.EV_UPDATE_DELAY) {
+                        ev.getStrategy().computeDelay(ev.getInfo(), slotsNumber);
+                        ev.getMessenger().sendMessage(ev.getInfo(), EVMessage.EV_UPDATE_DELAY, ev.getStrategy().getAcceptedStation());
+                        // make a function to inform the agents.station
+                    } else if (delayStatus == EVMessage.EV_UPDATE_CANCEL) {
+                        ev.getMessenger().sendMessage(ev.getInfo(), EVMessage.EV_UPDATE_CANCEL, ev.getStrategy().getAcceptedStation());
+                    }
                 }
             }
         }
@@ -136,7 +141,10 @@ public class ExecutionFlow {
             for (Station current : stations) {
                 if (!current.getStrategy().hasFinished()) {
                     current.getStrategy().computeSuggestions(current.getInfo());
-                    current.getStrategy().computeAlternatives(current.getInfo());
+
+                    // based on the strategy compute alternatives or not
+                    if (current.getStrategy().isUseAlternatives())
+                        current.getStrategy().computeAlternatives(current.getInfo());
 
                     current.getState().printTemporaryScheduleMap();
 
@@ -179,7 +187,7 @@ public class ExecutionFlow {
             }
         }
 
-        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        System.out.println("^^^^^^^^^^^^^^^^^^^^ Station Stats ^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         for (int s = 0; s < stations.size(); s++) {
             Station station = stations.get(s);
             System.out.println("Station " + s);
@@ -224,6 +232,8 @@ public class ExecutionFlow {
 
     }
 
+    public void useDelays (boolean useDelays) { this.useDelays = useDelays; }
+
     /**
      * Returns a list with the statistics for each station
      * @return
@@ -234,5 +244,4 @@ public class ExecutionFlow {
             stationStatistics.add(station.getStatistics());
         return stationStatistics;
     }
-
 }

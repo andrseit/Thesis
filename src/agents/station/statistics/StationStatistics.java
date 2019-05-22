@@ -1,8 +1,10 @@
 package agents.station.statistics;
 
+import agents.evs.Preferences;
 import user_interface.EVView;
 import user_interface.EVStateEnum;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -29,6 +31,8 @@ public class StationStatistics {
     private int cancellations; // number of cancellations - not added to rejections i
     private int slotsUsed;
 
+    private double evsUtility;
+
     public StationStatistics (int stationID, int chargersNumber, int slotsNumber) {
         evs = new HashMap<>();
         requests = 0;
@@ -45,21 +49,29 @@ public class StationStatistics {
         systemValues = new StationSystemValues(stationID, chargersNumber, slotsNumber);
         slotStatistics = new StationSlotStatistics[slotsNumber];
         for (int i = 0; i < slotStatistics.length; i++)
-            slotStatistics[i] = new StationSlotStatistics(systemValues, i);
+            slotStatistics[i] = new StationSlotStatistics(systemValues, slotsNumber, i);
     }
 
     private void calculateStatistics () {
         for (Integer evID: evs.keySet()) {
             EVView currentEV = evs.get(evID);
+            Preferences initialPreferences = null, acceptedPreferences = null;
             boolean delayed = false;
             boolean alternative = false;
-            for (EVStateEnum state: currentEV.getStates()) {
-                if (state.equals(EVStateEnum.EV_STATE_REQUESTED))
+            boolean willCharge = false;
+            
+            for (int s = 0; s < currentEV.getStates().size(); s++) {
+                EVStateEnum state = currentEV.getStates().get(s);
+                if (state.equals(EVStateEnum.EV_STATE_REQUESTED)) {
+                    initialPreferences = currentEV.getPreferencesStates().get(s);
                     requests++;
+                }
                 else if (state.equals(EVStateEnum.EV_STATE_DELAYED)) {
+                    initialPreferences = currentEV.getPreferencesStates().get(s);
                     delayed = true;
                     delays++;
                     charged--;
+                    willCharge = false;
                     if (alternative)
                         acceptedAlternative--;
                     alternative = false;
@@ -67,13 +79,17 @@ public class StationStatistics {
                 else if (state.equals(EVStateEnum.EV_STATE_CANCELLED)) {
                     cancellations++;
                     charged--;
+                    willCharge = false;
                 }
                 else if (state.equals(EVStateEnum.EV_STATE_ACCEPTED_INITIAL)) {
+                    acceptedPreferences = currentEV.getPreferencesStates().get(s);
                     if (!delayed)
                         accepted++;
                     charged++;
+                    willCharge = true;
                 }
                 else if (state.equals(EVStateEnum.EV_STATE_ACCEPTED_ALTERNATIVE)) {
+                    acceptedPreferences = currentEV.getPreferencesStates().get(s);
                     alternative = true;
                     if (delayed)
                         acceptedAlternativeDelay++;
@@ -82,16 +98,22 @@ public class StationStatistics {
                         acceptedAlternative++;
                     }
                     charged++;
+                    willCharge = true;
                 }
                 else if (state.equals(EVStateEnum.EV_STATE_REJECTED)) {
                     if (delayed)
                         delayRejected++;
                     else
                         rejected++;
+                } else if (state.equals(EVStateEnum.EV_STATE_WAIT)) {
+
                 }
             }
+            if (willCharge)
+                evsUtility += getPreferencesDistance(initialPreferences, acceptedPreferences);
             slotsUsed += currentEV.getSlotsUsed();
         }
+        evsUtility = evsUtility / charged;
     }
 
     private void resetStatistics () {
@@ -105,6 +127,7 @@ public class StationStatistics {
         delayRejected = 0;
         cancellations = 0;
         slotsUsed = 0;
+        evsUtility = 0;
     }
 
     private double slotsUsedPercentage () {
@@ -119,7 +142,7 @@ public class StationStatistics {
         return Math.round(division * 100.0) / 100.0;
     }
 
-    public void addEV (int evID, EVStateEnum state, String preferences, int currentSlot, int slots) {
+    public void addEV (int evID, EVStateEnum state, Preferences preferences, int currentSlot, int slots) {
         if (evs.keySet().contains(evID)) {
             EVView currentView = evs.get(evID);
             currentView.getStates().add(state);
@@ -154,6 +177,7 @@ public class StationStatistics {
                 "#Cancellations: " + cancellations + "(" + getPercentage(cancellations, accepted) + "% of accepted)" + "\n" +
                 "#Charged: " + charged + "(" + getPercentage(charged, requests) + "% of requests)" + "\n" +
                 "Slots used: " + slotsUsedPercentage() + "%" + "\n" +
+                "EVs Utility: " + evsUtility + "%" + "\n" +
                 "-------------------\n" + str;
     }
 
@@ -167,5 +191,50 @@ public class StationStatistics {
 
     public StationSlotStatistics getSlotStatistics (int slot) {
         return slotStatistics[slot];
+    }
+
+    public double getPreferencesDistance (Preferences initial, Preferences accepted) {
+
+        if (accepted == null)
+            return 0.0;
+
+        int start = initial.getStart();
+        int end = initial.getEnd();
+        int energy = initial.getEnergy();
+
+        int fStart = accepted.getStart();
+        int fEnd = accepted.getEnd();
+        int fEnergy = accepted.getEnergy();
+
+        if (fStart >= start && fEnd <= end && fEnergy == energy)
+            return 100.0;
+
+        int maxShift;
+        if (start > slotsNumber - end - 1)
+            maxShift = start;
+        else
+            maxShift = slotsNumber - end - 1;
+
+        int maxWiden = slotsNumber - (end - start + 1);
+
+        int maxEnergyLoss = energy - 1;
+
+        int shift = (start > fStart) ? start - fStart : fStart - start;
+        double shiftPer = ((double) shift/(double) maxShift)*100;
+
+        int widen = (fEnd - fStart > end - start) ? (fEnd - fStart) - (end - start) : 0;
+        double widenPer = ((double) widen/(double) maxWiden)*100;
+
+        int energyLoss = energy - fEnergy;
+        double energyPer = ((double) energyLoss/(double) maxEnergyLoss)*100;
+
+        double total = 100 - (0.5*(0.5*widenPer + 0.5*shiftPer) + 0.5*energyPer);
+
+        if (total > 100) {
+            System.err.println("Utility transcends 100!");
+            System.exit(1);
+        }
+
+        return total;
     }
 }

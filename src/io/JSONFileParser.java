@@ -67,13 +67,13 @@ public class JSONFileParser {
                 flags.put("window", toIntExact((long) flagsObject.get("window")));
                 flags.put("suggestion", toIntExact((long) flagsObject.get("suggestion")));
                 flags.put("cplex", toIntExact((long) flagsObject.get("cplex")));
-
+                flags.put("alternatives", toIntExact((long) flagsObject.get("alternatives")));
+                boolean alternatives = flags.get("alternatives") == 1;
                 //System.out.println(pricePath);
                 StationPricing pr = setPrice(pricePath);
                 // setting the same optimizer to all stations - change that later
-                System.out.println(slotsNumber + "///////////////");
                 stations.add(new Station(id, x, y, chargersNumber, OptimizerFactory.getOptimizer("profit"),
-                        OptimizerFactory.getOptimizer("alternatives"), pr.getPrice(), slotsNumber));
+                        OptimizerFactory.getOptimizer("alternatives"), alternatives, pr.getPrice(), slotsNumber));
             }
         } catch (org.json.simple.parser.ParseException | IOException e) {
             e.printStackTrace();
@@ -128,7 +128,7 @@ public class JSONFileParser {
                 double s_range = Double.parseDouble(strategy.get("range").toString());
                 String s_priority = strategy.get("priority").toString();
 
-                EVParameters evParameters = new EVParameters(id, x, y, f_x, f_y, start_slot, end_slot, energy, bid, max_distance);
+                EVParameters evParameters = new EVParameters(id, x, y, f_x, f_y, start_slot, end_slot, energy, bid, max_distance, slotsNumber);
                 StrategyPreferences strategyPreferences = new StrategyPreferences(inform_slot, s_energy, s_start, s_end, s_range, s_rounds, s_prob, s_priority);
                 EV ev = new EV(evParameters, strategyPreferences);
                 evs.add(ev);

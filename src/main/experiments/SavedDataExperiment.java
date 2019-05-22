@@ -15,6 +15,7 @@ public class SavedDataExperiment extends Experiment {
     @Override
     public void run(String mode) {
         ExecutionFlow exe = new ExecutionFlow(getStationsPath(), getEvsPath(), getSystemPath());
+        exe.useDelays(isUseDelays());
         for (int i = 0; i < getIterations(); i++) {
             selectMode(mode, exe);
         }

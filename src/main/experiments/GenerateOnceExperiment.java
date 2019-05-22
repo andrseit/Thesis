@@ -51,6 +51,7 @@ public class GenerateOnceExperiment extends Experiment {
 
         for (int i = 0; i < getIterations(); i++) {
             ExecutionFlow exe = new ExecutionFlow(getStationsPath(), getEvsPath(), getSystemPath());
+            exe.useDelays(isUseDelays());
             selectMode(mode, exe);
         }
     }

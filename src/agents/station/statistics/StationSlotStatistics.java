@@ -1,5 +1,6 @@
 package agents.station.statistics;
 
+import agents.evs.Preferences;
 import user_interface.EVStateEnum;
 import user_interface.EVView;
 
@@ -13,6 +14,7 @@ public class StationSlotStatistics {
     private StationSystemValues systemValues;
     private HashMap<Integer, EVView> evs;
     private int slot;
+    private int slotsNumber;
 
     private int requests; // total requests received (no delay requests) a
     private int accepted; // accepted the initial offer b
@@ -25,7 +27,10 @@ public class StationSlotStatistics {
     private int cancellations; // number of cancellations - not added to rejections i
     private int slotsUsed;
 
-    public StationSlotStatistics (StationSystemValues systemValues, int slot) {
+    private double evsRounds; // average of rounds of conversation with evs
+    private double evsUtility; // average utility of charged evs
+
+    public StationSlotStatistics (StationSystemValues systemValues, int slotsNumber, int slot) {
         evs = new HashMap<>();
         requests = 0;
         accepted = 0;
@@ -35,6 +40,7 @@ public class StationSlotStatistics {
         delayRejected = 0;
         cancellations = 0;
         slotsUsed = 0;
+        this.slotsNumber = slotsNumber;
         this.slot = slot;
 
         this.systemValues = systemValues;
@@ -45,10 +51,15 @@ public class StationSlotStatistics {
             EVView currentEV = evs.get(evID);
             boolean delayed = false;
             boolean alternative = false;
-            for (EVStateEnum state: currentEV.getStates()) {
-                if (state.equals(EVStateEnum.EV_STATE_REQUESTED))
+            Preferences initialPreferences = null, acceptedPreferences = null;
+            for (int s = 0; s < currentEV.getStates().size(); s++) {
+                EVStateEnum state = currentEV.getStates().get(s);
+                if (state.equals(EVStateEnum.EV_STATE_REQUESTED)) {
+                    initialPreferences = currentEV.getPreferencesStates().get(s);
                     requests++;
+                }
                 else if (state.equals(EVStateEnum.EV_STATE_DELAYED)) {
+                    initialPreferences = currentEV.getPreferencesStates().get(s);
                     delayed = true;
                     delays++;
                     charged--;
@@ -61,11 +72,13 @@ public class StationSlotStatistics {
                     charged--;
                 }
                 else if (state.equals(EVStateEnum.EV_STATE_ACCEPTED_INITIAL)) {
+                    acceptedPreferences = currentEV.getPreferencesStates().get(s);
                     if (!delayed)
                         accepted++;
                     charged++;
                 }
                 else if (state.equals(EVStateEnum.EV_STATE_ACCEPTED_ALTERNATIVE)) {
+                    acceptedPreferences = currentEV.getPreferencesStates().get(s);
                     alternative = true;
                     if (delayed)
                         acceptedAlternativeDelay++;
@@ -82,8 +95,10 @@ public class StationSlotStatistics {
                         rejected++;
                 }
             }
+            evsUtility += getPreferencesDistance(initialPreferences, acceptedPreferences);
             slotsUsed += currentEV.getSlotsUsed();
         }
+        evsUtility = evsUtility/evs.size();
     }
 
     private void resetStatistics () {
@@ -111,7 +126,7 @@ public class StationSlotStatistics {
         return Math.round(division * 100.0) / 100.0;
     }
 
-    public void addEV (int evID, EVStateEnum state, String preferences, int slots) {
+    public void addEV (int evID, EVStateEnum state, Preferences preferences, int slots) {
         if (evs.keySet().contains(evID)) {
             EVView currentView = evs.get(evID);
             currentView.getStates().add(state);
@@ -163,6 +178,47 @@ public class StationSlotStatistics {
                 "#Cancellations: " + cancellations + "(" + getPercentage(cancellations, accepted) + "% of accepted)" + "\n" +
                 "#Charged: " + charged + "(" + getPercentage(charged, requests) + "% of requests)" + "\n" +
                 "Slots used: " + slotsUsedPercentage() + "%" + "\n" +
+                "EVs Utility: " + evsUtility + "\n" +
                 "-------------------\n" + str;
+    }
+
+    private double getPreferencesDistance (Preferences initial, Preferences accepted) {
+
+        if (accepted == null)
+            return 0.0;
+
+        int start = initial.getStart();
+        int end = initial.getEnd();
+        int energy = initial.getEnergy();
+
+        int fStart = accepted.getStart();
+        int fEnd = accepted.getEnd();
+        int fEnergy = accepted.getEnergy();
+
+        if (fStart >= start && fEnd <= end && fEnergy == energy)
+            return 100.0;
+
+        int maxShift;
+        if (start > slotsNumber - end - 1)
+            maxShift = start;
+        else
+            maxShift = slotsNumber - end - 1;
+
+        int maxWiden = slotsNumber - (end - start + 1);
+
+        int maxEnergyLoss = energy - 1;
+
+        int shift = (start > fStart) ? start - fStart : fStart - start;
+        double shiftPer = ((double) shift/(double) maxShift)*100;
+
+        int widen = (fEnd - fStart > end - start) ? (fEnd - fStart) - (end - start) : 0;
+        double widenPer = ((double) widen/(double) maxWiden)*100;
+
+        int energyLoss = energy - fEnergy;
+        double energyPer = ((double) energyLoss/(double) maxEnergyLoss)*100;
+
+        double total = 100 - (0.5*(0.5*widenPer + 0.5*shiftPer) + 0.5*energyPer);
+
+        return total;
     }
 }

@@ -43,7 +43,7 @@ public class EVStrategy {
         for (SuggestionMessage message: suggestions)
             evState.addSuggestion(message.getStationInfo().getId(), message.preferencesToString());
 
-        // this hashmap contains the answers to the stations' suggestions
+        // this hash map contains the answers to the stations' suggestions
         answers = new HashMap<>();
         if (!charged) {
             StrategyComputer computer = new StrategyComputer(info, strategyPreferences);
@@ -85,10 +85,8 @@ public class EVStrategy {
                 suggestions.clear();
                 if (rejectPendingStations) {
                     for (StationInfo station : pendingStations)
-                        /*
-                        agents.station.checkIn(info, ConstantVariables.EV_EVALUATE_REJECT);
-                        */
                         answers.put(station, EVMessage.EV_EVALUATE_REJECT);
+
                     rejectPendingStations = false;
                     charged = true;
                 }
@@ -109,6 +107,7 @@ public class EVStrategy {
         answers.keySet().forEach(stationInfo -> evState.addAnswer(stationInfo.getId(), answers.get(stationInfo)));
     }
 
+    // check if this can be combined with the method above
     private EVMessage[] compareSuggestions(ArrayList<ComparableSuggestion> comparableSuggestions) {
         // in which agents.station it accepted/rejected/asked for better suggestion
         EVMessage[] states = new EVMessage[comparableSuggestions.size()];
@@ -142,10 +141,9 @@ public class EVStrategy {
                 else if (suggestion.getPreferencesDistance() == 0){
                     states[s] = EVMessage.EV_EVALUATE_ACCEPT;
                     rejectPendingStations = true;
-                    for (int i = 0; i < states.length; i++) {
+                    for (int i = 0; i < states.length; i++)
                         if (i != s)
                             states[i] = EVMessage.EV_EVALUATE_REJECT;
-                    }
                     break;
                 }
             }
@@ -153,9 +151,7 @@ public class EVStrategy {
         if (!rejectPendingStations) {
             for (int s = 0; s < comparableSuggestions.size(); s++) {
                 ComparableSuggestion suggestion = comparableSuggestions.get(s);
-                if (suggestion.getPreferencesDistance() == -3) {
-                    states[s] = EVMessage.EV_EVALUATE_PENDING;
-                }
+                if (suggestion.getPreferencesDistance() == -3) states[s] = EVMessage.EV_EVALUATE_PENDING;
             }
         }
         /*
