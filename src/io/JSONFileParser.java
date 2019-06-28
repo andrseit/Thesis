@@ -68,12 +68,13 @@ public class JSONFileParser {
                 flags.put("suggestion", toIntExact((long) flagsObject.get("suggestion")));
                 flags.put("cplex", toIntExact((long) flagsObject.get("cplex")));
                 flags.put("alternatives", toIntExact((long) flagsObject.get("alternatives")));
+                flags.put("virtual_demand", toIntExact((long) flagsObject.get("virtual_demand")));
                 boolean alternatives = flags.get("alternatives") == 1;
                 //System.out.println(pricePath);
                 StationPricing pr = setPrice(pricePath);
                 // setting the same optimizer to all stations - change that later
-                stations.add(new Station(id, x, y, chargersNumber, OptimizerFactory.getOptimizer("profit"),
-                        OptimizerFactory.getOptimizer("alternatives"), alternatives, pr.getPrice(), slotsNumber));
+                stations.add(new Station(id, x, y, chargersNumber, OptimizerFactory.getOptimizer("service"),
+                        OptimizerFactory.getOptimizer("alternatives"), alternatives, flags.get("virtual_demand") == 1, pr.getPrice(), slotsNumber));
             }
         } catch (org.json.simple.parser.ParseException | IOException e) {
             e.printStackTrace();
@@ -127,9 +128,10 @@ public class JSONFileParser {
                 int s_rounds = toIntExact((long) (strategy.get("rounds")));
                 double s_range = Double.parseDouble(strategy.get("range").toString());
                 String s_priority = strategy.get("priority").toString();
+                boolean delay = toIntExact((long) (strategy.get("delay"))) == 1;
 
                 EVParameters evParameters = new EVParameters(id, x, y, f_x, f_y, start_slot, end_slot, energy, bid, max_distance, slotsNumber);
-                StrategyPreferences strategyPreferences = new StrategyPreferences(inform_slot, s_energy, s_start, s_end, s_range, s_rounds, s_prob, s_priority);
+                StrategyPreferences strategyPreferences = new StrategyPreferences(inform_slot, s_energy, s_start, s_end, s_range, s_rounds, s_prob, s_priority, delay);
                 EV ev = new EV(evParameters, strategyPreferences);
                 evs.add(ev);
             }

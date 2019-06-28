@@ -4,6 +4,7 @@ import agents.station.communication.StationMessenger;
 import agents.station.optimize.Optimizer;
 import agents.station.statistics.StationStatistics;
 import agents.station.strategy.StationStrategy;
+import agents.station.strategy.VirtualDemandStationStrategy;
 import user_interface.StationState;
 import agents.station.communication.StationReceiver;
 
@@ -20,15 +21,19 @@ public class Station {
     private StationStrategy strategy;
 
     public Station (int id, int x, int y, int chargersNumber, Optimizer optimizer,
-                    Optimizer alternativesOptimizer, boolean usesAlternatives, int[] price, int slotsNumber) {
+                    Optimizer alternativesOptimizer, boolean usesAlternatives, boolean virtualDemand, int[] price, int slotsNumber) {
 
         messenger = new StationMessenger(id);
         info = new StationInfo(id, x, y, chargersNumber, messenger.getReceiver());
 
         statistics = new StationStatistics(info.getId(), chargersNumber, slotsNumber);
         state = new StationState(info.getId(), slotsNumber);
-        strategy = new StationStrategy(optimizer, alternativesOptimizer, price, slotsNumber,
+        if (virtualDemand)
+            strategy = new VirtualDemandStationStrategy(optimizer, alternativesOptimizer, price, slotsNumber,
                 chargersNumber, usesAlternatives, statistics, state);
+        else
+            strategy = new StationStrategy(optimizer, alternativesOptimizer, price, slotsNumber,
+                    chargersNumber, usesAlternatives, statistics, state);
     }
 
     public StationMessenger getMessenger() { return messenger; }

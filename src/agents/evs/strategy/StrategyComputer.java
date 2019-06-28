@@ -30,7 +30,8 @@ class StrategyComputer {
         Preferences initial_prefs = info.getPreferences();
         ArrayList<ComparableSuggestion> comparable_suggestions = new ArrayList<>();
 
-        for (SuggestionMessage message : messages) {
+        for (SuggestionMessage message: messages) {
+            System.out.println(message.getStationInfo().getId() + " - " + message.getMessageType());
             //if (!(message.getStart() == -1) && !(message.getStart() == -3)) {
             if (message.getMessageType() == StationMessage.STATION_HAS_SUGGESTION) {
                 //System.out.println("\t-I have a suggestion from agents.station No. " + message.getStationInfo().getId());
@@ -125,24 +126,36 @@ class StrategyComputer {
                     .thenComparing(ComparableSuggestion::getWindowRange));
         }
 
+
         // check if some offers are exactly the same to put them in random order
         // so that the first agents.station won't have advantage
+
+        int head = 0;
         ArrayList<ComparableSuggestion> randomComparableSuggestions = new ArrayList<>();
-        randomComparableSuggestions.add(messages.get(0));
-        for (int i = 1; i < messages.size(); i++) {
-            if (sameOffer(messages.get(i), randomComparableSuggestions.get(0)))
+        for (int i = 0; i < messages.size(); i++) {
+            if (messages.get(i).getPreferencesDistance() >= 0 && messages.get(i).getPreferencesDistance() < Integer.MAX_VALUE) {
                 randomComparableSuggestions.add(messages.get(i));
+                head = i;
+                break;
+            }
         }
 
-        Collections.shuffle(randomComparableSuggestions);
-        for (int i = 0; i < randomComparableSuggestions.size(); i++) {
-            messages.remove(i);
-            messages.add(i, randomComparableSuggestions.get(i));
+        if (randomComparableSuggestions.size() > 0) {
+            for (int i = head + 1; i < messages.size(); i++) {
+                if (sameOffer(messages.get(i), randomComparableSuggestions.get(0)))
+                    randomComparableSuggestions.add(messages.get(i));
+            }
+
+            Collections.shuffle(randomComparableSuggestions);
+            for (int i = head; i < randomComparableSuggestions.size() + head; i++) {
+                messages.remove(i);
+                messages.add(i, randomComparableSuggestions.get(i - head));
+            }
         }
     }
 
     private boolean sameOffer (ComparableSuggestion s1, ComparableSuggestion s2) {
-        return s1.getPreferencesDistance() == s1.getPreferencesDistance() && s1.getTotalDistance() == s2.getTotalDistance()
+        return s1.getPreferencesDistance() == s2.getPreferencesDistance() && s1.getTotalDistance() == s2.getTotalDistance()
                 && s1.getPrice() == s2.getPrice() && s1.getWindowRange() == s2.getWindowRange();
     }
 

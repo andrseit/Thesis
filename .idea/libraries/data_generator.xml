@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="data-generator">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/data-generator.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

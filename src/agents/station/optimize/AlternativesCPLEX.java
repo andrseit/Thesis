@@ -6,8 +6,11 @@ import ilog.concert.IloLinearNumExpr;
 import ilog.concert.IloNumVar;
 import ilog.cplex.IloCplex;
 import agents.station.EVObject;
+import various.ArrayTransformations;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /**
  * Created by Thesis on 12/3/2019.
@@ -31,6 +34,7 @@ public class AlternativesCPLEX implements Optimizer {
     @Override
     public int[][] optimize(int slotsNumber, int currentSlot, ArrayList<EVObject> evs, int[] remainingChargers, int[] price) {
         int trimmedSlots = slotsNumber - currentSlot; // computeSuggestions the schedule for only the >= minSlot slots
+        System.out.println("Slots number: " + trimmedSlots + ", min slot: " + currentSlot);
         initializeVariables(evs.size(), trimmedSlots);
         addChargersConstraint(remainingChargers, evs.size(), trimmedSlots, currentSlot);
         addEnergyConstraint(evs, trimmedSlots);
@@ -38,7 +42,7 @@ public class AlternativesCPLEX implements Optimizer {
         return solveLinearProblem(evs.size(), slotsNumber, currentSlot);
     }
 
-    public double calculateSlotMultiplier (ArrayList<EVObject> evs, int slotsNumber, int currentSlot) {
+    public double calculateSlotMultiplier (ArrayList<EVObject> evs, int slotsNumber, int currentSlot, int[] chargers) {
         double damage = 0;
         for (EVObject ev: evs) {
             Preferences preferences = ev.getPreferences();
@@ -52,6 +56,10 @@ public class AlternativesCPLEX implements Optimizer {
                 damage += slotDamage;
                 slotDamage++;
             }
+        }
+        damage = 0;
+        for (int s = 0; s < slotsNumber; s++) {
+            damage += chargers[s]*s;
         }
         //System.out.println(damage);
         //System.out.println("Distance damage: " + 100.0/damage);
@@ -83,6 +91,7 @@ public class AlternativesCPLEX implements Optimizer {
 
     private void addChargersConstraint(int[] chargers, int evsNumber, int slotsNumber, int currentSlot) {
 
+        // till which slot the station can compute an alternative - so that it leaves space for future evs
         try {
             for (int s = 0; s < slotsNumber; s++) {
                 IloLinearNumExpr chargers_constraint = cp.linearNumExpr();
@@ -98,27 +107,31 @@ public class AlternativesCPLEX implements Optimizer {
     }
 
     private void addEnergyConstraint (ArrayList<EVObject> evs, int slotsNumber) {
+        //int maxSlot = 3 * slotsNumber / 4;
+        //System.out.println("Slots Number: " + slotsNumber + ", Max slot: " + maxSlot);
 
-            try {
-                for (int ev = 0; ev < evs.size(); ev++) {
-                    EVObject current = evs.get(ev);
-                    int energy = current.getEnergy();
-                    IloLinearNumExpr energy_constraint = cp.linearNumExpr();
-                    for (int slot = 0; slot < slotsNumber; slot++) {
-                        energy_constraint.addTerm(1, chargesAtSlot[ev][slot]);
-                    }
-                    cp.addLe(energy_constraint, energy);
+        try {
+            for (int ev = 0; ev < evs.size(); ev++) {
+                EVObject current = evs.get(ev);
+                int energy = current.getEnergy();
+                IloLinearNumExpr energy_constraint = cp.linearNumExpr();
+                for (int slot = 0; slot < slotsNumber; slot++) {
+                    energy_constraint.addTerm(1, chargesAtSlot[ev][slot]);
+                    //if (slot > 65)
+                        //cp.addEq(chargesAtSlot[ev][slot], 0);
                 }
-            } catch (IloException e) {
-                e.printStackTrace();
+                cp.addLe(energy_constraint, energy);
             }
+        } catch (IloException e) {
+            e.printStackTrace();
+        }
 
 
     }
 
     protected void addObjectiveFunction(ArrayList<EVObject> evs, int[] remainingChargers, int slotsNumber, int currentSlot) {
         //System.out.println("Profit CPLEX");
-        double distance = calculateSlotMultiplier(evs, slotsNumber, currentSlot);
+        double distance = calculateSlotMultiplier(evs, slotsNumber, currentSlot, remainingChargers);
         double occupancy = calculateOccupancyMultiplier(remainingChargers, slotsNumber, currentSlot);
         try {
             for (int ev = 0; ev < evs.size(); ev++) {
@@ -130,10 +143,10 @@ public class AlternativesCPLEX implements Optimizer {
                     objective.addTerm(10*occupancy, chargesAtSlot[ev][s]);
                     int penalty = 0;
                     if (s < start)
-                        penalty += start - currentSlot;
+                        penalty += start - s;
                     else if (s > end)
                         penalty += s - end;
-                    objective.addTerm(-(distance * (penalty)), chargesAtSlot[ev][s]);
+                    objective.addTerm(-(distance * (s)), chargesAtSlot[ev][s]);
                 }
             }
             cp.addMaximize(objective);
@@ -146,9 +159,7 @@ public class AlternativesCPLEX implements Optimizer {
         int[][] scheduleMap = new int[evsNumber][slotsNumber];
         //System.out.println(currentSlot + " + " + slotsNumber);
         try {
-
             if (cp.solve()) {
-
                 for (int ev = 0; ev < evsNumber; ev++) {
                     for (int slot = 0; slot < slotsNumber; slot++) {
                         if (slot < currentSlot)
@@ -172,6 +183,6 @@ public class AlternativesCPLEX implements Optimizer {
             e.printStackTrace();
         }
         return scheduleMap;
+        //return ArrayTransformations.clearLines(scheduleMap, 0.2);
     }
-
 }

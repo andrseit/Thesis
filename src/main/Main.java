@@ -1,60 +1,90 @@
 package main;
 
-import agents.evs.Preferences;
+import com.sun.org.apache.bcel.internal.generic.JsrInstruction;
+import generator.evs.EVGenerator;
+import generator.evs.SimpleGenerator;
+import generator.evs.StrategyGenerator;
+import generator.stations.SimpleStationGenerator;
+import generator.stations.StationGenerator;
+import io.JSONWriter;
 import main.experiments.GenerateOnceExperiment;
+import org.json.simple.JSONObject;
+import statistics.SimpleMath;
+import sun.nio.ch.SelectorImpl;
+import various.MicroExperiments;
+
+import java.util.Random;
+
 
 /**
  * Created by Darling on 28/8/2017.
  */
 public class Main {
     public static void main(String[] args) {
-        GenerateOnceExperiment experiment = new GenerateOnceExperiment("online_no_suggestions", 1, "station.json", "evs.json",
-                "system.json", "files/experiments/statistics");
-        experiment.useDelays(false);
-        //experiment.setStationsValues(2, 1);
-        experiment.setEVsValues(5, 3, 5, 1.8, 1.8);
-        //experiment.setSystemParameters(10, 2);
-        experiment.run("online");
-        //System.out.println(getPreferencesDistance(new Preferences(7, 9, 3), new Preferences(3, 5, 3), 10));
+        SimpleGenerator simpleGenerator = new SimpleGenerator(10, 5, 2, 5, 1.5);
+        StrategyGenerator evGenerator = new StrategyGenerator(simpleGenerator, 1.5);
+        SimpleStationGenerator stationGenerator = new SimpleStationGenerator(5);
+        DataGenerator generator = new DataGenerator(evGenerator, stationGenerator);
+        JSONWriter.writeToFile("files/new_evs.json", generator.generateEVs(10).toJSONString());
+        JSONWriter.writeToFile("files/new_stations.json", generator.generateStations(2).toJSONString());
+
+        /*
+        for (int i = 0; i < 10; i++) {
+            DataGenerator generator = new DataGenerator();
+            generator.readStationFile("station.json");
+            //generator.generateRandomStations(2, 35);
+            generator.generateEVsFile(500, 25, 75, 1.8, 1.8, 288, 2);
+
+            //runExperiment(2);
+            runExperiment(1, i); // no alternatives
+            //runExperiment(2, i); // alternatives
+            //runExperiment(3, i); // offline
+            //runExperiment(4); // virtual demand
+        }
+        */
+
+
+        //MicroExperiments.testOptimizer();
+        //MicroExperiments.clearArray();
+        //int inform = MicroExperiments.randomInform(15, 0, 20);
+
+
+
     }
 
-    public static double getPreferencesDistance (Preferences initial, Preferences accepted, int slotsNumber) {
-
-        if (accepted == null)
-            return 0.0;
-
-        int start = initial.getStart();
-        int end = initial.getEnd();
-        int energy = initial.getEnergy();
-
-        int fStart = accepted.getStart();
-        int fEnd = accepted.getEnd();
-        int fEnergy = accepted.getEnergy();
-
-        if (fStart >= start && fEnd <= end && fEnergy == energy)
-            return 100.0;
-
-        int maxShift;
-        if (start > slotsNumber - end - 1)
-            maxShift = start;
-        else
-            maxShift = slotsNumber - end - 1;
-
-        int maxWiden = slotsNumber - (end - start + 1);
-
-        int maxEnergyLoss = energy - 1;
-
-        int shift = (start > fStart) ? start - fStart : fStart - start;
-        double shiftPer = ((double) shift/(double) maxShift)*100;
-
-        int widen = (fEnd - fStart > end - start) ? (fEnd - fStart) - (end - start) : 0;
-        double widenPer = ((double) widen/(double) maxWiden)*100;
-
-        int energyLoss = energy - fEnergy;
-        double energyPer = ((double) energyLoss/(double) maxEnergyLoss)*100;
-
-        double total = 100 - (0.5*(0.5*widenPer + 0.5*shiftPer) + 0.5*energyPer);
-
-        return total;
+    private static void runExperiment (int id, int iteration) {
+        if (id == 1) {
+            GenerateOnceExperiment experiment = new GenerateOnceExperiment("online_single_station_no_alternatives_" + iteration, 1, "two_station_alt_1.json", "evs.json",
+                    "system.json", "files/experiments/statistics/no_alternatives");
+            experiment.useDelays(true);
+            //experiment.setStationsValues(1, 40);
+            //experiment.setEVsValues(250, 25, 50, 1.8, 1.8);
+            experiment.setSystemParameters(288, 2);
+            experiment.run("online");
+        } else if (id == 2) {
+            GenerateOnceExperiment experiment = new GenerateOnceExperiment("online_single_station_alternatives_" + iteration, 1, "single_station_alt.json", "evs.json",
+                    "system.json", "files/experiments/statistics/alternatives");
+            experiment.useDelays(true);
+            //experiment.setStationsValues(1, 40);
+            //experiment.setEVsValues(250, 15, 50, 1.8, 1.8);
+            experiment.setSystemParameters(288, 2);
+            experiment.run("online");
+        } else if (id == 3) {
+            GenerateOnceExperiment experiment = new GenerateOnceExperiment("offline_single_station_no_alternatives_" + iteration, 1, "station.json", "evs.json",
+                    "system.json", "files/experiments/statistics/offline");
+            //experiment.useDelays(true);
+            //experiment.setStationsValues(1, 40);
+            //experiment.setEVsValues(250, 15, 50, 1.8, 1.8);
+            experiment.setSystemParameters(288, 2);
+            experiment.run("offline");
+        } else if (id == 4) {
+            GenerateOnceExperiment experiment = new GenerateOnceExperiment("online_single_station_alternatives_virtual_demand_" + iteration, 1, "station_virt_demand.json", "evs.json",
+                    "system.json", "files/experiments/statistics");
+            //experiment.useDelays(true);
+            //experiment.setStationsValues(1, 40);
+            //experiment.setEVsValues(250, 15, 50, 1.8, 1.8);
+            experiment.setSystemParameters(288, 2);
+            experiment.run("online");
+        }
     }
 }

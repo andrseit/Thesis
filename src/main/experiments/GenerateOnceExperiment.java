@@ -2,6 +2,7 @@ package main.experiments;
 
 import io.DataGenerator;
 import io.JSONFileParser;
+import io.SimpleFileAppender;
 import main.ExecutionFlow;
 import main.experiments.parameters.EVsParameters;
 import main.experiments.parameters.StationsParameters;
@@ -48,11 +49,14 @@ public class GenerateOnceExperiment extends Experiment {
     public void run(String mode) {
 
         generateData();
-
         for (int i = 0; i < getIterations(); i++) {
             ExecutionFlow exe = new ExecutionFlow(getStationsPath(), getEvsPath(), getSystemPath());
             exe.useDelays(isUseDelays());
+            long start = System.nanoTime();
             selectMode(mode, exe);
+            long elapsedTime = System.nanoTime() - start;
+            System.out.println(elapsedTime);
+            SimpleFileAppender.writeLine("files/times.txt", String.valueOf(elapsedTime));
         }
     }
 

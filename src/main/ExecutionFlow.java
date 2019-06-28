@@ -36,7 +36,7 @@ public class ExecutionFlow {
         evs = parser.readEVsData(evsPath);
         slotsNumber = systemParameters.getSlotsNumber();
         useDelays = true;
-        evs.forEach(System.out::println);
+        //evs.forEach(System.out::println);
         deleteStatisticsFile();
     }
 
@@ -87,7 +87,7 @@ public class ExecutionFlow {
         //System.out.println("\n----- Stations are computing the schedules and sending suggestions -----");
         for (Station station : stations) {
             station.getStrategy().handleAnswers(station.getMessenger());
-            System.out.println(station.getState().getStates(currentSlot));
+            //System.out.println(station.getState().getStates(currentSlot));
             // the agents.evs have requested, when agents.evs request from a agents.station, the agents.station has to insert them into a list
             // please make sure that you take care of that
             /*
@@ -95,7 +95,7 @@ public class ExecutionFlow {
             */
             station.getStrategy().computeSuggestions(station.getInfo());
 
-            station.getState().printTemporaryScheduleMap();
+            //station.getState().printTemporaryScheduleMap();
 
 
             // don't forget to create temporary used charged (allocated but not yet accepted)
@@ -111,7 +111,7 @@ public class ExecutionFlow {
                 //ev.printMessagesList();
                 ev.getStrategy().evaluate(ev.getMessenger().getMessages(), ev.getInfo());
                 ev.getMessenger().sendAnswers(ev.getInfo(), ev.getStrategy().getAnswers());
-                System.out.println(ev.getState());
+                //System.out.println(ev.getState());
             }
         }
 
@@ -119,14 +119,14 @@ public class ExecutionFlow {
         for (int station = 0; station < stations.size(); station++) {
             Station current = stations.get(station);
             current.getStrategy().handleAnswers(current.getMessenger());
-            System.out.println(current.getState().getStates(currentSlot));
+            //System.out.println(current.getState().getStates(currentSlot));
             //System.out.println("----------- Accepted EVs ------------");
             //current.printAcceptedEVs();
 
             //System.out.println("----------- Waiting EVs ------------");
             //current.printList();
 
-            current.getState().printScheduleMap();
+            //current.getState().printScheduleMap();
 
             if (current.getStrategy().hasFinished()) {
                 finishedStations[station] = true;
@@ -146,7 +146,7 @@ public class ExecutionFlow {
                     if (current.getStrategy().isUseAlternatives())
                         current.getStrategy().computeAlternatives(current.getInfo());
 
-                    current.getState().printTemporaryScheduleMap();
+                    //current.getState().printTemporaryScheduleMap();
 
                     current.getMessenger().sendSuggestions(current.getStrategy().getSuggestionReceivers());
                 }
@@ -158,7 +158,7 @@ public class ExecutionFlow {
                     //ev.printMessagesList();
                     ev.getStrategy().evaluate(ev.getMessenger().getMessages(), ev.getInfo());
                     ev.getMessenger().sendAnswers(ev.getInfo(), ev.getStrategy().getAnswers());
-                    System.out.println(ev.getState());
+                    //System.out.println(ev.getState());
                 }
             }
 
@@ -167,7 +167,7 @@ public class ExecutionFlow {
                 Station current = stations.get(station);
                 if (!current.getStrategy().hasFinished()) {
                     current.getStrategy().handleAnswers(current.getMessenger());
-                    System.out.println(current.getState().getStates(currentSlot));
+                    //System.out.println(current.getState().getStates(currentSlot));
                     /*
                     System.out.println("----------- Accepted EVs ------------");
                     current.printAcceptedEVs();
@@ -176,7 +176,7 @@ public class ExecutionFlow {
                     current.printList();
                     */
 
-                    current.getState().printScheduleMap();
+                    //current.getState().printScheduleMap();
 
 
                     if (current.getStrategy().hasFinished()) {
@@ -190,8 +190,9 @@ public class ExecutionFlow {
         System.out.println("^^^^^^^^^^^^^^^^^^^^ Station Stats ^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         for (int s = 0; s < stations.size(); s++) {
             Station station = stations.get(s);
-            System.out.println("Station " + s);
-            System.out.println(station.getStatistics() + "\n");
+            //System.out.println("Station " + s);
+            //System.out.println(station.getStatistics().getSlotStatistics(currentSlot) + "\n");
+            //System.out.println(station.getStatistics().getSlotStatistics(currentSlot).toCSV());
         }
         System.out.println("################################################");
     }
@@ -203,7 +204,7 @@ public class ExecutionFlow {
 
         // order the EVs list by inform slot
         evs.sort(Comparator.comparingInt(o -> o.getStrategy().getStrategyPreferences().getInformSlot()));
-        evs.forEach(System.out::println);
+        //evs.forEach(System.out::println);
         Scanner scanner = new Scanner(System.in);
         for (int slot = 0; slot < slotsNumber; slot++) {
             System.out.println("::::::::::::::::: Slot No " + slot + " :::::::::::::::::");

@@ -5,12 +5,14 @@ import agents.evs.Preferences;
 import agents.station.StationInfo;
 import agents.station.SuggestionMessage;
 import agents.station.communication.StationReceiver;
+import statistics.SimpleMath;
 import user_interface.EVState;
 import agents.evs.communication.EVMessage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Scanner;
 
 public class EVStrategy {
 
@@ -21,6 +23,8 @@ public class EVStrategy {
     private boolean charged;
     private boolean isToBeServiced; // the EV is to be charged, but the time has not yet arrived
     private boolean serviced;// the ev has been successfully serviced
+    private boolean checkedDelay; // because it used to check many times and many evs were delaying, i use this to check calculate only once
+    private int delayAt; // when the ev accepts an offer it selects a time slot at which it will declare delay - not realistic, but quick fix
     private boolean delayed; // shows if the ev has made a deferral - we assume that an EV can only do that once, however it can be easily changed
     // so that this can happen more than one time
     // rename it to something that represents both deferral and cancellation
@@ -37,6 +41,7 @@ public class EVStrategy {
         this.strategyPreferences = strategyPreferences;
         s_rounds = 0;
         this.evState = evState;
+        checkedDelay = false;
     }
 
     public void evaluate(ArrayList<SuggestionMessage> suggestions, EVInfo info) {
@@ -109,6 +114,9 @@ public class EVStrategy {
 
     // check if this can be combined with the method above
     private EVMessage[] compareSuggestions(ArrayList<ComparableSuggestion> comparableSuggestions) {
+        for (int s = 0; s < comparableSuggestions.size(); s++) {
+            System.out.println(comparableSuggestions.get(s));
+        }
         // in which agents.station it accepted/rejected/asked for better suggestion
         EVMessage[] states = new EVMessage[comparableSuggestions.size()];
         for (int s = 0; s < states.length; s++) {
@@ -160,6 +168,8 @@ public class EVStrategy {
         }
         System.out.println();
         */
+        for (int i = 0; i < states.length; i++)
+            System.out.println(states[i] + ", ");
         return states;
     }
 
@@ -171,38 +181,48 @@ public class EVStrategy {
      * @param slotsNumber
      * @return
      */
+
     public EVMessage checkDelay(EVInfo info, int currentSlot, int slotsNumber) {
         System.out.println("EV No " + info.getId() + "( " + currentSlot + ", " + info.getPreferences().getStart() + " )");
         System.out.println("Accepted: " + acceptedPreferences.toString());
+        System.out.println("Is serviced: " + serviced + ", Is to Be Serviced: " + isToBeServiced);
         Random random = new Random();
-        if (isToBeServiced && random.nextInt(100) < 50 && !delayed) {
-            System.out.println("I will delay or cancel!");
-            if (random.nextInt() < 20) {
-                // cancel
-                System.out.println("I shall CANCEL my reservation!");
-                delayed = true;
-                isToBeServiced = false;
-                charged = false;
+        if (isToBeServiced && strategyPreferences.isDelay() && !checkedDelay) {
+            delayAt = SimpleMath.rangeRandom(currentSlot, acceptedPreferences.getStart());
+            checkedDelay = true;
+            System.out.println("Delay at slot: " + delayAt);
+        }
+        if (isToBeServiced && strategyPreferences.isDelay() && !delayed && delayAt == currentSlot && acceptedPreferences.getStart() + 1 < slotsNumber - 1) {
 
-                /*
-                state.addSuggestion(strategy.getAcceptedStation().getStationId(), "-");
-                state.addAnswer(strategy.getAcceptedStation().getStationId(), ConstantVariables.EV_UPDATE_CANCEL);
-                */
-
-                return EVMessage.EV_UPDATE_CANCEL;
-            } else {
-                System.out.println("I shall DELAY my reservation!");
-                // delay
-                if (!(slotsNumber - currentSlot <= 0)) {
+            //checkedDelay = true;
+            if (random.nextInt(100) < 100) {
+                System.out.println("I will delay or cancel!");
+                if (random.nextInt(100) < 0) {
+                    // cancel
+                    System.out.println("I shall CANCEL my reservation!");
                     delayed = true;
-                    s_rounds = 0;
+                    isToBeServiced = false;
                     charged = false;
 
                     /*
                     state.addSuggestion(strategy.getAcceptedStation().getStationId(), "-");
-                    state.addAnswer(strategy.getAcceptedStation().getStationId(), ConstantVariables.EV_UPDATE_DELAY);
+                    state.addAnswer(strategy.getAcceptedStation().getStationId(), ConstantVariables.EV_UPDATE_CANCEL);
                     */
-                    return EVMessage.EV_UPDATE_DELAY;
+                    return EVMessage.EV_UPDATE_CANCEL;
+                } else {
+                    System.out.println("I shall DELAY my reservation!");
+                    // delay
+                    if (!(slotsNumber - currentSlot <= 0)) {
+                        delayed = true;
+                        s_rounds = 0;
+                        charged = false;
+
+                        /*
+                        state.addSuggestion(strategy.getAcceptedStation().getStationId(), "-");
+                        state.addAnswer(strategy.getAcceptedStation().getStationId(), ConstantVariables.EV_UPDATE_DELAY);
+                        */
+                        return EVMessage.EV_UPDATE_DELAY;
+                    }
                 }
             }
         } else {
@@ -227,7 +247,17 @@ public class EVStrategy {
         int newEnd = newStart + Math.min(energy, slotsNumber - newStart) - 1;
 
         Preferences initial = info.getPreferences();
+        // update strategy
+        int slide = newStart - initial.getStart();
+        int sEnergy = strategyPreferences.getEnergy();
+        if (energy < strategyPreferences.getEnergy())
+            sEnergy = SimpleMath.rangeRandom(1, energy);
         initial.setPreferences(newStart, newEnd, energy);
+
+        strategyPreferences.setBounds(strategyPreferences.getStart() + slide,
+                Math.min(slotsNumber - 1, strategyPreferences.getEnd() + slide),
+                sEnergy);
+
         System.out.println("After: " + initial.toString());
     }
 

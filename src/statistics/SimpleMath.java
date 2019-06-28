@@ -1,5 +1,7 @@
 package statistics;
 
+import java.util.Random;
+
 public class SimpleMath {
 
     public static double getPercentage (int part, int all) {
@@ -13,4 +15,7 @@ public class SimpleMath {
         return Math.round(number*t)/t;
     }
 
+    public static int rangeRandom (int min, int max) {
+        return new Random().nextInt((max - min) + 1) + min;
+    }
 }

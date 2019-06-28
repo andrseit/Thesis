@@ -28,12 +28,19 @@ public class StatisticsWriter {
                 .append("accepted").append(comma)
                 .append("acceptedAlternative").append(comma)
                 .append("rejected").append(comma)
+                .append("rejectedAlternative").append(comma)
                 .append("delays").append(comma)
                 .append("acceptedAlternativeDelay").append(comma)
                 .append("delayRejected").append(comma)
                 .append("cancellations").append(comma)
                 .append("charged").append(comma)
-                .append("slotsUsedPercentage")
+                .append("slotsUsedPercentage").append(comma)
+                .append("minSlot").append(comma)
+                .append("maxSlot").append(comma)
+                .append("evsUtility").append(comma)
+                .append("conversationRounds").append(comma)
+                .append("negotiatorsUtility").append(comma)
+                .append("negotiatorsRounds")
                 .append("\n");;
         return builder.toString();
     }

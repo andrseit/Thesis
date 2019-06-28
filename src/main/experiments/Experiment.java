@@ -1,6 +1,7 @@
 package main.experiments;
 
 import agents.station.statistics.StationStatistics;
+import io.SlotStatisticsWriter;
 import io.StatisticsWriter;
 import main.ExecutionFlow;
 
@@ -44,7 +45,7 @@ public abstract class Experiment {
     }
 
     public void exportStatistics (ArrayList<StationStatistics> stationStatistics) {
-        String experimentDirectory = statisticsPath + "/experiment_" + id;
+        String experimentDirectory = statisticsPath; //+ "/experiment_" + id;
         File directory = new File(experimentDirectory);
         if (!directory.exists()) {
             boolean created = directory.mkdir();
@@ -52,10 +53,11 @@ public abstract class Experiment {
                 System.err.println("Failed to created experiment statistics directory!");
         }
         System.out.println(statisticsPath + "experiment_" + id + "." + currentIteration + ".csv");
-        String csvLine = "";
         for (StationStatistics statistics: stationStatistics) {
-            for (int i = 0; i < statistics.size(); i++)
-                StatisticsWriter.addCSVLine(experimentDirectory + "/experiment_" + id + "." + currentIteration + ".csv", statistics.getSlotStatistics(i).toCSV());
+            //for (int i = 0; i < statistics.size(); i++) {
+                StatisticsWriter.addCSVLine(experimentDirectory + "/experiment_" + id + "." + currentIteration + ".csv", statistics.getSlotStatistics(statistics.size() - 1).toCSV());
+            //}
+            //SlotStatisticsWriter.addCSVLine(experimentDirectory + "/experiment_" + id + "_" + currentIteration + "_slots.csv", statistics.getSlotStatistics(statistics.size() - 1).slotsToCSV());
         }
     }
 

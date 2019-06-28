@@ -1,10 +1,13 @@
 package various;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ArrayTransformations {
 
     public static int[] getColumnsCount(int[][] array) {
+        if (array == null || array.length ==0)
+            return new int[0];
         int columns = array[0].length;
 
         int[] final_array = new int[columns];
@@ -157,5 +160,61 @@ public class ArrayTransformations {
             }
             return updatedArray;
         }
+    }
+
+    /**
+     * Receive a bitmap as input and remove several cells (make their value 0)
+     * based on the given percentage
+     * it first removes lines and then the remaining cells
+     * @param array the array to be cleared
+     * @param percentage how many of its cells should be removed
+     * @return
+     */
+    public static int[][] clearLines (int[][] array, double percentage) {
+        int[][] arrayCopy = Arrays.copyOf(array, array.length);
+        int rows = array.length, columns = array[0].length;
+        int[] rowCount = new int[rows]; // how many 1s there are in a row
+        int ones = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                rowCount[i] += array[i][j];
+                if (array[i][j] == 1)
+                    ones++;
+            }
+        }
+        int remove = (int) (rows*percentage);
+        for (int i = 0; i < remove; i++) {
+            int minRow = minRow(rowCount);
+            arrayCopy[minRow] = new int[columns];
+            rowCount[minRow] = 0;
+        }
+
+        return arrayCopy;
+    }
+
+    private static int minRow (int[] array) {
+        int min = Integer.MAX_VALUE;
+        int minRow = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] > 0 && array[i] < min) {
+                min = array[i];
+                minRow = i;
+            }
+        }
+        return minRow;
+    }
+
+    public static int[] fakeChargers (int[] chargers, int slotsNumber, int currentSlot) {
+        int initial = (int)(0.8*slotsNumber);
+        System.out.println("Zero after: " + ((initial+currentSlot) + currentSlot) + "(initial: " + initial + ", current: " + currentSlot);
+        System.out.println(initial);
+        int fakeChargers[] = new int[chargers.length];
+        for (int i = 0; i < slotsNumber; i++) {
+            if (i >= (initial+currentSlot) + currentSlot)
+                fakeChargers[i] = 0;
+            else
+                fakeChargers[i] = chargers[i];
+        }
+        return fakeChargers;
     }
 }
