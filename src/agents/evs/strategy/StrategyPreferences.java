@@ -10,7 +10,6 @@ public class StrategyPreferences {
     private int start;
     private int end;
     private final int rounds;
-    private final int probability;
     private final double range;
     private final String priority;
     private boolean delay;
@@ -22,7 +21,6 @@ public class StrategyPreferences {
                                int end,
                                double range,
                                int rounds,
-                               int probability,
                                String priority,
                                boolean delay) {
         this.informSlot = informSlot;
@@ -31,7 +29,6 @@ public class StrategyPreferences {
         this.end = end;
         this.range = range;
         this.rounds = rounds;
-        this.probability = probability;
         this.priority = priority;
         this.delay = delay;
     }
@@ -54,10 +51,6 @@ public class StrategyPreferences {
 
     public int getRounds() {
         return rounds;
-    }
-
-    public int getProbability() {
-        return probability;
     }
 
     public String getPriority() {

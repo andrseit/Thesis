@@ -114,9 +114,11 @@ public class EVStrategy {
 
     // check if this can be combined with the method above
     private EVMessage[] compareSuggestions(ArrayList<ComparableSuggestion> comparableSuggestions) {
+        /*
         for (int s = 0; s < comparableSuggestions.size(); s++) {
             System.out.println(comparableSuggestions.get(s));
         }
+        */
         // in which agents.station it accepted/rejected/asked for better suggestion
         EVMessage[] states = new EVMessage[comparableSuggestions.size()];
         for (int s = 0; s < states.length; s++) {
@@ -168,8 +170,10 @@ public class EVStrategy {
         }
         System.out.println();
         */
+        /*
         for (int i = 0; i < states.length; i++)
             System.out.println(states[i] + ", ");
+         */
         return states;
     }
 

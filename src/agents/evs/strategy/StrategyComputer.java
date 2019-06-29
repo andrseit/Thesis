@@ -31,7 +31,7 @@ class StrategyComputer {
         ArrayList<ComparableSuggestion> comparable_suggestions = new ArrayList<>();
 
         for (SuggestionMessage message: messages) {
-            System.out.println(message.getStationInfo().getId() + " - " + message.getMessageType());
+            //System.out.println(message.getStationInfo().getId() + " - " + message.getMessageType());
             //if (!(message.getStart() == -1) && !(message.getStart() == -3)) {
             if (message.getMessageType() == StationMessage.STATION_HAS_SUGGESTION) {
                 //System.out.println("\t-I have a suggestion from agents.station No. " + message.getStationInfo().getId());

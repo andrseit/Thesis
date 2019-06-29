@@ -8,7 +8,6 @@ public class Preferences {
     protected int start;
     protected int end;
     protected int energy;
-    private int max_distance;
 
 
     public Preferences(int start, int end, int energy) {
@@ -54,14 +53,6 @@ public class Preferences {
 
     public String toString() {
         return + start + "-" + end + "/" + energy;
-    }
-
-    public int getMaxDistance() {
-        return max_distance;
-    }
-
-    public void setMaxDistance(int max_distance) {
-        this.max_distance = max_distance;
     }
 
 }

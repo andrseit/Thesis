@@ -19,7 +19,7 @@ public class EV {
 
         info = new EVInfo(evParameters.getId(), evParameters.getX(), evParameters.getY(), evParameters.getFinalX(),
                 evParameters.getFinalY(), evParameters.getStart(), evParameters.getEnd(), evParameters.getEnergy(),
-                evParameters.getBid(), evParameters.getMax_distance(), messenger.getReceiver());
+                messenger.getReceiver());
 
         state = new EVState(evParameters.getId());
 

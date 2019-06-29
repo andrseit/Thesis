@@ -4,21 +4,19 @@ import agents.evs.communication.EVReceiver;
 
 public class EVInfo {
 
-    private int id, bid;
+    private int id;
     private Preferences preferences;
     private int locationX, locationY, final_locationX, final_locationY;
     private EVReceiver communicationPort;
 
-    public EVInfo(int id, int x, int y, int finalX, int finalY, int start, int end, int energy, int bid, int max_distance, EVReceiver communicationPort) {
+    public EVInfo(int id, int x, int y, int finalX, int finalY, int start, int end, int energy, EVReceiver communicationPort) {
         this.locationX = x;
         this.locationY = y;
         this.final_locationX = finalX;
         this.final_locationY = finalY;
         this.id = id;
-        this.bid = bid;
         this.communicationPort = communicationPort;
         preferences = new Preferences(start, end, energy);
-        preferences.setMaxDistance(max_distance);
     }
 
     public int getId() {
@@ -38,11 +36,7 @@ public class EVInfo {
                 + "Initial Location: <" + locationX + ", " + locationY + ">"
                 + " Destination: <" + final_locationX + ", " + final_locationY + ">"
                 + "\n\t*Preferences:\n\t\t" + "Start: " + preferences.getStart() + ", " + " End: " + preferences.getEnd()+ ", "
-                + " Energy: " + preferences.getEnergy() + ", " + " Distance: " + preferences.getMaxDistance();
-    }
-
-    public int getBid() {
-        return bid;
+                + " Energy: " + preferences.getEnergy();
     }
 
     public int getLocationX() {

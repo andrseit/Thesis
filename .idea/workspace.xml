@@ -5,54 +5,39 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="testing concurrency with github">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/data_generator.xml" afterDir="false" />
+    <list default="true" id="266b40d2-75d8-4202-9aa0-802c9b6bd7d1" name="Default" comment="experiments">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/data-generator.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thesis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Thesis.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/files/evs.json" beforeDir="false" afterPath="$PROJECT_DIR$/files/evs.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/files/experiments/statistics/experiment_online_no_suggestions/experiment_online_no_suggestions.1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/files/station.json" beforeDir="false" afterPath="$PROJECT_DIR$/files/station.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/files/system.json" beforeDir="false" afterPath="$PROJECT_DIR$/files/system.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/json-simple-1.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/evs/EV.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/evs/EV.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/evs/EVInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/evs/EVInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/evs/EVParameters.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/evs/EVParameters.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/evs/Preferences.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/evs/Preferences.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/evs/strategy/EVStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/evs/strategy/EVStrategy.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/evs/strategy/StrategyComputer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/evs/strategy/StrategyComputer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/evs/strategy/StrategyPreferences.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/evs/strategy/StrategyPreferences.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/station/EVObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/station/EVObject.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/station/Station.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/station/Station.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/station/optimize/AlternativesCPLEX.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/station/optimize/AlternativesCPLEX.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/station/statistics/StationSlotStatistics.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/station/statistics/StationSlotStatistics.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/station/statistics/StationStatistics.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/station/statistics/StationStatistics.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/agents/station/strategy/StationStrategy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/agents/station/strategy/StationStrategy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/io/DataGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/io/DataGenerator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/io/JSONFileParser$StationPricing.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/io/JSONFileParser$StationPricing.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/io/JSONFileParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/io/JSONFileParser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/io/StatisticsWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/io/StatisticsWriter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/main/ExecutionFlow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/main/ExecutionFlow.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/main/experiments/Experiment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/main/experiments/Experiment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/main/experiments/GenerateOnceExperiment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/main/experiments/GenerateOnceExperiment.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/statistics/SimpleMath.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/statistics/SimpleMath.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/user_interface/EVStateEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/user_interface/EVStateEnum.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/various/ArrayTransformations.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/various/ArrayTransformations.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/agents/evs/EV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/evs/EV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/agents/evs/EVInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/evs/EVInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/agents/evs/EVParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/evs/EVParameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/agents/evs/Preferences.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/evs/Preferences.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/agents/evs/strategy/EVStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/evs/strategy/EVStrategy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/agents/evs/strategy/StrategyComputer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/evs/strategy/StrategyComputer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/agents/evs/strategy/StrategyPreferences.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/evs/strategy/StrategyPreferences.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/agents/station/EVObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/station/EVObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/agents/station/Station.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/station/Station.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/agents/station/optimize/AlternativesCPLEX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/station/optimize/AlternativesCPLEX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/agents/station/statistics/StationSlotStatistics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/station/statistics/StationSlotStatistics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/agents/station/statistics/StationStatistics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/station/statistics/StationStatistics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/agents/station/strategy/StationStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/agents/station/strategy/StationStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/io/DataGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/io/DataGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/io/JSONFileParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/io/JSONFileParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/io/StatisticsWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/io/StatisticsWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/ExecutionFlow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/ExecutionFlow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/experiments/Experiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/experiments/Experiment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/experiments/GenerateOnceExperiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/experiments/GenerateOnceExperiment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/statistics/SimpleMath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/statistics/SimpleMath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/user_interface/EVStateEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/user_interface/EVStateEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/various/ArrayTransformations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/various/ArrayTransformations.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -78,31 +63,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/ExecutionFlow.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="298">
+              <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="23" selection-start-line="23" selection-end-line="28" selection-end-column="104" />
+            <state relative-caret-position="680">
+              <caret line="49" column="49" selection-start-line="49" selection-start-column="49" selection-end-line="49" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/statistics/SimpleMath.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" selection-start-line="17" selection-end-line="19" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/files/evs.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -110,26 +86,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/io/DataGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/io/JSONFileParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="75" column="105" selection-start-line="75" selection-start-column="105" selection-end-line="75" selection-end-column="105" />
+            <state relative-caret-position="119">
+              <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/io/SimpleFileAppender.java">
+        <entry file="file://$PROJECT_DIR$/src/main/experiments/GenerateOnceExperiment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="39">
+              <caret line="55" column="44" selection-start-line="55" selection-start-column="44" selection-end-line="55" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -138,10 +105,58 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/files/station.json">
+        <entry file="file://$PROJECT_DIR$/src/main/experiments/Experiment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+            <state relative-caret-position="-340">
+              <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/io/JSONFileParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-272">
+              <caret line="25" column="42" selection-start-line="25" selection-start-column="42" selection-end-line="25" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/agents/evs/communication/EVReceiver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/agents/evs/communication/EVMessenger.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/agents/evs/communication/EVMessage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/agents/evs/EV.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -161,14 +176,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>station.getmessenger().se</find>
-      <find>type</find>
-      <find>&quot;delay&quot;: 1</find>
-      <find>cancel</find>
-      <find>delay</find>
-      <find>checkdela</find>
-      <find>checkdel</find>
-      <find>accept</find>
       <find>56</find>
       <find>&quot;(</find>
       <find>ev no 56</find>
@@ -191,6 +198,14 @@
       <find>alterna</find>
       <find>end&quot;: 287</find>
       <find>&quot;start&quot;:</find>
+      <find>slots in</find>
+      <find>Final</find>
+      <find>Final:</find>
+      <find>Window</find>
+      <find>println(comparablesuggestion</find>
+      <find>ev.getsta</find>
+      <find>System.out.println</find>
+      <find>System.out.pr</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -208,40 +223,25 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/Experiment.java" />
-        <option value="$PROJECT_DIR$/src/exceptions/ExperimentException.java" />
-        <option value="$PROJECT_DIR$/src/agents/station/Schedule.java" />
-        <option value="$PROJECT_DIR$/src/main/experiments/SavedDataExperiment.java" />
         <option value="$PROJECT_DIR$/src/main/experiments/GeneratePerIterationExperiment.java" />
-        <option value="$PROJECT_DIR$/src/agents/evs/EVParameters.java" />
         <option value="$PROJECT_DIR$/src/agents/evs/EVStatistics.java" />
         <option value="$PROJECT_DIR$/src/user_interface/StationState.java" />
         <option value="$PROJECT_DIR$/src/user_interface/EVView.java" />
-        <option value="$PROJECT_DIR$/src/agents/evs/EV.java" />
         <option value="$PROJECT_DIR$/src/agents/station/statistics/StationStatistics.java" />
         <option value="$PROJECT_DIR$/files/station_no_sug.json" />
         <option value="$PROJECT_DIR$/src/agents/station/optimize/AbstractCPLEX.java" />
         <option value="$PROJECT_DIR$/src/agents/station/optimize/ProfitCPLEX.java" />
         <option value="$PROJECT_DIR$/src/user_interface/EVStateEnum.java" />
-        <option value="$PROJECT_DIR$/src/agents/station/EVObject.java" />
         <option value="$PROJECT_DIR$/src/io/StatisticsWriter.java" />
         <option value="$PROJECT_DIR$/src/io/SlotStatisticsWriter.java" />
         <option value="$PROJECT_DIR$/src/agents/station/strategy/VirtualDemandStationStrategy.java" />
-        <option value="$PROJECT_DIR$/src/agents/station/Station.java" />
         <option value="$PROJECT_DIR$/files/station_virt_demand.json" />
-        <option value="$PROJECT_DIR$/src/agents/evs/strategy/StrategyComputer.java" />
         <option value="$PROJECT_DIR$/src/various/ArrayTransformations.java" />
         <option value="$PROJECT_DIR$/src/agents/station/statistics/StationSlotStatistics.java" />
         <option value="$PROJECT_DIR$/files/station_no_alt.json" />
-        <option value="$PROJECT_DIR$/src/main/ExecutionFlow.java" />
-        <option value="$PROJECT_DIR$/src/statistics/SimpleMath.java" />
         <option value="$PROJECT_DIR$/src/agents/station/strategy/StationStrategy.java" />
-        <option value="$PROJECT_DIR$/src/various/MicroExperiments.java" />
-        <option value="$PROJECT_DIR$/src/agents/evs/strategy/StrategyPreferences.java" />
-        <option value="$PROJECT_DIR$/src/agents/evs/strategy/EVStrategy.java" />
         <option value="$PROJECT_DIR$/files/two_station_no_alt.json" />
         <option value="$PROJECT_DIR$/files/single_station_alt.json" />
-        <option value="$PROJECT_DIR$/src/main/experiments/GenerateOnceExperiment.java" />
         <option value="$PROJECT_DIR$/src/io/SimpleFileAppender.java" />
         <option value="$PROJECT_DIR$/src/main/experiments/Experiment.java" />
         <option value="$PROJECT_DIR$/files/station.json" />
@@ -249,15 +249,30 @@
         <option value="$PROJECT_DIR$/src/agents/station/optimize/AlternativesCPLEX.java" />
         <option value="$PROJECT_DIR$/files/single_station_no_alt.json" />
         <option value="$PROJECT_DIR$/files/two_station_alt_1.json" />
-        <option value="$PROJECT_DIR$/src/io/JSONFileParser.java" />
         <option value="$PROJECT_DIR$/src/io/new_generator/Generator.java" />
         <option value="$PROJECT_DIR$/src/io/new_generator/GeneratorDecorator.java" />
         <option value="$PROJECT_DIR$/src/io/new_generator/GeneratorImpl.java" />
         <option value="$PROJECT_DIR$/src/io/new_generator/StrategyGenerator.java" />
         <option value="$PROJECT_DIR$/src/io/DataGenerator.java" />
         <option value="$PROJECT_DIR$/files/evs.json" />
-        <option value="$PROJECT_DIR$/files/new_evs.json" />
+        <option value="$PROJECT_DIR$/src/agents/evs/Preferences.java" />
+        <option value="$PROJECT_DIR$/src/agents/evs/EVInfo.java" />
+        <option value="$PROJECT_DIR$/src/agents/evs/EV.java" />
+        <option value="$PROJECT_DIR$/src/agents/evs/EVParameters.java" />
+        <option value="$PROJECT_DIR$/src/statistics/SimpleMath.java" />
+        <option value="$PROJECT_DIR$/src/various/JSONUtils.java" />
+        <option value="$PROJECT_DIR$/src/agents/evs/strategy/StrategyPreferences.java" />
+        <option value="$PROJECT_DIR$/src/various/MicroExperiments.java" />
+        <option value="$PROJECT_DIR$/src/agents/station/Station.java" />
+        <option value="$PROJECT_DIR$/src/io/JSONFileParser.java" />
         <option value="$PROJECT_DIR$/files/new_stations.json" />
+        <option value="$PROJECT_DIR$/files/system.json" />
+        <option value="$PROJECT_DIR$/src/agents/station/EVObject.java" />
+        <option value="$PROJECT_DIR$/src/main/ExecutionFlow.java" />
+        <option value="$PROJECT_DIR$/files/new_evs.json" />
+        <option value="$PROJECT_DIR$/src/agents/evs/strategy/StrategyComputer.java" />
+        <option value="$PROJECT_DIR$/src/agents/evs/strategy/EVStrategy.java" />
+        <option value="$PROJECT_DIR$/src/main/experiments/GenerateOnceExperiment.java" />
         <option value="$PROJECT_DIR$/src/main/Main.java" />
       </list>
     </option>
@@ -269,7 +284,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
+    <option name="x" value="480" />
+    <option name="y" value="145" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -298,7 +314,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -333,6 +348,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="agents" type="462c0819:PsiDirectoryNode" />
               <item name="evs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Thesis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Thesis" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="agents" type="462c0819:PsiDirectoryNode" />
+              <item name="evs" type="462c0819:PsiDirectoryNode" />
+              <item name="communication" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Thesis" type="b2602c69:ProjectViewProjectNode" />
@@ -389,6 +412,13 @@
               <item name="Thesis" type="b2602c69:ProjectViewProjectNode" />
               <item name="Thesis" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="experiments" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Thesis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Thesis" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="statistics" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -407,6 +437,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -419,12 +450,11 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Font" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Thesis\Desktop\Thesis_Source\Thesis\libs" />
-      <recent name="C:\Users\Thesis\Desktop\Thesis_Source\Thesis\files" />
-    </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="station.pricing" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="station" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Thesis\Desktop\Thesis_Source\Thesis\libs" />
@@ -434,8 +464,9 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="io" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="station" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Thesis\Desktop\Thesis_Source\Thesis\libs" />
+      <recent name="C:\Users\Thesis\Desktop\Thesis_Source\Thesis\files" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -784,7 +815,14 @@
       <option name="project" value="LOCAL" />
       <updated>1554300263888</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="experiments">
+      <created>1561736399355</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1561736399355</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TodoView">
@@ -800,7 +838,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" x="-839" y="57" width="838" height="978" id="Project" order="0" visible="true" weight="0.21481876" />
+      <window_info content_ui="combo" x="-839" y="57" width="838" height="978" id="Project" order="0" visible="true" weight="0.13219616" />
       <window_info id="Structure" order="1" weight="0.1977612" />
       <window_info id="Nl-Palette" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -810,7 +848,7 @@
       <window_info id="Image Layers" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49946696" weight="0.3629469" />
-      <window_info anchor="bottom" x="819" y="31" width="726" height="1008" id="Run" order="2" sideWeight="0.49791667" type="WINDOWED" weight="0.5264271" />
+      <window_info active="true" anchor="bottom" x="819" y="31" width="929" height="1008" id="Run" order="2" sideWeight="0.49791667" type="WINDOWED" visible="true" weight="0.5264271" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39869988" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -876,7 +914,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updating schedule &amp; chargers after accepted negotiations" />
     <MESSAGE value="added Strategy class" />
     <MESSAGE value="added simple data generator" />
     <MESSAGE value="added vcg in negotiations" />
@@ -901,65 +938,24 @@
     <MESSAGE value="a little fix in pricing" />
     <MESSAGE value="Removed some useless code but basically checking new Intellij idea git" />
     <MESSAGE value="testing concurrency with github" />
-    <option name="LAST_COMMIT_MESSAGE" value="testing concurrency with github" />
+    <MESSAGE value="experiments" />
+    <option name="LAST_COMMIT_MESSAGE" value="experiments" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/offline/experiment_offline_single_station_no_alternatives_1_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/alternatives/experiment_online_single_station_alternatives_0_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/alternatives/experiment_online_single_station_alternatives_1_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/alternatives/experiment_online_single_station_alternatives_4_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/alternatives/experiment_online_single_station_alternatives_5_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/alternatives/experiment_online_single_station_alternatives_6_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/alternatives/experiment_online_single_station_alternatives_7_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/alternatives/experiment_online_single_station_alternatives_8_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/alternatives/experiment_online_single_station_alternatives_9_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/alternatives/experiment_online_single_station_alternatives_3_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/alternatives/experiment_online_single_station_alternatives_2_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/no_alternatives/experiment_online_single_station_no_alternatives_0_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/no_alternatives/experiment_online_single_station_no_alternatives_1_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/no_alternatives/experiment_online_single_station_no_alternatives_3_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/no_alternatives/experiment_online_single_station_no_alternatives_4_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/no_alternatives/experiment_online_single_station_no_alternatives_6_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/no_alternatives/experiment_online_single_station_no_alternatives_7_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/no_alternatives/experiment_online_single_station_no_alternatives_8_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/files/experiments/statistics/no_alternatives/experiment_online_single_station_no_alternatives_9_1_slots.csv" />
     <entry file="file://$PROJECT_DIR$/files/experiments/statistics/no_alternatives/experiment_online_single_station_no_alternatives_5_1_slots.csv" />
     <entry file="file://$PROJECT_DIR$/files/experiments/statistics/no_alternatives/experiment_online_single_station_no_alternatives_2_1_slots.csv" />
     <entry file="file://$PROJECT_DIR$/files/experiments/statistics/offline/experiment_offline_single_station_no_alternatives_0_1_slots.csv" />
-    <entry file="file://$PROJECT_DIR$/src/main/ExecutionFlow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-544">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/files/times" />
-    <entry file="file://$PROJECT_DIR$/src/main/experiments/Experiment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="838">
-          <caret line="57" column="16" selection-start-line="57" selection-start-column="16" selection-end-line="57" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/files/experiments/statistics/offline/experiment_offline_single_station_no_alternatives_3.1.csv" />
-    <entry file="file://$PROJECT_DIR$/src/main/experiments/GenerateOnceExperiment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="634">
-          <caret line="58" column="57" selection-start-line="58" selection-start-column="57" selection-end-line="58" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/files/experiments/statistics/offline/experiment_offline_single_station_no_alternatives_1.1.csv" />
     <entry file="file://$PROJECT_DIR$/files/experiments/statistics/offline/experiment_offline_single_station_no_alternatives_2.1.csv" />
     <entry file="file://$PROJECT_DIR$/files/experiments/statistics/offline/experiment_offline_single_station_no_alternatives_0.1.csv" />
     <entry file="file://$PROJECT_DIR$/files/experiments/statistics/no_alternatives/experiment_online_single_station_no_alternatives_3.1.csv">
+      <provider editor-type-id="csv-text-editor" />
       <provider selected="true" editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3">
           <column index="0" width="100" />
@@ -982,7 +978,6 @@
           <column index="17" width="100" />
         </state>
       </provider>
-      <provider editor-type-id="csv-text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/files/times.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -1026,43 +1021,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/evs/strategy/EVStrategy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/io/new_generator/Generator.java" />
     <entry file="file://$PROJECT_DIR$/src/io/new_generator/GeneratorImpl.java" />
     <entry file="file://$PROJECT_DIR$/src/io/new_generator/StrategyGenerator.java" />
     <entry file="file://$PROJECT_DIR$/src/io/new_generator/GeneratorDecorator.java" />
-    <entry file="file://$PROJECT_DIR$/files/new_evs.json" />
-    <entry file="file://$PROJECT_DIR$/files/new_stations.json" />
-    <entry file="file://$PROJECT_DIR$/src/statistics/SimpleMath.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="19" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/files/evs.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/io/DataGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/io/SimpleFileAppender.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="306">
           <caret line="22" selection-start-line="22" selection-end-line="22" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1077,10 +1042,193 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/agents/evs/Preferences.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/evs/EVInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="95" selection-start-line="11" selection-start-column="95" selection-end-line="11" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/various/MicroExperiments.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="56" column="85" selection-start-line="56" selection-start-column="85" selection-end-line="56" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/evs/strategy/StrategyPreferences.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/various/JSONUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="78" column="10" selection-start-line="78" selection-start-column="10" selection-end-line="78" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/evs/EVParameters.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
-          <caret line="23" selection-start-line="23" selection-end-line="28" selection-end-column="104" />
+          <caret line="17" column="39" selection-start-line="14" selection-start-column="24" selection-end-line="17" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/statistics/SimpleMath.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="e#725#726#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/files/evs.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/station/strategy/VirtualDemandStationStrategy.java" />
+    <entry file="file://$PROJECT_DIR$/src/agents/station/Station.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="22" column="78" selection-start-line="22" selection-start-column="78" selection-end-line="22" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/station/Schedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/files/new_stations.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/user_interface/StationState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="606">
+          <caret line="128" column="38" lean-forward="true" selection-start-line="128" selection-start-column="38" selection-end-line="128" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/station/EVObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="39" column="10" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/files/system.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="11" selection-start-column="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/files/new_evs.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="1239" selection-start-column="1239" selection-end-column="1239" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/evs/strategy/ComparableSuggestion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/evs/strategy/StrategyComputer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="56" column="47" selection-start-line="56" selection-start-column="47" selection-end-line="56" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/various/ArrayTransformations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3536">
+          <caret line="209" column="8" selection-start-line="209" selection-start-column="8" selection-end-line="209" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/evs/strategy/EVStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2754">
+          <caret line="174" column="49" selection-start-line="174" selection-start-column="49" selection-end-line="174" selection-end-column="49" />
+          <folding>
+            <element signature="e#12487#12488#0" expanded="true" />
+            <element signature="e#12517#12518#0" expanded="true" />
+            <element signature="e#12568#12569#0" expanded="true" />
+            <element signature="e#12606#12607#0" expanded="true" />
+            <element signature="e#12746#12747#0" expanded="true" />
+            <element signature="e#12788#12789#0" expanded="true" />
+            <element signature="e#12827#12828#0" expanded="true" />
+            <element signature="e#12864#12865#0" expanded="true" />
+            <element signature="e#12899#12900#0" expanded="true" />
+            <element signature="e#12930#12931#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/evs/communication/EVReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/evs/communication/EVMessenger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/evs/communication/EVMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/evs/EV.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/io/DataGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/experiments/Experiment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-340">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1089,8 +1237,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/io/JSONFileParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="75" column="105" selection-start-line="75" selection-start-column="105" selection-end-line="75" selection-end-column="105" />
+        <state relative-caret-position="-272">
+          <caret line="25" column="42" selection-start-line="25" selection-start-column="42" selection-end-line="25" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/experiments/GenerateOnceExperiment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="39">
+          <caret line="55" column="44" selection-start-line="55" selection-start-column="44" selection-end-line="55" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/ExecutionFlow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="49" column="49" selection-start-line="49" selection-start-column="49" selection-end-line="49" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

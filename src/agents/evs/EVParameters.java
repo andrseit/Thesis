@@ -11,13 +11,11 @@ public class EVParameters {
     private final int start;
     private final int end;
     private final int energy;
-    private final int bid;
-    private final int max_distance;
 
     public EVParameters(int id, int x, int y, int finalX,
                         int finalY, int start,
-                        int end, int energy, int bid,
-                        int max_distance, int slotsNumber) {
+                        int end, int energy,
+                        int slotsNumber) {
         this.id = id;
         this.x = x;
         this.y = y;
@@ -26,8 +24,6 @@ public class EVParameters {
         this.start = start;
         this.end = end;
         this.energy = energy;
-        this.bid = bid;
-        this.max_distance = max_distance;
         this.slotsNumber = slotsNumber;
     }
 
@@ -64,16 +60,6 @@ public class EVParameters {
 
     public int getEnergy() {
         return energy;
-    }
-
-
-    public int getBid() {
-        return bid;
-    }
-
-
-    public int getMax_distance() {
-        return max_distance;
     }
 
     public int getSlotsNumber() { return slotsNumber; }

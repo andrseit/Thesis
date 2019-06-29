@@ -6,8 +6,12 @@ import agents.evs.strategy.StrategyPreferences;
 import agents.station.Station;
 import agents.station.optimize.OptimizerFactory;
 import main.experiments.parameters.SystemParameters;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import various.JSONUtils;
+
 import java.io.*;
 import java.util.*;
 import static java.lang.Math.toIntExact;
@@ -31,115 +35,57 @@ public class JSONFileParser {
         return null;
     }
 
-    public ArrayList<Station> readStations (String path) {
-        ArrayList<Station> stations = new ArrayList<>();
-        int chargersNumber, x, y;
-
+    public ArrayList<Station> parseStations (String path) {
         JSONParser parser = new JSONParser();
+        JSONUtils util = new JSONUtils();
+        ArrayList<Station> list = new ArrayList<>();
         try {
-            Object obj = parser.parse(new FileReader("files/" + path));
-            JSONObject jsonObject = (JSONObject) obj;
-            System.out.println(jsonObject);
-            JSONObject stationsRootJSON = (JSONObject)jsonObject.get("stations");
+            JSONObject stations = (JSONObject) parser.parse(new FileReader(path));
+            JSONArray array = (JSONArray) stations.get("stations");
+            for (Object stationObject: array) {
+                JSONObject stationJSON = (JSONObject) stationObject;
+                JSONObject strategy = (JSONObject) stationJSON.get("strategy");
 
-            ArrayList<JSONObject> stationsJSON = new ArrayList<>();
-            for (Object key: stationsRootJSON.keySet()) {
-                JSONObject stationJSON = (JSONObject) stationsRootJSON.get(key);
-                stationsJSON.add(stationJSON);
-            }
-            stationsJSON.sort((o1, o2) -> {
-                Long id1 = (Long) o1.get("id");
-                Long id2 = (Long) o2.get("id");
-                return (int) (id1 - id2);
-            });
 
-            for (JSONObject stationJSON: stationsJSON) {
-                int id = toIntExact((long) stationJSON.get("id"));
-                chargersNumber = toIntExact((long) stationJSON.get("chargers"));
-
-                JSONObject location = (JSONObject) stationJSON.get("location");
-                x = toIntExact((long) location.get("x"));
-                y = toIntExact((long) location.get("y"));
-                String pricePath = stationJSON.get("price_file").toString();
-
-                JSONObject flagsObject = (JSONObject) stationJSON.get("flags");
-                HashMap<String, Integer> flags = new HashMap<>();
-                flags.put("window", toIntExact((long) flagsObject.get("window")));
-                flags.put("suggestion", toIntExact((long) flagsObject.get("suggestion")));
-                flags.put("cplex", toIntExact((long) flagsObject.get("cplex")));
-                flags.put("alternatives", toIntExact((long) flagsObject.get("alternatives")));
-                flags.put("virtual_demand", toIntExact((long) flagsObject.get("virtual_demand")));
-                boolean alternatives = flags.get("alternatives") == 1;
-                //System.out.println(pricePath);
-                StationPricing pr = setPrice(pricePath);
+                StationPricing pr = setPrice(util.getStringValue(stationJSON, "price"));
                 // setting the same optimizer to all stations - change that later
-                stations.add(new Station(id, x, y, chargersNumber, OptimizerFactory.getOptimizer("service"),
-                        OptimizerFactory.getOptimizer("alternatives"), alternatives, flags.get("virtual_demand") == 1, pr.getPrice(), slotsNumber));
+                list.add(new Station(util.getIntValue(stationJSON, "id"), 0, 0, util.getIntValue(stationJSON, "chargers"),
+                        OptimizerFactory.getOptimizer(util.getStringValue(strategy, "optimizer")),
+                        OptimizerFactory.getOptimizer("alternatives"), util.getIntValue(strategy, "alternatives") == 1,
+                        pr.getPrice(), slotsNumber));
             }
-        } catch (org.json.simple.parser.ParseException | IOException e) {
+        } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
-
-        return stations;
+        return list;
     }
 
-    public ArrayList<EV> readEVsData(String path) {
-
-        ArrayList<EV> evs = new ArrayList<>();
-        JSONParser parser = new JSONParser();
-
+    public ArrayList<EV> parseEVs (String path) {
+        ArrayList<EV> list = new ArrayList<>();
         try {
-            Object obj = parser.parse(new FileReader("files/" + path));
-            JSONObject jsonObject = (JSONObject) obj;
-            JSONObject root = (JSONObject)jsonObject.get("evs");
-            ArrayList<JSONObject> evsJSON = new ArrayList<>();
-            for (Object key: root.keySet()) {
-                JSONObject ev = (JSONObject) root.get(key);
-                evsJSON.add(ev);
-            }
-            evsJSON.sort((o1, o2) -> {
-                Long id1 = (Long) o1.get("id");
-                Long id2 = (Long) o2.get("id");
-                return (int) (id1 - id2);
-            });
-
-            for (JSONObject evJSON: evsJSON) {
-                int id = toIntExact((long) evJSON.get("id"));
-                int x = toIntExact((long) evJSON.get("x"));
-                int y = toIntExact((long) evJSON.get("y"));
-                int f_x = toIntExact((long) evJSON.get("f_x"));
-                int f_y = toIntExact((long) evJSON.get("f_y"));
-
+            JSONParser parser = new JSONParser();
+            JSONUtils util = new JSONUtils();
+            JSONObject evs = (JSONObject) parser.parse(new FileReader(path));
+            JSONArray array = (JSONArray) evs.get("evs");
+            for (Object evObject: array) {
+                JSONObject evJSON = (JSONObject) evObject;
                 JSONObject preferences = (JSONObject) evJSON.get("preferences");
-
-                int energy = toIntExact((long) preferences.get("energy"));
-                int bid = toIntExact((long) preferences.get("bid"));
-                int inform_slot = toIntExact((long) preferences.get("inform"));
-                int start_slot = toIntExact((long) preferences.get("start"));
-                int end_slot = toIntExact((long) (preferences.get("end")));
-                int max_distance = toIntExact((long) (preferences.get("distance")));
-
                 JSONObject strategy = (JSONObject) evJSON.get("strategy");
 
-                int s_energy = toIntExact((long) strategy.get("energy"));
-                int s_start = toIntExact((long) strategy.get("start"));
-                int s_end = toIntExact((long) (strategy.get("end")));
-                int s_prob = toIntExact((long) (strategy.get("probability")));
-                int s_rounds = toIntExact((long) (strategy.get("rounds")));
-                double s_range = Double.parseDouble(strategy.get("range").toString());
-                String s_priority = strategy.get("priority").toString();
-                boolean delay = toIntExact((long) (strategy.get("delay"))) == 1;
+                EVParameters parameters = new EVParameters(util.getIntValue(evJSON, "id"), 0, 0, 1, 1,
+                        util.getIntValue(preferences, "arrival"), util.getIntValue(preferences, "departure"), util.getIntValue(preferences, "energy"), slotsNumber);
 
-                EVParameters evParameters = new EVParameters(id, x, y, f_x, f_y, start_slot, end_slot, energy, bid, max_distance, slotsNumber);
-                StrategyPreferences strategyPreferences = new StrategyPreferences(inform_slot, s_energy, s_start, s_end, s_range, s_rounds, s_prob, s_priority, delay);
-                EV ev = new EV(evParameters, strategyPreferences);
-                evs.add(ev);
+                StrategyPreferences strategyPreferences = new StrategyPreferences(util.getIntValue(preferences, "inform"),
+                        util.getIntValue(strategy, "energy"), util.getIntValue(strategy, "arrival"), util.getIntValue(strategy, "departure"),
+                        1.8, 2, "price", true);
+
+                EV ev = new EV(parameters, strategyPreferences);
+                list.add(ev);
             }
-        } catch (org.json.simple.parser.ParseException | IOException e) {
+        } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
-
-        return evs;
+        return list;
     }
 
     private StationPricing setPrice (String path) {

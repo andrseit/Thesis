@@ -1,33 +1,28 @@
 package main;
 
-import com.sun.org.apache.bcel.internal.generic.JsrInstruction;
-import generator.evs.EVGenerator;
+
 import generator.evs.SimpleGenerator;
 import generator.evs.StrategyGenerator;
 import generator.stations.SimpleStationGenerator;
-import generator.stations.StationGenerator;
+import io.JSONFileParser;
 import io.JSONWriter;
 import main.experiments.GenerateOnceExperiment;
-import org.json.simple.JSONObject;
-import statistics.SimpleMath;
-import sun.nio.ch.SelectorImpl;
-import various.MicroExperiments;
-
-import java.util.Random;
-
 
 /**
  * Created by Darling on 28/8/2017.
  */
 public class Main {
     public static void main(String[] args) {
-        SimpleGenerator simpleGenerator = new SimpleGenerator(10, 5, 2, 5, 1.5);
-        StrategyGenerator evGenerator = new StrategyGenerator(simpleGenerator, 1.5);
-        SimpleStationGenerator stationGenerator = new SimpleStationGenerator(5);
-        DataGenerator generator = new DataGenerator(evGenerator, stationGenerator);
-        JSONWriter.writeToFile("files/new_evs.json", generator.generateEVs(10).toJSONString());
-        JSONWriter.writeToFile("files/new_stations.json", generator.generateStations(2).toJSONString());
-
+//        SimpleGenerator simpleGenerator = new SimpleGenerator(10, 5, 2, 5, 1.5);
+//        StrategyGenerator evGenerator = new StrategyGenerator(simpleGenerator, 1.5);
+//        SimpleStationGenerator stationGenerator = new SimpleStationGenerator(5);
+//        DataGenerator generator = new DataGenerator(evGenerator, stationGenerator);
+//        generator.generateStations(2, "files/new_stations.json");
+//        generator.generateEVs(10, "files/new_evs.json");
+//
+//        JSONFileParser parser = new JSONFileParser();
+//        parser.parseEVs("files/new_evs.json");
+//        parser.parseStations("files/new_stations.json");
         /*
         for (int i = 0; i < 10; i++) {
             DataGenerator generator = new DataGenerator();
@@ -48,7 +43,12 @@ public class Main {
         //MicroExperiments.clearArray();
         //int inform = MicroExperiments.randomInform(15, 0, 20);
 
+        //ExecutionFlow exe = new ExecutionFlow("files/new_stations.json", "files/new_evs.json", "system.json");
+        //exe.runOffline();
 
+        GenerateOnceExperiment experiment = new GenerateOnceExperiment("0", 1, "files/new_stations.json", "files/new_evs.json", "system.json", "files/experiments");
+        experiment.setEVsValues(5, 1, 5, 1.4, 1.5);
+        experiment.run("offline");
 
     }
 

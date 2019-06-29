@@ -1,14 +1,15 @@
 package main.experiments;
 
-import io.DataGenerator;
+import generator.evs.SimpleGenerator;
+import generator.evs.StrategyGenerator;
+import generator.stations.SimpleStationGenerator;
 import io.JSONFileParser;
 import io.SimpleFileAppender;
+import main.DataGenerator;
 import main.ExecutionFlow;
 import main.experiments.parameters.EVsParameters;
 import main.experiments.parameters.StationsParameters;
 import main.experiments.parameters.SystemParameters;
-
-import java.util.Scanner;
 
 /**
  * Generates data only one time and then runs the execution *iterations* times
@@ -61,30 +62,34 @@ public class GenerateOnceExperiment extends Experiment {
     }
 
     protected void generateData () {
+
         DataGenerator generator = new DataGenerator();
         JSONFileParser parser = new JSONFileParser();
 
-        if (setStations)
-            generator.generateRandomStations(stationsParameters.getStationsNumber(), stationsParameters.getMaxChargers());
-        else {
-            System.out.println("Using already saved stations' file!");
-            // This is very bad design - fix it in the future!
-            generator.readStationFile(getStationsPath());
+        if (setStations) {
+            generator.setStationGenerator(new SimpleStationGenerator(stationsParameters.getMaxChargers()));
+            generator.generateStations(2, getStationsPath());
         }
+        else
+            System.out.println("Using already saved stations' file!");
 
         if (setEvs) {
             // if the user didn't specify the system parameters, reader the already saved ones
             // to use in the generation of the evs
             if (!setSystem)
                 systemParameters = parser.readSystemParameters(getSystemPath());
-            generator.generateEVsFile(eVsParameters.getEvsNumber(), eVsParameters.getMinEnergy(), eVsParameters.getMaxEnergy(), eVsParameters.getsEnergy(),
-                    eVsParameters.getWindowLength(), systemParameters.getSlotsNumber(), systemParameters.getGridSize());
+
+            SimpleGenerator simpleGenerator = new SimpleGenerator(systemParameters.getSlotsNumber(), systemParameters.getGridSize(),
+                    eVsParameters.getMinEnergy(), eVsParameters.getMaxEnergy(), eVsParameters.getWindowLength());
+            StrategyGenerator evGenerator = new StrategyGenerator(simpleGenerator, 1.5);
+            generator.setEvGenerator(evGenerator);
+            generator.generateEVs(eVsParameters.getEvsNumber(), getEvsPath());
         }
         else
             System.out.println("Using already saved evs' file!");
 
         if (setSystem)
-            generator.generateSystemParameters(systemParameters.getSlotsNumber(), systemParameters.getGridSize());
+            generator.generateSystem(systemParameters.getSlotsNumber(), systemParameters.getGridSize(), getSystemPath());
         else
             System.out.println("Using already saved system's file!");
     }

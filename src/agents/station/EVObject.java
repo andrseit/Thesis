@@ -36,8 +36,8 @@ public class EVObject {
     /** New Code 11.2.2019 **/
 
     public boolean acceptedAlternative () {
-        System.out.println("Initial: " + preferences.toString());
-        System.out.println("Final: " + suggestion.getPreferences().toString());
+        //System.out.println("Initial: " + preferences.toString());
+        //System.out.println("Final: " + suggestion.getPreferences().toString());
 
         boolean isSuggestion = (suggestion.getPreferences().getStart() > -1 && suggestion.getPreferences().getEnd() > -1 && suggestion.getPreferences().getEnergy() > -1);
         boolean isAlternative = (suggestion.getPreferences().getStart() < preferences.getStart() || suggestion.getPreferences().getEnd() > preferences.getEnd()

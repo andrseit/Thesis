@@ -18,4 +18,10 @@ public class SimpleMath {
     public static int rangeRandom (int min, int max) {
         return new Random().nextInt((max - min) + 1) + min;
     }
+
+    public static double getDoubleValue(Object original) { return ((Number) original).doubleValue(); }
+
+    public static int getIntValue(Object original) {
+        return ((Number) original).intValue();
+    }
 }
